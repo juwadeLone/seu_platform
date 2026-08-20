@@ -1,0 +1,26 @@
+# Python 缓存 / 字节码
+__pycache__/
+*.py[cod]
+*.pyc
+*$py.class
+*.so
+
+# 日志
+*.log
+
+# 本地环境 / 密钥
+.env
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# 编辑器 / OS
+.DS_Store
+Thumbs.db
+*.swp
+
+# 注意: 以下为平台数据与证据文件, 保留入库
+#   layout_ecc_sim/data/**  (CSV/JSON 证据, 含 P1_routed_ooc.dcp 布局源)
+#   experiments/fault_injection_1024/results/**  (冻结实验产物)
+# 若后续 dcp/json 过大需 Git LFS, 再单独处理

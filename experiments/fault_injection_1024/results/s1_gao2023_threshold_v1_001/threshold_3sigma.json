@@ -1,0 +1,117 @@
+{
+  "record": "S1-GAO2023-TH-V1-001",
+  "dut": "K_S1_subfft top_s1_gao_subfft_ecc",
+  "method": "Gao 2023 Th=3*sigma of fault-free check quantity",
+  "components": [
+    "syn0r",
+    "syn0i",
+    "syn1r",
+    "syn1i",
+    "syn2r",
+    "syn2i"
+  ],
+  "n_samples": 2056,
+  "pooled_per_component": {
+    "syn0r": {
+      "n": 2056,
+      "mean": -0.5398832684824902,
+      "sigma": 1.45068648436002,
+      "M": 11,
+      "three_sigma": 4.35205945308006
+    },
+    "syn0i": {
+      "n": 2056,
+      "mean": -0.5505836575875487,
+      "sigma": 1.271958334489316,
+      "M": 11,
+      "three_sigma": 3.815875003467948
+    },
+    "syn1r": {
+      "n": 2056,
+      "mean": -0.5651750972762646,
+      "sigma": 1.4608044540677994,
+      "M": 11,
+      "three_sigma": 4.382413362203398
+    },
+    "syn1i": {
+      "n": 2056,
+      "mean": -0.5423151750972762,
+      "sigma": 1.2591888208304574,
+      "M": 11,
+      "three_sigma": 3.777566462491372
+    },
+    "syn2r": {
+      "n": 2056,
+      "mean": -0.5666342412451362,
+      "sigma": 1.4580711033946392,
+      "M": 11,
+      "three_sigma": 4.374213310183918
+    },
+    "syn2i": {
+      "n": 2056,
+      "mean": -0.5379377431906615,
+      "sigma": 1.2531305530484513,
+      "M": 11,
+      "three_sigma": 3.7593916591453542
+    }
+  },
+  "per_stage": {
+    "8": {
+      "syn0r": {
+        "n": 2056,
+        "mean": -0.5398832684824902,
+        "sigma": 1.45068648436002,
+        "M": 11,
+        "three_sigma": 4.35205945308006
+      },
+      "syn0i": {
+        "n": 2056,
+        "mean": -0.5505836575875487,
+        "sigma": 1.271958334489316,
+        "M": 11,
+        "three_sigma": 3.815875003467948
+      },
+      "syn1r": {
+        "n": 2056,
+        "mean": -0.5651750972762646,
+        "sigma": 1.4608044540677994,
+        "M": 11,
+        "three_sigma": 4.382413362203398
+      },
+      "syn1i": {
+        "n": 2056,
+        "mean": -0.5423151750972762,
+        "sigma": 1.2591888208304574,
+        "M": 11,
+        "three_sigma": 3.777566462491372
+      },
+      "syn2r": {
+        "n": 2056,
+        "mean": -0.5666342412451362,
+        "sigma": 1.4580711033946392,
+        "M": 11,
+        "three_sigma": 4.374213310183918
+      },
+      "syn2i": {
+        "n": 2056,
+        "mean": -0.5379377431906615,
+        "sigma": 1.2531305530484513,
+        "M": 11,
+        "three_sigma": 3.7593916591453542
+      }
+    }
+  },
+  "sigma_max_pooled": 1.4608044540677994,
+  "M_global": 11,
+  "three_sigma_max": 4.382413362203398,
+  "Th_ceil_3sigma": 5,
+  "Th_round_3sigma": 4,
+  "calibration_FA_any_component_gt_Th_ceil": 0.02821011673151751,
+  "calibration_FA_any_component_gt_Th_round": 0.04815175097276265,
+  "hardware_found_fires_on_this_trace": 0,
+  "Linf_max": 11,
+  "stage_sigma_max": {
+    "8": 1.4608044540677994
+  },
+  "note": "Th=0 is rejected for fixed-point recovery; if Th_ceil==0 stop and ask."
+}

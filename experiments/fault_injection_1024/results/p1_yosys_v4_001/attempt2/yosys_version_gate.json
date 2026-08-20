@@ -1,0 +1,22 @@
+{
+  "command_sidecar": {
+    "path": "experiments/fault_injection_1024/logs/p1_yosys_v4_001/attempt2/yosys_version.command.json",
+    "sha256": "1AD4FD5709E96FF9E2B05BF62A3752219EB2590FB02125A9BBE8018B1DF7DC83",
+    "size_bytes": 439
+  },
+  "exit_code": 0,
+  "exit_code_hex": "0x00000000",
+  "read_verilog_executed": false,
+  "schema": "p1-yosys-v4-001-attempt2-version-gate-v1",
+  "status": "VERIFIED",
+  "stderr": {
+    "path": "experiments/fault_injection_1024/logs/p1_yosys_v4_001/attempt2/yosys_version.stderr.log",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "size_bytes": 0
+  },
+  "stdout": {
+    "path": "experiments/fault_injection_1024/logs/p1_yosys_v4_001/attempt2/yosys_version.stdout.log",
+    "sha256": "0FF81AEEEB28F5BF6E062A456AD432845A85FF6695F7A29C4BDFAF10134DA7CC",
+    "size_bytes": 90
+  }
+}

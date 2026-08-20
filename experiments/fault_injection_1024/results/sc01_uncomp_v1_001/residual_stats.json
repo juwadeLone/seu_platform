@@ -1,0 +1,29 @@
+{
+  "total_samples": 40960,
+  "valid_samples": 37318,
+  "x_samples": 3642,
+  "M_max_abs_component": 6,
+  "per_stage_max": {
+    "1": 6,
+    "2": 6,
+    "3": 6,
+    "4": 6,
+    "5": 6,
+    "6": 6,
+    "7": 2,
+    "8": 2
+  },
+  "zero_syndrome_samples": 28705,
+  "zero_syndrome_pct": 76.92,
+  "abs_value_histogram": {
+    "0": 131571,
+    "1": 10879,
+    "2": 5440,
+    "3": 973,
+    "4": 287,
+    "5": 100,
+    "6": 22
+  },
+  "tau_selected": 8,
+  "tau_rationale": "M=6 -> hardware-friendly power of 2: tau=8 >= M"
+}

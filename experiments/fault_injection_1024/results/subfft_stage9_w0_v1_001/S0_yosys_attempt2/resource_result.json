@@ -1,0 +1,73 @@
+﻿{
+    "architecture_id":  "S0",
+    "status":  "VERIFIED",
+    "attempt":  "yosys_attempt2",
+    "resources":  {
+                      "lc":  25764,
+                      "raw_lut_cells":  34937,
+                      "ff":  4162,
+                      "dsp48e1":  560,
+                      "ramb18e1":  0,
+                      "ramb36e1":  4,
+                      "bram36_equivalent":  4,
+                      "distributed_memory_cells":  372
+                  },
+    "comparison_baseline":  {
+                                "lc":  26330,
+                                "raw_lut_cells":  35663,
+                                "ff":  4162,
+                                "dsp48e1":  576,
+                                "ramb18e1":  0,
+                                "ramb36e1":  4,
+                                "bram36_equivalent":  4,
+                                "distributed_memory_cells":  372
+                            },
+    "delta":  {
+                  "lc":  -566,
+                  "raw_lut_cells":  -726,
+                  "ff":  0,
+                  "dsp48e1":  -16,
+                  "ramb18e1":  0,
+                  "ramb36e1":  0,
+                  "bram36_equivalent":  0,
+                  "distributed_memory_cells":  0
+              },
+    "artifacts":  [
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\S0_yosys_attempt2\\preflight.ys",
+                          "sha256":  "5D0A7F9DEA6A95F121F7528C13928C85A7FF1C0AA71B64AFCA8A2A06D580831D",
+                          "size_bytes":  921
+                      },
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\S0_yosys_attempt2\\preflight.log",
+                          "sha256":  "EBAE97BD9BE056F17D91211CD3B735873F59F8035FB9F6EACFBC0A2E8D9BB5FE",
+                          "size_bytes":  185931
+                      },
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\S0_yosys_attempt2\\preflight.json",
+                          "sha256":  "9CDF901BF39FBAFDAB62430B4A6CDC97956835CB59DB2AD061A29AEEE9D3C3E6",
+                          "size_bytes":  1593829
+                      },
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\S0_yosys_attempt2\\synth.ys",
+                          "sha256":  "E33D18C9E2CE6DA75E51368B3E49DB24D0A8CA48EA94D7904A23B00636351200",
+                          "size_bytes":  969
+                      },
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\S0_yosys_attempt2\\synth.log",
+                          "sha256":  "F27119907138AE7EBFAA7ACABDCC6FC20312F5102F1E35CA12664911DE5039A0",
+                          "size_bytes":  5053799
+                      },
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\S0_yosys_attempt2\\synth.json",
+                          "sha256":  "3D56ED22DB83585EFCA236AF42143BDF17A717B9A13D6F980B75B3F354FC3B7A",
+                          "size_bytes":  17008257
+                      },
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\S0_yosys_attempt2\\startup_environment.json",
+                          "sha256":  "DB65F7F41EE987F07BFBFE628D381D2DAC3052526E97DD6AB8BF83692D53B71F",
+                          "size_bytes":  1006
+                      }
+                  ],
+    "claim_boundary":  "Yosys xc7 synthesis resource estimate only"
+}

@@ -1,0 +1,318 @@
+{
+  "architecture_sources": {
+    "P0": [
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/twiddle_rom_1024.sv",
+        "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "size_bytes": 83641
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/fft_common.sv",
+        "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "size_bytes": 17880
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_rtl.sv",
+        "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "size_bytes": 3555
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/datapath_v5.sv",
+        "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "size_bytes": 23743
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_primitives_v5.sv",
+        "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "size_bytes": 10785
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protected_stages_v5.sv",
+        "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "size_bytes": 15730
+      },
+      {
+        "path": "experiments/fault_injection_1024/projects/P0/top_p0_pfft_unprotected.sv",
+        "sha256": "AF56137D7BC711E655F4316C34D4A351AA9D5A907B4E79215053A17D56A8C114",
+        "size_bytes": 4050
+      }
+    ],
+    "P1": [
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/twiddle_rom_1024.sv",
+        "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "size_bytes": 83641
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/fft_common.sv",
+        "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "size_bytes": 17880
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_rtl.sv",
+        "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "size_bytes": 3555
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/datapath_v5.sv",
+        "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "size_bytes": 23743
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_primitives_v5.sv",
+        "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "size_bytes": 10785
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protected_stages_v5.sv",
+        "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "size_bytes": 15730
+      },
+      {
+        "path": "experiments/fault_injection_1024/projects/P1/top_p1_pfft_ecc.sv",
+        "sha256": "A2189C214C946CEB2B97B64BF9E19470231EEB7E9A66C0AAC50B6FEF70086117",
+        "size_bytes": 44891
+      }
+    ],
+    "P2": [
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/twiddle_rom_1024.sv",
+        "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "size_bytes": 83641
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/fft_common.sv",
+        "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "size_bytes": 17880
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_rtl.sv",
+        "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "size_bytes": 3555
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/datapath_v5.sv",
+        "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "size_bytes": 23743
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_primitives_v5.sv",
+        "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "size_bytes": 10785
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protected_stages_v5.sv",
+        "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "size_bytes": 15730
+      },
+      {
+        "path": "experiments/fault_injection_1024/projects/P2/top_p2_pfft_tmr.sv",
+        "sha256": "F5E7354F5EC137206E3E1900D693C17BB801B83E81588707FE489B4FCFDB92F3",
+        "size_bytes": 7083
+      }
+    ]
+  },
+  "architecture_tops": {
+    "P0": "top_p0_pfft_unprotected",
+    "P1": "top_p1_pfft_ecc",
+    "P2": "top_p2_pfft_tmr"
+  },
+  "content_fingerprint_sha256": "1C00128031B738A9AB15D8A6FF7D843BD8A141BE774D145AF3C98C69B36F4B4F",
+  "contracts": [
+    {
+      "path": "experiments/fault_injection_1024/PFFT_RESOURCE_REEVALUATION_V3.md",
+      "sha256": "2C5C0B010F4BFEDEE8503D7DABCC6AA5882683FB2FA29D54BB7EB09EC6A27D73",
+      "size_bytes": 7690
+    },
+    {
+      "path": "experiments/fault_injection_1024/config/pfft_resource_reevaluation_v3.json",
+      "sha256": "6422033B5CECD4471BF88A2D495B6C4843BB0D9A7E4754BCA5314DAD55EDA0E6",
+      "size_bytes": 4182
+    },
+    {
+      "path": "experiments/fault_injection_1024/config/pfft_resource_memory_map_v3.json",
+      "sha256": "1B8F31C59330DF8732CD0D4696AC892C8663E792FA6917C4D4BA795F580292FB",
+      "size_bytes": 4876
+    }
+  ],
+  "dependency_order": [
+    "this_input_manifest",
+    "rtl_structure_manifest_and_rtl_qualification",
+    "yosys_input_validation_and_preflight",
+    "yosys_measurement_attempt1"
+  ],
+  "excluded_downstream_outputs": {
+    "paths": [
+      "experiments/fault_injection_1024/results/pfft_resource_v3_001/qualification_attempt1/rtl_structure_manifest.json",
+      "experiments/fault_injection_1024/results/pfft_resource_v3_001/qualification_attempt1/rtl_qualification.json"
+    ],
+    "reason": "not_created_until_after_this_prequalification_manifest; downstream Yosys evidence records their SHA-256"
+  },
+  "experiment_id": "PFFT-RES-V3-001",
+  "includes_and_connectivity_spot": [
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/pfft_project_tb_v3.svh",
+      "sha256": "5D50E1761C9168E001AB715FAFC0A22C199E4D0C8A9CE3012BDBA7557A925BFD",
+      "size_bytes": 3201
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/pfft_connectivity_spot_tb_v3.sv",
+      "sha256": "AF32573DDDD0DC6127F802CBA225D7D2D35870EF313E894FBD673DA526F4EF73",
+      "size_bytes": 8217
+    }
+  ],
+  "policy": {
+    "frozen_theoretical_DSP48E1_targets": {
+      "P0": 464,
+      "P1": 736,
+      "P2": 1392
+    },
+    "no_automatic_retry": true,
+    "qualification_target": {
+      "beats": 2048,
+      "continuous_after_first_valid": true,
+      "latency_cycles": 525,
+      "out_last_every_256_beats": true
+    },
+    "stop_on_first_failure": true
+  },
+  "schedule_evidence": {
+    "path": "experiments/fault_injection_1024/results/pfft_resource_v3_001/schedule_feasibility_attempt1.json",
+    "sha256": "0D2D271893C3528CD5CBB34EDFC32178C1DA7E35770D80FF9E58E5F3BAC836D6",
+    "size_bytes": 889072
+  },
+  "schema": "pfft-resource-v3-001-input-manifest-v1",
+  "scope": "pre_qualification_and_pre_yosys_inputs_only",
+  "shared_rtl_sources": [
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/twiddle_rom_1024.sv",
+      "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+      "size_bytes": 83641
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/fft_common.sv",
+      "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+      "size_bytes": 17880
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/protection_rtl.sv",
+      "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+      "size_bytes": 3555
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/datapath_v5.sv",
+      "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+      "size_bytes": 23743
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/protection_primitives_v5.sv",
+      "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+      "size_bytes": 10785
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/protected_stages_v5.sv",
+      "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+      "size_bytes": 15730
+    }
+  ],
+  "snapshot_manifest": {
+    "path": "archive/migration/2026-07-23/pre_edit/2026-07-23_PFFT-RES-V3-001_authorized/snapshot_sha256.csv",
+    "sha256": "32AC8D933E32392468064FF78E584DBC1ED11C54F0DEC07D53BA45A2FFE82D03",
+    "size_bytes": 4596
+  },
+  "status": "FROZEN_PRE_QUALIFICATION_INPUTS",
+  "support_tools": [
+    {
+      "path": "experiments/fault_injection_1024/common/tools/generate_pfft_no_exchange_vectors_v3.py",
+      "sha256": "82F74A8A64150F8FA27EB054BD3DFF90D51277C6CA2CEB018C50CC9FAB28B12C",
+      "size_bytes": 11045
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/tools/run_pfft_resource_qualification_v3.py",
+      "sha256": "CA7B9F63F1FC6E916AE74B245F80A2D760DB4FB07BD2A43E4CCF07823E84952F",
+      "size_bytes": 42763
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/tools/run_pfft_yosys_resources_v3.py",
+      "sha256": "629490E0C550E1EBFFEA76021F3B6BD1BD1939FDCD70D82805BE718B45925C3B",
+      "size_bytes": 65130
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/tools/write_pfft_resource_v3_input_manifest.py",
+      "sha256": "E07EA1F6FD14E6540BA63704DF5D4887CEF33E399DF0F3A48A6F4B867108B2EB",
+      "size_bytes": 9376
+    },
+    {
+      "path": "experiments/fault_injection_1024/projects/P1/audit_p1_stage8_single_check_pair_v3.py",
+      "sha256": "A5F83B06AD07158DAAE7311544FDC28536870D9371C5AC42B3190B3A88736EC2",
+      "size_bytes": 33111
+    }
+  ],
+  "testbenches": {
+    "P0": {
+      "path": "experiments/fault_injection_1024/projects/P0/tb_p0.sv",
+      "sha256": "B36DC267B8266E16F05433EE963B1D2345A8655F3BEDDBD174685D36F7759284",
+      "size_bytes": 348
+    },
+    "P1": {
+      "path": "experiments/fault_injection_1024/projects/P1/tb_p1.sv",
+      "sha256": "A9E63F477C7E060FD4FE15EB2241B31F093BED3B7F96E85DD554814716A9FD35",
+      "size_bytes": 325
+    },
+    "P2": {
+      "path": "experiments/fault_injection_1024/projects/P2/tb_p2.sv",
+      "sha256": "1C15D33B70DF489A9AE5EDE13B7BC8C8F86ADB2954260223605915BB877751AC",
+      "size_bytes": 340
+    }
+  },
+  "tool_executables": {
+    "iverilog": {
+      "path": "C:/iverilog/bin/iverilog.exe",
+      "sha256": "803B8844AF2CC8ED70B5F08B07FFA749901280E81339617CA3E72CBBB852BD2B",
+      "size_bytes": 88064
+    },
+    "python": {
+      "path": "C:/Program Files/Inkscape/bin/python.exe",
+      "sha256": "B5C33DF60C2A8421DCF8117A67E848436B5D395C71EC1C0DFD96BAD10F441D7F",
+      "size_bytes": 101651
+    },
+    "vvp": {
+      "path": "C:/iverilog/bin/vvp.exe",
+      "sha256": "E2F442F4D5AA76E55C85C3FF77E4446FBFDB9946B7CFE8A2DFF87F275DA17B62",
+      "size_bytes": 945664
+    },
+    "yosys": {
+      "path": "C:/Users/pc/Downloads/oss-cad-suite/bin/yosys.exe",
+      "sha256": "059916904062A877B530E6169FA22DBCE32EC66118B75E9A2198F86EA67BA3EB",
+      "size_bytes": 23627776
+    }
+  },
+  "vector_manifest": {
+    "path": "experiments/fault_injection_1024/results/pfft_resource_v3_001/vector_manifest.json",
+    "sha256": "B69BFC3D85360039295E9B7FA5A379F55B11228506AAD777B068387F65F19FE1",
+    "size_bytes": 2807
+  },
+  "vectors": {
+    "P0": {
+      "path": "experiments/fault_injection_1024/projects/P0/vectors/qualification_p0_no_exchange_expected_8frames.hex",
+      "sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204",
+      "size_bytes": 145408
+    },
+    "P0_and_P2_byte_identical": true,
+    "P1": {
+      "path": "experiments/fault_injection_1024/common/vectors/qualification_pfft_expected_8frames.hex",
+      "sha256": "48C8D6A1948A36D837183E112C4C14FFD5C861E075195B301773857C5F361BE2",
+      "size_bytes": 145408
+    },
+    "P2": {
+      "path": "experiments/fault_injection_1024/projects/P2/vectors/qualification_p2_no_exchange_expected_8frames.hex",
+      "sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204",
+      "size_bytes": 145408
+    },
+    "input_10frames": {
+      "path": "experiments/fault_injection_1024/common/vectors/qualification_input_10frames.hex",
+      "sha256": "01EBA212B22E2BE2B1F2A6E31800F02B6A85E2EEAE5D890BF1F366D8A46E9916",
+      "size_bytes": 181760
+    }
+  }
+}

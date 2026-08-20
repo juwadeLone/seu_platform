@@ -1,0 +1,91 @@
+{
+  "schema_version": 5,
+  "experiment_id": "FFT1024-SEVEN-ARCH-V3",
+  "status": "FROZEN",
+  "frozen_date": "2026-07-24",
+  "scope": {
+    "fft_points": 1024,
+    "functional_lanes": 4,
+    "logical_radix2_stages": 10,
+    "beats_per_frame": 256,
+    "architectures": ["S0", "S1", "S2", "S3", "P0", "P1", "P2"],
+    "markov_included": false,
+    "vivado_xsim_allowed": false,
+    "paper_edit_allowed": false
+  },
+  "implementation_provenance": {
+    "authoritative_source": "python_dataflow_and_protection_contract",
+    "required_order": [
+      "static_contract_audit",
+      "python_dataflow_model",
+      "python_fault_campaign",
+      "rtl_cycle_exact_implementation",
+      "rtl_python_and_protection_connectivity_qualification",
+      "yosys_resource_and_memory_mapping_estimate"
+    ],
+    "rtl_to_python_reverse_derivation_forbidden": true,
+    "external_vivado_rtl_role": "historical_audit_only_excluded_from_construction"
+  },
+  "numeric_contract": {
+    "component_width_bits": 35,
+    "component_encoding": "signed_twos_complement",
+    "overflow": "wrap_modulo_2pow35",
+    "butterfly_scaling": "arithmetic_right_shift_1_after_add_or_subtract",
+    "twiddle_width_bits": 30,
+    "twiddle_format": "signed_Q2.28",
+    "twiddle_quantization": "nearest_integer_ties_away_from_zero_then_saturate_to_30_bits",
+    "complex_multiply": "exact_integer_four_multiply_then_arithmetic_right_shift_28_then_wrap_to_35_bits",
+    "ecc_check_domain": {
+      "functional_and_check_component_width_bits": 35,
+      "raw_expected_and_compensated_syndrome_width_bits": 39,
+      "compensation_equation": "compensated_syndrome=raw_received_syndrome-expected_fault_free_quantization_residual",
+      "residual_source": "metadata_captured_from_operator_inputs_and_extended_intermediates_before_fault_injection_boundary",
+      "post_fault_received_symbol_reestimation_forbidden": true
+    }
+  },
+  "memory_contract": {
+    "path": "config/seven_architecture_memory_map.json",
+    "status_required": "FROZEN",
+    "same_geometry_mapping_mandatory": true
+  },
+  "stream_contract": {
+    "backpressure_in_tests": false,
+    "beats_per_frame": 256,
+    "lanes_per_beat": 4,
+    "last_beat_index": 255,
+    "physical_delay_depths": [128, 64, 32, 16, 8, 4, 2, 1, 1, 1],
+    "stage_first_token_latencies": [130, 65, 33, 17, 9, 5, 3, 2, 2, 2],
+    "subfft_latency_cycles": 268,
+    "pfft_pair_wait_and_sync_read_cycles": 257,
+    "pfft_latency_cycles": 525,
+    "subfft_architectures": ["S0", "S1", "S2", "S3"],
+    "pfft_architectures": ["P0", "P1", "P2"],
+    "pfft_common_reorder_buffer": "two_frame_2048_complex_word_block_ram",
+    "p1_stage10_two_beat_alignment_cycle_exact_rtl_status": "NOT_IMPLEMENTED_NOT_QUALIFIED"
+  },
+  "architectures": {
+    "S0": {"name": "unprotected_subfft_baseline", "stages_1_8": "four_single_lane_classic_256_point_eight_stage_r2sdf", "stages_9_10": "single_functional_stages"},
+    "S1": {"name": "gao_subfft_ecc", "stages_1_8": "four_functional_plus_three_coded_complete_subfft_paths_hamming_7_4_3", "stages_9_10": "full_stage_tmr"},
+    "S2": {"name": "subfft_per_stage_tmr", "stages_1_10": "complete_stage_triplication_and_interstage_vote"},
+    "S3": {"name": "subfft_per_stage_ecc", "stages_1_8": "memory_secded_plus_two_independent_check_arithmetic_streams_6_4_3", "stages_9_10": "full_stage_tmr"},
+    "P0": {"name": "unprotected_pfft_baseline", "stages_1_10": "single_functional_p_sdf", "common_frame_reorder": true, "stage8_protection_buffer": false},
+    "P1": {"name": "pfft_per_stage_ecc", "stages_1_7": "memory_secded_plus_direct_exchange_two_independent_check_arithmetic_streams_6_4_3", "stages_8_9": "full_stage_tmr", "stage_10": "two_adjacent_beats_four_complete_butterflies_upper_lower_6_4_3", "stage_10_input_alignment_beats": 1, "stage_10_output_alignment_beats": 1, "stage_8_cross_frame_ecc": false, "common_frame_reorder": true},
+    "P2": {"name": "pfft_per_stage_tmr", "stages_1_10": "complete_stage_triplication_and_interstage_vote", "common_frame_reorder": true}
+  },
+  "protection_contract": {
+    "memory_ecc": "extended_hamming_secded_70_data_bits_plus_8_check_bits",
+    "arithmetic_ecc": "four_functional_plus_two_independent_check_operator_streams_with_39_bit_pre_fault_residual_compensation",
+    "gao_path_ecc": "four_functional_plus_three_complete_coded_subfft_paths_with_39_bit_pre_fault_residual_compensation",
+    "tmr": "bitwise_majority_of_three_complete_stage_replicas",
+    "baseline": "no_protection_and_no_claim_of_fault_correction"
+  },
+  "hard_failures": [
+    "check_symbols_reencoded_from_received_functional_outputs",
+    "expected_residual_recomputed_from_post_fault_received_symbols",
+    "p1_stage8_cross_position_or_cross_frame_ecc_reintroduced",
+    "p1_stage10_group_does_not_cover_exactly_four_complete_butterflies",
+    "memory_primitive_class_differs_for_same_declared_geometry",
+    "declared_block_memory_expanded_to_payload_sized_flip_flops",
+    "critical_blackbox_or_unresolved_module"
+  ]
+}

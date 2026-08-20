@@ -1,0 +1,188 @@
+2026-08-13T20:06:44+08:00 START N07 P1 tau=3 stages=1-7+10 symbols=0-5 two-frames
+===== 2026-08-13T20:06:44+08:00 COMPILE P1 tau=3 symbol=0 =====
+===== 2026-08-13T20:06:45+08:00 RUN vvp P1 symbol=0 =====
+20:06:45 symbol=0 trials=0/560 last=none
+20:07:00 symbol=0 trials=18/560 last=TRIAL stage=1 symbol=0 component=real bit=17 detected=1 corrected=1 location=0 match=1 category=corrected
+20:07:15 symbol=0 trials=40/560 last=TRIAL stage=1 symbol=0 component=imag bit=4 detected=1 corrected=1 location=0 match=1 category=corrected
+20:07:30 symbol=0 trials=66/560 last=TRIAL stage=1 symbol=0 component=imag bit=30 detected=1 corrected=1 location=0 match=1 category=corrected
+20:07:45 symbol=0 trials=87/560 last=TRIAL stage=2 symbol=0 component=real bit=16 detected=1 corrected=1 location=0 match=1 category=corrected
+20:08:00 symbol=0 trials=108/560 last=TRIAL stage=2 symbol=0 component=imag bit=2 detected=1 corrected=1 location=0 match=1 category=corrected
+20:08:15 symbol=0 trials=135/560 last=TRIAL stage=2 symbol=0 component=imag bit=29 detected=1 corrected=1 location=0 match=1 category=corrected
+20:08:30 symbol=0 trials=156/560 last=TRIAL stage=3 symbol=0 component=real bit=15 detected=1 corrected=1 location=0 match=1 category=corrected
+20:08:45 symbol=0 trials=177/560 last=TRIAL stage=3 symbol=0 component=imag bit=1 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+20:09:00 symbol=0 trials=204/560 last=TRIAL stage=3 symbol=0 component=imag bit=28 detected=1 corrected=1 location=0 match=1 category=corrected
+20:09:15 symbol=0 trials=225/560 last=TRIAL stage=4 symbol=0 component=real bit=14 detected=1 corrected=1 location=0 match=1 category=corrected
+20:09:30 symbol=0 trials=247/560 last=TRIAL stage=4 symbol=0 component=imag bit=1 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+20:09:45 symbol=0 trials=273/560 last=TRIAL stage=4 symbol=0 component=imag bit=27 detected=1 corrected=1 location=0 match=1 category=corrected
+20:10:00 symbol=0 trials=295/560 last=TRIAL stage=5 symbol=0 component=real bit=14 detected=1 corrected=1 location=0 match=1 category=corrected
+20:10:15 symbol=0 trials=316/560 last=TRIAL stage=5 symbol=0 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+20:10:30 symbol=0 trials=343/560 last=TRIAL stage=5 symbol=0 component=imag bit=27 detected=1 corrected=1 location=0 match=1 category=corrected
+20:10:45 symbol=0 trials=364/560 last=TRIAL stage=6 symbol=0 component=real bit=13 detected=1 corrected=1 location=0 match=1 category=corrected
+20:11:00 symbol=0 trials=386/560 last=TRIAL stage=6 symbol=0 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+20:11:15 symbol=0 trials=412/560 last=TRIAL stage=6 symbol=0 component=imag bit=26 detected=1 corrected=1 location=0 match=1 category=corrected
+20:11:30 symbol=0 trials=434/560 last=TRIAL stage=7 symbol=0 component=real bit=13 detected=1 corrected=1 location=0 match=1 category=corrected
+20:11:45 symbol=0 trials=456/560 last=TRIAL stage=7 symbol=0 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+20:12:00 symbol=0 trials=482/560 last=TRIAL stage=7 symbol=0 component=imag bit=26 detected=1 corrected=1 location=0 match=1 category=corrected
+20:12:15 symbol=0 trials=504/560 last=TRIAL stage=10 symbol=0 component=real bit=13 detected=1 corrected=1 location=0 match=1 category=corrected
+20:12:30 symbol=0 trials=526/560 last=TRIAL stage=10 symbol=0 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+20:12:45 symbol=0 trials=552/560 last=TRIAL stage=10 symbol=0 component=imag bit=26 detected=1 corrected=1 location=0 match=1 category=corrected
+2026-08-13T20:13:00+08:00 DONE P1 symbol=0 SUMMARY threshold=3 total=560 corrected=528 detected_only=0 silent_bounded_residual=0 miscorrection=0 silent_unbounded=32 corrected_no_flag=0
+SUMMARY recovery_rate=94.29%
+===== 2026-08-13T20:13:00+08:00 COMPILE P1 tau=3 symbol=1 =====
+===== 2026-08-13T20:13:01+08:00 RUN vvp P1 symbol=1 =====
+20:13:01 symbol=1 trials=0/560 last=none
+20:13:16 symbol=1 trials=18/560 last=TRIAL stage=1 symbol=1 component=real bit=17 detected=1 corrected=1 location=1 match=1 category=corrected
+20:13:31 symbol=1 trials=40/560 last=TRIAL stage=1 symbol=1 component=imag bit=4 detected=1 corrected=1 location=1 match=1 category=corrected
+20:13:46 symbol=1 trials=66/560 last=TRIAL stage=1 symbol=1 component=imag bit=30 detected=1 corrected=1 location=1 match=1 category=corrected
+20:14:01 symbol=1 trials=87/560 last=TRIAL stage=2 symbol=1 component=real bit=16 detected=1 corrected=1 location=1 match=1 category=corrected
+20:14:16 symbol=1 trials=109/560 last=TRIAL stage=2 symbol=1 component=imag bit=3 detected=1 corrected=1 location=1 match=1 category=corrected
+20:14:31 symbol=1 trials=135/560 last=TRIAL stage=2 symbol=1 component=imag bit=29 detected=1 corrected=1 location=1 match=1 category=corrected
+20:14:46 symbol=1 trials=156/560 last=TRIAL stage=3 symbol=1 component=real bit=15 detected=1 corrected=1 location=1 match=1 category=corrected
+20:15:01 symbol=1 trials=178/560 last=TRIAL stage=3 symbol=1 component=imag bit=2 detected=1 corrected=1 location=1 match=1 category=corrected
+20:15:16 symbol=1 trials=204/560 last=TRIAL stage=3 symbol=1 component=imag bit=28 detected=1 corrected=1 location=1 match=1 category=corrected
+20:15:31 symbol=1 trials=226/560 last=TRIAL stage=4 symbol=1 component=real bit=15 detected=1 corrected=1 location=1 match=1 category=corrected
+20:15:46 symbol=1 trials=248/560 last=TRIAL stage=4 symbol=1 component=imag bit=2 detected=1 corrected=1 location=1 match=1 category=corrected
+20:16:01 symbol=1 trials=274/560 last=TRIAL stage=4 symbol=1 component=imag bit=28 detected=1 corrected=1 location=1 match=1 category=corrected
+20:16:16 symbol=1 trials=296/560 last=TRIAL stage=5 symbol=1 component=real bit=15 detected=1 corrected=1 location=1 match=1 category=corrected
+20:16:31 symbol=1 trials=317/560 last=TRIAL stage=5 symbol=1 component=imag bit=1 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+2026-08-14T09:05:52+08:00 RESUME N07 P1 tau=3 from_symbol=1 stages=1-7+10 two-frames
+===== 2026-08-14T09:05:52+08:00 COMPILE P1 tau=3 symbol=1 =====
+===== 2026-08-14T09:05:53+08:00 RUN vvp P1 symbol=1 =====
+09:05:53 symbol=1 trials=0/560 last=none
+09:06:08 symbol=1 trials=18/560 last=TRIAL stage=1 symbol=1 component=real bit=17 detected=1 corrected=1 location=1 match=1 category=corrected
+09:06:23 symbol=1 trials=39/560 last=TRIAL stage=1 symbol=1 component=imag bit=3 detected=1 corrected=1 location=1 match=1 category=corrected
+09:06:38 symbol=1 trials=66/560 last=TRIAL stage=1 symbol=1 component=imag bit=30 detected=1 corrected=1 location=1 match=1 category=corrected
+09:06:53 symbol=1 trials=87/560 last=TRIAL stage=2 symbol=1 component=real bit=16 detected=1 corrected=1 location=1 match=1 category=corrected
+09:07:08 symbol=1 trials=108/560 last=TRIAL stage=2 symbol=1 component=imag bit=2 detected=1 corrected=1 location=1 match=1 category=corrected
+09:07:23 symbol=1 trials=135/560 last=TRIAL stage=2 symbol=1 component=imag bit=29 detected=1 corrected=1 location=1 match=1 category=corrected
+09:07:38 symbol=1 trials=156/560 last=TRIAL stage=3 symbol=1 component=real bit=15 detected=1 corrected=1 location=1 match=1 category=corrected
+09:07:53 symbol=1 trials=178/560 last=TRIAL stage=3 symbol=1 component=imag bit=2 detected=1 corrected=1 location=1 match=1 category=corrected
+09:08:08 symbol=1 trials=204/560 last=TRIAL stage=3 symbol=1 component=imag bit=28 detected=1 corrected=1 location=1 match=1 category=corrected
+09:08:23 symbol=1 trials=226/560 last=TRIAL stage=4 symbol=1 component=real bit=15 detected=1 corrected=1 location=1 match=1 category=corrected
+09:08:38 symbol=1 trials=247/560 last=TRIAL stage=4 symbol=1 component=imag bit=1 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:08:53 symbol=1 trials=274/560 last=TRIAL stage=4 symbol=1 component=imag bit=28 detected=1 corrected=1 location=1 match=1 category=corrected
+09:09:08 symbol=1 trials=295/560 last=TRIAL stage=5 symbol=1 component=real bit=14 detected=1 corrected=1 location=1 match=1 category=corrected
+09:09:23 symbol=1 trials=317/560 last=TRIAL stage=5 symbol=1 component=imag bit=1 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:09:38 symbol=1 trials=344/560 last=TRIAL stage=5 symbol=1 component=imag bit=28 detected=1 corrected=1 location=1 match=1 category=corrected
+09:09:53 symbol=1 trials=365/560 last=TRIAL stage=6 symbol=1 component=real bit=14 detected=1 corrected=1 location=1 match=1 category=corrected
+09:10:08 symbol=1 trials=387/560 last=TRIAL stage=6 symbol=1 component=imag bit=1 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:10:23 symbol=1 trials=413/560 last=TRIAL stage=6 symbol=1 component=imag bit=27 detected=1 corrected=1 location=1 match=1 category=corrected
+09:10:38 symbol=1 trials=435/560 last=TRIAL stage=7 symbol=1 component=real bit=14 detected=1 corrected=1 location=1 match=1 category=corrected
+09:10:53 symbol=1 trials=457/560 last=TRIAL stage=7 symbol=1 component=imag bit=1 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:11:08 symbol=1 trials=483/560 last=TRIAL stage=7 symbol=1 component=imag bit=27 detected=1 corrected=1 location=1 match=1 category=corrected
+09:11:23 symbol=1 trials=505/560 last=TRIAL stage=10 symbol=1 component=real bit=14 detected=1 corrected=1 location=1 match=1 category=corrected
+09:11:38 symbol=1 trials=526/560 last=TRIAL stage=10 symbol=1 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:11:53 symbol=1 trials=553/560 last=TRIAL stage=10 symbol=1 component=imag bit=27 detected=1 corrected=1 location=1 match=1 category=corrected
+2026-08-14T09:12:08+08:00 DONE P1 symbol=1 SUMMARY threshold=3 total=560 corrected=528 detected_only=0 silent_bounded_residual=0 miscorrection=0 silent_unbounded=32 corrected_no_flag=0
+SUMMARY recovery_rate=94.29%
+===== 2026-08-14T09:12:08+08:00 COMPILE P1 tau=3 symbol=2 =====
+===== 2026-08-14T09:12:09+08:00 RUN vvp P1 symbol=2 =====
+09:12:09 symbol=2 trials=0/560 last=none
+09:12:24 symbol=2 trials=18/560 last=TRIAL stage=1 symbol=2 component=real bit=17 detected=1 corrected=1 location=2 match=1 category=corrected
+09:12:39 symbol=2 trials=39/560 last=TRIAL stage=1 symbol=2 component=imag bit=3 detected=1 corrected=1 location=2 match=1 category=corrected
+09:12:54 symbol=2 trials=66/560 last=TRIAL stage=1 symbol=2 component=imag bit=30 detected=1 corrected=1 location=2 match=1 category=corrected
+09:13:09 symbol=2 trials=87/560 last=TRIAL stage=2 symbol=2 component=real bit=16 detected=1 corrected=1 location=2 match=1 category=corrected
+09:13:24 symbol=2 trials=108/560 last=TRIAL stage=2 symbol=2 component=imag bit=2 detected=1 corrected=1 location=2 match=1 category=corrected
+09:13:39 symbol=2 trials=134/560 last=TRIAL stage=2 symbol=2 component=imag bit=28 detected=1 corrected=1 location=2 match=1 category=corrected
+09:13:54 symbol=2 trials=156/560 last=TRIAL stage=3 symbol=2 component=real bit=15 detected=1 corrected=1 location=2 match=1 category=corrected
+09:14:09 symbol=2 trials=177/560 last=TRIAL stage=3 symbol=2 component=imag bit=1 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:14:24 symbol=2 trials=203/560 last=TRIAL stage=3 symbol=2 component=imag bit=27 detected=1 corrected=1 location=2 match=1 category=corrected
+09:14:39 symbol=2 trials=225/560 last=TRIAL stage=4 symbol=2 component=real bit=14 detected=1 corrected=1 location=2 match=1 category=corrected
+09:14:54 symbol=2 trials=247/560 last=TRIAL stage=4 symbol=2 component=imag bit=1 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:15:09 symbol=2 trials=273/560 last=TRIAL stage=4 symbol=2 component=imag bit=27 detected=1 corrected=1 location=2 match=1 category=corrected
+09:15:24 symbol=2 trials=294/560 last=TRIAL stage=5 symbol=2 component=real bit=13 detected=1 corrected=1 location=2 match=1 category=corrected
+09:15:39 symbol=2 trials=316/560 last=TRIAL stage=5 symbol=2 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:15:54 symbol=2 trials=342/560 last=TRIAL stage=5 symbol=2 component=imag bit=26 detected=1 corrected=1 location=2 match=1 category=corrected
+09:16:09 symbol=2 trials=364/560 last=TRIAL stage=6 symbol=2 component=real bit=13 detected=1 corrected=1 location=2 match=1 category=corrected
+09:16:24 symbol=2 trials=386/560 last=TRIAL stage=6 symbol=2 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:16:39 symbol=2 trials=412/560 last=TRIAL stage=6 symbol=2 component=imag bit=26 detected=1 corrected=1 location=2 match=1 category=corrected
+09:16:54 symbol=2 trials=433/560 last=TRIAL stage=7 symbol=2 component=real bit=12 detected=1 corrected=1 location=2 match=1 category=corrected
+09:17:09 symbol=2 trials=456/560 last=TRIAL stage=7 symbol=2 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:17:24 symbol=2 trials=482/560 last=TRIAL stage=7 symbol=2 component=imag bit=26 detected=1 corrected=1 location=2 match=1 category=corrected
+09:17:39 symbol=2 trials=503/560 last=TRIAL stage=10 symbol=2 component=real bit=12 detected=1 corrected=1 location=2 match=1 category=corrected
+09:17:54 symbol=2 trials=526/560 last=TRIAL stage=10 symbol=2 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:18:09 symbol=2 trials=552/560 last=TRIAL stage=10 symbol=2 component=imag bit=26 detected=1 corrected=1 location=2 match=1 category=corrected
+2026-08-14T09:18:24+08:00 DONE P1 symbol=2 SUMMARY threshold=3 total=560 corrected=528 detected_only=0 silent_bounded_residual=0 miscorrection=0 silent_unbounded=32 corrected_no_flag=0
+SUMMARY recovery_rate=94.29%
+===== 2026-08-14T09:18:24+08:00 COMPILE P1 tau=3 symbol=3 =====
+===== 2026-08-14T09:18:25+08:00 RUN vvp P1 symbol=3 =====
+09:18:25 symbol=3 trials=0/560 last=none
+09:18:40 symbol=3 trials=18/560 last=TRIAL stage=1 symbol=3 component=real bit=17 detected=1 corrected=1 location=3 match=1 category=corrected
+09:18:55 symbol=3 trials=40/560 last=TRIAL stage=1 symbol=3 component=imag bit=4 detected=1 corrected=1 location=3 match=1 category=corrected
+09:19:10 symbol=3 trials=66/560 last=TRIAL stage=1 symbol=3 component=imag bit=30 detected=1 corrected=1 location=3 match=1 category=corrected
+09:19:25 symbol=3 trials=87/560 last=TRIAL stage=2 symbol=3 component=real bit=16 detected=1 corrected=1 location=3 match=1 category=corrected
+09:19:40 symbol=3 trials=109/560 last=TRIAL stage=2 symbol=3 component=imag bit=3 detected=1 corrected=1 location=3 match=1 category=corrected
+09:19:55 symbol=3 trials=135/560 last=TRIAL stage=2 symbol=3 component=imag bit=29 detected=1 corrected=1 location=3 match=1 category=corrected
+09:20:10 symbol=3 trials=157/560 last=TRIAL stage=3 symbol=3 component=real bit=16 detected=1 corrected=1 location=3 match=1 category=corrected
+09:20:25 symbol=3 trials=178/560 last=TRIAL stage=3 symbol=3 component=imag bit=2 detected=1 corrected=1 location=3 match=1 category=corrected
+09:20:40 symbol=3 trials=205/560 last=TRIAL stage=3 symbol=3 component=imag bit=29 detected=1 corrected=1 location=3 match=1 category=corrected
+09:20:55 symbol=3 trials=226/560 last=TRIAL stage=4 symbol=3 component=real bit=15 detected=1 corrected=1 location=3 match=1 category=corrected
+09:21:10 symbol=3 trials=247/560 last=TRIAL stage=4 symbol=3 component=imag bit=1 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:21:25 symbol=3 trials=274/560 last=TRIAL stage=4 symbol=3 component=imag bit=28 detected=1 corrected=1 location=3 match=1 category=corrected
+09:21:40 symbol=3 trials=295/560 last=TRIAL stage=5 symbol=3 component=real bit=14 detected=1 corrected=1 location=3 match=1 category=corrected
+09:21:55 symbol=3 trials=317/560 last=TRIAL stage=5 symbol=3 component=imag bit=1 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:22:10 symbol=3 trials=343/560 last=TRIAL stage=5 symbol=3 component=imag bit=27 detected=1 corrected=1 location=3 match=1 category=corrected
+09:22:25 symbol=3 trials=365/560 last=TRIAL stage=6 symbol=3 component=real bit=14 detected=1 corrected=1 location=3 match=1 category=corrected
+09:22:40 symbol=3 trials=386/560 last=TRIAL stage=6 symbol=3 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:22:55 symbol=3 trials=413/560 last=TRIAL stage=6 symbol=3 component=imag bit=27 detected=1 corrected=1 location=3 match=1 category=corrected
+09:23:10 symbol=3 trials=434/560 last=TRIAL stage=7 symbol=3 component=real bit=13 detected=1 corrected=1 location=3 match=1 category=corrected
+09:23:25 symbol=3 trials=456/560 last=TRIAL stage=7 symbol=3 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:23:40 symbol=3 trials=482/560 last=TRIAL stage=7 symbol=3 component=imag bit=26 detected=1 corrected=1 location=3 match=1 category=corrected
+09:23:55 symbol=3 trials=504/560 last=TRIAL stage=10 symbol=3 component=real bit=13 detected=1 corrected=1 location=3 match=1 category=corrected
+09:24:10 symbol=3 trials=526/560 last=TRIAL stage=10 symbol=3 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+09:24:25 symbol=3 trials=552/560 last=TRIAL stage=10 symbol=3 component=imag bit=26 detected=1 corrected=1 location=3 match=1 category=corrected
+2026-08-14T09:24:40+08:00 DONE P1 symbol=3 SUMMARY threshold=3 total=560 corrected=528 detected_only=0 silent_bounded_residual=0 miscorrection=0 silent_unbounded=32 corrected_no_flag=0
+SUMMARY recovery_rate=94.29%
+===== 2026-08-14T09:24:40+08:00 COMPILE P1 tau=3 symbol=4 =====
+===== 2026-08-14T09:24:41+08:00 RUN vvp P1 symbol=4 =====
+09:24:41 symbol=4 trials=0/560 last=none
+09:24:56 symbol=4 trials=23/560 last=TRIAL stage=1 symbol=4 component=real bit=22 detected=1 corrected=1 location=4 match=1 category=corrected
+09:25:11 symbol=4 trials=50/560 last=TRIAL stage=1 symbol=4 component=imag bit=14 detected=1 corrected=1 location=4 match=1 category=corrected
+09:25:26 symbol=4 trials=76/560 last=TRIAL stage=2 symbol=4 component=real bit=5 detected=1 corrected=1 location=4 match=1 category=corrected
+09:25:41 symbol=4 trials=102/560 last=TRIAL stage=2 symbol=4 component=real bit=31 detected=1 corrected=1 location=4 match=1 category=corrected
+09:25:56 symbol=4 trials=129/560 last=TRIAL stage=2 symbol=4 component=imag bit=23 detected=1 corrected=1 location=4 match=1 category=corrected
+09:26:11 symbol=4 trials=155/560 last=TRIAL stage=3 symbol=4 component=real bit=14 detected=1 corrected=1 location=4 match=1 category=corrected
+09:26:26 symbol=4 trials=181/560 last=TRIAL stage=3 symbol=4 component=imag bit=5 detected=1 corrected=1 location=4 match=1 category=corrected
+09:26:41 symbol=4 trials=208/560 last=TRIAL stage=3 symbol=4 component=imag bit=32 detected=1 corrected=1 location=4 match=1 category=corrected
+09:26:56 symbol=4 trials=235/560 last=TRIAL stage=4 symbol=4 component=real bit=24 detected=1 corrected=1 location=4 match=1 category=corrected
+09:27:11 symbol=4 trials=261/560 last=TRIAL stage=4 symbol=4 component=imag bit=15 detected=1 corrected=1 location=4 match=1 category=corrected
+09:27:26 symbol=4 trials=288/560 last=TRIAL stage=5 symbol=4 component=real bit=7 detected=1 corrected=1 location=4 match=1 category=corrected
+09:27:41 symbol=4 trials=314/560 last=TRIAL stage=5 symbol=4 component=real bit=33 detected=1 corrected=1 location=4 match=1 category=corrected
+09:27:56 symbol=4 trials=341/560 last=TRIAL stage=5 symbol=4 component=imag bit=25 detected=1 corrected=1 location=4 match=1 category=corrected
+09:28:11 symbol=4 trials=367/560 last=TRIAL stage=6 symbol=4 component=real bit=16 detected=1 corrected=1 location=4 match=1 category=corrected
+09:28:26 symbol=4 trials=394/560 last=TRIAL stage=6 symbol=4 component=imag bit=8 detected=1 corrected=1 location=4 match=1 category=corrected
+09:28:41 symbol=4 trials=420/560 last=TRIAL stage=6 symbol=4 component=imag bit=34 detected=1 corrected=1 location=4 match=1 category=corrected
+09:28:56 symbol=4 trials=447/560 last=TRIAL stage=7 symbol=4 component=real bit=26 detected=1 corrected=1 location=4 match=1 category=corrected
+09:29:11 symbol=4 trials=473/560 last=TRIAL stage=7 symbol=4 component=imag bit=17 detected=1 corrected=1 location=4 match=1 category=corrected
+09:29:26 symbol=4 trials=500/560 last=TRIAL stage=10 symbol=4 component=real bit=9 detected=1 corrected=1 location=4 match=1 category=corrected
+09:29:41 symbol=4 trials=526/560 last=TRIAL stage=10 symbol=4 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_bounded_residual
+09:29:56 symbol=4 trials=553/560 last=TRIAL stage=10 symbol=4 component=imag bit=27 detected=1 corrected=1 location=4 match=1 category=corrected
+2026-08-14T09:30:11+08:00 DONE P1 symbol=4 SUMMARY threshold=3 total=560 corrected=528 detected_only=0 silent_bounded_residual=32 miscorrection=0 silent_unbounded=0 corrected_no_flag=0
+SUMMARY recovery_rate=100.00%
+===== 2026-08-14T09:30:11+08:00 COMPILE P1 tau=3 symbol=5 =====
+===== 2026-08-14T09:30:12+08:00 RUN vvp P1 symbol=5 =====
+09:30:12 symbol=5 trials=0/560 last=none
+09:30:27 symbol=5 trials=23/560 last=TRIAL stage=1 symbol=5 component=real bit=22 detected=1 corrected=1 location=5 match=1 category=corrected
+09:30:42 symbol=5 trials=50/560 last=TRIAL stage=1 symbol=5 component=imag bit=14 detected=1 corrected=1 location=5 match=1 category=corrected
+09:30:57 symbol=5 trials=76/560 last=TRIAL stage=2 symbol=5 component=real bit=5 detected=1 corrected=1 location=5 match=1 category=corrected
+09:31:12 symbol=5 trials=103/560 last=TRIAL stage=2 symbol=5 component=real bit=32 detected=1 corrected=1 location=5 match=1 category=corrected
+09:31:27 symbol=5 trials=129/560 last=TRIAL stage=2 symbol=5 component=imag bit=23 detected=1 corrected=1 location=5 match=1 category=corrected
+09:31:42 symbol=5 trials=155/560 last=TRIAL stage=3 symbol=5 component=real bit=14 detected=1 corrected=1 location=5 match=1 category=corrected
+09:31:57 symbol=5 trials=182/560 last=TRIAL stage=3 symbol=5 component=imag bit=6 detected=1 corrected=1 location=5 match=1 category=corrected
+09:32:12 symbol=5 trials=208/560 last=TRIAL stage=3 symbol=5 component=imag bit=32 detected=1 corrected=1 location=5 match=1 category=corrected
+09:32:27 symbol=5 trials=235/560 last=TRIAL stage=4 symbol=5 component=real bit=24 detected=1 corrected=1 location=5 match=1 category=corrected
+09:32:42 symbol=5 trials=261/560 last=TRIAL stage=4 symbol=5 component=imag bit=15 detected=1 corrected=1 location=5 match=1 category=corrected
+09:32:57 symbol=5 trials=288/560 last=TRIAL stage=5 symbol=5 component=real bit=7 detected=1 corrected=1 location=5 match=1 category=corrected
+09:33:12 symbol=5 trials=314/560 last=TRIAL stage=5 symbol=5 component=real bit=33 detected=1 corrected=1 location=5 match=1 category=corrected
+09:33:27 symbol=5 trials=341/560 last=TRIAL stage=5 symbol=5 component=imag bit=25 detected=1 corrected=1 location=5 match=1 category=corrected
+09:33:42 symbol=5 trials=367/560 last=TRIAL stage=6 symbol=5 component=real bit=16 detected=1 corrected=1 location=5 match=1 category=corrected
+09:33:57 symbol=5 trials=394/560 last=TRIAL stage=6 symbol=5 component=imag bit=8 detected=1 corrected=1 location=5 match=1 category=corrected
+09:34:12 symbol=5 trials=420/560 last=TRIAL stage=6 symbol=5 component=imag bit=34 detected=1 corrected=1 location=5 match=1 category=corrected
+09:34:27 symbol=5 trials=447/560 last=TRIAL stage=7 symbol=5 component=real bit=26 detected=1 corrected=1 location=5 match=1 category=corrected
+09:34:42 symbol=5 trials=474/560 last=TRIAL stage=7 symbol=5 component=imag bit=18 detected=1 corrected=1 location=5 match=1 category=corrected
+09:34:57 symbol=5 trials=500/560 last=TRIAL stage=10 symbol=5 component=real bit=9 detected=1 corrected=1 location=5 match=1 category=corrected
+09:35:12 symbol=5 trials=527/560 last=TRIAL stage=10 symbol=5 component=imag bit=1 detected=0 corrected=0 location=- match=0 category=silent_bounded_residual
+09:35:27 symbol=5 trials=553/560 last=TRIAL stage=10 symbol=5 component=imag bit=27 detected=1 corrected=1 location=5 match=1 category=corrected
+2026-08-14T09:35:42+08:00 DONE P1 symbol=5 SUMMARY threshold=3 total=560 corrected=528 detected_only=0 silent_bounded_residual=32 miscorrection=0 silent_unbounded=0 corrected_no_flag=0
+SUMMARY recovery_rate=100.00%
+2026-08-14T09:35:42+08:00 ALL_DONE P1 tau=3 3360 trials resume_from=1

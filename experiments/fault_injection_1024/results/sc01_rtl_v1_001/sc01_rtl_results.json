@@ -1,0 +1,513 @@
+[
+  {
+    "tau": 0,
+    "total_trials": 560,
+    "counts": {
+      "corrected": 560,
+      "detected_only": 0,
+      "silent_bounded_residual": 0,
+      "miscorrection": 0,
+      "silent_unbounded": 0,
+      "corrected_no_flag": 0
+    },
+    "recovery_rate_strict_pct": 100.0,
+    "recovery_rate_gao_pct": 100.0,
+    "per_stage": {
+      "1": {
+        "corrected": 70,
+        "detected_only": 0,
+        "silent_bounded_residual": 0,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "2": {
+        "corrected": 70,
+        "detected_only": 0,
+        "silent_bounded_residual": 0,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "3": {
+        "corrected": 70,
+        "detected_only": 0,
+        "silent_bounded_residual": 0,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "4": {
+        "corrected": 70,
+        "detected_only": 0,
+        "silent_bounded_residual": 0,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "5": {
+        "corrected": 70,
+        "detected_only": 0,
+        "silent_bounded_residual": 0,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "6": {
+        "corrected": 70,
+        "detected_only": 0,
+        "silent_bounded_residual": 0,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "7": {
+        "corrected": 70,
+        "detected_only": 0,
+        "silent_bounded_residual": 0,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "8": {
+        "corrected": 70,
+        "detected_only": 0,
+        "silent_bounded_residual": 0,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      }
+    },
+    "summary_line": {
+      "threshold": 0,
+      "total": 560,
+      "corrected": 560,
+      "detected_only": 0,
+      "silent_bounded_residual": 0,
+      "miscorrection": 0,
+      "silent_unbounded": 0,
+      "corrected_no_flag": 0
+    }
+  },
+  {
+    "tau": 1,
+    "total_trials": 560,
+    "counts": {
+      "corrected": 544,
+      "detected_only": 0,
+      "silent_bounded_residual": 14,
+      "miscorrection": 0,
+      "silent_unbounded": 2,
+      "corrected_no_flag": 0
+    },
+    "recovery_rate_strict_pct": 97.14,
+    "recovery_rate_gao_pct": 99.64,
+    "per_stage": {
+      "1": {
+        "corrected": 68,
+        "detected_only": 0,
+        "silent_bounded_residual": 2,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "2": {
+        "corrected": 68,
+        "detected_only": 0,
+        "silent_bounded_residual": 0,
+        "miscorrection": 0,
+        "silent_unbounded": 2,
+        "corrected_no_flag": 0
+      },
+      "3": {
+        "corrected": 68,
+        "detected_only": 0,
+        "silent_bounded_residual": 2,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "4": {
+        "corrected": 68,
+        "detected_only": 0,
+        "silent_bounded_residual": 2,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "5": {
+        "corrected": 68,
+        "detected_only": 0,
+        "silent_bounded_residual": 2,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "6": {
+        "corrected": 68,
+        "detected_only": 0,
+        "silent_bounded_residual": 2,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "7": {
+        "corrected": 68,
+        "detected_only": 0,
+        "silent_bounded_residual": 2,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "8": {
+        "corrected": 68,
+        "detected_only": 0,
+        "silent_bounded_residual": 2,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      }
+    },
+    "summary_line": {
+      "threshold": 1,
+      "total": 560,
+      "corrected": 544,
+      "detected_only": 0,
+      "silent_bounded_residual": 14,
+      "miscorrection": 0,
+      "silent_unbounded": 2,
+      "corrected_no_flag": 0
+    }
+  },
+  {
+    "tau": 2,
+    "total_trials": 560,
+    "counts": {
+      "corrected": 528,
+      "detected_only": 0,
+      "silent_bounded_residual": 28,
+      "miscorrection": 0,
+      "silent_unbounded": 4,
+      "corrected_no_flag": 0
+    },
+    "recovery_rate_strict_pct": 94.29,
+    "recovery_rate_gao_pct": 99.29,
+    "per_stage": {
+      "1": {
+        "corrected": 66,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "2": {
+        "corrected": 66,
+        "detected_only": 0,
+        "silent_bounded_residual": 0,
+        "miscorrection": 0,
+        "silent_unbounded": 4,
+        "corrected_no_flag": 0
+      },
+      "3": {
+        "corrected": 66,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "4": {
+        "corrected": 66,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "5": {
+        "corrected": 66,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "6": {
+        "corrected": 66,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "7": {
+        "corrected": 66,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      },
+      "8": {
+        "corrected": 66,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 0,
+        "corrected_no_flag": 0
+      }
+    },
+    "summary_line": {
+      "threshold": 2,
+      "total": 560,
+      "corrected": 528,
+      "detected_only": 0,
+      "silent_bounded_residual": 28,
+      "miscorrection": 0,
+      "silent_unbounded": 4,
+      "corrected_no_flag": 0
+    }
+  },
+  {
+    "tau": 4,
+    "total_trials": 560,
+    "counts": {
+      "corrected": 512,
+      "detected_only": 0,
+      "silent_bounded_residual": 28,
+      "miscorrection": 0,
+      "silent_unbounded": 20,
+      "corrected_no_flag": 0
+    },
+    "recovery_rate_strict_pct": 91.43,
+    "recovery_rate_gao_pct": 96.43,
+    "per_stage": {
+      "1": {
+        "corrected": 64,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 2,
+        "corrected_no_flag": 0
+      },
+      "2": {
+        "corrected": 64,
+        "detected_only": 0,
+        "silent_bounded_residual": 0,
+        "miscorrection": 0,
+        "silent_unbounded": 6,
+        "corrected_no_flag": 0
+      },
+      "3": {
+        "corrected": 64,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 2,
+        "corrected_no_flag": 0
+      },
+      "4": {
+        "corrected": 64,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 2,
+        "corrected_no_flag": 0
+      },
+      "5": {
+        "corrected": 64,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 2,
+        "corrected_no_flag": 0
+      },
+      "6": {
+        "corrected": 64,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 2,
+        "corrected_no_flag": 0
+      },
+      "7": {
+        "corrected": 64,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 2,
+        "corrected_no_flag": 0
+      },
+      "8": {
+        "corrected": 64,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 2,
+        "corrected_no_flag": 0
+      }
+    },
+    "summary_line": {
+      "threshold": 4,
+      "total": 560,
+      "corrected": 512,
+      "detected_only": 0,
+      "silent_bounded_residual": 28,
+      "miscorrection": 0,
+      "silent_unbounded": 20,
+      "corrected_no_flag": 0
+    }
+  },
+  {
+    "tau": 8,
+    "total_trials": 560,
+    "counts": {
+      "corrected": 496,
+      "detected_only": 0,
+      "silent_bounded_residual": 28,
+      "miscorrection": 0,
+      "silent_unbounded": 36,
+      "corrected_no_flag": 0
+    },
+    "recovery_rate_strict_pct": 88.57,
+    "recovery_rate_gao_pct": 93.57,
+    "per_stage": {
+      "1": {
+        "corrected": 62,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 4,
+        "corrected_no_flag": 0
+      },
+      "2": {
+        "corrected": 62,
+        "detected_only": 0,
+        "silent_bounded_residual": 0,
+        "miscorrection": 0,
+        "silent_unbounded": 8,
+        "corrected_no_flag": 0
+      },
+      "3": {
+        "corrected": 62,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 4,
+        "corrected_no_flag": 0
+      },
+      "4": {
+        "corrected": 62,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 4,
+        "corrected_no_flag": 0
+      },
+      "5": {
+        "corrected": 62,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 4,
+        "corrected_no_flag": 0
+      },
+      "6": {
+        "corrected": 62,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 4,
+        "corrected_no_flag": 0
+      },
+      "7": {
+        "corrected": 62,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 4,
+        "corrected_no_flag": 0
+      },
+      "8": {
+        "corrected": 62,
+        "detected_only": 0,
+        "silent_bounded_residual": 4,
+        "miscorrection": 0,
+        "silent_unbounded": 4,
+        "corrected_no_flag": 0
+      }
+    },
+    "summary_line": {
+      "threshold": 8,
+      "total": 560,
+      "corrected": 496,
+      "detected_only": 0,
+      "silent_bounded_residual": 28,
+      "miscorrection": 0,
+      "silent_unbounded": 36,
+      "corrected_no_flag": 0
+    }
+  },
+  {
+    "tau": 0,
+    "scope": "8 stages x 6 symbols (full)",
+    "total_trials": 3360,
+    "counts": {
+      "corrected": 3360,
+      "detected_only": 0,
+      "silent_bounded_residual": 0,
+      "miscorrection": 0,
+      "silent_unbounded": 0,
+      "corrected_no_flag": 0
+    },
+    "recovery_rate_strict_pct": 100.0,
+    "recovery_rate_gao_pct": 100.0,
+    "per_stage": {
+      "1": {
+        "corrected": 420
+      },
+      "2": {
+        "corrected": 420
+      },
+      "3": {
+        "corrected": 420
+      },
+      "4": {
+        "corrected": 420
+      },
+      "5": {
+        "corrected": 420
+      },
+      "6": {
+        "corrected": 420
+      },
+      "7": {
+        "corrected": 420
+      },
+      "8": {
+        "corrected": 420
+      }
+    },
+    "per_symbol": {
+      "0": {
+        "corrected": 560
+      },
+      "1": {
+        "corrected": 560
+      },
+      "2": {
+        "corrected": 560
+      },
+      "3": {
+        "corrected": 560
+      },
+      "4": {
+        "corrected": 560
+      },
+      "5": {
+        "corrected": 560
+      }
+    }
+  }
+]

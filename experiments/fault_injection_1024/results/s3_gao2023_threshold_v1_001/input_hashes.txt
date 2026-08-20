@@ -1,0 +1,13 @@
+record=S3-GAO2023-TH-V1-001
+iverilog=Icarus Verilog version 11.0 (stable) ()
+date=2026-08-13T17:08:14+08:00
+9814523500ff3b4a48ee63d51d2988e247cb3c4418b8930daf9816998602a63d  /home/xdu/JuWade_research/fft1024_ft_exp/vivado/K_S3_subfft/hdl/rtl/top_s3_kernel.sv
+b4234fce9876c39227fd9b48a753f82cbd2909e63487d667fd5b1204d5d1d580  /home/xdu/JuWade_research/fft1024_ft_exp/vivado/K_S3_subfft/hdl/rtl/twiddle_rom_1024.sv
+38b31af1e2e7b322db7bb91571399fd0ab5753c7d8dc67ee98ec522203c45b9c  /home/xdu/JuWade_research/fft1024_ft_exp/vivado/K_S3_subfft/hdl/rtl/fft_common.sv
+24bdea79580c0376f9521f044f1c91494c290bc98772330fec4ed71f5d8081d4  /home/xdu/JuWade_research/fft1024_ft_exp/vivado/K_S3_subfft/hdl/rtl/datapath_v5.sv
+0056fd20196ba88a43e56c02cab1b1883583338415d91279ec7c049fd35b7a7f  /home/xdu/JuWade_research/fft1024_ft_exp/vivado/K_S3_subfft/hdl/rtl/protection_rtl.sv
+fcf0e55de5397ef1b436ce61bac1b2723e6767b5ceb20e3e615fb17b655b1f40  /home/xdu/JuWade_research/fft1024_ft_exp/vivado/K_S3_subfft/hdl/rtl/protection_primitives_v5.sv
+98e6c849a305ef91e4334fd35f40d56568e3fe7103f1fc62caab7be44ef6f704  /home/xdu/JuWade_research/fft1024_ft_exp/vivado/K_S3_subfft/hdl/rtl/ecc_stage4_v5.sv
+01eba212b22e2be2b1f2a6e31800f02b6a85e2eeae5d890bf1f366d8a46e9916  /home/xdu/JuWade_research/fft1024_ft_exp/kernels/S3/vectors/qualification_input_10frames.hex
+28646a28fb95f108cd4b050fc4d9f9e2db27d11f8516dfcf4270462e30260edd  /home/xdu/JuWade_research/fft1024_ft_exp/kernels/S3/vectors/qualification_subfft_expected_8frames.hex
+6fcd755e9f30153ff23eaea9432237c5d9dcd4b7285f45c6179774c0d9b33855  /home/xdu/☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研/hermes/tcas/experiments/fault_injection_1024/results/s3_gao2023_threshold_v1_001/tb_s3_gao2023_noise_floor.sv

@@ -1,0 +1,70 @@
+{
+  "correction_reason": "initial parser counted only direct top cells; first recursive audit also descended into Xilinx simulation-model modules instead of treating mapped Xilinx primitives as leaf cells",
+  "delta_vs_historical_p0": {
+    "BRAM36_equivalent": -4.0,
+    "DSP48E1": 0,
+    "FF": -12,
+    "LC_estimate": -19,
+    "LUT1_to_LUT6": -128,
+    "RAMB18E1": -16,
+    "RAMB36E1": 4
+  },
+  "historical_p0": {
+    "BRAM36_equivalent": 8.0,
+    "DSP48E1": 464,
+    "FF": 4166,
+    "LC_estimate": 22689,
+    "LUT1_to_LUT6": 31010,
+    "RAMB18E1": 16,
+    "RAMB36E1": 0
+  },
+  "original_result_preserved": {
+    "path": "experiments/fault_injection_1024/results/p0_no_framebuf_v1_001/attempt2/resource_result.json",
+    "sha256": "3F440D08D1E49865525176F47497ED4FB094DDFAB58F794B47ADB499B9E5E907",
+    "size_bytes": 2013
+  },
+  "record_id": "P0-NO-FRAMEBUF-V1-001",
+  "recursive_leaf_cell_counts": {
+    "BUFG": 1,
+    "CARRY4": 3783,
+    "DSP48E1": 464,
+    "FDRE": 4154,
+    "IBUF": 284,
+    "INV": 587,
+    "LUT1": 29,
+    "LUT2": 13837,
+    "LUT3": 2479,
+    "LUT4": 50,
+    "LUT5": 1506,
+    "LUT6": 12981,
+    "MUXF7": 5376,
+    "MUXF8": 2645,
+    "OBUF": 282,
+    "RAM32M": 276,
+    "RAM64M": 96,
+    "RAMB36E1": 4
+  },
+  "resources": {
+    "BRAM36_equivalent": 4.0,
+    "DSP48E1": 464,
+    "FF": 4154,
+    "LC_estimate": 22670,
+    "LUT1_to_LUT6": 30882,
+    "RAMB18E1": 0,
+    "RAMB36E1": 4,
+    "distributed_memory_cells_total": 372
+  },
+  "schema": "p0-no-framebuf-v1-001-corrected-recursive-leaf-audit-v1",
+  "source_log": {
+    "path": "experiments/fault_injection_1024/logs/p0_no_framebuf_v1_001/attempt2/yosys_synthesis.log",
+    "sha256": "3C4823FC339ED08FA469A30E77DF415FE8FFC3126BE67FAA19CF8DE0E2ECE321",
+    "size_bytes": 6100181
+  },
+  "source_netlist": {
+    "path": "experiments/fault_injection_1024/build/p0_no_framebuf_v1_001/attempt2/yosys/post_synthesis_netlist.json",
+    "sha256": "430DD0E5B3A59F2CE182D24F65EB3B5B63D2F11E0AA4653C7DF722EABB94112C",
+    "size_bytes": 26774527
+  },
+  "status": "VERIFIED",
+  "synthesis_rerun": false
+}

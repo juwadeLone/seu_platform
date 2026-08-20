@@ -1,0 +1,8 @@
+2026-08-13T18:13:28+08:00 start symbol=2
+2026-08-13T18:22:47+08:00 done symbol=2 SUMMARY threshold=1 total=560 corrected=544 detected_only=0 silent_bounded_residual=0 miscorrection=0 silent_unbounded=16 corrected_no_flag=0
+2026-08-13T18:22:47+08:00 start symbol=3
+2026-08-13T18:32:08+08:00 done symbol=3 SUMMARY threshold=1 total=560 corrected=544 detected_only=0 silent_bounded_residual=0 miscorrection=0 silent_unbounded=16 corrected_no_flag=0
+2026-08-13T18:32:08+08:00 start symbol=4
+2026-08-13T18:41:18+08:00 done symbol=4 SUMMARY threshold=1 total=560 corrected=544 detected_only=0 silent_bounded_residual=16 miscorrection=0 silent_unbounded=0 corrected_no_flag=0
+2026-08-13T18:41:18+08:00 start symbol=5
+2026-08-13T18:50:26+08:00 done symbol=5 SUMMARY threshold=1 total=560 corrected=544 detected_only=0 silent_bounded_residual=16 miscorrection=0 silent_unbounded=0 corrected_no_flag=0

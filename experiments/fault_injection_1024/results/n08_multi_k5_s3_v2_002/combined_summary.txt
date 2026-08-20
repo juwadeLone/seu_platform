@@ -1,0 +1,8 @@
+arch=s3 k=5 expected_trials=200 actual_trials=200 expected_injects=1000 actual_injects=1000
+bad_injected=0 timeouts=0 miscorr=0 miscorr_evidence=0
+site_sha256=a837c08a56addd0c3615e9ed15ef761f174f7bd0e55ded4c32dfe2e10f284353
+first_repeat_site_identical=yes
+first_repeat_summary_identical=yes
+first_repeat_trial_lines_identical=yes
+first_repeat_inject_lines_identical=yes
+SUMMARY arch=S3 k=5 total=200 corrected=195 corrected_no_flag=0 detected_only=5 silent_bounded_residual=0 miscorrection=0 silent_unbounded=0 timeout=0

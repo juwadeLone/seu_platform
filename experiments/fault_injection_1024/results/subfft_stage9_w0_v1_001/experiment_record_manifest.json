@@ -1,0 +1,440 @@
+﻿{
+    "schema":  "subfft-stage9-w0-experiment-record-manifest-v1",
+    "experiment_id":  "SUBFFT-STAGE9-W0-V1-001",
+    "status":  "RECORDED_VERIFIED",
+    "recorded_date":  "2026-07-24",
+    "python_modified":  false,
+    "qualification_status":  "VERIFIED",
+    "yosys_status":  {
+                         "S0":  "VERIFIED",
+                         "S1":  "VERIFIED",
+                         "S2":  "VERIFIED",
+                         "S3":  "VERIFIED"
+                     },
+    "source_and_contract":  [
+                                {
+                                    "path":  "experiments/fault_injection_1024/SUBFFT_STAGE9_W0_V1_001.md",
+                                    "size_bytes":  1263,
+                                    "sha256":  "ACF144EBCD6D241302D43B36FF3BB7007CCB60AB307265FA41A421BB870DE75C"
+                                },
+                                {
+                                    "path":  "experiments/fault_injection_1024/common/rtl/fft_common.sv",
+                                    "size_bytes":  17865,
+                                    "sha256":  "BA888B7445CE037AEC08CAFF7B47A758D57941577949AC8A993E032280BF45E9"
+                                },
+                                {
+                                    "path":  "archive/migration/2026-07-24/pre_edit/SUBFFT-STAGE9-W0-V1-001_authorized/experiments/fault_injection_1024/common/rtl/fft_common.sv",
+                                    "size_bytes":  17880,
+                                    "sha256":  "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74"
+                                }
+                            ],
+    "evidence_files":  [
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/build/S0.vvp",
+                               "size_bytes":  10594660,
+                               "sha256":  "DBF7F773004B4C61422FDAAC9634A47025ECCB543AC956C9F0D6E64D9B1A3806"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/build/S1.vvp",
+                               "size_bytes":  19761928,
+                               "sha256":  "25C756E251684A0B580E4B843A0A979A3C4A08315D9D930B294014855BC90B65"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/build/S1_connectivity.vvp",
+                               "size_bytes":  39635333,
+                               "sha256":  "5B29B07C1B8254FAD679F255264A720176F9F8FF99D69D030B460CF04A8E9694"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/build/S2.vvp",
+                               "size_bytes":  32189775,
+                               "sha256":  "65394766AA0F800C80391C7EC4A616A10B67ED0875FC4ED25E0440E7EFBF9CB1"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/build/S2_connectivity.vvp",
+                               "size_bytes":  64490250,
+                               "sha256":  "7D39CC7BE89A1A4BF7B3327F91118FCF9797898F349C9A4CF13F21E6EACBDE96"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/build/S3.vvp",
+                               "size_bytes":  36515117,
+                               "sha256":  "A9346EEA9D820A93A5B556C4825E4DB79CE134C9DC3AD4787DDA98806547D870"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/build/S3_connectivity.vvp",
+                               "size_bytes":  73168491,
+                               "sha256":  "668FC37A9E8C6FEC51D107EFF5592FB92D109D6D7C3318AA7DC29A34F28C4B04"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/build/S3_lower_connectivity.vvp",
+                               "size_bytes":  73165815,
+                               "sha256":  "E44B5C56EF41A3D278FB532D8D1F80C651B01939039DD1943F3F6F8AA7FDC489"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/qualification.json",
+                               "size_bytes":  3985,
+                               "sha256":  "756820C0CD0E700A1C143EC4989125C05AC0D824F9D73B7B51948F09C36F8C5C"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/S0_sim.log",
+                               "size_bytes":  308,
+                               "sha256":  "AA989B4981CF1D21B092896D7BFA3EE5CC920744ECA3CA735D921D58F14FDDBF"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/S1_connectivity_sim.log",
+                               "size_bytes":  390,
+                               "sha256":  "C17576C20452DA552C57C499736EED89946A360534D954B1565B105C6F39A79A"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/S1_sim.log",
+                               "size_bytes":  308,
+                               "sha256":  "77C4465BF0FEDC28454E7363A853EC60334E7F68B8A6C64FA98E02C8FB6D0619"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/S2_connectivity_sim.log",
+                               "size_bytes":  384,
+                               "sha256":  "CCD3F05786317CCABD564DB9F844DD138AAD2A214AA6D1CA14EC588F1D872CB9"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/S2_sim.log",
+                               "size_bytes":  308,
+                               "sha256":  "AE6BF54DCF9DA1CA141D4FC2F8B24C177E121565233AD4ACA4813F0AE466435D"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/S3_connectivity_sim.log",
+                               "size_bytes":  548,
+                               "sha256":  "37D33C4629EC62D6BED2244D38CE5ED3311B33A85CC22DEC997BF0E11B527FEC"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/S3_lower_connectivity_sim.log",
+                               "size_bytes":  444,
+                               "sha256":  "1038D5EFEB5D7DDEF5327D6224ACF2D9CD035290982F47F2BA949B09F5C8D849"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/qualification_attempt1/S3_sim.log",
+                               "size_bytes":  308,
+                               "sha256":  "CD939639F296206DAC54B1133824CE0C9A77B0A88F5C58F11E5D98BC10B81C2C"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/resource_summary.json",
+                               "size_bytes":  23559,
+                               "sha256":  "6CF20747EC540998BFCC37F1843AFB00F366E59A5D2B10FFFA2A8C27C506129E"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt1/preflight.log",
+                               "size_bytes":  7669,
+                               "sha256":  "9900631DA79C0AE6C003773EAC4B1F201DD70B8D7492F549D4184E1EC1DB06BF"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt1/preflight_stderr.log",
+                               "size_bytes":  190,
+                               "sha256":  "2F801136BE341DC52A93442B66B77FC82E493C11A8DB67C43517D9FF335E7F4F"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt1/preflight_stdout.log",
+                               "size_bytes":  7479,
+                               "sha256":  "80C8852629D1B88FFF3645DE3F8C30C0BB72555A54DADE1812A6CCC958872D08"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt1/startup_environment.json",
+                               "size_bytes":  1776,
+                               "sha256":  "68124BF617A66FDEF12A4B9DE0EC3F3C1AB15F9A4E5C40408DA0505DD17E257B"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt1/version_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt1/version_stdout.log",
+                               "size_bytes":  90,
+                               "sha256":  "0FF81AEEEB28F5BF6E062A456AD432845A85FF6695F7A29C4BDFAF10134DA7CC"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/preflight.json",
+                               "size_bytes":  1593829,
+                               "sha256":  "9CDF901BF39FBAFDAB62430B4A6CDC97956835CB59DB2AD061A29AEEE9D3C3E6"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/preflight.log",
+                               "size_bytes":  185931,
+                               "sha256":  "EBAE97BD9BE056F17D91211CD3B735873F59F8035FB9F6EACFBC0A2E8D9BB5FE"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/preflight.ys",
+                               "size_bytes":  921,
+                               "sha256":  "5D0A7F9DEA6A95F121F7528C13928C85A7FF1C0AA71B64AFCA8A2A06D580831D"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/preflight_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/preflight_stdout.log",
+                               "size_bytes":  185931,
+                               "sha256":  "EBAE97BD9BE056F17D91211CD3B735873F59F8035FB9F6EACFBC0A2E8D9BB5FE"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/resource_result.json",
+                               "size_bytes":  3849,
+                               "sha256":  "52FEB243A39B5C84AF1E749BEB550C1BFC7B7DE9967FBBA1B6C1E234F15813C1"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/startup_environment.json",
+                               "size_bytes":  1006,
+                               "sha256":  "DB65F7F41EE987F07BFBFE628D381D2DAC3052526E97DD6AB8BF83692D53B71F"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/synth.json",
+                               "size_bytes":  17008257,
+                               "sha256":  "3D56ED22DB83585EFCA236AF42143BDF17A717B9A13D6F980B75B3F354FC3B7A"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/synth.log",
+                               "size_bytes":  5053799,
+                               "sha256":  "F27119907138AE7EBFAA7ACABDCC6FC20312F5102F1E35CA12664911DE5039A0"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/synth.ys",
+                               "size_bytes":  969,
+                               "sha256":  "E33D18C9E2CE6DA75E51368B3E49DB24D0A8CA48EA94D7904A23B00636351200"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/synth_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/synth_stdout.log",
+                               "size_bytes":  5053799,
+                               "sha256":  "F27119907138AE7EBFAA7ACABDCC6FC20312F5102F1E35CA12664911DE5039A0"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/version_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt2/version_stdout.log",
+                               "size_bytes":  90,
+                               "sha256":  "0FF81AEEEB28F5BF6E062A456AD432845A85FF6695F7A29C4BDFAF10134DA7CC"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/preflight.json",
+                               "size_bytes":  2144598,
+                               "sha256":  "94B4CC858F7211704DF2784AEF0DC80F2DAE97198A62586B4363D08ACDFF4925"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/preflight.log",
+                               "size_bytes":  184509,
+                               "sha256":  "7CB474A94F7EF1C0979D066E41E8E2EACA800077C589B55C4DA73EA205BC0F63"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/preflight.ys",
+                               "size_bytes":  913,
+                               "sha256":  "87691C95EE6A32469A795C91981EA1AF0E0C289C8E30367C50A933740EF0F0B4"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/preflight_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/preflight_stdout.log",
+                               "size_bytes":  184509,
+                               "sha256":  "7CB474A94F7EF1C0979D066E41E8E2EACA800077C589B55C4DA73EA205BC0F63"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/resource_result.json",
+                               "size_bytes":  3853,
+                               "sha256":  "930375C0D6C089BB6E22B701E72C1173BFC8A393431D18A72F65A9EB3796165A"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/startup_environment.json",
+                               "size_bytes":  1006,
+                               "sha256":  "8A3C5B917B9544B7F2F20C95E9DDC3231DB344B07391EB95B1E6347D0C0053E7"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/synth.json",
+                               "size_bytes":  22376555,
+                               "sha256":  "70465AC29AA3424E1D108220E2A6B2101839CD8989569E6D79330F21B4AF3EA8"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/synth.log",
+                               "size_bytes":  5085558,
+                               "sha256":  "94F0976BFE41A2FC9C321E66B952F5CE69AA73BC2F56C679E1996C29EB04736C"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/synth.ys",
+                               "size_bytes":  957,
+                               "sha256":  "C3E59827234CC2EA4BBC67227CA831AF167B0B6BC5F90C67707A5B9E89436A69"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/synth_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/synth_stdout.log",
+                               "size_bytes":  5085558,
+                               "sha256":  "94F0976BFE41A2FC9C321E66B952F5CE69AA73BC2F56C679E1996C29EB04736C"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/version_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/version_stdout.log",
+                               "size_bytes":  90,
+                               "sha256":  "0FF81AEEEB28F5BF6E062A456AD432845A85FF6695F7A29C4BDFAF10134DA7CC"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/preflight.json",
+                               "size_bytes":  2246960,
+                               "sha256":  "5130179A517E68F42D2CF23735140801AC55E5982DF875EBBE7CB5FDA0BF9401"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/preflight.log",
+                               "size_bytes":  386704,
+                               "sha256":  "89B931656DA53FCA96C5B4BFB50200710E3D92B08D2B14CBC00E75EAA8BBB677"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/preflight.ys",
+                               "size_bytes":  905,
+                               "sha256":  "1F4C82FB2C5D524D829DD3EA9FDCF1D514DBD6203E8B8065F3CD5CA21E53A1CD"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/preflight_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/preflight_stdout.log",
+                               "size_bytes":  386704,
+                               "sha256":  "89B931656DA53FCA96C5B4BFB50200710E3D92B08D2B14CBC00E75EAA8BBB677"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/resource_result.json",
+                               "size_bytes":  3863,
+                               "sha256":  "E1E63D84D2BA1FAB422F1BE4EA4FDF7B501F4E1C3B58CAA1EC510049337A84AC"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/startup_environment.json",
+                               "size_bytes":  1006,
+                               "sha256":  "05C1B1F5DD7FF66938B8FD495D4EE88F356B5979E7FB53ADA1BF538411163797"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/synth.json",
+                               "size_bytes":  17561582,
+                               "sha256":  "A4625886072D7D028E76DCC4BA8484016632AA42E362422D98C8470AFF741067"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/synth.log",
+                               "size_bytes":  5404613,
+                               "sha256":  "66802F8D8F2A4FA56B0FD20F63026071E7E888B28307D9B0EB488DCE21F5EE59"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/synth.ys",
+                               "size_bytes":  945,
+                               "sha256":  "ABA632FEE2F089BC25564C15AB2B582531959553442B3E6524E4F1343769125B"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/synth_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/synth_stdout.log",
+                               "size_bytes":  5404613,
+                               "sha256":  "66802F8D8F2A4FA56B0FD20F63026071E7E888B28307D9B0EB488DCE21F5EE59"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/version_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S2_yosys_attempt2/version_stdout.log",
+                               "size_bytes":  90,
+                               "sha256":  "0FF81AEEEB28F5BF6E062A456AD432845A85FF6695F7A29C4BDFAF10134DA7CC"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/preflight.json",
+                               "size_bytes":  4127408,
+                               "sha256":  "777E9337D9D4C64F3B394E5BEF132C52E5C167A8DA8CB2F60C99AF3BE23A3066"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/preflight.log",
+                               "size_bytes":  413368,
+                               "sha256":  "CCE86531FDA897E9879EE9FED2B0D25E0D5D571AF418FA8E261BAA703B5FB3B0"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/preflight.ys",
+                               "size_bytes":  905,
+                               "sha256":  "AC6F6FED9F74AA54A7BD295720030203DD65D73E3B9D42E8EFAC9D748542E896"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/preflight_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/preflight_stdout.log",
+                               "size_bytes":  413368,
+                               "sha256":  "CCE86531FDA897E9879EE9FED2B0D25E0D5D571AF418FA8E261BAA703B5FB3B0"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/resource_result.json",
+                               "size_bytes":  3855,
+                               "sha256":  "D24EFDE62CCAB02526F5CF14A68C9D380C5369D62CE503E9E26D9C2CBF683998"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/startup_environment.json",
+                               "size_bytes":  1006,
+                               "sha256":  "9618D9CFADD8B495B0462357BC4ED74311627227044802B34BCFF21143488FCC"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/synth.json",
+                               "size_bytes":  29410926,
+                               "sha256":  "3EEFF909CAAF00E4C04F71EEEF42428BCC5D48E488E1970E4F612D492B7FB68B"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/synth.log",
+                               "size_bytes":  5829519,
+                               "sha256":  "BCBDB2E0730289F956E2040776F43D459A6227E0A5761A70FBAD515884BF0B73"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/synth.ys",
+                               "size_bytes":  945,
+                               "sha256":  "428354CDD5095F4A77360BE25794339C1E4BD6D5E34AB6C856429D4DBE435F0F"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/synth_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/synth_stdout.log",
+                               "size_bytes":  5829519,
+                               "sha256":  "BCBDB2E0730289F956E2040776F43D459A6227E0A5761A70FBAD515884BF0B73"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/version_stderr.log",
+                               "size_bytes":  0,
+                               "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S3_yosys_attempt2/version_stdout.log",
+                               "size_bytes":  90,
+                               "sha256":  "0FF81AEEEB28F5BF6E062A456AD432845A85FF6695F7A29C4BDFAF10134DA7CC"
+                           },
+                           {
+                               "path":  "experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/SUBFFT_STAGE9_W0_V1_001_AUDIT.md",
+                               "size_bytes":  2138,
+                               "sha256":  "517D7FF8AC30C35AD5967B6A36975AA6FF90A92251374C3A0590670B1AFFFDD0"
+                           }
+                       ],
+    "resource_summary_sha256":  "6CF20747EC540998BFCC37F1843AFB00F366E59A5D2B10FFFA2A8C27C506129E",
+    "claim_boundary":  "Yosys xc7 synthesis estimates only"
+}

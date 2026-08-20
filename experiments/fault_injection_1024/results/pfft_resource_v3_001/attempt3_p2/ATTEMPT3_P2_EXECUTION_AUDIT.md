@@ -1,0 +1,44 @@
+# PFFT-RES-V3-001 S06 attempt3 P2 execution audit
+
+状态：`VERIFIED_P2_COMPLETION`
+
+## 授权与边界
+
+- 作者授权隔离attempt3，仅完成attempt2未执行的P2。
+- 不重跑P0/P1，不覆盖attempt1/attempt2。
+- 不自动生成跨attempt论文最终表。
+- 冻结合同SHA-256：`2C5C0B010F4BFEDEE8503D7DABCC6AA5882683FB2FA29D54BB7EB09EC6A27D73`。
+- 原runner SHA-256：`629490E0C550E1EBFFEA76021F3B6BD1BD1939FDCD70D82805BE718B45925C3B`。
+- attempt3 P2 wrapper SHA-256：`5252D35226AC82B1EFA967E744C42C25C2EC5DD58E537B522FD6C748BCD99BEF`。
+- 指定Yosys SHA-256：`059916904062A877B530E6169FA22DBCE32EC66118B75E9A2198F86EA67BA3EB`。
+
+## Preflight
+
+P2 preflight退出0。结果SHA-256：
+`7C80D9FD71E6BCE36625E58E50586C1E387DC98004C22EC32D9BEBE5131B634A`。
+
+## P2正式综合
+
+| Architecture | LC estimate | LUT1--6 | FF | DSP48E1 | RAMB18E1 | RAMB36E1 | BRAM36 equivalent |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| P2 | 69464 | 95826 | 12474 | 1392 | 0 | 16 | 16.0 |
+
+逐级DSP48E1：
+`192 / 192 / 192 / 192 / 192 / 192 / 144 / 96 / 0 / 0`。
+
+以下审计均为`VERIFIED`：
+
+- post-synthesis audit；
+- D95 target；
+- TMR replica preservation；
+- blackbox audit；
+- critical warning audit。
+
+原始结果SHA-256：
+`A085090E69F12376B5A61E8D1ADFD43FEDBB522A954ED4E3F25C4BE63A2EF7F9`。
+
+Yosys日志SHA-256：
+`899BC8DC7F07BB93BB77CD6028B462A48581B83F515505A59EC2D65618C38894`。
+
+这些数字是指定Yosys `xc7`综合资源估计，不是Vivado post-implementation、
+布线后Fmax或功耗结果。

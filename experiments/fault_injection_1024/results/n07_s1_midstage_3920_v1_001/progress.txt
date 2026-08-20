@@ -1,0 +1,140 @@
+2026-08-14T10:31:09+08:00 START N07 S1 midstage tau=5 stages=1-8 paths=0-6 two-frames 3920
+===== 2026-08-14T10:31:09+08:00 COMPILE S1 midstage tau=5 stage=1 =====
+===== 2026-08-14T10:31:10+08:00 RUN vvp S1 midstage stage=1 =====
+10:31:10 stage=1 trials=0/490 last=none
+10:31:25 stage=1 trials=34/490 last=TRIAL stage=1 path=0 component=real bit=33 detected=1 corrected=1 location=0 match=1 category=corrected
+10:31:40 stage=1 trials=72/490 last=TRIAL stage=1 path=1 component=real bit=1 detected=0 corrected=0 location=- match=0 category=silent_bounded_residual
+10:31:55 stage=1 trials=109/490 last=TRIAL stage=1 path=1 component=imag bit=3 detected=1 corrected=1 location=1 match=1 category=corrected
+10:32:10 stage=1 trials=147/490 last=TRIAL stage=1 path=2 component=real bit=6 detected=1 corrected=1 location=2 match=1 category=corrected
+10:32:25 stage=1 trials=185/490 last=TRIAL stage=1 path=2 component=imag bit=9 detected=1 corrected=1 location=2 match=1 category=corrected
+10:32:40 stage=1 trials=223/490 last=TRIAL stage=1 path=3 component=real bit=12 detected=1 corrected=1 location=3 match=1 category=corrected
+10:32:55 stage=1 trials=261/490 last=TRIAL stage=1 path=3 component=imag bit=15 detected=1 corrected=1 location=3 match=1 category=corrected
+10:33:10 stage=1 trials=299/490 last=TRIAL stage=1 path=4 component=real bit=18 detected=1 corrected=1 location=4 match=1 category=corrected
+10:33:25 stage=1 trials=337/490 last=TRIAL stage=1 path=4 component=imag bit=21 detected=1 corrected=1 location=4 match=1 category=corrected
+10:33:40 stage=1 trials=374/490 last=TRIAL stage=1 path=5 component=real bit=23 detected=1 corrected=1 location=5 match=1 category=corrected
+10:33:55 stage=1 trials=412/490 last=TRIAL stage=1 path=5 component=imag bit=26 detected=1 corrected=1 location=5 match=1 category=corrected
+10:34:10 stage=1 trials=450/490 last=TRIAL stage=1 path=6 component=real bit=29 detected=1 corrected=1 location=6 match=1 category=corrected
+10:34:25 stage=1 trials=488/490 last=TRIAL stage=1 path=6 component=imag bit=32 detected=1 corrected=1 location=6 match=1 category=corrected
+2026-08-14T10:34:40+08:00 DONE S1 midstage stage=1 SUMMARY threshold=5 total=490 corrected=448 detected_only=0 silent_bounded_residual=42 miscorrection=0 silent_unbounded=0 corrected_no_flag=0
+SUMMARY recovery_rate=100.00%
+===== 2026-08-14T10:34:40+08:00 COMPILE S1 midstage tau=5 stage=2 =====
+===== 2026-08-14T10:34:41+08:00 RUN vvp S1 midstage stage=2 =====
+10:34:41 stage=2 trials=0/490 last=none
+10:34:56 stage=2 trials=35/490 last=TRIAL stage=2 path=0 component=real bit=34 detected=1 corrected=1 location=0 match=1 category=corrected
+10:35:11 stage=2 trials=73/490 last=TRIAL stage=2 path=1 component=real bit=2 detected=0 corrected=0 location=- match=0 category=silent_bounded_residual
+10:35:26 stage=2 trials=111/490 last=TRIAL stage=2 path=1 component=imag bit=5 detected=1 corrected=1 location=1 match=1 category=corrected
+10:35:41 stage=2 trials=149/490 last=TRIAL stage=2 path=2 component=real bit=8 detected=1 corrected=1 location=2 match=1 category=corrected
+10:35:56 stage=2 trials=186/490 last=TRIAL stage=2 path=2 component=imag bit=10 detected=1 corrected=1 location=2 match=1 category=corrected
+10:36:11 stage=2 trials=224/490 last=TRIAL stage=2 path=3 component=real bit=13 detected=1 corrected=1 location=3 match=1 category=corrected
+10:36:26 stage=2 trials=262/490 last=TRIAL stage=2 path=3 component=imag bit=16 detected=1 corrected=1 location=3 match=1 category=corrected
+10:36:41 stage=2 trials=300/490 last=TRIAL stage=2 path=4 component=real bit=19 detected=1 corrected=1 location=4 match=1 category=corrected
+10:36:56 stage=2 trials=338/490 last=TRIAL stage=2 path=4 component=imag bit=22 detected=1 corrected=1 location=4 match=1 category=corrected
+10:37:11 stage=2 trials=376/490 last=TRIAL stage=2 path=5 component=real bit=25 detected=1 corrected=1 location=5 match=1 category=corrected
+10:37:26 stage=2 trials=414/490 last=TRIAL stage=2 path=5 component=imag bit=28 detected=1 corrected=1 location=5 match=1 category=corrected
+10:37:41 stage=2 trials=452/490 last=TRIAL stage=2 path=6 component=real bit=31 detected=1 corrected=1 location=6 match=1 category=corrected
+2026-08-14T10:37:56+08:00 DONE S1 midstage stage=2 SUMMARY threshold=5 total=490 corrected=448 detected_only=0 silent_bounded_residual=42 miscorrection=0 silent_unbounded=0 corrected_no_flag=0
+SUMMARY recovery_rate=100.00%
+===== 2026-08-14T10:37:56+08:00 COMPILE S1 midstage tau=5 stage=3 =====
+===== 2026-08-14T10:37:56+08:00 RUN vvp S1 midstage stage=3 =====
+10:37:56 stage=3 trials=0/490 last=none
+10:38:11 stage=3 trials=35/490 last=TRIAL stage=3 path=0 component=real bit=34 detected=1 corrected=1 location=0 match=1 category=corrected
+10:38:26 stage=3 trials=72/490 last=TRIAL stage=3 path=1 component=real bit=1 detected=0 corrected=0 location=- match=0 category=silent_bounded_residual
+10:38:41 stage=3 trials=110/490 last=TRIAL stage=3 path=1 component=imag bit=4 detected=1 corrected=1 location=1 match=1 category=corrected
+10:38:56 stage=3 trials=148/490 last=TRIAL stage=3 path=2 component=real bit=7 detected=1 corrected=1 location=2 match=1 category=corrected
+10:39:11 stage=3 trials=186/490 last=TRIAL stage=3 path=2 component=imag bit=10 detected=1 corrected=1 location=2 match=1 category=corrected
+10:39:26 stage=3 trials=224/490 last=TRIAL stage=3 path=3 component=real bit=13 detected=1 corrected=1 location=3 match=1 category=corrected
+10:39:41 stage=3 trials=262/490 last=TRIAL stage=3 path=3 component=imag bit=16 detected=1 corrected=1 location=3 match=1 category=corrected
+10:39:56 stage=3 trials=300/490 last=TRIAL stage=3 path=4 component=real bit=19 detected=1 corrected=1 location=4 match=1 category=corrected
+10:40:11 stage=3 trials=338/490 last=TRIAL stage=3 path=4 component=imag bit=22 detected=1 corrected=1 location=4 match=1 category=corrected
+10:40:26 stage=3 trials=376/490 last=TRIAL stage=3 path=5 component=real bit=25 detected=1 corrected=1 location=5 match=1 category=corrected
+10:40:41 stage=3 trials=414/490 last=TRIAL stage=3 path=5 component=imag bit=28 detected=1 corrected=1 location=5 match=1 category=corrected
+10:40:56 stage=3 trials=452/490 last=TRIAL stage=3 path=6 component=real bit=31 detected=1 corrected=1 location=6 match=1 category=corrected
+2026-08-14T10:41:11+08:00 DONE S1 midstage stage=3 SUMMARY threshold=5 total=490 corrected=448 detected_only=0 silent_bounded_residual=42 miscorrection=0 silent_unbounded=0 corrected_no_flag=0
+SUMMARY recovery_rate=100.00%
+===== 2026-08-14T10:41:11+08:00 COMPILE S1 midstage tau=5 stage=4 =====
+===== 2026-08-14T10:41:12+08:00 RUN vvp S1 midstage stage=4 =====
+10:41:12 stage=4 trials=0/490 last=none
+10:41:27 stage=4 trials=35/490 last=TRIAL stage=4 path=0 component=real bit=34 detected=1 corrected=1 location=0 match=1 category=corrected
+10:41:42 stage=4 trials=73/490 last=TRIAL stage=4 path=1 component=real bit=2 detected=0 corrected=0 location=- match=0 category=silent_bounded_residual
+10:41:57 stage=4 trials=111/490 last=TRIAL stage=4 path=1 component=imag bit=5 detected=1 corrected=1 location=1 match=1 category=corrected
+10:42:12 stage=4 trials=148/490 last=TRIAL stage=4 path=2 component=real bit=7 detected=1 corrected=1 location=2 match=1 category=corrected
+10:42:27 stage=4 trials=186/490 last=TRIAL stage=4 path=2 component=imag bit=10 detected=1 corrected=1 location=2 match=1 category=corrected
+10:42:42 stage=4 trials=224/490 last=TRIAL stage=4 path=3 component=real bit=13 detected=1 corrected=1 location=3 match=1 category=corrected
+10:42:57 stage=4 trials=263/490 last=TRIAL stage=4 path=3 component=imag bit=17 detected=1 corrected=1 location=3 match=1 category=corrected
+10:43:12 stage=4 trials=300/490 last=TRIAL stage=4 path=4 component=real bit=19 detected=1 corrected=1 location=4 match=1 category=corrected
+10:43:27 stage=4 trials=338/490 last=TRIAL stage=4 path=4 component=imag bit=22 detected=1 corrected=1 location=4 match=1 category=corrected
+10:43:42 stage=4 trials=377/490 last=TRIAL stage=4 path=5 component=real bit=26 detected=1 corrected=1 location=5 match=1 category=corrected
+10:43:57 stage=4 trials=415/490 last=TRIAL stage=4 path=5 component=imag bit=29 detected=1 corrected=1 location=5 match=1 category=corrected
+10:44:12 stage=4 trials=452/490 last=TRIAL stage=4 path=6 component=real bit=31 detected=1 corrected=1 location=6 match=1 category=corrected
+2026-08-14T10:44:27+08:00 DONE S1 midstage stage=4 SUMMARY threshold=5 total=490 corrected=448 detected_only=0 silent_bounded_residual=42 miscorrection=0 silent_unbounded=0 corrected_no_flag=0
+SUMMARY recovery_rate=100.00%
+===== 2026-08-14T10:44:27+08:00 COMPILE S1 midstage tau=5 stage=5 =====
+===== 2026-08-14T10:44:28+08:00 RUN vvp S1 midstage stage=5 =====
+10:44:28 stage=5 trials=0/490 last=none
+10:44:43 stage=5 trials=35/490 last=TRIAL stage=5 path=0 component=real bit=34 detected=1 corrected=1 location=0 match=1 category=corrected
+10:44:58 stage=5 trials=73/490 last=TRIAL stage=5 path=1 component=real bit=2 detected=0 corrected=0 location=- match=0 category=silent_bounded_residual
+10:45:13 stage=5 trials=111/490 last=TRIAL stage=5 path=1 component=imag bit=5 detected=1 corrected=1 location=1 match=1 category=corrected
+10:45:28 stage=5 trials=149/490 last=TRIAL stage=5 path=2 component=real bit=8 detected=1 corrected=1 location=2 match=1 category=corrected
+10:45:43 stage=5 trials=187/490 last=TRIAL stage=5 path=2 component=imag bit=11 detected=1 corrected=1 location=2 match=1 category=corrected
+10:45:58 stage=5 trials=225/490 last=TRIAL stage=5 path=3 component=real bit=14 detected=1 corrected=1 location=3 match=1 category=corrected
+10:46:13 stage=5 trials=262/490 last=TRIAL stage=5 path=3 component=imag bit=17 detected=1 corrected=1 location=3 match=1 category=corrected
+10:46:28 stage=5 trials=300/490 last=TRIAL stage=5 path=4 component=real bit=19 detected=1 corrected=1 location=4 match=1 category=corrected
+10:46:43 stage=5 trials=338/490 last=TRIAL stage=5 path=4 component=imag bit=22 detected=1 corrected=1 location=4 match=1 category=corrected
+10:46:58 stage=5 trials=376/490 last=TRIAL stage=5 path=5 component=real bit=25 detected=1 corrected=1 location=5 match=1 category=corrected
+10:47:13 stage=5 trials=414/490 last=TRIAL stage=5 path=5 component=imag bit=28 detected=1 corrected=1 location=5 match=1 category=corrected
+10:47:28 stage=5 trials=452/490 last=TRIAL stage=5 path=6 component=real bit=31 detected=1 corrected=1 location=6 match=1 category=corrected
+10:47:43 stage=5 trials=489/490 last=TRIAL stage=5 path=6 component=imag bit=33 detected=1 corrected=1 location=6 match=1 category=corrected
+2026-08-14T10:47:58+08:00 DONE S1 midstage stage=5 SUMMARY threshold=5 total=490 corrected=434 detected_only=0 silent_bounded_residual=40 miscorrection=0 silent_unbounded=16 corrected_no_flag=0
+SUMMARY recovery_rate=96.73%
+===== 2026-08-14T10:47:58+08:00 COMPILE S1 midstage tau=5 stage=6 =====
+===== 2026-08-14T10:47:59+08:00 RUN vvp S1 midstage stage=6 =====
+10:47:59 stage=6 trials=0/490 last=none
+10:48:14 stage=6 trials=35/490 last=TRIAL stage=6 path=0 component=real bit=34 detected=1 corrected=1 location=0 match=1 category=corrected
+10:48:29 stage=6 trials=73/490 last=TRIAL stage=6 path=1 component=real bit=2 detected=0 corrected=0 location=- match=0 category=silent_bounded_residual
+10:48:44 stage=6 trials=111/490 last=TRIAL stage=6 path=1 component=imag bit=5 detected=1 corrected=1 location=1 match=1 category=corrected
+10:48:59 stage=6 trials=149/490 last=TRIAL stage=6 path=2 component=real bit=8 detected=1 corrected=1 location=2 match=1 category=corrected
+10:49:14 stage=6 trials=188/490 last=TRIAL stage=6 path=2 component=imag bit=12 detected=1 corrected=1 location=2 match=1 category=corrected
+10:49:29 stage=6 trials=226/490 last=TRIAL stage=6 path=3 component=real bit=15 detected=1 corrected=1 location=3 match=1 category=corrected
+10:49:44 stage=6 trials=264/490 last=TRIAL stage=6 path=3 component=imag bit=18 detected=1 corrected=1 location=3 match=1 category=corrected
+10:49:59 stage=6 trials=302/490 last=TRIAL stage=6 path=4 component=real bit=21 detected=1 corrected=1 location=4 match=1 category=corrected
+10:50:14 stage=6 trials=340/490 last=TRIAL stage=6 path=4 component=imag bit=24 detected=1 corrected=1 location=4 match=1 category=corrected
+10:50:29 stage=6 trials=378/490 last=TRIAL stage=6 path=5 component=real bit=27 detected=1 corrected=1 location=5 match=1 category=corrected
+10:50:44 stage=6 trials=416/490 last=TRIAL stage=6 path=5 component=imag bit=30 detected=1 corrected=1 location=5 match=1 category=corrected
+10:50:59 stage=6 trials=454/490 last=TRIAL stage=6 path=6 component=real bit=33 detected=1 corrected=1 location=6 match=1 category=corrected
+2026-08-14T10:51:14+08:00 DONE S1 midstage stage=6 SUMMARY threshold=5 total=490 corrected=426 detected_only=0 silent_bounded_residual=29 miscorrection=8 silent_unbounded=27 corrected_no_flag=0
+SUMMARY recovery_rate=92.86%
+===== 2026-08-14T10:51:14+08:00 COMPILE S1 midstage tau=5 stage=7 =====
+===== 2026-08-14T10:51:15+08:00 RUN vvp S1 midstage stage=7 =====
+10:51:15 stage=7 trials=0/490 last=none
+10:51:30 stage=7 trials=35/490 last=TRIAL stage=7 path=0 component=real bit=34 detected=1 corrected=1 location=0 match=1 category=corrected
+10:51:45 stage=7 trials=73/490 last=TRIAL stage=7 path=1 component=real bit=2 detected=0 corrected=0 location=- match=0 category=silent_bounded_residual
+10:52:00 stage=7 trials=111/490 last=TRIAL stage=7 path=1 component=imag bit=5 detected=1 corrected=1 location=1 match=1 category=corrected
+10:52:15 stage=7 trials=149/490 last=TRIAL stage=7 path=2 component=real bit=8 detected=1 corrected=1 location=2 match=1 category=corrected
+10:52:30 stage=7 trials=187/490 last=TRIAL stage=7 path=2 component=imag bit=11 detected=1 corrected=1 location=2 match=1 category=corrected
+10:52:45 stage=7 trials=225/490 last=TRIAL stage=7 path=3 component=real bit=14 detected=1 corrected=1 location=3 match=1 category=corrected
+10:53:00 stage=7 trials=264/490 last=TRIAL stage=7 path=3 component=imag bit=18 detected=1 corrected=1 location=3 match=1 category=corrected
+10:53:15 stage=7 trials=301/490 last=TRIAL stage=7 path=4 component=real bit=20 detected=1 corrected=1 location=4 match=1 category=corrected
+10:53:30 stage=7 trials=339/490 last=TRIAL stage=7 path=4 component=imag bit=23 detected=1 corrected=1 location=4 match=1 category=corrected
+10:53:45 stage=7 trials=377/490 last=TRIAL stage=7 path=5 component=real bit=26 detected=1 corrected=1 location=5 match=1 category=corrected
+10:54:00 stage=7 trials=415/490 last=TRIAL stage=7 path=5 component=imag bit=29 detected=1 corrected=1 location=5 match=1 category=corrected
+10:54:15 stage=7 trials=453/490 last=TRIAL stage=7 path=6 component=real bit=32 detected=1 corrected=1 location=6 match=1 category=corrected
+2026-08-14T10:54:30+08:00 DONE S1 midstage stage=7 SUMMARY threshold=5 total=490 corrected=434 detected_only=0 silent_bounded_residual=31 miscorrection=0 silent_unbounded=25 corrected_no_flag=0
+SUMMARY recovery_rate=94.90%
+===== 2026-08-14T10:54:30+08:00 COMPILE S1 midstage tau=5 stage=8 =====
+===== 2026-08-14T10:54:31+08:00 RUN vvp S1 midstage stage=8 =====
+10:54:31 stage=8 trials=0/490 last=none
+10:54:46 stage=8 trials=36/490 last=TRIAL stage=8 path=0 component=imag bit=0 detected=0 corrected=0 location=- match=0 category=silent_bounded_residual
+10:55:01 stage=8 trials=74/490 last=TRIAL stage=8 path=1 component=real bit=3 detected=1 corrected=1 location=1 match=1 category=corrected
+10:55:16 stage=8 trials=113/490 last=TRIAL stage=8 path=1 component=imag bit=7 detected=1 corrected=1 location=1 match=1 category=corrected
+10:55:31 stage=8 trials=151/490 last=TRIAL stage=8 path=2 component=real bit=10 detected=1 corrected=1 location=2 match=1 category=corrected
+10:55:46 stage=8 trials=190/490 last=TRIAL stage=8 path=2 component=imag bit=14 detected=1 corrected=1 location=2 match=1 category=corrected
+10:56:01 stage=8 trials=228/490 last=TRIAL stage=8 path=3 component=real bit=17 detected=1 corrected=1 location=3 match=1 category=corrected
+10:56:16 stage=8 trials=267/490 last=TRIAL stage=8 path=3 component=imag bit=21 detected=1 corrected=1 location=3 match=1 category=corrected
+10:56:31 stage=8 trials=305/490 last=TRIAL stage=8 path=4 component=real bit=24 detected=1 corrected=1 location=4 match=1 category=corrected
+10:56:46 stage=8 trials=344/490 last=TRIAL stage=8 path=4 component=imag bit=28 detected=1 corrected=1 location=4 match=1 category=corrected
+10:57:01 stage=8 trials=383/490 last=TRIAL stage=8 path=5 component=real bit=32 detected=1 corrected=1 location=5 match=1 category=corrected
+10:57:16 stage=8 trials=421/490 last=TRIAL stage=8 path=6 component=real bit=0 detected=0 corrected=0 location=- match=0 category=silent_unbounded
+10:57:31 stage=8 trials=460/490 last=TRIAL stage=8 path=6 component=imag bit=4 detected=1 corrected=1 location=6 match=1 category=corrected
+2026-08-14T10:57:46+08:00 DONE S1 midstage stage=8 SUMMARY threshold=5 total=490 corrected=448 detected_only=0 silent_bounded_residual=24 miscorrection=0 silent_unbounded=18 corrected_no_flag=0
+SUMMARY recovery_rate=96.33%
+2026-08-14T10:57:46+08:00 ALL_DONE S1 midstage tau=5 3920 trials

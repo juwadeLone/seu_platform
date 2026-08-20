@@ -1,0 +1,249 @@
+{
+  "architectures": {
+    "P0": {
+      "domains": {
+        "no_fault": {
+          "fail": 0,
+          "pass": 8,
+          "sdc": 0,
+          "trials": 8
+        }
+      },
+      "expected_trials": 8,
+      "failures": 0,
+      "group": "PFFT",
+      "protection_claim": "none",
+      "sdc": 0,
+      "status": "VERIFIED",
+      "trials": 8
+    },
+    "P1": {
+      "domains": {
+        "computation": {
+          "fail": 0,
+          "pass": 15120,
+          "sdc": 0,
+          "trials": 15120
+        },
+        "no_fault": {
+          "fail": 0,
+          "pass": 8,
+          "sdc": 0,
+          "trials": 8
+        },
+        "out_of_capability": {
+          "fail": 0,
+          "pass": 2,
+          "sdc": 0,
+          "trials": 2
+        },
+        "storage": {
+          "fail": 0,
+          "pass": 4176,
+          "sdc": 0,
+          "trials": 4176
+        }
+      },
+      "expected_trials": 19306,
+      "failures": 0,
+      "group": "PFFT",
+      "protection_claim": "frozen_single_fault_domains",
+      "sdc": 0,
+      "status": "VERIFIED",
+      "trials": 19306
+    },
+    "P2": {
+      "domains": {
+        "computation": {
+          "fail": 0,
+          "pass": 8400,
+          "sdc": 0,
+          "trials": 8400
+        },
+        "no_fault": {
+          "fail": 0,
+          "pass": 8,
+          "sdc": 0,
+          "trials": 8
+        },
+        "out_of_capability": {
+          "fail": 0,
+          "pass": 1,
+          "sdc": 0,
+          "trials": 1
+        },
+        "storage": {
+          "fail": 0,
+          "pass": 8400,
+          "sdc": 0,
+          "trials": 8400
+        }
+      },
+      "expected_trials": 16809,
+      "failures": 0,
+      "group": "PFFT",
+      "protection_claim": "frozen_single_fault_domains",
+      "sdc": 0,
+      "status": "VERIFIED",
+      "trials": 16809
+    },
+    "S0": {
+      "domains": {
+        "no_fault": {
+          "fail": 0,
+          "pass": 8,
+          "sdc": 0,
+          "trials": 8
+        }
+      },
+      "expected_trials": 8,
+      "failures": 0,
+      "group": "SubFFT",
+      "protection_claim": "none",
+      "sdc": 0,
+      "status": "VERIFIED",
+      "trials": 8
+    },
+    "S1": {
+      "domains": {
+        "computation": {
+          "fail": 0,
+          "pass": 17360,
+          "sdc": 0,
+          "trials": 17360
+        },
+        "no_fault": {
+          "fail": 0,
+          "pass": 8,
+          "sdc": 0,
+          "trials": 8
+        },
+        "out_of_capability": {
+          "fail": 0,
+          "pass": 1,
+          "sdc": 0,
+          "trials": 1
+        },
+        "storage": {
+          "fail": 0,
+          "pass": 17360,
+          "sdc": 0,
+          "trials": 17360
+        }
+      },
+      "expected_trials": 34729,
+      "failures": 0,
+      "group": "SubFFT",
+      "protection_claim": "frozen_single_fault_domains",
+      "sdc": 0,
+      "status": "VERIFIED",
+      "trials": 34729
+    },
+    "S2": {
+      "domains": {
+        "computation": {
+          "fail": 0,
+          "pass": 8400,
+          "sdc": 0,
+          "trials": 8400
+        },
+        "no_fault": {
+          "fail": 0,
+          "pass": 8,
+          "sdc": 0,
+          "trials": 8
+        },
+        "out_of_capability": {
+          "fail": 0,
+          "pass": 1,
+          "sdc": 0,
+          "trials": 1
+        },
+        "storage": {
+          "fail": 0,
+          "pass": 8400,
+          "sdc": 0,
+          "trials": 8400
+        }
+      },
+      "expected_trials": 16809,
+      "failures": 0,
+      "group": "SubFFT",
+      "protection_claim": "frozen_single_fault_domains",
+      "sdc": 0,
+      "status": "VERIFIED",
+      "trials": 16809
+    },
+    "S3": {
+      "domains": {
+        "computation": {
+          "fail": 0,
+          "pass": 15120,
+          "sdc": 0,
+          "trials": 15120
+        },
+        "no_fault": {
+          "fail": 0,
+          "pass": 8,
+          "sdc": 0,
+          "trials": 8
+        },
+        "out_of_capability": {
+          "fail": 0,
+          "pass": 2,
+          "sdc": 0,
+          "trials": 2
+        },
+        "storage": {
+          "fail": 0,
+          "pass": 11664,
+          "sdc": 0,
+          "trials": 11664
+        }
+      },
+      "expected_trials": 26794,
+      "failures": 0,
+      "group": "SubFFT",
+      "protection_claim": "frozen_single_fault_domains",
+      "sdc": 0,
+      "status": "VERIFIED",
+      "trials": 26794
+    }
+  },
+  "contract_hash": "DF67A343795D6B3B460081BD0EE86CCE0AA97EF7E61D443E1AD579846D6CC60C",
+  "determinism": {
+    "method": "second_in_process_full_row_replay_to_sha256_sink",
+    "pass": true,
+    "raw_sha256": "6870476DEA767F241506A1EC00ECD81BB0280FBD8860D3BFE287671EEF34DACC",
+    "replay_sha256": "6870476DEA767F241506A1EC00ECD81BB0280FBD8860D3BFE287671EEF34DACC"
+  },
+  "evidence_boundary": "S3/P1 computation effects are injected only after four functional and two check operators execute independently; expected residual is the unchanged pre-fault object. Gao labels denote one complete-path-confined effect corrected at the Stage-8 path boundary. S0/P0 make no correction claim.",
+  "expected_count_pass": true,
+  "expected_trial_count": 114463,
+  "experiment_id": "FFT1024-SEVEN-ARCH-V1",
+  "external_rtl_used": false,
+  "gate_hash": "D842DBCD7F2841E03ADD616949E6A673D4E074D9BC56BA252BEE55BBB3028961",
+  "legacy_matrix_hash": "245088778244C2B774B64C6259F7912B0CC41B4865919EC81A7C7B9A7A39BFE9",
+  "matrix_hash": "0F2023E946CF4BEEC5E64386BB39866E68443B0346F1722CB2AD019D86AA7E66",
+  "memory_hash": "9710A4AB9D369E804DB38C61ABCFBDA0CC4B62186A8F4CC685869E607A88211C",
+  "model_hash": "EC0507581C9FB8D13760761A30E8D72CBECA9F6A155AC0306497AB978EDFA226",
+  "p1_stage8": {
+    "buffer_organization": "two_banks_x_256_addresses_x_78_bit_secded_codeword",
+    "cross_frame_groups": 256,
+    "first_frame_buffered_symbols": 512,
+    "group_key": [
+      "twiddle_exponent",
+      "butterfly_branch"
+    ],
+    "same_frame_groups": 256,
+    "unconsumed_symbols": 0
+  },
+  "raw_csv": {
+    "path": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\results\\python_seven_arch_raw.csv",
+    "sha256": "6870476DEA767F241506A1EC00ECD81BB0280FBD8860D3BFE287671EEF34DACC"
+  },
+  "script_hash": "F12E9E4EB5CFF51ECBC341BC8C9486AE40E90B78D39EA3EEA00497FF173DCD52",
+  "source_authority": "python_dataflow_and_protection_contract",
+  "status": "VERIFIED",
+  "trial_count": 114463
+}

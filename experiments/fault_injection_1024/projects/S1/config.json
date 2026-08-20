@@ -1,0 +1,1 @@
+{"architecture_id":"S1","group":"SubFFT","expected_trials":34729,"fault_domains":["no_fault","storage","computation","out_of_capability"],"rtl_top":"top_s1_gao_subfft_ecc","baseline":"S0"}

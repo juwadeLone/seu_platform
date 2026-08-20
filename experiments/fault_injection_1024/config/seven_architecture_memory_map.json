@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "experiment_id": "FFT1024-SEVEN-ARCH-V3",
+  "status": "FROZEN",
+  "decision": "user_corrected_P1_boundary_2026_07_24",
+  "target_family": "xc7",
+  "mapping_rule": "memory_role_geometry_and_port_semantics_only_never_protection_name",
+  "feedback_memories": [
+    {
+      "stage": 1,
+      "depth": 128,
+      "payload_width_bits": 70,
+      "secded_codeword_width_bits": 78,
+      "implementation": "block",
+      "read_semantics": "synchronous_read_first",
+      "ports": "one_read_plus_one_write_per_lane_per_cycle",
+      "rtl_attribute": "ram_style=block",
+      "extra_first_token_cycles": 1
+    },
+    {
+      "stages": [2, 3, 4, 5, 6, 7, 8],
+      "depths": [64, 32, 16, 8, 4, 2, 1],
+      "payload_width_bits": 70,
+      "secded_codeword_width_bits": 78,
+      "implementation": "distributed",
+      "read_semantics": "asynchronous_read",
+      "ports": "one_read_plus_one_write_per_lane_per_cycle",
+      "rtl_attribute": "ram_style=distributed",
+      "extra_first_token_cycles": 0
+    }
+  ],
+  "large_buffers": {
+    "pfft_common_frame_reorder": {
+      "architectures": ["P0", "P1", "P2"],
+      "logical_capacity": "2_banks_x_1024_complex_words",
+      "physical_partition": "four_lane_memories_x_512_addresses",
+      "word_width_bits": 70,
+      "implementation": "block",
+      "read_semantics": "synchronous_read_first",
+      "rtl_attribute": "ram_style=block"
+    }
+  },
+  "small_alignment_registers": {
+    "p1_stage10": {
+      "architectures": ["P1"],
+      "input_beats": 1,
+      "output_beats": 1,
+      "lanes_per_beat": 4,
+      "raw_complex_word_bits": 70,
+      "raw_input_bits": 280,
+      "raw_output_bits": 280,
+      "raw_total_bits": 560,
+      "secded_total_bits_if_used": 624,
+      "implementation": "registers_not_block_ram",
+      "rtl_status": "NOT_IMPLEMENTED_NOT_QUALIFIED"
+    }
+  },
+  "replication_rules": {
+    "unprotected": "one_memory_instance_per_declared_functional_lane",
+    "tmr": "three_identical_instances_of_the_same_memory_template",
+    "memory_secded": "one_functional_codeword_memory_per_lane_with_width_78_not_two_check_memory_replicas",
+    "gao": "seven_identical_subfft_path_memory_templates_four_functional_plus_three_coded"
+  },
+  "post_synthesis_pass_fail": {
+    "declared_block": "must_map_to_RAMB18E1_or_RAMB36E1_and_must_not_be_expanded_to_payload_sized_FDxx_arrays",
+    "declared_distributed": "must_map_to_Xilinx_distributed_RAM_primitives_and_must_not_map_to_RAMB18E1_or_RAMB36E1",
+    "same_geometry": "same_role_depth_width_and_port_semantics_must_have_the_same_primitive_class_across_architectures",
+    "p1_stage10": "alignment_registers_must_cover_exactly_one_input_beat_and_one_output_beat_without_cross_frame_storage"
+  }
+}

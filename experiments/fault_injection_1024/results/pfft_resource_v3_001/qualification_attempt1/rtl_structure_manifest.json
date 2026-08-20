@@ -1,0 +1,756 @@
+{
+  "connectivity_testbench": {
+    "path": "experiments/fault_injection_1024/common/rtl/pfft_connectivity_spot_tb_v3.sv",
+    "sha256": "AF32573DDDD0DC6127F802CBA225D7D2D35870EF313E894FBD673DA526F4EF73",
+    "size_bytes": 8217
+  },
+  "elaboration_by_architecture": {
+    "P0": {
+      "active_fft_complex_mul_q28_instances": 29,
+      "expected_active_fft_complex_mul_q28_instances": 29,
+      "image": {
+        "path": "experiments/fault_injection_1024/build/pfft_resource_v3_001/qualification_attempt1/p0_bit_exact.vvp",
+        "sha256": "6804458B64264991ABD7518EC9663EB8813122209430B3C7AF0BBEC7AD344362",
+        "size_bytes": 8912807
+      },
+      "module_instance_counts": {
+        "fft_complex_mul_q28": 29,
+        "fft_complex_rotate_trivial_1024": 3,
+        "fft_memory_v5": 32,
+        "p0_pfft_no_exchange_core_v3": 1,
+        "p0_pfft_no_exchange_pipeline_v3": 1,
+        "pfft_frame_buffer_lane_v5": 4,
+        "pfft_frame_pair_buffer_v5": 1,
+        "pfft_stage10": 1,
+        "pfft_stage4_sdf_no_exchange_v3": 8,
+        "pfft_stage9_no_exchange_v3": 1,
+        "r2sdf_lane_pfft_no_exchange_v3": 32,
+        "tb_p0": 1,
+        "top_p0_pfft_unprotected": 1,
+        "twiddle_rom_1024": 29
+      },
+      "scope_count": 144,
+      "status": "VERIFIED"
+    },
+    "P1": {
+      "P1_stage8_single_check_pair": {
+        "descendant_fft_complex_mul_q28_instances": 2,
+        "scheduler_instances": 1,
+        "scheduler_module": "p1_stage8_single_check_pair_scheduler_v3"
+      },
+      "active_fft_complex_mul_q28_instances": 46,
+      "expected_active_fft_complex_mul_q28_instances": 46,
+      "image": {
+        "path": "experiments/fault_injection_1024/build/pfft_resource_v3_001/qualification_attempt1/p1_bit_exact.vvp",
+        "sha256": "5C7DE58BC88B83F7B96925B4856D7C64748DB909900D36BC6CED5AB822B9D8FA",
+        "size_bytes": 14635505
+      },
+      "module_instance_counts": {
+        "arithmetic_boundary_from_clean_v5": 8,
+        "arithmetic_corrector_643": 8,
+        "fft_complex_mul_q28": 46,
+        "fft_complex_rotate_trivial_1024": 14,
+        "fft_memory_v5": 32,
+        "independent_check_operator_pair_v5": 1,
+        "p1_ecc_stage4_v3": 7,
+        "p1_pfft_ecc_core_v3": 1,
+        "p1_pfft_stage10_single_cycle_v3": 3,
+        "p1_pfft_stage9_exchange_v3": 3,
+        "p1_stage8_functional_v3": 1,
+        "p1_stage8_single_check_pair_scheduler_v3": 1,
+        "p1_tmr_pfft_stage10_v3": 1,
+        "p1_tmr_pfft_stage9_v3": 1,
+        "pfft_phi_calc": 23,
+        "secded_decode70": 48,
+        "secded_encode70": 48,
+        "tb_p1": 1,
+        "top_p1_pfft_ecc": 1,
+        "twiddle_rom_1024": 46,
+        "vote35": 16
+      },
+      "scope_count": 310,
+      "status": "VERIFIED"
+    },
+    "P2": {
+      "active_fft_complex_mul_q28_instances": 87,
+      "expected_active_fft_complex_mul_q28_instances": 87,
+      "image": {
+        "path": "experiments/fault_injection_1024/build/pfft_resource_v3_001/qualification_attempt1/p2_bit_exact.vvp",
+        "sha256": "9DCF6867B7AF3B94A4BAD16AFD38D237E917F20AA9A5F4F20B3AD211204FCDB2",
+        "size_bytes": 27050651
+      },
+      "module_instance_counts": {
+        "fft_complex_mul_q28": 87,
+        "fft_complex_rotate_trivial_1024": 9,
+        "fft_memory_v5": 96,
+        "p2_pfft_tmr_no_exchange_core_v3": 1,
+        "p2_tmr_pfft_stage10_v3": 1,
+        "p2_tmr_pfft_stage4_no_exchange_v3": 8,
+        "p2_tmr_pfft_stage9_no_exchange_v3": 1,
+        "pfft_frame_buffer_lane_v5": 4,
+        "pfft_frame_pair_buffer_v5": 1,
+        "pfft_stage10": 3,
+        "pfft_stage4_sdf_no_exchange_v3": 24,
+        "pfft_stage9_no_exchange_v3": 3,
+        "r2sdf_lane_pfft_no_exchange_v3": 96,
+        "tb_p2": 1,
+        "top_p2_pfft_tmr": 1,
+        "twiddle_rom_1024": 87,
+        "vote35": 80
+      },
+      "scope_count": 503,
+      "status": "VERIFIED"
+    }
+  },
+  "elaboration_checks_by_architecture": {
+    "P0": [
+      {
+        "evidence": {
+          "actual": 29,
+          "expected": 29
+        },
+        "name": "P0_elaborated_active_complex_multiplier_count",
+        "pass": true
+      }
+    ],
+    "P1": [
+      {
+        "evidence": {
+          "actual": 46,
+          "expected": 46
+        },
+        "name": "P1_elaborated_active_complex_multiplier_count",
+        "pass": true
+      },
+      {
+        "evidence": 1,
+        "name": "P1_elaborated_has_one_single_check_pair_scheduler",
+        "pass": true
+      },
+      {
+        "evidence": 2,
+        "name": "P1_elaborated_scheduler_has_two_descendant_complex_multipliers",
+        "pass": true
+      }
+    ],
+    "P2": [
+      {
+        "evidence": {
+          "actual": 87,
+          "expected": 87
+        },
+        "name": "P2_elaborated_active_complex_multiplier_count",
+        "pass": true
+      }
+    ]
+  },
+  "expected_vectors": {
+    "P0": {
+      "path": "experiments/fault_injection_1024/projects/P0/vectors/qualification_p0_no_exchange_expected_8frames.hex",
+      "sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204",
+      "size_bytes": 145408
+    },
+    "P1": {
+      "path": "experiments/fault_injection_1024/common/vectors/qualification_pfft_expected_8frames.hex",
+      "sha256": "48C8D6A1948A36D837183E112C4C14FFD5C861E075195B301773857C5F361BE2",
+      "size_bytes": 145408
+    },
+    "P2": {
+      "path": "experiments/fault_injection_1024/projects/P2/vectors/qualification_p2_no_exchange_expected_8frames.hex",
+      "sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204",
+      "size_bytes": 145408
+    }
+  },
+  "experiment_id": "PFFT-RES-V3-001",
+  "schema": "pfft-resource-v3-001-rtl-structure-manifest-v1",
+  "source_static_audit": {
+    "checks": [
+      {
+        "evidence": 8,
+        "name": "P0_has_eight_canonical_no_exchange_SDF_stages",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "stage10": 1,
+          "stage9": 1
+        },
+        "name": "P0_has_canonical_no_exchange_stage9_and_stage10",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "closure_contains_pfft_phi_calc": false
+        },
+        "name": "P0_active_source_has_no_exchange_phi_instance",
+        "pass": true
+      },
+      {
+        "evidence": [],
+        "name": "P0_closure_has_no_ECC_TMR_or_voter",
+        "pass": true
+      },
+      {
+        "evidence": 8,
+        "name": "P2_has_eight_TMR_SDF_stages",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "stage10": 1,
+          "stage9": 1
+        },
+        "name": "P2_has_TMR_stage9_and_stage10",
+        "pass": true
+      },
+      {
+        "evidence": 3,
+        "name": "P2_each_wrapper_declares_three_replicas",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "stage10_wrapper": 8,
+          "stage1_to8_wrapper": 8,
+          "stage9_wrapper": 8
+        },
+        "name": "P2_each_wrapper_has_eight_complex_component_voters",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "closure_contains_pfft_phi_calc": false
+        },
+        "name": "P2_active_source_has_no_exchange_phi_instance",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "check_pair_module": {
+            "defined": true,
+            "module": "independent_check_operator_pair_v5",
+            "reachable": true
+          },
+          "core_module": {
+            "defined": true,
+            "module": "p1_pfft_ecc_core_v3",
+            "reachable": true
+          },
+          "stage10_tmr_module": {
+            "defined": true,
+            "module": "p1_tmr_pfft_stage10_v3",
+            "reachable": true
+          },
+          "stage1_to7_module": {
+            "defined": true,
+            "module": "p1_ecc_stage4_v3",
+            "reachable": true
+          },
+          "stage8_functional_module": {
+            "defined": true,
+            "module": "p1_stage8_functional_v3",
+            "reachable": true
+          },
+          "stage8_scheduler_module": {
+            "defined": true,
+            "module": "p1_stage8_single_check_pair_scheduler_v3",
+            "reachable": true
+          },
+          "stage9_replica_module": {
+            "defined": true,
+            "module": "p1_pfft_stage9_exchange_v3",
+            "reachable": true
+          },
+          "stage9_tmr_module": {
+            "defined": true,
+            "module": "p1_tmr_pfft_stage9_v3",
+            "reachable": true
+          }
+        },
+        "name": "P1_all_required_modules_are_defined_and_reachable",
+        "pass": true
+      },
+      {
+        "evidence": 1,
+        "name": "P1_closure_has_exactly_one_single_check_pair_scheduler_instance",
+        "pass": true
+      },
+      {
+        "evidence": 1,
+        "name": "P1_scheduler_directly_instantiates_exactly_one_shared_check_pair",
+        "pass": true
+      },
+      {
+        "evidence": 2,
+        "name": "P1_shared_check_pair_source_has_exactly_two_complex_multipliers",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "FIFO": true,
+          "background": true,
+          "tag": true,
+          "urgent": true
+        },
+        "name": "P1_scheduler_has_FIFO_urgent_background_and_tag_markers",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "background_128_plus_direct_skid": true,
+          "fixed_latency_258": true,
+          "literal_129": true
+        },
+        "name": "P1_scheduler_freezes_129_capacity_or_128_plus_skid_and_258_cycle_latency",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "background_array_count": 1,
+          "declared_block_array_count": 15,
+          "history_arrays": [
+            "functional_history0",
+            "functional_history1",
+            "functional_history2",
+            "functional_history3",
+            "operand_a_history0",
+            "operand_a_history1",
+            "operand_a_history2",
+            "operand_a_history3",
+            "operand_b_history0",
+            "operand_b_history1",
+            "operand_b_history2",
+            "operand_b_history3"
+          ],
+          "logical_capacity_bits": 921472,
+          "result_arrays": [
+            "result01_memory",
+            "result23_memory"
+          ]
+        },
+        "name": "P1_scheduler_freezes_15_block_arrays_and_921472_logical_bits",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "closure_contains_pfft_phi_calc": true
+        },
+        "name": "P1_source_uses_exchange_schedule",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "generic_source_instances": 1,
+          "trivial_source_instances": 1
+        },
+        "name": "canonical_lane_has_one_time_shared_lower_rotation_slot",
+        "pass": true
+      },
+      {
+        "evidence": "stage7_lane0_and_stage8_lanes0_2",
+        "name": "canonical_lane_specializes_stage7_lane0_and_stage8_lanes0_2",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "all_pass_fail_checks": true,
+          "status": "PASS_STATIC_FEASIBILITY_SINGLE_CHECK_PAIR",
+          "stop_condition_triggered": false
+        },
+        "name": "P1_stage8_static_feasibility_gate_passed",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "continuous_no_gap": true,
+          "minimum_fixed_latency_cycles": 258,
+          "safe_queue_entries": 129
+        },
+        "name": "P1_stage8_schedule_matches_129_entry_258_cycle_contract",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "P0_sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204",
+          "P2_sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204",
+          "manifest_shared_sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204"
+        },
+        "name": "P0_P2_vectors_are_byte_identical_canonical_DIF",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "output_beats": 2048,
+          "status": "VERIFIED"
+        },
+        "name": "vector_manifest_is_verified",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "expected_vector": "experiments/fault_injection_1024/projects/P0/vectors/qualification_p0_no_exchange_expected_8frames.hex",
+          "latency_marker": true,
+          "vector_marker": true
+        },
+        "name": "P0_TB_freezes_latency_and_project_vector",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "expected_vector": "experiments/fault_injection_1024/common/vectors/qualification_pfft_expected_8frames.hex",
+          "latency_marker": true,
+          "vector_marker": true
+        },
+        "name": "P1_TB_freezes_latency_and_project_vector",
+        "pass": true
+      },
+      {
+        "evidence": {
+          "expected_vector": "experiments/fault_injection_1024/projects/P2/vectors/qualification_p2_no_exchange_expected_8frames.hex",
+          "latency_marker": true,
+          "vector_marker": true
+        },
+        "name": "P2_TB_freezes_latency_and_project_vector",
+        "pass": true
+      }
+    ],
+    "module_closure_by_architecture": {
+      "P0": [
+        "fft_complex_mul_q28",
+        "fft_complex_rotate_trivial_1024",
+        "fft_memory_v5",
+        "p0_pfft_no_exchange_core_v3",
+        "p0_pfft_no_exchange_pipeline_v3",
+        "pfft_frame_buffer_lane_v5",
+        "pfft_frame_pair_buffer_v5",
+        "pfft_stage10",
+        "pfft_stage4_sdf_no_exchange_v3",
+        "pfft_stage9_no_exchange_v3",
+        "r2sdf_lane_pfft_no_exchange_v3",
+        "top_p0_pfft_unprotected",
+        "twiddle_rom_1024"
+      ],
+      "P1": [
+        "arithmetic_boundary_from_clean_v5",
+        "arithmetic_corrector_643",
+        "fft_complex_mul_q28",
+        "fft_complex_rotate_trivial_1024",
+        "fft_memory_v5",
+        "independent_check_operator_pair_v5",
+        "p1_ecc_stage4_v3",
+        "p1_pfft_ecc_core_v3",
+        "p1_pfft_stage10_single_cycle_v3",
+        "p1_pfft_stage9_exchange_v3",
+        "p1_stage8_functional_v3",
+        "p1_stage8_single_check_pair_scheduler_v3",
+        "p1_tmr_pfft_stage10_v3",
+        "p1_tmr_pfft_stage9_v3",
+        "pfft_phi_calc",
+        "secded_decode70",
+        "secded_encode70",
+        "top_p1_pfft_ecc",
+        "twiddle_rom_1024",
+        "vote35"
+      ],
+      "P2": [
+        "fft_complex_mul_q28",
+        "fft_complex_rotate_trivial_1024",
+        "fft_memory_v5",
+        "p2_pfft_tmr_no_exchange_core_v3",
+        "p2_tmr_pfft_stage10_v3",
+        "p2_tmr_pfft_stage4_no_exchange_v3",
+        "p2_tmr_pfft_stage9_no_exchange_v3",
+        "pfft_frame_buffer_lane_v5",
+        "pfft_frame_pair_buffer_v5",
+        "pfft_stage10",
+        "pfft_stage4_sdf_no_exchange_v3",
+        "pfft_stage9_no_exchange_v3",
+        "r2sdf_lane_pfft_no_exchange_v3",
+        "top_p2_pfft_tmr",
+        "twiddle_rom_1024",
+        "vote35"
+      ]
+    },
+    "module_edges_by_architecture": {
+      "P0": {
+        "fft_complex_mul_q28": {
+          "twiddle_rom_1024": 1
+        },
+        "fft_complex_rotate_trivial_1024": {},
+        "fft_memory_v5": {},
+        "p0_pfft_no_exchange_core_v3": {
+          "p0_pfft_no_exchange_pipeline_v3": 1,
+          "pfft_frame_pair_buffer_v5": 1
+        },
+        "p0_pfft_no_exchange_pipeline_v3": {
+          "pfft_stage10": 1,
+          "pfft_stage4_sdf_no_exchange_v3": 8,
+          "pfft_stage9_no_exchange_v3": 1
+        },
+        "pfft_frame_buffer_lane_v5": {},
+        "pfft_frame_pair_buffer_v5": {
+          "pfft_frame_buffer_lane_v5": 4
+        },
+        "pfft_stage10": {},
+        "pfft_stage4_sdf_no_exchange_v3": {
+          "r2sdf_lane_pfft_no_exchange_v3": 4
+        },
+        "pfft_stage9_no_exchange_v3": {},
+        "r2sdf_lane_pfft_no_exchange_v3": {
+          "fft_complex_mul_q28": 1,
+          "fft_complex_rotate_trivial_1024": 1,
+          "fft_memory_v5": 1
+        },
+        "top_p0_pfft_unprotected": {
+          "p0_pfft_no_exchange_core_v3": 1
+        },
+        "twiddle_rom_1024": {}
+      },
+      "P1": {
+        "arithmetic_boundary_from_clean_v5": {
+          "arithmetic_corrector_643": 1
+        },
+        "arithmetic_corrector_643": {},
+        "fft_complex_mul_q28": {
+          "twiddle_rom_1024": 1
+        },
+        "fft_complex_rotate_trivial_1024": {},
+        "fft_memory_v5": {},
+        "independent_check_operator_pair_v5": {
+          "fft_complex_mul_q28": 2
+        },
+        "p1_ecc_stage4_v3": {
+          "arithmetic_boundary_from_clean_v5": 1,
+          "fft_complex_mul_q28": 1,
+          "fft_complex_rotate_trivial_1024": 1,
+          "fft_memory_v5": 4,
+          "pfft_phi_calc": 1,
+          "secded_decode70": 4,
+          "secded_encode70": 4
+        },
+        "p1_pfft_ecc_core_v3": {
+          "p1_ecc_stage4_v3": 7,
+          "p1_stage8_functional_v3": 1,
+          "p1_stage8_single_check_pair_scheduler_v3": 1,
+          "p1_tmr_pfft_stage10_v3": 1,
+          "p1_tmr_pfft_stage9_v3": 1
+        },
+        "p1_pfft_stage10_single_cycle_v3": {},
+        "p1_pfft_stage9_exchange_v3": {
+          "fft_complex_mul_q28": 2,
+          "fft_complex_rotate_trivial_1024": 2,
+          "pfft_phi_calc": 4
+        },
+        "p1_stage8_functional_v3": {
+          "fft_complex_mul_q28": 2,
+          "fft_complex_rotate_trivial_1024": 2,
+          "fft_memory_v5": 4,
+          "pfft_phi_calc": 4,
+          "secded_decode70": 4,
+          "secded_encode70": 4
+        },
+        "p1_stage8_single_check_pair_scheduler_v3": {
+          "arithmetic_boundary_from_clean_v5": 1,
+          "independent_check_operator_pair_v5": 1,
+          "secded_decode70": 16,
+          "secded_encode70": 16
+        },
+        "p1_tmr_pfft_stage10_v3": {
+          "p1_pfft_stage10_single_cycle_v3": 1,
+          "vote35": 8
+        },
+        "p1_tmr_pfft_stage9_v3": {
+          "p1_pfft_stage9_exchange_v3": 1,
+          "vote35": 8
+        },
+        "pfft_phi_calc": {},
+        "secded_decode70": {},
+        "secded_encode70": {},
+        "top_p1_pfft_ecc": {
+          "p1_pfft_ecc_core_v3": 1
+        },
+        "twiddle_rom_1024": {},
+        "vote35": {}
+      },
+      "P2": {
+        "fft_complex_mul_q28": {
+          "twiddle_rom_1024": 1
+        },
+        "fft_complex_rotate_trivial_1024": {},
+        "fft_memory_v5": {},
+        "p2_pfft_tmr_no_exchange_core_v3": {
+          "p2_tmr_pfft_stage10_v3": 1,
+          "p2_tmr_pfft_stage4_no_exchange_v3": 8,
+          "p2_tmr_pfft_stage9_no_exchange_v3": 1,
+          "pfft_frame_pair_buffer_v5": 1
+        },
+        "p2_tmr_pfft_stage10_v3": {
+          "pfft_stage10": 1,
+          "vote35": 8
+        },
+        "p2_tmr_pfft_stage4_no_exchange_v3": {
+          "pfft_stage4_sdf_no_exchange_v3": 1,
+          "vote35": 8
+        },
+        "p2_tmr_pfft_stage9_no_exchange_v3": {
+          "pfft_stage9_no_exchange_v3": 1,
+          "vote35": 8
+        },
+        "pfft_frame_buffer_lane_v5": {},
+        "pfft_frame_pair_buffer_v5": {
+          "pfft_frame_buffer_lane_v5": 4
+        },
+        "pfft_stage10": {},
+        "pfft_stage4_sdf_no_exchange_v3": {
+          "r2sdf_lane_pfft_no_exchange_v3": 4
+        },
+        "pfft_stage9_no_exchange_v3": {},
+        "r2sdf_lane_pfft_no_exchange_v3": {
+          "fft_complex_mul_q28": 1,
+          "fft_complex_rotate_trivial_1024": 1,
+          "fft_memory_v5": 1
+        },
+        "top_p2_pfft_tmr": {
+          "p2_pfft_tmr_no_exchange_core_v3": 1
+        },
+        "twiddle_rom_1024": {},
+        "vote35": {}
+      }
+    },
+    "passed": 26,
+    "status": "VERIFIED",
+    "total": 26
+  },
+  "sources_by_architecture": {
+    "P0": [
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/twiddle_rom_1024.sv",
+        "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "size_bytes": 83641
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/fft_common.sv",
+        "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "size_bytes": 17880
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_rtl.sv",
+        "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "size_bytes": 3555
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/datapath_v5.sv",
+        "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "size_bytes": 23743
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_primitives_v5.sv",
+        "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "size_bytes": 10785
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protected_stages_v5.sv",
+        "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "size_bytes": 15730
+      },
+      {
+        "path": "experiments/fault_injection_1024/projects/P0/top_p0_pfft_unprotected.sv",
+        "sha256": "AF56137D7BC711E655F4316C34D4A351AA9D5A907B4E79215053A17D56A8C114",
+        "size_bytes": 4050
+      }
+    ],
+    "P1": [
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/twiddle_rom_1024.sv",
+        "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "size_bytes": 83641
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/fft_common.sv",
+        "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "size_bytes": 17880
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_rtl.sv",
+        "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "size_bytes": 3555
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/datapath_v5.sv",
+        "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "size_bytes": 23743
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_primitives_v5.sv",
+        "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "size_bytes": 10785
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protected_stages_v5.sv",
+        "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "size_bytes": 15730
+      },
+      {
+        "path": "experiments/fault_injection_1024/projects/P1/top_p1_pfft_ecc.sv",
+        "sha256": "A2189C214C946CEB2B97B64BF9E19470231EEB7E9A66C0AAC50B6FEF70086117",
+        "size_bytes": 44891
+      }
+    ],
+    "P2": [
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/twiddle_rom_1024.sv",
+        "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "size_bytes": 83641
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/fft_common.sv",
+        "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "size_bytes": 17880
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_rtl.sv",
+        "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "size_bytes": 3555
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/datapath_v5.sv",
+        "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "size_bytes": 23743
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_primitives_v5.sv",
+        "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "size_bytes": 10785
+      },
+      {
+        "path": "experiments/fault_injection_1024/common/rtl/protected_stages_v5.sv",
+        "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "size_bytes": 15730
+      },
+      {
+        "path": "experiments/fault_injection_1024/projects/P2/top_p2_pfft_tmr.sv",
+        "sha256": "F5E7354F5EC137206E3E1900D693C17BB801B83E81588707FE489B4FCFDB92F3",
+        "size_bytes": 7083
+      }
+    ]
+  },
+  "status": "VERIFIED",
+  "target": "1024-point four-lane ten-stage radix-2 PFFT",
+  "testbenches": {
+    "P0": {
+      "path": "experiments/fault_injection_1024/projects/P0/tb_p0.sv",
+      "sha256": "B36DC267B8266E16F05433EE963B1D2345A8655F3BEDDBD174685D36F7759284",
+      "size_bytes": 348
+    },
+    "P1": {
+      "path": "experiments/fault_injection_1024/projects/P1/tb_p1.sv",
+      "sha256": "A9E63F477C7E060FD4FE15EB2241B31F093BED3B7F96E85DD554814716A9FD35",
+      "size_bytes": 325
+    },
+    "P2": {
+      "path": "experiments/fault_injection_1024/projects/P2/tb_p2.sv",
+      "sha256": "1C15D33B70DF489A9AE5EDE13B7BC8C8F86ADB2954260223605915BB877751AC",
+      "size_bytes": 340
+    }
+  }
+}

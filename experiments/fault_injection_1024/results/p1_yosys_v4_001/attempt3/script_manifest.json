@@ -1,0 +1,20 @@
+{
+  "attempt1_runner": {
+    "path": "experiments/fault_injection_1024/common/tools/run_p1_yosys_v4.py",
+    "sha256": "B6AD4A670ED35B8D48ABCFBBF4E12E63C0C9F2E647027A6F3CF0FF260AEADB7B",
+    "size_bytes": 15872
+  },
+  "derivation": "exact expansion of frozen attempt1 runner script templates",
+  "flow": "synth_xilinx -family xc7 -top top_p1_pfft_ecc",
+  "preflight": {
+    "path": "C:/Users/pc/AppData/Local/Temp/P1V4A39B1DB375/preflight.ys",
+    "sha256": "B101B1DDDA2D0F9F606DEEF38304B3447409CF962AA100A8B751B74689EE4C7E",
+    "size_bytes": 268
+  },
+  "schema": "p1-yosys-v4-001-attempt3-script-manifest-v1",
+  "synthesis": {
+    "path": "C:/Users/pc/AppData/Local/Temp/P1V4A39B1DB375/synthesis.ys",
+    "sha256": "FEAD52429F25B62783200F53116521A6C83A732D9C148F974747B3714D95C008",
+    "size_bytes": 335
+  }
+}

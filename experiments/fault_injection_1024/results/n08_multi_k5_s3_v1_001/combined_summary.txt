@@ -1,0 +1,4 @@
+arch=s3 k=5 expected_trials=200 actual_trials=200 bad_injected=0 timeouts=0
+SUMMARY arch=S3 k=5 total=200 corrected=195 detected_only=0 silent_bounded_residual=0 miscorrection=5 silent_unbounded=0 timeout=0
+site_sha256=a837c08a56addd0c3615e9ed15ef761f174f7bd0e55ded4c32dfe2e10f284353
+log_sha256=c2722cd5d5d0593bb45178c8642809d560c307accad5e8b1e3d9cc1b8b2be7bd

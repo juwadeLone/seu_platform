@@ -1,0 +1,1 @@
+{"architecture_id":"S0","group":"SubFFT","expected_trials":8,"fault_domains":["no_fault"],"rtl_top":"top_s0_subfft_unprotected","baseline":"S0"}

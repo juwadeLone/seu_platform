@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "log": {
+    "path": "experiments/fault_injection_1024/logs/p0_no_framebuf_v1_001/attempt2/yosys_version.log",
+    "sha256": "267B3421C34C353568440BCA7B2BBE1ECC2B130C9865515C5F9382B5321D795C",
+    "size_bytes": 89
+  },
+  "status": "VERIFIED"
+}

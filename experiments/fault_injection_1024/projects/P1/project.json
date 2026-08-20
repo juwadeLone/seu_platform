@@ -1,0 +1,23 @@
+{
+  "architecture_id": "P1",
+  "group": "PFFT",
+  "role": "proposed_per_stage_ecc",
+  "python_model": "common.python.fixed_fft.pfft_1024",
+  "twiddle_schedule": "dit_latest_exchange_for_arithmetic_ecc",
+  "generic_complex_multipliers_by_stage_structural_target": [0, 6, 6, 6, 6, 6, 6, 6, 6, 0],
+  "expected_dsp48e1_by_stage_unmeasured": [0, 96, 96, 96, 96, 96, 96, 96, 96, 0],
+  "protection_by_stage": {
+    "stage1_to7": "arithmetic_ecc_643",
+    "stage8_to9": "full_stage_tmr",
+    "stage10": "two_beat_four_butterfly_arithmetic_ecc_643"
+  },
+  "python_campaign": "projects.P1.run_p1",
+  "python_entry": "run_p1.py",
+  "rtl_sources": ["top_p1_pfft_ecc.sv"],
+  "testbench": "tb_p1.sv",
+  "rtl_top": "top_p1_pfft_ecc",
+  "baseline": "P0",
+  "rtl_qualification_result": "../../results/p1_rtl_v4_001/qualification_attempt1/qualification.json",
+  "rtl_first_output_latency_cycles": 267,
+  "status": "P1_PY_V3_AND_RTL_V4_VERIFIED_YOSYS_NOT_AUTHORIZED"
+}

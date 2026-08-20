@@ -1,0 +1,15 @@
+﻿{
+    "captured_before_yosys_start":  true,
+    "architecture":  "S0",
+    "working_directory":  "C:\\Users\\pc\\AppData\\Local\\Temp\\SUBFFT9W0001",
+    "yosys_path":  "C:\\Users\\pc\\Downloads\\oss-cad-suite\\bin\\yosys.exe",
+    "yosys_sha256":  "059916904062A877B530E6169FA22DBCE32EC66118B75E9A2198F86EA67BA3EB",
+    "environment":  {
+                        "PATH":  "C:\\Users\\pc\\Downloads\\oss-cad-suite\\bin;C:\\Users\\pc\\Downloads\\oss-cad-suite\\lib;C:\\WINDOWS\\system32;C:\\WINDOWS",
+                        "YOSYSHQ_ROOT":  "C:\\Users\\pc\\Downloads\\oss-cad-suite\\",
+                        "PYTHONHOME":  null,
+                        "PYTHONPATH":  null
+                    },
+    "preflight_command":  "read_verilog -sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/common/rtl/twiddle_rom_1024.sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/common/rtl/fft_common.sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/common/rtl/protection_rtl.sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/common/rtl/datapath_v5.sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/common/rtl/protection_primitives_v5.sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/common/rtl/protected_stages_v5.sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/projects/S0/top_s0_subfft_unprotected.sv; hierarchy -check -top top_s0_subfft_unprotected; check; proc; opt_clean; write_json D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S0_yosys_attempt1/preflight.json",
+    "formal_flow":  "read_verilog; hierarchy -check; synth_xilinx -family xc7; stat -tech xilinx; write_json"
+}

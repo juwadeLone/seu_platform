@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="7.16in" height="3.5in" viewBox="0 0 1432 700">
+<rect x="0" y="0" width="1432" height="700" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1" opacity="1.0"/>
+<text x="28" y="42" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="27" font-weight="bold" font-style="normal" fill="#202020">(a)</text>
+<text x="104" y="42" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="27" font-weight="bold" font-style="normal" fill="#202020">Stage-wise exercised protection coverage</text>
+<text x="795" y="42" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="27" font-weight="bold" font-style="normal" fill="#202020">(b)</text>
+<text x="865" y="42" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="27" font-weight="bold" font-style="normal" fill="#202020">Campaign scale and outcomes</text>
+<text x="210.0" y="91" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="22" font-weight="bold" font-style="normal" fill="#303030">Memory SECDED</text>
+<text x="400.0" y="91" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="22" font-weight="bold" font-style="normal" fill="#737373">Arithmetic ECC</text>
+<text x="590.0" y="91" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="22" font-weight="bold" font-style="normal" fill="#A6A6A6">Localized TMR</text>
+<text x="72" y="91" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="22" font-weight="bold" font-style="normal" fill="#202020">Stage</text>
+<text x="72" y="148" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="21" font-weight="normal" font-style="normal" fill="#202020">1</text>
+<rect x="120" y="122" width="180" height="37" rx="5" fill="#303030" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="210.0" y="148" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">24/24</text>
+<rect x="310" y="122" width="180" height="37" rx="5" fill="#737373" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="400.0" y="148" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">144/144</text>
+<rect x="500" y="122" width="180" height="37" rx="5" fill="#F2F2F2" stroke="#C8C8C8" stroke-width="1" opacity="1.0"/>
+<text x="590.0" y="147" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" font-style="normal" fill="#888888">—</text>
+<text x="72" y="193" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="21" font-weight="normal" font-style="normal" fill="#202020">2</text>
+<rect x="120" y="167" width="180" height="37" rx="5" fill="#303030" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="210.0" y="193" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">24/24</text>
+<rect x="310" y="167" width="180" height="37" rx="5" fill="#737373" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="400.0" y="193" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">144/144</text>
+<rect x="500" y="167" width="180" height="37" rx="5" fill="#F2F2F2" stroke="#C8C8C8" stroke-width="1" opacity="1.0"/>
+<text x="590.0" y="192" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" font-style="normal" fill="#888888">—</text>
+<text x="72" y="238" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="21" font-weight="normal" font-style="normal" fill="#202020">3</text>
+<rect x="120" y="212" width="180" height="37" rx="5" fill="#303030" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="210.0" y="238" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">24/24</text>
+<rect x="310" y="212" width="180" height="37" rx="5" fill="#737373" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="400.0" y="238" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">144/144</text>
+<rect x="500" y="212" width="180" height="37" rx="5" fill="#F2F2F2" stroke="#C8C8C8" stroke-width="1" opacity="1.0"/>
+<text x="590.0" y="237" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" font-style="normal" fill="#888888">—</text>
+<text x="72" y="283" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="21" font-weight="normal" font-style="normal" fill="#202020">4</text>
+<rect x="120" y="257" width="180" height="37" rx="5" fill="#303030" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="210.0" y="283" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">24/24</text>
+<rect x="310" y="257" width="180" height="37" rx="5" fill="#737373" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="400.0" y="283" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">144/144</text>
+<rect x="500" y="257" width="180" height="37" rx="5" fill="#F2F2F2" stroke="#C8C8C8" stroke-width="1" opacity="1.0"/>
+<text x="590.0" y="282" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" font-style="normal" fill="#888888">—</text>
+<text x="72" y="328" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="21" font-weight="normal" font-style="normal" fill="#202020">5</text>
+<rect x="120" y="302" width="180" height="37" rx="5" fill="#303030" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="210.0" y="328" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">24/24</text>
+<rect x="310" y="302" width="180" height="37" rx="5" fill="#737373" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="400.0" y="328" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">144/144</text>
+<rect x="500" y="302" width="180" height="37" rx="5" fill="#F2F2F2" stroke="#C8C8C8" stroke-width="1" opacity="1.0"/>
+<text x="590.0" y="327" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" font-style="normal" fill="#888888">—</text>
+<text x="72" y="373" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="21" font-weight="normal" font-style="normal" fill="#202020">6</text>
+<rect x="120" y="347" width="180" height="37" rx="5" fill="#303030" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="210.0" y="373" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">24/24</text>
+<rect x="310" y="347" width="180" height="37" rx="5" fill="#737373" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="400.0" y="373" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">144/144</text>
+<rect x="500" y="347" width="180" height="37" rx="5" fill="#F2F2F2" stroke="#C8C8C8" stroke-width="1" opacity="1.0"/>
+<text x="590.0" y="372" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" font-style="normal" fill="#888888">—</text>
+<text x="72" y="418" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="21" font-weight="normal" font-style="normal" fill="#202020">7</text>
+<rect x="120" y="392" width="180" height="37" rx="5" fill="#303030" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="210.0" y="418" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">24/24</text>
+<rect x="310" y="392" width="180" height="37" rx="5" fill="#737373" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="400.0" y="418" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">144/144</text>
+<rect x="500" y="392" width="180" height="37" rx="5" fill="#F2F2F2" stroke="#C8C8C8" stroke-width="1" opacity="1.0"/>
+<text x="590.0" y="417" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" font-style="normal" fill="#888888">—</text>
+<text x="72" y="463" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="21" font-weight="normal" font-style="normal" fill="#202020">8</text>
+<rect x="120" y="437" width="180" height="37" rx="5" fill="#303030" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="210.0" y="463" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">24/24</text>
+<rect x="310" y="437" width="180" height="37" rx="5" fill="#F2F2F2" stroke="#C8C8C8" stroke-width="1" opacity="1.0"/>
+<text x="400.0" y="462" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" font-style="normal" fill="#888888">—</text>
+<rect x="500" y="437" width="180" height="37" rx="5" fill="#A6A6A6" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="590.0" y="463" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">72/72</text>
+<text x="72" y="508" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="21" font-weight="normal" font-style="normal" fill="#202020">9</text>
+<rect x="120" y="482" width="180" height="37" rx="5" fill="#303030" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="210.0" y="508" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">24/24</text>
+<rect x="310" y="482" width="180" height="37" rx="5" fill="#F2F2F2" stroke="#C8C8C8" stroke-width="1" opacity="1.0"/>
+<text x="400.0" y="507" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" font-style="normal" fill="#888888">—</text>
+<rect x="500" y="482" width="180" height="37" rx="5" fill="#A6A6A6" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="590.0" y="508" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">72/72</text>
+<text x="72" y="553" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="21" font-weight="normal" font-style="normal" fill="#202020">10</text>
+<rect x="120" y="527" width="180" height="37" rx="5" fill="#303030" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="210.0" y="553" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">24/24</text>
+<rect x="310" y="527" width="180" height="37" rx="5" fill="#F2F2F2" stroke="#C8C8C8" stroke-width="1" opacity="1.0"/>
+<text x="400.0" y="552" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" font-style="normal" fill="#888888">—</text>
+<rect x="500" y="527" width="180" height="37" rx="5" fill="#A6A6A6" stroke="none" stroke-width="1" opacity="0.94"/>
+<text x="590.0" y="553" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#FFFFFF">72/72</text>
+<line x1="92" y1="577" x2="700" y2="577" stroke="#555555" stroke-width="1.2"/>
+<text x="115" y="612" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" font-style="normal" fill="#555555">Cell label: golden matches / injected trials</text>
+<text x="115" y="642" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" font-style="normal" fill="#202020">All exercised stage-domain combinations: 100%</text>
+<text x="875" y="184" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="21" font-weight="bold" font-style="normal" fill="#303030">Memory SECDED</text>
+<rect x="900" y="152" width="475" height="48" rx="5" fill="#EEEEEE" stroke="none" stroke-width="1" opacity="1.0"/>
+<rect x="900" y="152" width="113.0952380952381" height="48" rx="5" fill="#303030" stroke="none" stroke-width="1" opacity="1.0"/>
+<text x="1025.095238095238" y="184" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="21" font-weight="bold" font-style="normal" fill="#202020">240/240</text>
+<text x="900" y="230" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" font-style="normal" fill="#4A4A4A">100% corrected/masked; 0 SDC</text>
+<text x="875" y="312" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="21" font-weight="bold" font-style="normal" fill="#737373">Arithmetic ECC</text>
+<rect x="900" y="280" width="475" height="48" rx="5" fill="#EEEEEE" stroke="none" stroke-width="1" opacity="1.0"/>
+<rect x="900" y="280" width="475.0" height="48" rx="5" fill="#737373" stroke="none" stroke-width="1" opacity="1.0"/>
+<text x="1320" y="312" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="21" font-weight="bold" font-style="normal" fill="#202020">1008/1008</text>
+<text x="900" y="358" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" font-style="normal" fill="#4A4A4A">100% corrected/masked; 0 SDC</text>
+<text x="875" y="440" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="21" font-weight="bold" font-style="normal" fill="#A6A6A6">Localized TMR</text>
+<rect x="900" y="408" width="475" height="48" rx="5" fill="#EEEEEE" stroke="none" stroke-width="1" opacity="1.0"/>
+<rect x="900" y="408" width="101.78571428571429" height="48" rx="5" fill="#A6A6A6" stroke="none" stroke-width="1" opacity="1.0"/>
+<text x="1013.7857142857143" y="440" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="21" font-weight="bold" font-style="normal" fill="#202020">216/216</text>
+<text x="900" y="486" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" font-style="normal" fill="#4A4A4A">100% corrected/masked; 0 SDC</text>
+<line x1="900" y1="520" x2="1375" y2="520" stroke="#333333" stroke-width="1.5"/>
+<line x1="900.0" y1="520" x2="900.0" y2="528" stroke="#333333" stroke-width="1.2"/>
+<text x="900.0" y="552" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" font-style="normal" fill="#202020">0</text>
+<line x1="1017.8075396825396" y1="520" x2="1017.8075396825396" y2="528" stroke="#333333" stroke-width="1.2"/>
+<text x="1017.8075396825396" y="552" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" font-style="normal" fill="#202020">250</text>
+<line x1="1135.6150793650793" y1="520" x2="1135.6150793650793" y2="528" stroke="#333333" stroke-width="1.2"/>
+<text x="1135.6150793650793" y="552" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" font-style="normal" fill="#202020">500</text>
+<line x1="1253.422619047619" y1="520" x2="1253.422619047619" y2="528" stroke="#333333" stroke-width="1.2"/>
+<text x="1253.422619047619" y="552" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" font-style="normal" fill="#202020">750</text>
+<line x1="1371.2301587301588" y1="520" x2="1371.2301587301588" y2="528" stroke="#333333" stroke-width="1.2"/>
+<text x="1371.2301587301588" y="552" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" font-style="normal" fill="#202020">1000</text>
+<text x="1137.5" y="585" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="21" font-weight="normal" font-style="normal" fill="#202020">Injected trials</text>
+<rect x="820" y="608" width="555" height="62" rx="6" fill="#F7F7F7" stroke="#808080" stroke-width="1.2" opacity="1.0"/>
+<text x="1098" y="648" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="22" font-weight="bold" font-style="normal" fill="#202020">Overall: 1464/1464 corrected or masked; 0 SDC</text>
+</svg>

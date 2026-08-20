@@ -1,0 +1,11 @@
+2026-08-14T12:55:57+08:00 START_V2_REPEAT arch=p1 k=8 trials=200 tau=3 site=experiments/fault_injection_1024/results/n08_multi_k8_p1_v2_002/sites_k8_v1.csv
+2026-08-14T12:55:57+08:00 COMPILE_OK_V2_REPEAT arch=p1 k=8
+2026-08-14T12:55:57+08:00 RUNNING_V2_REPEAT arch=p1 k=8 trials=0/200 last=none
+2026-08-14T12:56:12+08:00 RUNNING_V2_REPEAT arch=p1 k=8 trials=24/200 last=TRIAL trial=23 k=8 injected=8 match=1 det=11111111 cor=11111111 unc=00000000 loc=6c4469 category=corrected
+2026-08-14T12:56:27+08:00 RUNNING_V2_REPEAT arch=p1 k=8 trials=50/200 last=TRIAL trial=49 k=8 injected=8 match=1 det=11111011 cor=11111011 unc=00000000 loc=011625 category=corrected
+2026-08-14T12:56:42+08:00 RUNNING_V2_REPEAT arch=p1 k=8 trials=76/200 last=TRIAL trial=75 k=8 injected=8 match=1 det=11101111 cor=11101111 unc=00000000 loc=49810c category=corrected
+2026-08-14T12:56:57+08:00 RUNNING_V2_REPEAT arch=p1 k=8 trials=102/200 last=TRIAL trial=101 k=8 injected=8 match=1 det=11111001 cor=11111001 unc=00000000 loc=6c4401 category=corrected
+2026-08-14T12:57:12+08:00 RUNNING_V2_REPEAT arch=p1 k=8 trials=128/200 last=TRIAL trial=127 k=8 injected=8 match=1 det=11101110 cor=11101110 unc=00000000 loc=010760 category=corrected
+2026-08-14T12:57:27+08:00 RUNNING_V2_REPEAT arch=p1 k=8 trials=154/200 last=TRIAL trial=153 k=8 injected=8 match=1 det=11111101 cor=11111101 unc=00000000 loc=49d104 category=corrected
+2026-08-14T12:57:42+08:00 RUNNING_V2_REPEAT arch=p1 k=8 trials=180/200 last=TRIAL trial=179 k=8 injected=8 match=1 det=11111110 cor=11111110 unc=00000000 loc=6c4468 category=corrected
+2026-08-14T12:57:57+08:00 DONE_V2_REPEAT arch=p1 k=8 SUMMARY arch=P1 k=8 total=200 corrected=185 corrected_no_flag=0 detected_only=15 silent_bounded_residual=0 miscorrection=0 silent_unbounded=0 timeout=0

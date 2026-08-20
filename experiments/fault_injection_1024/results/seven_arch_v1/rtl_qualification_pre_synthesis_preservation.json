@@ -1,0 +1,434 @@
+{
+  "bit_exact": {
+    "P0": {
+      "beats": 2048,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_seven_tops_v5",
+        "-Ptb_seven_tops_v5.TOP_ID=4",
+        "-o",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_p0_bit_exact.vvp",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\tb\\tb_seven_tops_v5.sv"
+      ],
+      "compile_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_p0_bit_exact_compile.log",
+      "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "group": "PFFT",
+      "latency": 525,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_p0_bit_exact.vvp"
+      ],
+      "simulation_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_p0_bit_exact_sim.log",
+      "simulation_log_sha256": "33B7707886DAA0C4A21A6D72E13014E73292554FD792F54402A51C468E3026B7",
+      "status": "VERIFIED",
+      "top": "top_p0_pfft_unprotected"
+    },
+    "P1": {
+      "beats": 2048,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_seven_tops_v5",
+        "-Ptb_seven_tops_v5.TOP_ID=5",
+        "-o",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_p1_bit_exact.vvp",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\tb\\tb_seven_tops_v5.sv"
+      ],
+      "compile_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_p1_bit_exact_compile.log",
+      "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "group": "PFFT",
+      "latency": 525,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_p1_bit_exact.vvp"
+      ],
+      "simulation_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_p1_bit_exact_sim.log",
+      "simulation_log_sha256": "BC39459AA14FB5E0562E671AE24DF09AABCD58A5417826FEBB559739530E68E0",
+      "status": "VERIFIED",
+      "top": "top_p1_pfft_ecc"
+    },
+    "P2": {
+      "beats": 2048,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_seven_tops_v5",
+        "-Ptb_seven_tops_v5.TOP_ID=6",
+        "-o",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_p2_bit_exact.vvp",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\tb\\tb_seven_tops_v5.sv"
+      ],
+      "compile_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_p2_bit_exact_compile.log",
+      "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "group": "PFFT",
+      "latency": 525,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_p2_bit_exact.vvp"
+      ],
+      "simulation_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_p2_bit_exact_sim.log",
+      "simulation_log_sha256": "D3163F5A8932BDB7340670ACB04EC3164E1A6350CF1B9FAA35942A0DB6B9107B",
+      "status": "VERIFIED",
+      "top": "top_p2_pfft_tmr"
+    },
+    "S0": {
+      "beats": 2048,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_seven_tops_v5",
+        "-Ptb_seven_tops_v5.TOP_ID=0",
+        "-o",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s0_bit_exact.vvp",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\tb\\tb_seven_tops_v5.sv"
+      ],
+      "compile_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s0_bit_exact_compile.log",
+      "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "group": "SubFFT",
+      "latency": 268,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s0_bit_exact.vvp"
+      ],
+      "simulation_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s0_bit_exact_sim.log",
+      "simulation_log_sha256": "916A7555AB0FCCDC8B2D5528368C3A92774991363342CBFE384DE2677B4F4BA8",
+      "status": "VERIFIED",
+      "top": "top_s0_subfft_unprotected"
+    },
+    "S1": {
+      "beats": 2048,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_seven_tops_v5",
+        "-Ptb_seven_tops_v5.TOP_ID=1",
+        "-o",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s1_bit_exact.vvp",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\tb\\tb_seven_tops_v5.sv"
+      ],
+      "compile_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s1_bit_exact_compile.log",
+      "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "group": "SubFFT",
+      "latency": 268,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s1_bit_exact.vvp"
+      ],
+      "simulation_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s1_bit_exact_sim.log",
+      "simulation_log_sha256": "BD4DB2F2DDFFAFABF8CC234AA98049DDCAB5D4FC83C86B37E9F17883EE0CF39B",
+      "status": "VERIFIED",
+      "top": "top_s1_gao_subfft_ecc"
+    },
+    "S2": {
+      "beats": 2048,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_seven_tops_v5",
+        "-Ptb_seven_tops_v5.TOP_ID=2",
+        "-o",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s2_bit_exact.vvp",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\tb\\tb_seven_tops_v5.sv"
+      ],
+      "compile_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s2_bit_exact_compile.log",
+      "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "group": "SubFFT",
+      "latency": 268,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s2_bit_exact.vvp"
+      ],
+      "simulation_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s2_bit_exact_sim.log",
+      "simulation_log_sha256": "E70E1749407196A827B1232749EC4C847383B98522202798D19D9049CD7D1CA1",
+      "status": "VERIFIED",
+      "top": "top_s2_subfft_tmr"
+    },
+    "S3": {
+      "beats": 2048,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_seven_tops_v5",
+        "-Ptb_seven_tops_v5.TOP_ID=3",
+        "-o",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s3_bit_exact.vvp",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\tb\\tb_seven_tops_v5.sv"
+      ],
+      "compile_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s3_bit_exact_compile.log",
+      "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "group": "SubFFT",
+      "latency": 268,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s3_bit_exact.vvp"
+      ],
+      "simulation_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s3_bit_exact_sim.log",
+      "simulation_log_sha256": "1E88583242F46A849E11129E90B81E8B912BC4916F6B6B91CA86274724FA0221",
+      "status": "VERIFIED",
+      "top": "top_s3_subfft_ecc"
+    }
+  },
+  "connectivity": {
+    "P1": {
+      "beats": 1024,
+      "boundaries": [
+        "stage1_secded_read",
+        "stage1_direct_arithmetic_received",
+        "stage8_same_frame_arithmetic_received",
+        "stage8_pending_bram_codeword",
+        "stage8_cross_frame_arithmetic_received",
+        "stage9_full_replica_before_voter"
+      ],
+      "case_id": 3,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_top_connectivity_v5",
+        "-Ptb_top_connectivity_v5.CASE_ID=3",
+        "-o",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_p1_connectivity.vvp",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\tb\\tb_top_connectivity_v5.sv"
+      ],
+      "compile_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_p1_connectivity_compile.log",
+      "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "injections": 6,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_p1_connectivity.vvp"
+      ],
+      "simulation_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_p1_connectivity_sim.log",
+      "simulation_log_sha256": "6E512BB182238C6F437C5F8975C92D9DB24B613FE1DD8B834DBB377FFD770620",
+      "status": "VERIFIED"
+    },
+    "P2": {
+      "beats": 1024,
+      "boundaries": [
+        "stage1_full_replica_before_voter"
+      ],
+      "case_id": 4,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_top_connectivity_v5",
+        "-Ptb_top_connectivity_v5.CASE_ID=4",
+        "-o",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_p2_connectivity.vvp",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\tb\\tb_top_connectivity_v5.sv"
+      ],
+      "compile_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_p2_connectivity_compile.log",
+      "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "injections": 1,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_p2_connectivity.vvp"
+      ],
+      "simulation_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_p2_connectivity_sim.log",
+      "simulation_log_sha256": "1F86BDB3918B412AD665415C7B4E1A4B7A4D0930A0076CE1F7829DF13F0EF23E",
+      "status": "VERIFIED"
+    },
+    "S1": {
+      "beats": 768,
+      "boundaries": [
+        "gao_stage8_received_path"
+      ],
+      "case_id": 0,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_top_connectivity_v5",
+        "-Ptb_top_connectivity_v5.CASE_ID=0",
+        "-o",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s1_connectivity.vvp",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\tb\\tb_top_connectivity_v5.sv"
+      ],
+      "compile_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s1_connectivity_compile.log",
+      "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "injections": 1,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s1_connectivity.vvp"
+      ],
+      "simulation_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s1_connectivity_sim.log",
+      "simulation_log_sha256": "5705C48DC4C4991FDA341EF18FC3CD459058A79283AA75481FB9D07AEE197910",
+      "status": "VERIFIED"
+    },
+    "S2": {
+      "beats": 768,
+      "boundaries": [
+        "stage1_full_replica_before_voter"
+      ],
+      "case_id": 1,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_top_connectivity_v5",
+        "-Ptb_top_connectivity_v5.CASE_ID=1",
+        "-o",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s2_connectivity.vvp",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\tb\\tb_top_connectivity_v5.sv"
+      ],
+      "compile_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s2_connectivity_compile.log",
+      "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "injections": 1,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s2_connectivity.vvp"
+      ],
+      "simulation_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s2_connectivity_sim.log",
+      "simulation_log_sha256": "C0CB9702D77C6C7D978554423DBBA931660830C4F062B207BE2E15296441309C",
+      "status": "VERIFIED"
+    },
+    "S3": {
+      "beats": 768,
+      "boundaries": [
+        "stage1_secded_read",
+        "stage1_arithmetic_received",
+        "stage9_full_replica_before_voter"
+      ],
+      "case_id": 2,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_top_connectivity_v5",
+        "-Ptb_top_connectivity_v5.CASE_ID=2",
+        "-o",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s3_connectivity.vvp",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\tb\\tb_top_connectivity_v5.sv"
+      ],
+      "compile_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s3_connectivity_compile.log",
+      "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "injections": 3,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\build\\official_s3_connectivity.vvp"
+      ],
+      "simulation_log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\rtl_s3_connectivity_sim.log",
+      "simulation_log_sha256": "B632DC203EE53909791F347790E1F5F0C682294017699F804CB9CA766F3C39B8",
+      "status": "VERIFIED"
+    }
+  },
+  "failure": null,
+  "manifest": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\results\\seven_arch_v1\\rtl_structure_manifest.json",
+  "manifest_sha256": "E946084AEADDBA19C89C783AB5456CB343CAAFBA8BFA199604AE0059883BE6AA",
+  "policy": {
+    "bit_exact_before_connectivity": true,
+    "single_pass_no_retry": true,
+    "yosys_allowed_only_if_verified": true
+  },
+  "schema": "rtl-seven-architecture-qualification-v1",
+  "status": "VERIFIED",
+  "timestamp_utc": "2026-07-21T06:37:13.884517+00:00",
+  "tool": {
+    "iverilog": "C:\\iverilog\\bin\\iverilog.exe",
+    "vvp": "C:\\iverilog\\bin\\vvp.exe"
+  }
+}

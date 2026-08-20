@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="7.16in" height="3.8in" viewBox="0 0 1432 760">
+<rect x="0" y="0" width="1432" height="760" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1"/>
+<text x="716.0" y="43" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="29" font-weight="bold" fill="#202020">CTMC mission reliability versus refresh interval</text>
+<text x="716.0" y="72" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" fill="#555555">Independent SCU accumulation; 720-h mission; global blind refresh</text>
+<line x1="160" y1="90.0" x2="1065" y2="90.0" stroke="#D0D0D0" stroke-width="1" stroke-dasharray="5,5"/>
+<text x="144" y="97.0" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">1</text>
+<line x1="160" y1="178.33333333333331" x2="1065" y2="178.33333333333331" stroke="#D0D0D0" stroke-width="1" stroke-dasharray="5,5"/>
+<text x="144" y="185.33333333333331" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">10−2</text>
+<line x1="160" y1="266.66666666666663" x2="1065" y2="266.66666666666663" stroke="#D0D0D0" stroke-width="1" stroke-dasharray="5,5"/>
+<text x="144" y="273.66666666666663" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">10−4</text>
+<line x1="160" y1="355.0" x2="1065" y2="355.0" stroke="#D0D0D0" stroke-width="1" stroke-dasharray="5,5"/>
+<text x="144" y="362.0" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">10−6</text>
+<line x1="160" y1="443.3333333333333" x2="1065" y2="443.3333333333333" stroke="#D0D0D0" stroke-width="1" stroke-dasharray="5,5"/>
+<text x="144" y="450.3333333333333" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">10−8</text>
+<line x1="160" y1="531.6666666666667" x2="1065" y2="531.6666666666667" stroke="#D0D0D0" stroke-width="1" stroke-dasharray="5,5"/>
+<text x="144" y="538.6666666666667" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">10−10</text>
+<line x1="160" y1="620.0" x2="1065" y2="620.0" stroke="#D0D0D0" stroke-width="1" stroke-dasharray="5,5"/>
+<text x="144" y="627.0" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">10−12</text>
+<line x1="160.0" y1="620" x2="160.0" y2="628" stroke="#333333" stroke-width="1.3"/>
+<text x="160.0" y="654" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">0.25</text>
+<line x1="341.0" y1="620" x2="341.0" y2="628" stroke="#333333" stroke-width="1.3"/>
+<text x="341.0" y="654" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">1</text>
+<line x1="582.3333333333333" y1="620" x2="582.3333333333333" y2="628" stroke="#333333" stroke-width="1.3"/>
+<text x="582.3333333333333" y="654" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">2</text>
+<line x1="823.6666666666666" y1="620" x2="823.6666666666666" y2="628" stroke="#333333" stroke-width="1.3"/>
+<text x="823.6666666666666" y="654" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">3</text>
+<line x1="1065.0" y1="620" x2="1065.0" y2="628" stroke="#333333" stroke-width="1.3"/>
+<text x="1065.0" y="654" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">4</text>
+<line x1="160" y1="90" x2="160" y2="620" stroke="#333333" stroke-width="1.7"/>
+<line x1="160" y1="620" x2="1065" y2="620" stroke="#333333" stroke-width="1.7"/>
+<text x="612.5" y="699" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="23" font-weight="normal" fill="#202020">Refresh interval, τ (h)</text>
+<text x="48" y="355.0" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="23" font-weight="normal" fill="#202020" transform="rotate(-90 48 355.0)">Mission reliability (log scale)</text>
+<polyline points="160.00,144.49 220.33,192.93 280.67,236.46 341.00,275.91 401.33,311.95 461.67,345.07 522.00,375.68 582.33,404.10 642.67,430.61 703.00,455.42 763.33,478.72 823.67,500.66 884.00,521.39 944.33,541.02 1004.67,559.64 1065.00,577.36" fill="none" stroke="#0072B2" stroke-width="4"/>
+<circle cx="160.0" cy="144.49352892662196" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="220.33333333333334" cy="192.9326788058338" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="280.6666666666667" cy="236.4565287953264" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="341.0" cy="275.9125099616617" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="401.33333333333337" cy="311.9482066942006" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="461.6666666666667" cy="345.0695992574243" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="522.0" cy="375.67949689482737" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="582.3333333333333" cy="404.10374644936627" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="642.6666666666667" cy="430.6096105701303" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="703.0" cy="455.4189683056344" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="763.3333333333334" cy="478.717996939974" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="823.6666666666666" cy="500.66440465310814" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="884.0" cy="521.3929129405752" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="944.3333333333334" cy="541.0195129050618" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="1004.6666666666666" cy="559.6447423348748" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<circle cx="1065.0" cy="577.356292919574" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<polyline points="160.00,90.83 220.33,91.65 280.67,92.46 341.00,93.28 401.33,94.08 461.67,94.89 522.00,95.68 582.33,96.48 642.67,97.26 703.00,98.05 763.33,98.83 823.67,99.60 884.00,100.37 944.33,101.13 1004.67,101.89 1065.00,102.65" fill="none" stroke="#D55E00" stroke-width="4"/>
+<rect x="153.0" y="83.82621855056148" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="213.33333333333334" y="84.64770069421206" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="273.6666666666667" y="85.46443084567223" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="334.0" y="86.27639621774222" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="394.33333333333337" y="87.08358672162359" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="454.6666666666667" y="87.88599486603287" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="515.0" y="88.68361565564682" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="575.3333333333333" y="89.47644648937623" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="635.6666666666667" y="90.26448705890805" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="696.0" y="91.04773924791952" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="756.3333333333334" y="91.826207032317" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="816.6666666666666" y="92.5998963818167" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="877.0" y="93.36881516313757" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="937.3333333333334" y="94.1329730450451" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="997.6666666666666" y="94.8923814054502" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<rect x="1058.0" y="95.6470532407305" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<polyline points="160.00,93.13 220.33,96.23 280.67,99.29 341.00,102.31 401.33,105.30 461.67,108.25 522.00,111.17 582.33,114.05 642.67,116.90 703.00,119.71 763.33,122.49 823.67,125.24 884.00,127.95 944.33,130.63 1004.67,133.27 1065.00,135.89" fill="none" stroke="#009E73" stroke-width="4"/>
+<polygon points="160.0,84.13091170679091 151.0,101.13091170679091 169.0,101.13091170679091" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="220.33333333333334,87.22633356920825 211.33333333333334,104.22633356920825 229.33333333333334,104.22633356920825" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="280.6666666666667,90.28617236317352 271.6666666666667,107.28617236317352 289.6666666666667,107.28617236317352" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="341.0,93.31040365414859 332.0,110.31040365414859 350.0,110.31040365414859" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="401.33333333333337,96.2990660202585 392.33333333333337,113.2990660202585 410.33333333333337,113.2990660202585" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="461.6666666666667,99.25225540516912 452.6666666666667,116.25225540516912 470.6666666666667,116.25225540516912" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="522.0,102.17011966308424 513.0,119.17011966308424 531.0,119.17011966308424" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="582.3333333333333,105.05285334212087 573.3333333333333,122.05285334212087 591.3333333333333,122.05285334212087" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="642.6666666666667,107.90069273856037 633.6666666666667,124.90069273856037 651.6666666666667,124.90069273856037" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="703.0,110.71391124285235 694.0,127.71391124285235 712.0,127.71391124285235" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="763.3333333333334,113.49281498876465 754.3333333333334,130.49281498876465 772.3333333333334,130.49281498876465" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="823.6666666666666,116.23773880939001 814.6666666666666,133.23773880939 832.6666666666666,133.23773880939" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="884.0,118.94904249770208 875.0,135.94904249770207 893.0,135.94904249770207" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="944.3333333333334,121.62710736475321 935.3333333333334,138.62710736475321 953.3333333333334,138.62710736475321" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="1004.6666666666666,124.27233308515744 995.6666666666666,141.27233308515744 1013.6666666666666,141.27233308515744" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<polygon points="1065.0,126.88513481706431 1056.0,143.8851348170643 1074.0,143.8851348170643" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<line x1="1110" y1="190" x2="1170" y2="190" stroke="#0072B2" stroke-width="4"/>
+<circle cx="1140" cy="190" r="7" fill="#FFFFFF" stroke="#0072B2" stroke-width="3"/>
+<text x="1190" y="197" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#0072B2">Sub-FFT ECC</text>
+<line x1="1110" y1="272" x2="1170" y2="272" stroke="#D55E00" stroke-width="4"/>
+<rect x="1133" y="265" width="14" height="14" rx="0" fill="#FFFFFF" stroke="#D55E00" stroke-width="3"/>
+<text x="1190" y="279" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#D55E00">Stage-voted TMR</text>
+<line x1="1110" y1="354" x2="1170" y2="354" stroke="#009E73" stroke-width="4"/>
+<polygon points="1140,345 1131,362 1149,362" fill="#FFFFFF" stroke="#009E73" stroke-width="3"/>
+<text x="1190" y="361" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#009E73">Proposed hybrid</text>
+<text x="1095" y="445" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="19" font-weight="bold" fill="#202020">Shorter refresh intervals</text>
+<text x="1095" y="474" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">reduce double-fault</text>
+<text x="1095" y="503" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#202020">accumulation in every model.</text>
+<text x="1095" y="565" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="18" font-weight="bold" fill="#555555">Capability model;</text>
+<text x="1095" y="592" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" fill="#555555">not irradiation data.</text>
+</svg>

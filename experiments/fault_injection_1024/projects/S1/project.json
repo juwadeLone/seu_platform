@@ -1,0 +1,12 @@
+{
+  "architecture_id": "S1",
+  "group": "SubFFT",
+  "role": "gao_complete_path_ecc",
+  "python_campaign": "projects.S1.run_s1",
+  "python_entry": "run_s1.py",
+  "rtl_sources": ["top_s1_gao_subfft_ecc.sv"],
+  "testbench": "tb_s1.sv",
+  "rtl_top": "top_s1_gao_subfft_ecc",
+  "baseline": "S0",
+  "result_group": "results/seven_arch_v1/yosys_subfft_group.csv"
+}

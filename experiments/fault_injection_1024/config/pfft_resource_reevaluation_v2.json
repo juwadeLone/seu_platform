@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "status": "BLOCKED_SUPERSEDED_BY_D94",
+  "frozen_date": "2026-07-23",
+  "contract_revision": "pfft_trivial_rotation_resource_reevaluation",
+  "experiment_id": "PFFT-RES-V2-001",
+  "blocking_decision": "D94",
+  "blocking_reason": "The pre-D94 contract split one complete SDF butterfly into separately counted feedback and upper multiplier banks. D94 freezes the complete butterfly as the minimum ECC protection and structural resource-counting unit. Qualification attempt2 and Yosys must not run until the contract, RTL, and diagnostics are rewritten and re-approved.",
+  "executable": "C:/Users/pc/Downloads/oss-cad-suite/bin/yosys.exe",
+  "version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 13.2.1)",
+  "target_evidence": {
+    "device": "Xilinx Virtex-7 XC7VX690T-2FFG1761",
+    "synth_xilinx_family": "xc7"
+  },
+  "source_files": [
+    "common/rtl/twiddle_rom_1024.sv",
+    "common/rtl/fft_common.sv",
+    "common/rtl/protection_rtl.sv",
+    "common/rtl/datapath_v5.sv",
+    "common/rtl/protection_primitives_v5.sv",
+    "common/rtl/protected_stages_v5.sv",
+    "projects/P0/top_p0_pfft_unprotected.sv",
+    "projects/P1/top_p1_pfft_ecc.sv",
+    "projects/P2/top_p2_pfft_tmr.sv"
+  ],
+  "tops": {
+    "P0": "top_p0_pfft_unprotected",
+    "P1": "top_p1_pfft_ecc",
+    "P2": "top_p2_pfft_tmr"
+  },
+  "flow": [
+    "read_verilog -sv <pfft_source_set>",
+    "hierarchy -check -top <top>",
+    "synth_xilinx -family xc7 -top <top>",
+    "stat -tech xilinx",
+    "write_json <netlist>"
+  ],
+  "synthesis_preservation": {
+    "reason": "fault_tolerance_replicas_must_not_be_equivalence_merged_under_fault_free_inputs",
+    "rtl_policy": "keep_each_intended_TMR_replica_while_allowing_normal_optimization_inside_each_replica",
+    "required_tmr_wrapper_modules": [
+      "tmr_pfft_stage4_v5",
+      "tmr_pfft_stage9_v5",
+      "tmr_pfft_stage10_v5"
+    ],
+    "required_gao_path_count": 0,
+    "post_synthesis_gate": "instance_multiplicity_and_memory_replication_must_survive_in_the_live_top_hierarchy",
+    "architecture_tmr_wrapper_expectations": {
+      "P0": {},
+      "P1": {
+        "tmr_pfft_stage9_v5": 1,
+        "tmr_pfft_stage10_v5": 1
+      },
+      "P2": {
+        "tmr_pfft_stage4_v5": 8,
+        "tmr_pfft_stage9_v5": 1,
+        "tmr_pfft_stage10_v5": 1
+      }
+    },
+    "architecture_protection_module_expectations": {
+      "P1": {
+        "independent_butterfly_ecc_v5": 7,
+        "independent_check_operator_pair_v5": 5,
+        "p1_ecc_stage8_v5": 1,
+        "p1_stage8_pair_protector_v5": 1
+      }
+    },
+    "baseline_forbidden_module_prefixes": [
+      "tmr_",
+      "ecc_",
+      "gao_",
+      "p1_",
+      "independent_"
+    ]
+  },
+  "resource_metrics": {
+    "lut": "Estimated number of LCs plus raw LUT1_to_LUT6",
+    "ff": "sum_FDCE_FDPE_FDRE_FDSE",
+    "dsp": "DSP48E1",
+    "bram18": "RAMB18E1",
+    "bram36": "RAMB36E1",
+    "bram36_equivalent": "RAMB36E1_plus_0.5_times_RAMB18E1",
+    "distributed_memory": "all_Xilinx_LUTRAM_primitives_retained_by_type"
+  },
+  "comparison_groups": {
+    "PFFT": [
+      "P0",
+      "P1",
+      "P2"
+    ]
+  },
+  "baselines": {
+    "PFFT": "P0"
+  },
+  "pre_run_dsp_diagnostic": {
+    "mapping_per_fft_complex_mul_q28": 16,
+    "P0": {
+      "removed_complex_multipliers": 4,
+      "expected_DSP48E1": 512
+    },
+    "P1": {
+      "removed_complex_multipliers": 54,
+      "expected_DSP48E1": 1568
+    },
+    "P2": {
+      "removed_complex_multipliers": 12,
+      "expected_DSP48E1": 1536
+    }
+  },
+  "memory_profiles": {
+    "feedback_70_x4": {
+      "template": "fft_memory_v5",
+      "width": 70,
+      "depths": [128, 64, 32, 16, 8, 4, 2, 1],
+      "instances_per_depth": 4
+    },
+    "feedback_70_x12": {
+      "template": "fft_memory_v5",
+      "width": 70,
+      "depths": [128, 64, 32, 16, 8, 4, 2, 1],
+      "instances_per_depth": 12
+    },
+    "feedback_78_x4": {
+      "template": "fft_memory_v5",
+      "width": 78,
+      "depths": [128, 64, 32, 16, 8, 4, 2, 1],
+      "instances_per_depth": 4
+    },
+    "pfft_common_70_x4": {
+      "template": "pfft_frame_buffer_lane_v5",
+      "width": 70,
+      "depths": [512],
+      "instances_per_depth": 4
+    },
+    "p1_pending_78_x6": {
+      "template": "p1_pending_bram_v5",
+      "width": 78,
+      "depths": [256],
+      "instances_per_depth": 6,
+      "required_instance_name_counts": {
+        "pending_functional": 2,
+        "pending_operand": 4
+      }
+    }
+  },
+  "architecture_memory_profiles": {
+    "P0": [
+      "feedback_70_x4",
+      "pfft_common_70_x4"
+    ],
+    "P1": [
+      "feedback_78_x4",
+      "pfft_common_70_x4",
+      "p1_pending_78_x6"
+    ],
+    "P2": [
+      "feedback_70_x12",
+      "pfft_common_70_x4"
+    ]
+  },
+  "memory_map": "config/seven_architecture_memory_map.json",
+  "fail_conditions": [
+    "nonzero_exit_code",
+    "hierarchy_check_error",
+    "critical_blackbox",
+    "missing_resource_metric",
+    "declared_block_memory_not_mapped_to_BRAM",
+    "declared_distributed_memory_mapped_to_BRAM",
+    "same_geometry_mapping_mismatch",
+    "p1_stage8_buffer_absent_or_optimized_away",
+    "pre_run_dsp_diagnostic_mismatch"
+  ],
+  "claim_boundary": "Yosys_xc7_synthesis_resource_estimates_only_not_Vivado_post_implementation_timing_Fmax_or_power"
+}

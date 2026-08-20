@@ -1,0 +1,13 @@
+{
+  "architecture_id": "S0",
+  "group": "SubFFT",
+  "role": "unprotected_baseline",
+  "python_model": "common.python.fixed_fft.subfft_1024",
+  "python_campaign": "projects.S0.run_s0",
+  "python_entry": "run_s0.py",
+  "rtl_sources": ["top_s0_subfft_unprotected.sv"],
+  "testbench": "tb_s0.sv",
+  "rtl_top": "top_s0_subfft_unprotected",
+  "baseline": "S0",
+  "result_group": "results/seven_arch_v1/yosys_subfft_group.csv"
+}

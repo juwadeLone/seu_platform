@@ -1,0 +1,21 @@
+{
+  "status": "FAILED_RUNNER_ONLY_NOT_RTL_QUALIFICATION",
+  "date": "2026-07-21",
+  "stopped_after": "S0 bit-exact simulation; S1 through P2 and all connectivity cases were not started",
+  "failure": {
+    "type": "UnicodeEncodeError",
+    "location": "run_rtl_qualification.py run_logged console echo",
+    "cause": "VVP Windows-path bytes were decoded as UTF-8, producing U+FFFD that the GBK console could not encode",
+    "effect": "no rtl_qualification.json summary was generated"
+  },
+  "s0_evidence": {
+    "compile_returncode": 0,
+    "simulation_marker": "PASS top=0 beats=2048 latency=268",
+    "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "simulation_log_sha256": "336AD79D21697373E8929B38E02ED01DD6AA6D0AC03CC83E83043B8AC30BC9F3",
+    "structure_manifest_sha256": "E946084AEADDBA19C89C783AB5456CB343CAAFBA8BFA199604AE0059883BE6AA"
+  },
+  "runner_sha256_before_fix": "D4C44E2E49482F26A70FC9C40F5E948C1F257CF0565F7E57165F1DCF5B115B54",
+  "correction_scope": "change subprocess text decoding to the Windows preferred encoding with backslash replacement; no RTL, vector, matrix, PASS criterion, or source list change",
+  "yosys_started": false
+}

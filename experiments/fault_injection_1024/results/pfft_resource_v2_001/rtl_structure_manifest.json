@@ -1,0 +1,139 @@
+{
+  "contracts": [
+    {
+      "path": "experiments\\fault_injection_1024\\PFFT_RESOURCE_REEVALUATION_V2.md",
+      "sha256": "676429C8AAC53CDE3F9C45BAC05518C64FC7C2C886682767F4C52AF654B82340"
+    },
+    {
+      "path": "experiments\\fault_injection_1024\\config\\pfft_resource_reevaluation_v2.json",
+      "sha256": "3E05DFCC004EBDE3C1621C36D4E01EDEC33A94ED31701F79019B3BD940381FAE"
+    },
+    {
+      "path": "experiments\\fault_injection_1024\\config\\seven_architecture_memory_map.json",
+      "sha256": "86AAA24534B5FB2E93348FFA7458E5F5B40A6DBEB2266D3D6C091D74261496BC"
+    }
+  ],
+  "schema": "pfft-resource-v2-001-rtl-manifest-v1",
+  "snapshot": {
+    "path": "archive\\migration\\2026-07-23\\pre_edit\\2026-07-23_PFFT-RES-V2-001_resource_reevaluation\\SNAPSHOT_SHA256.md",
+    "sha256": "60910A0FB2414AD8FDD9860649644D127C616A5C4E69C92F261DABAD30A7F62B"
+  },
+  "sources": [
+    {
+      "path": "experiments\\fault_injection_1024\\common\\rtl\\twiddle_rom_1024.sv",
+      "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580"
+    },
+    {
+      "path": "experiments\\fault_injection_1024\\common\\rtl\\fft_common.sv",
+      "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74"
+    },
+    {
+      "path": "experiments\\fault_injection_1024\\common\\rtl\\protection_rtl.sv",
+      "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F"
+    },
+    {
+      "path": "experiments\\fault_injection_1024\\common\\rtl\\datapath_v5.sv",
+      "sha256": "7E1619DDD4B38AE7FCAEE03D6FD4DDF1A68B14B2B11D9AB345C172197C18EBD1"
+    },
+    {
+      "path": "experiments\\fault_injection_1024\\common\\rtl\\protection_primitives_v5.sv",
+      "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21"
+    },
+    {
+      "path": "experiments\\fault_injection_1024\\common\\rtl\\protected_stages_v5.sv",
+      "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE"
+    },
+    {
+      "path": "experiments\\fault_injection_1024\\projects\\P0\\top_p0_pfft_unprotected.sv",
+      "sha256": "9682C602FF1DD9A44DE606DC4E003FBD17439913F2C63398BE25C4CE7D4C5EE2"
+    },
+    {
+      "path": "experiments\\fault_injection_1024\\projects\\P1\\top_p1_pfft_ecc.sv",
+      "sha256": "3AFB22A5BE0B132D59552B3D7293AAA882F1842E717F13838BBBC40DCC15F162"
+    },
+    {
+      "path": "experiments\\fault_injection_1024\\projects\\P2\\top_p2_pfft_tmr.sv",
+      "sha256": "6D434685A4E33FF45918CA837866D1CE9BD633E5E5F17DDE509A3513B483E94C"
+    }
+  ],
+  "status": "FAILED",
+  "structural_audit": {
+    "checks": [
+      {
+        "name": "stage1_phi_set_is_exactly_1_and_minus_j",
+        "pass": true
+      },
+      {
+        "name": "stage1_four_lane_groups_are_homogeneous",
+        "pass": true
+      },
+      {
+        "name": "trivial_rotator_implements_all_four_exact_cases",
+        "pass": true
+      },
+      {
+        "name": "p0_and_p2_share_stage1_specialized_functional_lane",
+        "pass": true
+      },
+      {
+        "name": "p1_butterfly_has_trivial_upper_and_lower_bypass",
+        "pass": true
+      },
+      {
+        "name": "p1_feedback_has_stage1_trivial_rotation",
+        "pass": true
+      },
+      {
+        "name": "p1_stage_parameters_enable_only_frozen_specializations",
+        "pass": true
+      },
+      {
+        "name": "p0_is_complete_unprotected_baseline",
+        "pass": false
+      },
+      {
+        "name": "p1_protection_partition_is_unchanged",
+        "pass": true
+      },
+      {
+        "name": "p2_tmr_partition_is_unchanged",
+        "pass": true
+      }
+    ],
+    "passed": 9,
+    "stage1_exponents": [
+      0,
+      256
+    ],
+    "status": "FAILED",
+    "total": 10
+  },
+  "target": "1024-point four-lane ten-stage radix-2 PFFT",
+  "testbenches": [
+    {
+      "architecture_id": "P0",
+      "path": "experiments\\fault_injection_1024\\projects\\P0\\tb_p0.sv",
+      "sha256": "0491A6B222888C9926C75CE3A6E987F836A666A1079514998E6579B0C67D1BAD"
+    },
+    {
+      "architecture_id": "P1",
+      "path": "experiments\\fault_injection_1024\\projects\\P1\\tb_p1.sv",
+      "sha256": "7B4CD15F8BFC8C75AD40D44B602A2C1B5954FE6AE58F5E3EC88A6DE3E3510898"
+    },
+    {
+      "architecture_id": "P2",
+      "path": "experiments\\fault_injection_1024\\projects\\P2\\tb_p2.sv",
+      "sha256": "0B189EFE3F0F5B5F2B29AB546EFD6B92725A99BA6DE7AE9BB0EA5362AA328AD6"
+    }
+  ],
+  "vectors": [
+    {
+      "path": "experiments\\fault_injection_1024\\common\\vectors\\qualification_input_10frames.hex",
+      "sha256": "01EBA212B22E2BE2B1F2A6E31800F02B6A85E2EEAE5D890BF1F366D8A46E9916"
+    },
+    {
+      "path": "experiments\\fault_injection_1024\\common\\vectors\\qualification_pfft_expected_8frames.hex",
+      "sha256": "48C8D6A1948A36D837183E112C4C14FFD5C861E075195B301773857C5F361BE2"
+    }
+  ]
+}

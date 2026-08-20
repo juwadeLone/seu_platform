@@ -1,0 +1,237 @@
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
+| Date         : Tue Aug 18 19:54:33 2026
+| Host         : JUwade9906 running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file C:/Users/zhuao/tcas/code/layout_ecc_sim/data/layout/p1_ooc_win/util_hier.rpt
+| Design       : top_p1_pfft_ecc
+| Device       : 7vx690tffg1761-2
+| Design State : Fully Placed
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++---------------------------------------------------+--------------------------------------------+------------+------------+---------+------+-------+--------+--------+--------------+
+|                      Instance                     |                   Module                   | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs  | RAMB36 | RAMB18 | DSP48 Blocks |
++---------------------------------------------------+--------------------------------------------+------------+------------+---------+------+-------+--------+--------+--------------+
+| top_p1_pfft_ecc                                   |                                      (top) |      81602 |      79314 |    2288 |    0 | 36827 |      0 |      0 |          768 |
+|   u                                               |                        p1_pfft_ecc_core_v4 |      81602 |      79314 |    2288 |    0 | 36827 |      0 |      0 |          768 |
+|     s1                                            |                           p1_ecc_stage4_v3 |       6125 |       5293 |     832 |    0 |  4207 |      0 |      0 |            0 |
+|       (s1)                                        |                           p1_ecc_stage4_v3 |       3102 |       3102 |       0 |    0 |  3895 |      0 |      0 |            0 |
+|       mem0                                        |                              fft_memory_v5 |        559 |        351 |     208 |    0 |    78 |      0 |      0 |            0 |
+|       mem1                                        |                          fft_memory_v5_122 |        561 |        353 |     208 |    0 |    78 |      0 |      0 |            0 |
+|       mem2                                        |                          fft_memory_v5_123 |        553 |        345 |     208 |    0 |    78 |      0 |      0 |            0 |
+|       mem3                                        |                          fft_memory_v5_124 |        554 |        346 |     208 |    0 |    78 |      0 |      0 |            0 |
+|       u_apply                                     |      arithmetic_apply_from_syndrome_643__1 |        797 |        797 |       0 |    0 |     0 |      0 |      0 |            0 |
+|     s10                                           |             p1_stage10_time_aligned_ecc_v1 |       5810 |       5810 |       0 |    0 |  3381 |      0 |      0 |            0 |
+|       (s10)                                       |             p1_stage10_time_aligned_ecc_v1 |       4128 |       4128 |       0 |    0 |  3381 |      0 |      0 |            0 |
+|       u_apply                                     | complete_butterfly_apply_from_syndrome_643 |       1682 |       1682 |       0 |    0 |     0 |      0 |      0 |            0 |
+|     s2                                            |           p1_ecc_stage4_v3__parameterized0 |       7399 |       6983 |     416 |    0 |  3558 |      0 |      0 |           96 |
+|       (s2)                                        |           p1_ecc_stage4_v3__parameterized0 |       2639 |       2639 |       0 |    0 |  2319 |      0 |      0 |            0 |
+|       complete_butterflies[0].pipe_rot.rotate     |               fft_complex_mul_q28_pipe_112 |        451 |        451 |       0 |    0 |   209 |      0 |      0 |           16 |
+|       complete_butterflies[1].pipe_rot.rotate     |               fft_complex_mul_q28_pipe_113 |        416 |        416 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       complete_butterflies[2].pipe_rot.rotate     |               fft_complex_mul_q28_pipe_114 |        388 |        388 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[2].pipe_rot.rotate) |               fft_complex_mul_q28_pipe_114 |        383 |        383 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                       twiddle_rom_1024_121 |          5 |          5 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[3].pipe_rot.rotate     |               fft_complex_mul_q28_pipe_115 |        380 |        380 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       complete_butterflies[4].pipe_rot.rotate     |               fft_complex_mul_q28_pipe_116 |        382 |        382 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       complete_butterflies[5].pipe_rot.rotate     |               fft_complex_mul_q28_pipe_117 |        383 |        383 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       mem0                                        |              fft_memory_v5__parameterized0 |        478 |        374 |     104 |    0 |     0 |      0 |      0 |            0 |
+|       mem1                                        |          fft_memory_v5__parameterized0_118 |        362 |        258 |     104 |    0 |     0 |      0 |      0 |            0 |
+|       mem2                                        |          fft_memory_v5__parameterized0_119 |        362 |        258 |     104 |    0 |     0 |      0 |      0 |            0 |
+|       mem3                                        |          fft_memory_v5__parameterized0_120 |        362 |        258 |     104 |    0 |     0 |      0 |      0 |            0 |
+|       u_apply                                     |      arithmetic_apply_from_syndrome_643__2 |        797 |        797 |       0 |    0 |     0 |      0 |      0 |            0 |
+|     s3                                            |           p1_ecc_stage4_v3__parameterized1 |       7177 |       6969 |     208 |    0 |  3541 |      0 |      0 |           96 |
+|       (s3)                                        |           p1_ecc_stage4_v3__parameterized1 |       2264 |       2264 |       0 |    0 |  2302 |      0 |      0 |            0 |
+|       complete_butterflies[0].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_97 |        468 |        468 |       0 |    0 |   209 |      0 |      0 |           16 |
+|         (complete_butterflies[0].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_97 |        451 |        451 |       0 |    0 |   209 |      0 |      0 |           16 |
+|         u_rom                                     |                       twiddle_rom_1024_111 |         17 |         17 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[1].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_98 |        464 |        464 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[1].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_98 |        463 |        463 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                       twiddle_rom_1024_110 |          1 |          1 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[2].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_99 |        464 |        464 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[2].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_99 |        449 |        449 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                       twiddle_rom_1024_109 |         15 |         15 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[3].pipe_rot.rotate     |               fft_complex_mul_q28_pipe_100 |        448 |        448 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[3].pipe_rot.rotate) |               fft_complex_mul_q28_pipe_100 |        447 |        447 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                       twiddle_rom_1024_108 |          1 |          1 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[4].pipe_rot.rotate     |               fft_complex_mul_q28_pipe_101 |        391 |        391 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[4].pipe_rot.rotate) |               fft_complex_mul_q28_pipe_101 |        390 |        390 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                       twiddle_rom_1024_107 |          1 |          1 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[5].pipe_rot.rotate     |               fft_complex_mul_q28_pipe_102 |        388 |        388 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[5].pipe_rot.rotate) |               fft_complex_mul_q28_pipe_102 |        387 |        387 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                       twiddle_rom_1024_106 |          1 |          1 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       mem0                                        |              fft_memory_v5__parameterized1 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem1                                        |          fft_memory_v5__parameterized1_103 |        373 |        321 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem2                                        |          fft_memory_v5__parameterized1_104 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem3                                        |          fft_memory_v5__parameterized1_105 |        373 |        321 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       u_apply                                     |      arithmetic_apply_from_syndrome_643__3 |        796 |        796 |       0 |    0 |     0 |      0 |      0 |            0 |
+|     s4                                            |           p1_ecc_stage4_v3__parameterized2 |       7859 |       7651 |     208 |    0 |  3541 |      0 |      0 |           96 |
+|       (s4)                                        |           p1_ecc_stage4_v3__parameterized2 |       2340 |       2340 |       0 |    0 |  2302 |      0 |      0 |            0 |
+|       complete_butterflies[0].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_82 |        504 |        504 |       0 |    0 |   209 |      0 |      0 |           16 |
+|         (complete_butterflies[0].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_82 |        484 |        484 |       0 |    0 |   209 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_96 |         20 |         20 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[1].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_83 |        549 |        549 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[1].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_83 |        516 |        516 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_95 |         33 |         33 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[2].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_84 |        642 |        642 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[2].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_84 |        495 |        495 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_94 |        148 |        148 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[3].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_85 |        546 |        546 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[3].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_85 |        488 |        488 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_93 |         60 |         60 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[4].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_86 |        493 |        493 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[4].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_86 |        435 |        435 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_92 |         60 |         60 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[5].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_87 |        495 |        495 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[5].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_87 |        436 |        436 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_91 |         60 |         60 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       mem0                                        |              fft_memory_v5__parameterized2 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem1                                        |           fft_memory_v5__parameterized2_88 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem2                                        |           fft_memory_v5__parameterized2_89 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem3                                        |           fft_memory_v5__parameterized2_90 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       u_apply                                     |      arithmetic_apply_from_syndrome_643__4 |        797 |        797 |       0 |    0 |     0 |      0 |      0 |            0 |
+|     s5                                            |           p1_ecc_stage4_v3__parameterized3 |       9710 |       9502 |     208 |    0 |  3541 |      0 |      0 |           96 |
+|       (s5)                                        |           p1_ecc_stage4_v3__parameterized3 |       2347 |       2347 |       0 |    0 |  2302 |      0 |      0 |            0 |
+|       complete_butterflies[0].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_72 |        564 |        564 |       0 |    0 |   209 |      0 |      0 |           16 |
+|         (complete_butterflies[0].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_72 |        519 |        519 |       0 |    0 |   209 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_81 |         45 |         45 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[1].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_73 |        939 |        939 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       complete_butterflies[2].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_74 |        929 |        929 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       complete_butterflies[3].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_75 |        925 |        925 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       complete_butterflies[4].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_76 |        873 |        873 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       complete_butterflies[5].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_77 |        874 |        874 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       mem0                                        |              fft_memory_v5__parameterized3 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem1                                        |           fft_memory_v5__parameterized3_78 |        373 |        321 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem2                                        |           fft_memory_v5__parameterized3_79 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem3                                        |           fft_memory_v5__parameterized3_80 |        373 |        321 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       u_apply                                     |      arithmetic_apply_from_syndrome_643__5 |        797 |        797 |       0 |    0 |     0 |      0 |      0 |            0 |
+|     s6                                            |           p1_ecc_stage4_v3__parameterized4 |      10794 |      10586 |     208 |    0 |  3535 |      0 |      0 |           96 |
+|       (s6)                                        |           p1_ecc_stage4_v3__parameterized4 |       2337 |       2337 |       0 |    0 |  2296 |      0 |      0 |            0 |
+|       complete_butterflies[0].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_63 |        668 |        668 |       0 |    0 |   209 |      0 |      0 |           16 |
+|       complete_butterflies[1].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_64 |       1123 |       1123 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       complete_butterflies[2].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_65 |       1120 |       1120 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       complete_butterflies[3].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_66 |       1121 |       1121 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       complete_butterflies[4].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_67 |       1070 |       1070 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       complete_butterflies[5].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_68 |       1060 |       1060 |       0 |    0 |   206 |      0 |      0 |           16 |
+|       mem0                                        |              fft_memory_v5__parameterized4 |        379 |        327 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem1                                        |           fft_memory_v5__parameterized4_69 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem2                                        |           fft_memory_v5__parameterized4_70 |        373 |        321 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem3                                        |           fft_memory_v5__parameterized4_71 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       u_apply                                     |      arithmetic_apply_from_syndrome_643__6 |        798 |        798 |       0 |    0 |     0 |      0 |      0 |            0 |
+|     s7                                            |           p1_ecc_stage4_v3__parameterized5 |      11411 |      11203 |     208 |    0 |  3654 |      0 |      0 |           96 |
+|       (s7)                                        |           p1_ecc_stage4_v3__parameterized5 |       2529 |       2529 |       0 |    0 |  2415 |      0 |      0 |            0 |
+|       complete_butterflies[0].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_48 |       1083 |       1083 |       0 |    0 |   209 |      0 |      0 |           16 |
+|         (complete_butterflies[0].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_48 |        844 |        844 |       0 |    0 |   209 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_62 |        239 |        239 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[1].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_49 |       1127 |       1127 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[1].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_49 |        865 |        865 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_61 |        262 |        262 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[2].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_50 |       1123 |       1123 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[2].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_50 |        863 |        863 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_60 |        260 |        260 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[3].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_51 |       1125 |       1125 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[3].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_51 |        863 |        863 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_59 |        262 |        262 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[4].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_52 |       1071 |       1071 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[4].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_52 |        810 |        810 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_58 |        261 |        261 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       complete_butterflies[5].pipe_rot.rotate     |                fft_complex_mul_q28_pipe_53 |       1063 |       1063 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         (complete_butterflies[5].pipe_rot.rotate) |                fft_complex_mul_q28_pipe_53 |        802 |        802 |       0 |    0 |   206 |      0 |      0 |           16 |
+|         u_rom                                     |                        twiddle_rom_1024_57 |        262 |        262 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       mem0                                        |              fft_memory_v5__parameterized5 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem1                                        |           fft_memory_v5__parameterized5_54 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem2                                        |           fft_memory_v5__parameterized5_55 |        373 |        321 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       mem3                                        |           fft_memory_v5__parameterized5_56 |        374 |        322 |      52 |    0 |     0 |      0 |      0 |            0 |
+|       u_apply                                     |         arithmetic_apply_from_syndrome_643 |        798 |        798 |       0 |    0 |     0 |      0 |      0 |            0 |
+|     s8                                            |                      p1_tmr_pfft_stage8_v4 |      10948 |      10948 |       0 |    0 |  4467 |      0 |      0 |           96 |
+|       (s8)                                        |                      p1_tmr_pfft_stage8_v4 |          2 |          2 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q0i                                         |                                  vote35_17 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q0r                                         |                                  vote35_18 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q1i                                         |                                  vote35_19 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q1r                                         |                                  vote35_20 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q2i                                         |                                  vote35_21 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q2r                                         |                                  vote35_22 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q3i                                         |                                  vote35_23 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q3r                                         |                                  vote35_24 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       replicas[0].u                               |                 p1_stage8_functional_v3__1 |       3555 |       3555 |       0 |    0 |  1489 |      0 |      0 |           32 |
+|         (replicas[0].u)                           |                 p1_stage8_functional_v3__1 |         58 |         58 |       0 |    0 |   762 |      0 |      0 |            0 |
+|         mem0                                      |           fft_memory_v5__parameterized6_40 |        386 |        386 |       0 |    0 |    78 |      0 |      0 |            0 |
+|         mem1                                      |           fft_memory_v5__parameterized6_41 |        386 |        386 |       0 |    0 |    78 |      0 |      0 |            0 |
+|         mem2                                      |           fft_memory_v5__parameterized6_42 |        386 |        386 |       0 |    0 |    78 |      0 |      0 |            0 |
+|         mem3                                      |           fft_memory_v5__parameterized6_43 |        386 |        386 |       0 |    0 |    78 |      0 |      0 |            0 |
+|         rot2                                      |                fft_complex_mul_q28_pipe_44 |        974 |        974 |       0 |    0 |   209 |      0 |      0 |           16 |
+|           (rot2)                                  |                fft_complex_mul_q28_pipe_44 |        726 |        726 |       0 |    0 |   209 |      0 |      0 |           16 |
+|           u_rom                                   |                        twiddle_rom_1024_47 |        248 |        248 |       0 |    0 |     0 |      0 |      0 |            0 |
+|         rot3                                      |                fft_complex_mul_q28_pipe_45 |        979 |        979 |       0 |    0 |   206 |      0 |      0 |           16 |
+|           (rot3)                                  |                fft_complex_mul_q28_pipe_45 |        730 |        730 |       0 |    0 |   206 |      0 |      0 |           16 |
+|           u_rom                                   |                        twiddle_rom_1024_46 |        249 |        249 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       replicas[1].u                               |                 p1_stage8_functional_v3__2 |       3555 |       3555 |       0 |    0 |  1489 |      0 |      0 |           32 |
+|         (replicas[1].u)                           |                 p1_stage8_functional_v3__2 |         58 |         58 |       0 |    0 |   762 |      0 |      0 |            0 |
+|         mem0                                      |           fft_memory_v5__parameterized6_32 |        386 |        386 |       0 |    0 |    78 |      0 |      0 |            0 |
+|         mem1                                      |           fft_memory_v5__parameterized6_33 |        386 |        386 |       0 |    0 |    78 |      0 |      0 |            0 |
+|         mem2                                      |           fft_memory_v5__parameterized6_34 |        386 |        386 |       0 |    0 |    78 |      0 |      0 |            0 |
+|         mem3                                      |           fft_memory_v5__parameterized6_35 |        386 |        386 |       0 |    0 |    78 |      0 |      0 |            0 |
+|         rot2                                      |                fft_complex_mul_q28_pipe_36 |        974 |        974 |       0 |    0 |   209 |      0 |      0 |           16 |
+|           (rot2)                                  |                fft_complex_mul_q28_pipe_36 |        726 |        726 |       0 |    0 |   209 |      0 |      0 |           16 |
+|           u_rom                                   |                        twiddle_rom_1024_39 |        248 |        248 |       0 |    0 |     0 |      0 |      0 |            0 |
+|         rot3                                      |                fft_complex_mul_q28_pipe_37 |        979 |        979 |       0 |    0 |   206 |      0 |      0 |           16 |
+|           (rot3)                                  |                fft_complex_mul_q28_pipe_37 |        730 |        730 |       0 |    0 |   206 |      0 |      0 |           16 |
+|           u_rom                                   |                        twiddle_rom_1024_38 |        249 |        249 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       replicas[2].u                               |                    p1_stage8_functional_v3 |       3556 |       3556 |       0 |    0 |  1489 |      0 |      0 |           32 |
+|         (replicas[2].u)                           |                    p1_stage8_functional_v3 |         58 |         58 |       0 |    0 |   762 |      0 |      0 |            0 |
+|         mem0                                      |              fft_memory_v5__parameterized6 |        386 |        386 |       0 |    0 |    78 |      0 |      0 |            0 |
+|         mem1                                      |           fft_memory_v5__parameterized6_25 |        387 |        387 |       0 |    0 |    78 |      0 |      0 |            0 |
+|         mem2                                      |           fft_memory_v5__parameterized6_26 |        386 |        386 |       0 |    0 |    78 |      0 |      0 |            0 |
+|         mem3                                      |           fft_memory_v5__parameterized6_27 |        386 |        386 |       0 |    0 |    78 |      0 |      0 |            0 |
+|         rot2                                      |                fft_complex_mul_q28_pipe_28 |        974 |        974 |       0 |    0 |   209 |      0 |      0 |           16 |
+|           (rot2)                                  |                fft_complex_mul_q28_pipe_28 |        726 |        726 |       0 |    0 |   209 |      0 |      0 |           16 |
+|           u_rom                                   |                        twiddle_rom_1024_31 |        248 |        248 |       0 |    0 |     0 |      0 |      0 |            0 |
+|         rot3                                      |                fft_complex_mul_q28_pipe_29 |        979 |        979 |       0 |    0 |   206 |      0 |      0 |           16 |
+|           (rot3)                                  |                fft_complex_mul_q28_pipe_29 |        730 |        730 |       0 |    0 |   206 |      0 |      0 |           16 |
+|           u_rom                                   |                        twiddle_rom_1024_30 |        249 |        249 |       0 |    0 |     0 |      0 |      0 |            0 |
+|     s9                                            |                      p1_tmr_pfft_stage9_v3 |       4370 |       4370 |       0 |    0 |  3402 |      0 |      0 |           96 |
+|       (s9)                                        |                      p1_tmr_pfft_stage9_v3 |          2 |          2 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q0i                                         |                                     vote35 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q0r                                         |                                   vote35_0 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q1i                                         |                                   vote35_1 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q1r                                         |                                   vote35_2 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q2i                                         |                                   vote35_3 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q2r                                         |                                   vote35_4 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q3i                                         |                                   vote35_5 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       q3r                                         |                                   vote35_6 |         35 |         35 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       replicas[0].u                               |              p1_pfft_stage9_exchange_v3__1 |       1363 |       1363 |       0 |    0 |  1134 |      0 |      0 |           32 |
+|         (replicas[0].u)                           |              p1_pfft_stage9_exchange_v3__1 |        168 |        168 |       0 |    0 |   719 |      0 |      0 |            0 |
+|         rot1                                      |                fft_complex_mul_q28_pipe_13 |        595 |        595 |       0 |    0 |   209 |      0 |      0 |           16 |
+|           (rot1)                                  |                fft_complex_mul_q28_pipe_13 |        591 |        591 |       0 |    0 |   209 |      0 |      0 |           16 |
+|           u_rom                                   |                        twiddle_rom_1024_16 |          4 |          4 |       0 |    0 |     0 |      0 |      0 |            0 |
+|         rot3                                      |                fft_complex_mul_q28_pipe_14 |        600 |        600 |       0 |    0 |   206 |      0 |      0 |           16 |
+|           (rot3)                                  |                fft_complex_mul_q28_pipe_14 |        597 |        597 |       0 |    0 |   206 |      0 |      0 |           16 |
+|           u_rom                                   |                        twiddle_rom_1024_15 |          3 |          3 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       replicas[1].u                               |              p1_pfft_stage9_exchange_v3__2 |       1362 |       1362 |       0 |    0 |  1134 |      0 |      0 |           32 |
+|         (replicas[1].u)                           |              p1_pfft_stage9_exchange_v3__2 |        168 |        168 |       0 |    0 |   719 |      0 |      0 |            0 |
+|         rot1                                      |                 fft_complex_mul_q28_pipe_9 |        595 |        595 |       0 |    0 |   209 |      0 |      0 |           16 |
+|           (rot1)                                  |                 fft_complex_mul_q28_pipe_9 |        591 |        591 |       0 |    0 |   209 |      0 |      0 |           16 |
+|           u_rom                                   |                        twiddle_rom_1024_12 |          4 |          4 |       0 |    0 |     0 |      0 |      0 |            0 |
+|         rot3                                      |                fft_complex_mul_q28_pipe_10 |        600 |        600 |       0 |    0 |   206 |      0 |      0 |           16 |
+|           (rot3)                                  |                fft_complex_mul_q28_pipe_10 |        597 |        597 |       0 |    0 |   206 |      0 |      0 |           16 |
+|           u_rom                                   |                        twiddle_rom_1024_11 |          3 |          3 |       0 |    0 |     0 |      0 |      0 |            0 |
+|       replicas[2].u                               |                 p1_pfft_stage9_exchange_v3 |       1363 |       1363 |       0 |    0 |  1134 |      0 |      0 |           32 |
+|         (replicas[2].u)                           |                 p1_pfft_stage9_exchange_v3 |        168 |        168 |       0 |    0 |   719 |      0 |      0 |            0 |
+|         rot1                                      |                   fft_complex_mul_q28_pipe |        595 |        595 |       0 |    0 |   209 |      0 |      0 |           16 |
+|           (rot1)                                  |                   fft_complex_mul_q28_pipe |        591 |        591 |       0 |    0 |   209 |      0 |      0 |           16 |
+|           u_rom                                   |                         twiddle_rom_1024_8 |          4 |          4 |       0 |    0 |     0 |      0 |      0 |            0 |
+|         rot3                                      |                 fft_complex_mul_q28_pipe_7 |        600 |        600 |       0 |    0 |   206 |      0 |      0 |           16 |
+|           (rot3)                                  |                 fft_complex_mul_q28_pipe_7 |        597 |        597 |       0 |    0 |   206 |      0 |      0 |           16 |
+|           u_rom                                   |                           twiddle_rom_1024 |          3 |          3 |       0 |    0 |     0 |      0 |      0 |            0 |
++---------------------------------------------------+--------------------------------------------+------------+------------+---------+------+-------+--------+--------+--------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+

@@ -1,0 +1,905 @@
+{
+  "architecture_id": null,
+  "completed_architectures": [
+    {
+      "architecture_id": "P0",
+      "blackbox_audit": {
+        "critical_blackboxes": [],
+        "primitive_blackboxes": [
+          "BUFG",
+          "CARRY4",
+          "DSP48E1",
+          "FDRE",
+          "IBUF",
+          "INV",
+          "LUT1",
+          "LUT2",
+          "LUT3",
+          "LUT4",
+          "LUT5",
+          "LUT6",
+          "MUXF7",
+          "MUXF8",
+          "OBUF",
+          "RAM32M",
+          "RAM64M",
+          "RAMB36E1"
+        ],
+        "status": "VERIFIED"
+      },
+      "cell_counts": {
+        "BUFG": 1,
+        "CARRY4": 3785,
+        "DSP48E1": 464,
+        "FDRE": 4166,
+        "IBUF": 284,
+        "INV": 589,
+        "LUT1": 29,
+        "LUT2": 13848,
+        "LUT3": 2479,
+        "LUT4": 257,
+        "LUT5": 1506,
+        "LUT6": 12891,
+        "MUXF7": 5436,
+        "MUXF8": 2675,
+        "OBUF": 282,
+        "RAM32M": 276,
+        "RAM64M": 96,
+        "RAMB36E1": 8
+      },
+      "command_sidecar": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/attempt2/yosys_attempt2_P0.command.json",
+      "command_sidecar_sha256": "CF99C263EA0411B85DE04F82596F41B888C84ADA3DB7A1C4704C547A9852C96A",
+      "log": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/attempt2/yosys_attempt2_P0.log",
+      "log_sha256": "BA089BAFDA5DE9D87DE9BD37B626E3E3DEE81202BDD0C77BBC7B9F19C4BC3142",
+      "memory_mapping_audit": {
+        "scope": "P1_stage8_single_check_pair_scheduler",
+        "status": "NOT_APPLICABLE"
+      },
+      "missing_metrics": [],
+      "post_synthesis_audit_status": "VERIFIED",
+      "post_synthesis_netlist": "experiments/fault_injection_1024/build/pfft_resource_v3_001/attempt2/yosys/attempt2/P0_netlist.json",
+      "post_synthesis_netlist_sha256": "DFA837B8A1D54C5E7B879E120191D49A86C07D7D7E413DA38B6384F4844BCBF6",
+      "pre_synthesis_hierarchy": "experiments/fault_injection_1024/build/pfft_resource_v3_001/attempt2/yosys/attempt2/P0_hierarchy.json",
+      "pre_synthesis_hierarchy_sha256": "AE091D36D89592AD4ECC41530B9E06C62EBBDDCF2B03E038B2B23A1287114752",
+      "replica_preservation_audit": {
+        "checks": [
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 1,
+            "stage_root": {
+              "instance": "s1",
+              "module_hdlname": "pfft_stage4_sdf_no_exchange_v3",
+              "module_key": "$paramod$a53e20b417a9ec53715eeb06b50573f7bb2b45b8\\pfft_stage4_sdf_no_exchange_v3",
+              "path": "top_p0_pfft_unprotected/u/core/s1"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 2,
+            "stage_root": {
+              "instance": "s2",
+              "module_hdlname": "pfft_stage4_sdf_no_exchange_v3",
+              "module_key": "$paramod$85512758f5e3e51d2f06d1883f5eddf99a323e64\\pfft_stage4_sdf_no_exchange_v3",
+              "path": "top_p0_pfft_unprotected/u/core/s2"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 3,
+            "stage_root": {
+              "instance": "s3",
+              "module_hdlname": "pfft_stage4_sdf_no_exchange_v3",
+              "module_key": "$paramod$aedb1a04da129083d007f2555b5bfaf0e99d260f\\pfft_stage4_sdf_no_exchange_v3",
+              "path": "top_p0_pfft_unprotected/u/core/s3"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 4,
+            "stage_root": {
+              "instance": "s4",
+              "module_hdlname": "pfft_stage4_sdf_no_exchange_v3",
+              "module_key": "$paramod$2993274386077744536197e848f81a9aebe9f758\\pfft_stage4_sdf_no_exchange_v3",
+              "path": "top_p0_pfft_unprotected/u/core/s4"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 5,
+            "stage_root": {
+              "instance": "s5",
+              "module_hdlname": "pfft_stage4_sdf_no_exchange_v3",
+              "module_key": "$paramod$30de15d5d41ca5157d544740dac50f8b556df732\\pfft_stage4_sdf_no_exchange_v3",
+              "path": "top_p0_pfft_unprotected/u/core/s5"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 6,
+            "stage_root": {
+              "instance": "s6",
+              "module_hdlname": "pfft_stage4_sdf_no_exchange_v3",
+              "module_key": "$paramod$d70fcae6e6b1b25a1166c8763e5aaba697b24e34\\pfft_stage4_sdf_no_exchange_v3",
+              "path": "top_p0_pfft_unprotected/u/core/s6"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 7,
+            "stage_root": {
+              "instance": "s7",
+              "module_hdlname": "pfft_stage4_sdf_no_exchange_v3",
+              "module_key": "$paramod$0554f750bc52edd405349f2826681362b1e38adb\\pfft_stage4_sdf_no_exchange_v3",
+              "path": "top_p0_pfft_unprotected/u/core/s7"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 8,
+            "stage_root": {
+              "instance": "s8",
+              "module_hdlname": "pfft_stage4_sdf_no_exchange_v3",
+              "module_key": "$paramod$356df58be365942fa60da905c852acbba53b6cf9\\pfft_stage4_sdf_no_exchange_v3",
+              "path": "top_p0_pfft_unprotected/u/core/s8"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 9,
+            "stage_root": {
+              "instance": "s9",
+              "module_hdlname": "pfft_stage9_no_exchange_v3",
+              "module_key": "pfft_stage9_no_exchange_v3",
+              "path": "top_p0_pfft_unprotected/u/core/s9"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 10,
+            "stage_root": {
+              "instance": "s10",
+              "module_hdlname": "pfft_stage10",
+              "module_key": "pfft_stage10",
+              "path": "top_p0_pfft_unprotected/u/core/s10"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          }
+        ],
+        "expected_tmr_stages": [],
+        "failures": [],
+        "live_tmr_or_voter_modules": {},
+        "status": "VERIFIED"
+      },
+      "resources": {
+        "BRAM36_equivalent": 8.0,
+        "DSP48E1": 464,
+        "FF": 4166,
+        "LC_estimate": 22689,
+        "LUT1_to_LUT6": 31010,
+        "RAMB18E1": 0,
+        "RAMB36E1": 8,
+        "distributed_memory_cells": {
+          "RAM32M": 276,
+          "RAM64M": 96
+        },
+        "distributed_memory_cells_total": 372
+      },
+      "script": "experiments/fault_injection_1024/build/pfft_resource_v3_001/attempt2/yosys/attempt2/P0_synth.ys",
+      "script_sha256": "BA21C2B3B9D96D7DB2374EFE5D72A8DBC66EF66270788DB38E5AF6939327CD0A",
+      "source_hashes": {
+        "common/rtl/datapath_v5.sv": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "common/rtl/fft_common.sv": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "common/rtl/protected_stages_v5.sv": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "common/rtl/protection_primitives_v5.sv": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "common/rtl/protection_rtl.sv": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "common/rtl/twiddle_rom_1024.sv": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "projects/P0/top_p0_pfft_unprotected.sv": "AF56137D7BC711E655F4316C34D4A351AA9D5A907B4E79215053A17D56A8C114"
+      },
+      "status": "VERIFIED",
+      "target_checks": {
+        "DSP48E1_by_stage": {
+          "expected": [
+            64,
+            64,
+            64,
+            64,
+            64,
+            64,
+            48,
+            32,
+            0,
+            0
+          ],
+          "measured": [
+            64,
+            64,
+            64,
+            64,
+            64,
+            64,
+            48,
+            32,
+            0,
+            0
+          ],
+          "pass": true,
+          "unassigned": 0
+        },
+        "DSP48E1_per_generic_complex_multiplier": {
+          "expected": 16,
+          "measured": 16.0,
+          "pass": true
+        },
+        "DSP48E1_total": {
+          "expected": 464,
+          "measured": 464,
+          "pass": true
+        },
+        "generic_complex_multipliers_by_stage": {
+          "expected": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            2,
+            0,
+            0
+          ],
+          "measured": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            2,
+            0,
+            0
+          ],
+          "pass": true,
+          "unassigned": 0
+        },
+        "generic_complex_multipliers_total": {
+          "expected": 29,
+          "measured": 29,
+          "pass": true
+        }
+      },
+      "target_status": "VERIFIED",
+      "top": "top_p0_pfft_unprotected",
+      "warning_audit": {
+        "critical_warnings": [],
+        "status": "VERIFIED",
+        "warnings": [
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "Warning: Resizing cell port $paramod$bc1ce2320367c34048c33280e277ce521e26ffb6\\fft_memory_v5.g_block.mem.0.0.ADDRBWRADDR from 17 bits to 16 bits.",
+          "Warning: Resizing cell port $paramod$bc1ce2320367c34048c33280e277ce521e26ffb6\\fft_memory_v5.g_block.mem.0.0.ADDRARDADDR from 17 bits to 16 bits.",
+          "Warning: Resizing cell port pfft_frame_buffer_lane_v5.memory.0.0.ADDRBWRADDR from 17 bits to 16 bits.",
+          "Warning: Resizing cell port pfft_frame_buffer_lane_v5.memory.0.0.ADDRARDADDR from 17 bits to 16 bits."
+        ]
+      }
+    },
+    {
+      "architecture_id": "P1",
+      "blackbox_audit": {
+        "critical_blackboxes": [],
+        "primitive_blackboxes": [
+          "BUFG",
+          "CARRY4",
+          "DSP48E1",
+          "FDRE",
+          "IBUF",
+          "INV",
+          "LUT1",
+          "LUT2",
+          "LUT3",
+          "LUT4",
+          "LUT5",
+          "LUT6",
+          "MUXF7",
+          "MUXF8",
+          "OBUF",
+          "RAM32M",
+          "RAM64M",
+          "RAMB18E1"
+        ],
+        "status": "VERIFIED"
+      },
+      "cell_counts": {
+        "BUFG": 1,
+        "CARRY4": 8124,
+        "DSP48E1": 736,
+        "FDRE": 14767,
+        "IBUF": 284,
+        "INV": 4418,
+        "LUT1": 150,
+        "LUT2": 23721,
+        "LUT3": 12242,
+        "LUT4": 5826,
+        "LUT5": 8360,
+        "LUT6": 59163,
+        "MUXF7": 20859,
+        "MUXF8": 6946,
+        "OBUF": 282,
+        "RAM32M": 300,
+        "RAM64M": 104,
+        "RAMB18E1": 93
+      },
+      "command_sidecar": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/attempt2/yosys_attempt2_P1.command.json",
+      "command_sidecar_sha256": "BB53C82C225862C5F8CD9CD50286EA66528CD376357B67586752EA9EF918D025",
+      "log": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/attempt2/yosys_attempt2_P1.log",
+      "log_sha256": "440E94D28FA67E6650A5EA00F08944E980B0B94E15D12841D964DBC05571BE36",
+      "memory_mapping_audit": {
+        "BRAM36_equivalent": 40.5,
+        "RAMB18E1": 81,
+        "RAMB36E1": 0,
+        "declared_block_array_count": 15,
+        "declared_logical_capacity_bits": 921472,
+        "mapped_nominal_block_capacity_bits": 1492992,
+        "minimum_BRAM36_equivalent": 25,
+        "requirement": "aggregate_RAMB_capacity_under_the_live_scheduler_must_cover_the_921472_declared_history_FIFO_and_result_bits",
+        "scheduler_leaf_cell_counts": {
+          "CARRY4": 676,
+          "DSP48E1": 32,
+          "FDRE": 9260,
+          "INV": 465,
+          "LUT1": 42,
+          "LUT2": 2436,
+          "LUT3": 2157,
+          "LUT4": 2215,
+          "LUT5": 2080,
+          "LUT6": 13056,
+          "MUXF7": 2746,
+          "MUXF8": 579,
+          "RAMB18E1": 81
+        },
+        "scope": "P1_stage8_single_check_pair_scheduler",
+        "status": "VERIFIED"
+      },
+      "missing_metrics": [],
+      "post_synthesis_audit_status": "VERIFIED",
+      "post_synthesis_netlist": "experiments/fault_injection_1024/build/pfft_resource_v3_001/attempt2/yosys/attempt2/P1_netlist.json",
+      "post_synthesis_netlist_sha256": "24006ED19B2A727C9C4C0B4C646D2913934A2967CDCE4EDEDB3D761277B77C9B",
+      "pre_synthesis_hierarchy": "experiments/fault_injection_1024/build/pfft_resource_v3_001/attempt2/yosys/attempt2/P1_hierarchy.json",
+      "pre_synthesis_hierarchy_sha256": "8CDF309FC0950C1FD2D8CCAD4AA89C1D289EEEDD8EFDE52E808758AC94F35321",
+      "replica_preservation_audit": {
+        "checks": [
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 1,
+            "stage_root": {
+              "instance": "s1",
+              "module_hdlname": "p1_ecc_stage4_v3",
+              "module_key": "$paramod$a53e20b417a9ec53715eeb06b50573f7bb2b45b8\\p1_ecc_stage4_v3",
+              "path": "top_p1_pfft_ecc/u/s1"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 2,
+            "stage_root": {
+              "instance": "s2",
+              "module_hdlname": "p1_ecc_stage4_v3",
+              "module_key": "$paramod$85512758f5e3e51d2f06d1883f5eddf99a323e64\\p1_ecc_stage4_v3",
+              "path": "top_p1_pfft_ecc/u/s2"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 3,
+            "stage_root": {
+              "instance": "s3",
+              "module_hdlname": "p1_ecc_stage4_v3",
+              "module_key": "$paramod$aedb1a04da129083d007f2555b5bfaf0e99d260f\\p1_ecc_stage4_v3",
+              "path": "top_p1_pfft_ecc/u/s3"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 4,
+            "stage_root": {
+              "instance": "s4",
+              "module_hdlname": "p1_ecc_stage4_v3",
+              "module_key": "$paramod$2993274386077744536197e848f81a9aebe9f758\\p1_ecc_stage4_v3",
+              "path": "top_p1_pfft_ecc/u/s4"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 5,
+            "stage_root": {
+              "instance": "s5",
+              "module_hdlname": "p1_ecc_stage4_v3",
+              "module_key": "$paramod$30de15d5d41ca5157d544740dac50f8b556df732\\p1_ecc_stage4_v3",
+              "path": "top_p1_pfft_ecc/u/s5"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 6,
+            "stage_root": {
+              "instance": "s6",
+              "module_hdlname": "p1_ecc_stage4_v3",
+              "module_key": "$paramod$d70fcae6e6b1b25a1166c8763e5aaba697b24e34\\p1_ecc_stage4_v3",
+              "path": "top_p1_pfft_ecc/u/s6"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 7,
+            "stage_root": {
+              "instance": "s7",
+              "module_hdlname": "p1_ecc_stage4_v3",
+              "module_key": "$paramod$0554f750bc52edd405349f2826681362b1e38adb\\p1_ecc_stage4_v3",
+              "path": "top_p1_pfft_ecc/u/s7"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": false,
+            "explicit_voter_module_children": [],
+            "replica_children": [],
+            "replica_count": 0,
+            "stage": 8,
+            "stage_root": {
+              "instance": "s8",
+              "module_hdlname": "p1_stage8_functional_v3",
+              "module_key": "p1_stage8_functional_v3",
+              "path": "top_p1_pfft_ecc/u/s8"
+            },
+            "stage_root_is_tmr": false,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": true,
+            "explicit_voter_module_children": [
+              {
+                "instance": "q0i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q0r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3r",
+                "module": "vote35"
+              }
+            ],
+            "replica_children": [
+              {
+                "instance": "replicas[0].u",
+                "module": "p1_pfft_stage9_exchange_v3"
+              },
+              {
+                "instance": "replicas[1].u",
+                "module": "p1_pfft_stage9_exchange_v3"
+              },
+              {
+                "instance": "replicas[2].u",
+                "module": "p1_pfft_stage9_exchange_v3"
+              }
+            ],
+            "replica_count": 3,
+            "stage": 9,
+            "stage_root": {
+              "instance": "s9",
+              "module_hdlname": "p1_tmr_pfft_stage9_v3",
+              "module_key": "p1_tmr_pfft_stage9_v3",
+              "path": "top_p1_pfft_ecc/u/s9"
+            },
+            "stage_root_is_tmr": true,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": true,
+            "explicit_voter_module_children": [
+              {
+                "instance": "q0i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q0r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3r",
+                "module": "vote35"
+              }
+            ],
+            "replica_children": [
+              {
+                "instance": "replicas[0].u",
+                "module": "p1_pfft_stage10_single_cycle_v3"
+              },
+              {
+                "instance": "replicas[1].u",
+                "module": "p1_pfft_stage10_single_cycle_v3"
+              },
+              {
+                "instance": "replicas[2].u",
+                "module": "p1_pfft_stage10_single_cycle_v3"
+              }
+            ],
+            "replica_count": 3,
+            "stage": 10,
+            "stage_root": {
+              "instance": "s10",
+              "module_hdlname": "p1_tmr_pfft_stage10_v3",
+              "module_key": "p1_tmr_pfft_stage10_v3",
+              "path": "top_p1_pfft_ecc/u/s10"
+            },
+            "stage_root_is_tmr": true,
+            "status": "VERIFIED"
+          }
+        ],
+        "expected_tmr_stages": [
+          9,
+          10
+        ],
+        "failures": [],
+        "live_tmr_or_voter_modules": {
+          "p1_tmr_pfft_stage10_v3": 1,
+          "p1_tmr_pfft_stage9_v3": 1,
+          "vote35": 16
+        },
+        "status": "VERIFIED"
+      },
+      "resources": {
+        "BRAM36_equivalent": 46.5,
+        "DSP48E1": 736,
+        "FF": 14767,
+        "LC_estimate": 88418,
+        "LUT1_to_LUT6": 109462,
+        "RAMB18E1": 93,
+        "RAMB36E1": 0,
+        "distributed_memory_cells": {
+          "RAM32M": 300,
+          "RAM64M": 104
+        },
+        "distributed_memory_cells_total": 404
+      },
+      "script": "experiments/fault_injection_1024/build/pfft_resource_v3_001/attempt2/yosys/attempt2/P1_synth.ys",
+      "script_sha256": "CAAE1437647E571C1C7D867BDC3EAC3018BA526F4C7C3884035C18962831310B",
+      "source_hashes": {
+        "common/rtl/datapath_v5.sv": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "common/rtl/fft_common.sv": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "common/rtl/protected_stages_v5.sv": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "common/rtl/protection_primitives_v5.sv": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "common/rtl/protection_rtl.sv": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "common/rtl/twiddle_rom_1024.sv": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "projects/P1/top_p1_pfft_ecc.sv": "A2189C214C946CEB2B97B64BF9E19470231EEB7E9A66C0AAC50B6FEF70086117"
+      },
+      "status": "VERIFIED",
+      "target_checks": {
+        "DSP48E1_by_stage": {
+          "expected": [
+            0,
+            96,
+            96,
+            96,
+            96,
+            96,
+            96,
+            64,
+            96,
+            0
+          ],
+          "measured": [
+            0,
+            96,
+            96,
+            96,
+            96,
+            96,
+            96,
+            64,
+            96,
+            0
+          ],
+          "pass": true,
+          "unassigned": 0
+        },
+        "DSP48E1_per_generic_complex_multiplier": {
+          "expected": 16,
+          "measured": 16.0,
+          "pass": true
+        },
+        "DSP48E1_total": {
+          "expected": 736,
+          "measured": 736,
+          "pass": true
+        },
+        "generic_complex_multipliers_by_stage": {
+          "expected": [
+            0,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            4,
+            6,
+            0
+          ],
+          "measured": [
+            0,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            4,
+            6,
+            0
+          ],
+          "pass": true,
+          "unassigned": 0
+        },
+        "generic_complex_multipliers_total": {
+          "expected": 46,
+          "measured": 46,
+          "pass": true
+        }
+      },
+      "target_status": "VERIFIED",
+      "top": "top_p1_pfft_ecc",
+      "warning_audit": {
+        "critical_warnings": [],
+        "status": "VERIFIED",
+        "warnings": [
+          "Warning: Replacing memory \\address_delay with list of registers. See s6_top_p1_pfft_ecc.sv:813",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\")."
+        ]
+      }
+    }
+  ],
+  "details": {
+    "exception_type": "OSError"
+  },
+  "experiment_id": "PFFT-RES-V3-001",
+  "input_fingerprint": {
+    "config_sha256": "6422033B5CECD4471BF88A2D495B6C4843BB0D9A7E4754BCA5314DAD55EDA0E6",
+    "contract_sha256": "2C5C0B010F4BFEDEE8503D7DABCC6AA5882683FB2FA29D54BB7EB09EC6A27D73",
+    "input_manifest_sha256": "BFD3E634FE59DC4C94CA0F26E63482948FB1EFC1687A50F290B996AA27C6C3F3",
+    "memory_map_sha256": "1B8F31C59330DF8732CD0D4696AC892C8663E792FA6917C4D4BA795F580292FB",
+    "qualification_sha256": "32BF0BD8FE2073C9239A1922D5B373BDFAC93E1CCA42A6CA6F202DB19C71DF45",
+    "runner_sha256": "629490E0C550E1EBFFEA76021F3B6BD1BD1939FDCD70D82805BE718B45925C3B",
+    "schedule_sha256": "0D2D271893C3528CD5CBB34EDFC32178C1DA7E35770D80FF9E58E5F3BAC836D6",
+    "source_sha256_by_architecture": {
+      "P0": {
+        "common/rtl/datapath_v5.sv": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "common/rtl/fft_common.sv": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "common/rtl/protected_stages_v5.sv": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "common/rtl/protection_primitives_v5.sv": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "common/rtl/protection_rtl.sv": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "common/rtl/twiddle_rom_1024.sv": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "projects/P0/top_p0_pfft_unprotected.sv": "AF56137D7BC711E655F4316C34D4A351AA9D5A907B4E79215053A17D56A8C114"
+      },
+      "P1": {
+        "common/rtl/datapath_v5.sv": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "common/rtl/fft_common.sv": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "common/rtl/protected_stages_v5.sv": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "common/rtl/protection_primitives_v5.sv": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "common/rtl/protection_rtl.sv": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "common/rtl/twiddle_rom_1024.sv": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "projects/P1/top_p1_pfft_ecc.sv": "A2189C214C946CEB2B97B64BF9E19470231EEB7E9A66C0AAC50B6FEF70086117"
+      },
+      "P2": {
+        "common/rtl/datapath_v5.sv": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "common/rtl/fft_common.sv": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "common/rtl/protected_stages_v5.sv": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "common/rtl/protection_primitives_v5.sv": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "common/rtl/protection_rtl.sv": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "common/rtl/twiddle_rom_1024.sv": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "projects/P2/top_p2_pfft_tmr.sv": "F5E7354F5EC137206E3E1900D693C17BB801B83E81588707FE489B4FCFDB92F3"
+      }
+    },
+    "structure_manifest_sha256": "8BBA3F2E45207ED9E6AB87E1C0B16564B50EEBB7D99FF1689D6C4E7AC31F0E68",
+    "vector_manifest_sha256": "B69BFC3D85360039295E9B7FA5A379F55B11228506AAD777B068387F65F19FE1",
+    "yosys_executable_sha256": "059916904062A877B530E6169FA22DBCE32EC66118B75E9A2198F86EA67BA3EB"
+  },
+  "message": "OSError(22, 'Invalid argument')",
+  "mode": "synthesis",
+  "policy": "stop_no_retry_no_backfill_no_final_table",
+  "schema": "pfft-resource-v3-001-yosys-failure-v1",
+  "stage": "runner_internal",
+  "status": "FAILED",
+  "timestamp_utc": "2026-07-23T14:21:35.438432+00:00"
+}

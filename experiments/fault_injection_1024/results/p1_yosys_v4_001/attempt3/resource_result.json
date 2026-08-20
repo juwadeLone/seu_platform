@@ -1,0 +1,180 @@
+{
+  "attempt": "attempt3",
+  "blackbox_audit": {
+    "allowed_primitive_blackboxes": [
+      "BUFG",
+      "CARRY4",
+      "DSP48E1",
+      "FDRE",
+      "IBUF",
+      "INV",
+      "LUT1",
+      "LUT2",
+      "LUT3",
+      "LUT4",
+      "LUT5",
+      "LUT6",
+      "MUXF7",
+      "MUXF8",
+      "OBUF",
+      "RAM32M",
+      "RAM64M",
+      "RAMB18E1"
+    ],
+    "critical_blackboxes": [],
+    "status": "VERIFIED"
+  },
+  "cell_counts": {
+    "BUFG": 1,
+    "CARRY4": 8744,
+    "DSP48E1": 768,
+    "FDRE": 8436,
+    "IBUF": 284,
+    "INV": 5346,
+    "LUT1": 80,
+    "LUT2": 24171,
+    "LUT3": 13222,
+    "LUT4": 6024,
+    "LUT5": 8054,
+    "LUT6": 53223,
+    "MUXF7": 20779,
+    "MUXF8": 7103,
+    "OBUF": 282,
+    "RAM32M": 380,
+    "RAM64M": 104,
+    "RAMB18E1": 12
+  },
+  "post_synthesis_netlist": {
+    "path": "experiments/fault_injection_1024/build/p1_yosys_v4_001/attempt3/P1_netlist.json",
+    "sha256": "7BA112107BE0364AF8EE042FEAE5164F4F077B1FED66623C883BE2C581CF0B39",
+    "size_bytes": 59177317
+  },
+  "pre_synthesis_hierarchy": {
+    "path": "experiments/fault_injection_1024/build/p1_yosys_v4_001/attempt3/P1_hierarchy.json",
+    "sha256": "CF92EBB4979F4392F62A43AA7E5251261823A93AC94ACFDA320E617A45A9EDBE",
+    "size_bytes": 4860066
+  },
+  "preflight": {
+    "path": "experiments/fault_injection_1024/results/p1_yosys_v4_001/attempt3/preflight.json",
+    "sha256": "8798AB421D9CD328236698B1FD23297E438C9B4C7B1B32375D2CAEA36DBC044F",
+    "size_bytes": 1241
+  },
+  "record_id": "P1-YOSYS-V4-001",
+  "resources": {
+    "BRAM36_equivalent": 6.0,
+    "DSP48E1": 768,
+    "FF": 8436,
+    "LC_estimate": 82986,
+    "LUT1_to_LUT6": 104774,
+    "RAMB18E1": 12,
+    "RAMB36E1": 0,
+    "distributed_memory_cells": {
+      "RAM32M": 380,
+      "RAM64M": 104
+    },
+    "distributed_memory_cells_total": 484
+  },
+  "schema": "p1-yosys-v4-001-attempt3-resource-result-v1",
+  "scope": "Yosys synth_xilinx -family xc7 resource estimate; not Vivado implementation",
+  "script_manifest": {
+    "path": "experiments/fault_injection_1024/results/p1_yosys_v4_001/attempt3/script_manifest.json",
+    "sha256": "3C71CA4C0B98AA2A7D3B6DFE005D3B7BD984DE418373B1E542D1B63BCAE2C22F",
+    "size_bytes": 813
+  },
+  "startup_environment": {
+    "path": "experiments/fault_injection_1024/results/p1_yosys_v4_001/attempt3/startup_environment.json",
+    "sha256": "980CAD05B106054341278D862DC3ED1277BFE2148EE6096CD1B53A6B3FE11F10",
+    "size_bytes": 15712
+  },
+  "status": "VERIFIED",
+  "structure_audit": {
+    "checks": {
+      "generic_complex_multiplier_target": true,
+      "legacy_stage10_tmr_unreachable": true,
+      "legacy_stage8_scheduler_unreachable": true,
+      "stage10_one_643_operator": true,
+      "stage10_two_beat_ecc": true,
+      "stage10_two_decode_boundaries": true,
+      "stage8_complete_replicas": true,
+      "stage8_tmr_wrapper": true,
+      "stage9_complete_replicas": true,
+      "stage9_tmr_wrapper": true
+    },
+    "selected_module_counts": {
+      "arithmetic_boundary_from_clean_v5": 9,
+      "fft_complex_mul_q28": 48,
+      "independent_butterfly_ecc_v5": 1,
+      "p1_pfft_stage9_exchange_v3": 3,
+      "p1_stage10_two_beat_ecc_v4": 1,
+      "p1_stage8_functional_v3": 3,
+      "p1_stage8_single_check_pair_scheduler_v3": 0,
+      "p1_tmr_pfft_stage10_v3": 0,
+      "p1_tmr_pfft_stage8_v4": 1,
+      "p1_tmr_pfft_stage9_v3": 1
+    },
+    "status": "VERIFIED"
+  },
+  "synthesis_command": {
+    "path": "experiments/fault_injection_1024/logs/p1_yosys_v4_001/attempt3/yosys_synthesis.command.json",
+    "sha256": "60B0C1A1368B1B08B0A31F41DD163950AE06526273ABEF4BA5D81E6EB5C8DB5E",
+    "size_bytes": 423
+  },
+  "synthesis_log": {
+    "path": "experiments/fault_injection_1024/build/p1_yosys_v4_001/attempt3/synthesis_yosys.log",
+    "sha256": "2B6F3ECF1B5BF61062A913174C17D694C1BD665C00F4A555F669982934357048",
+    "size_bytes": 5911744
+  },
+  "target_diagnostic": {
+    "DSP48E1": {
+      "expected": 768,
+      "measured": 768
+    },
+    "generic_complex_multipliers": {
+      "expected": 48,
+      "measured": 48
+    }
+  },
+  "version_gate": {
+    "path": "experiments/fault_injection_1024/results/p1_yosys_v4_001/attempt3/yosys_version_gate.json",
+    "sha256": "67003B7A4BC81B59D5B007FC137BD365BC1D37B7F60F63FDE1D0C04E16A1EA7D",
+    "size_bytes": 854
+  },
+  "warning_audit": {
+    "critical_warnings": [],
+    "status": "VERIFIED",
+    "warnings": [
+      "Warning: Replacing memory \\address_delay with list of registers. See s6_top_p1_pfft_ecc.sv:813",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+      "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\")."
+    ]
+  },
+  "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 13.2.1)"
+}

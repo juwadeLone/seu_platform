@@ -1,0 +1,25 @@
+﻿{
+    "captured_before_yosys_start":  true,
+    "working_directory":  "C:\\Users\\pc\\AppData\\Local\\Temp\\S3ROT001A1",
+    "working_directory_is_ascii":  true,
+    "yosys":  {
+                  "path":  "C:\\Users\\pc\\Downloads\\oss-cad-suite\\bin\\yosys.exe",
+                  "sha256":  "059916904062A877B530E6169FA22DBCE32EC66118B75E9A2198F86EA67BA3EB"
+              },
+    "environment":  {
+                        "PATH":  "C:\\Users\\pc\\Downloads\\oss-cad-suite\\bin;C:\\Users\\pc\\Downloads\\oss-cad-suite\\lib;C:\\WINDOWS\\system32;C:\\WINDOWS",
+                        "YOSYSHQ_ROOT":  "C:\\Users\\pc\\Downloads\\oss-cad-suite\\",
+                        "PYTHONHOME":  null,
+                        "PYTHONPATH":  null
+                    },
+    "scripts":  [
+                    {
+                        "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\s3_single_rotation_v1_001\\yosys_attempt1\\preflight.ys",
+                        "sha256":  "982B38F84E7EFBCE3CDE18ABB9D95F8D363EFEC1C37D4D4DAE648424F2BC0071"
+                    },
+                    {
+                        "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\s3_single_rotation_v1_001\\yosys_attempt1\\synth.ys",
+                        "sha256":  "FFA3C2DE4251F2471A5BA6E12FF9AA31AAA9A14DD56E7FAB24EA4526BB81EFEC"
+                    }
+                ]
+}

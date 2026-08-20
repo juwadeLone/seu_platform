@@ -1,0 +1,22 @@
+{
+  "schema": "p2-rtl-no-framebuf-v1-001-qualification-v1",
+  "status": "VERIFIED",
+  "record_id": "P2-RTL-NO-FRAMEBUF-V1-001",
+  "fixed_latency_is_acceptance_criterion": false,
+  "measured_latency": 268,
+  "compile_exit_code": 0,
+  "simulation_exit_code": 0,
+  "checks": {
+    "eight_frames_2048_beats_bit_exact": true,
+    "out_valid_continuous": true,
+    "each_frame_256_beats": true,
+    "out_last_at_each_frame_end": true,
+    "continuous_frame_boundaries": true
+  },
+  "input_manifest_sha256": "1F2C3A42961E3DE21A7160DF20B3253191E2D3B1F4156D03AFE1ECB7A2D84C43",
+  "compile_log_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+  "simulation_log_sha256": "62D1FEB6313CF3632A7A06D99F367CCD85F1DC6D0CEA7908E4EC1DDD76FA99B8",
+  "historical_p2_rtl_sha256": "F5E7354F5EC137206E3E1900D693C17BB801B83E81588707FE489B4FCFDB92F3",
+  "isolated_p2_rtl_sha256": "160F22B6A75776831FE093E9F33BE4D3FDE1DA52DFBC380385CCB7F977610052",
+  "yosys_run": false
+}

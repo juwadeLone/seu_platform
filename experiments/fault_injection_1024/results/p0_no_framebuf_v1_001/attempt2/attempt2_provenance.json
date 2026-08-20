@@ -1,0 +1,16 @@
+{
+  "attempt1_preflight": {
+    "path": "experiments/fault_injection_1024/results/p0_no_framebuf_v1_001/attempt1/preflight.json",
+    "sha256": "3F9DC37DDABF736EDBF53C12F615D85493A2B234BFA6E3563D72F617E5685DE9",
+    "size_bytes": 495
+  },
+  "attempt1_qualification": {
+    "path": "experiments/fault_injection_1024/results/p0_no_framebuf_v1_001/attempt1/qualification.json",
+    "sha256": "CCF9F8BC60433F0221EA163A551741BFC0CEC0152B562809DA826B63547610FF",
+    "size_bytes": 1261
+  },
+  "policy": "new directories; no attempt1 artifact overwritten",
+  "reason": "attempt1 preflight failed before read_verilog with GetShortPathName",
+  "record_id": "P0-NO-FRAMEBUF-V1-001",
+  "schema": "p0-no-framebuf-v1-001-attempt2-provenance-v1"
+}

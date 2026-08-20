@@ -1,0 +1,103 @@
+{
+  "sc01_uncomp_run_full_tau8.log": {
+    "total_trials": 3360,
+    "counts": {
+      "corrected_bitexact": 2976,
+      "corrected_bounded": 0,
+      "detected_only": 0,
+      "silent_bounded": 384,
+      "silent_unbounded": 0,
+      "miscorrection": 0
+    },
+    "recovery_bitexact_pct": 88.57,
+    "recovery_bounded_pct": 88.57,
+    "detection_rate_pct": 88.57,
+    "per_stage": {
+      "1": {
+        "corrected_bitexact": 372,
+        "corrected_bounded": 0,
+        "detected_only": 0,
+        "silent_bounded": 48,
+        "silent_unbounded": 0,
+        "miscorrection": 0
+      },
+      "2": {
+        "corrected_bitexact": 372,
+        "corrected_bounded": 0,
+        "detected_only": 0,
+        "silent_bounded": 48,
+        "silent_unbounded": 0,
+        "miscorrection": 0
+      },
+      "3": {
+        "corrected_bitexact": 372,
+        "corrected_bounded": 0,
+        "detected_only": 0,
+        "silent_bounded": 48,
+        "silent_unbounded": 0,
+        "miscorrection": 0
+      },
+      "4": {
+        "corrected_bitexact": 372,
+        "corrected_bounded": 0,
+        "detected_only": 0,
+        "silent_bounded": 48,
+        "silent_unbounded": 0,
+        "miscorrection": 0
+      },
+      "5": {
+        "corrected_bitexact": 372,
+        "corrected_bounded": 0,
+        "detected_only": 0,
+        "silent_bounded": 48,
+        "silent_unbounded": 0,
+        "miscorrection": 0
+      },
+      "6": {
+        "corrected_bitexact": 372,
+        "corrected_bounded": 0,
+        "detected_only": 0,
+        "silent_bounded": 48,
+        "silent_unbounded": 0,
+        "miscorrection": 0
+      },
+      "7": {
+        "corrected_bitexact": 372,
+        "corrected_bounded": 0,
+        "detected_only": 0,
+        "silent_bounded": 48,
+        "silent_unbounded": 0,
+        "miscorrection": 0
+      },
+      "8": {
+        "corrected_bitexact": 372,
+        "corrected_bounded": 0,
+        "detected_only": 0,
+        "silent_bounded": 48,
+        "silent_unbounded": 0,
+        "miscorrection": 0
+      }
+    },
+    "summary_lines": [
+      {
+        "metric": "threshold=8",
+        "total": 3360,
+        "corrected_bitexact": 2976,
+        "corrected_bounded": 0,
+        "detected_only": 0,
+        "silent_bounded": 384,
+        "silent_unbounded": 0,
+        "miscorrection": 0
+      },
+      {
+        "metric": "recovery_bitexact=88.57%"
+      },
+      {
+        "metric": "recovery_bounded=88.57%"
+      },
+      {
+        "metric": "detection_rate=88.57%"
+      }
+    ]
+  }
+}

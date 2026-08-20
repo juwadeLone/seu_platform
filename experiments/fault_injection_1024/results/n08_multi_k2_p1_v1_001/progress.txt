@@ -1,0 +1,28 @@
+2026-08-14T12:10:18+08:00 START arch=p1 k=2 trials=500 tau=3
+arch=p1 k=2 trials=500 events=1000
+stage_counts=1:125,2:125,3:125,4:125,5:125,6:125,7:125,10:125
+symbol_counts=0:167,1:167,2:167,3:167,4:166,5:166
+component_counts=0:502,1:498
+bit_min=28 bit_max=29
+2026-08-14T12:10:19+08:00 COMPILE_OK arch=p1 k=2
+2026-08-14T12:10:19+08:00 RUNNING arch=p1 k=2 trials=0/500 last=none
+2026-08-14T12:10:34+08:00 RUNNING arch=p1 k=2 trials=24/500 last=TRIAL trial=23 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:10:49+08:00 RUNNING arch=p1 k=2 trials=50/500 last=TRIAL trial=49 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:11:04+08:00 RUNNING arch=p1 k=2 trials=76/500 last=TRIAL trial=75 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:11:19+08:00 RUNNING arch=p1 k=2 trials=102/500 last=TRIAL trial=101 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:11:34+08:00 RUNNING arch=p1 k=2 trials=129/500 last=TRIAL trial=128 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:11:49+08:00 RUNNING arch=p1 k=2 trials=155/500 last=TRIAL trial=154 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:12:04+08:00 RUNNING arch=p1 k=2 trials=181/500 last=TRIAL trial=180 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:12:19+08:00 RUNNING arch=p1 k=2 trials=207/500 last=TRIAL trial=206 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:12:34+08:00 RUNNING arch=p1 k=2 trials=234/500 last=TRIAL trial=233 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:12:49+08:00 RUNNING arch=p1 k=2 trials=260/500 last=TRIAL trial=259 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:13:04+08:00 RUNNING arch=p1 k=2 trials=286/500 last=TRIAL trial=285 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:13:19+08:00 RUNNING arch=p1 k=2 trials=313/500 last=TRIAL trial=312 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:13:34+08:00 RUNNING arch=p1 k=2 trials=339/500 last=TRIAL trial=338 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:13:49+08:00 RUNNING arch=p1 k=2 trials=366/500 last=TRIAL trial=365 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:14:04+08:00 RUNNING arch=p1 k=2 trials=392/500 last=TRIAL trial=391 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:14:19+08:00 RUNNING arch=p1 k=2 trials=419/500 last=TRIAL trial=418 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:14:34+08:00 RUNNING arch=p1 k=2 trials=445/500 last=TRIAL trial=444 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:14:49+08:00 RUNNING arch=p1 k=2 trials=472/500 last=TRIAL trial=471 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:15:04+08:00 RUNNING arch=p1 k=2 trials=498/500 last=TRIAL trial=497 k=2 injected=2 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:15:19+08:00 DONE arch=p1 k=2 SUMMARY arch=P1 k=2 total=500 corrected=495 detected_only=0 silent_bounded_residual=0 miscorrection=5 silent_unbounded=0 timeout=0

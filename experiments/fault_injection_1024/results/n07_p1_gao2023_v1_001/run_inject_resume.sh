@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+# Resume N07 P1 Gao-2023 inject from START_SYM. Does not wipe symbol 0 evidence.
+# Usage: bash run_inject_resume.sh <THRESHOLD> <START_SYM>
+set -euo pipefail
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+hash -r
+TAU="${1:?threshold integer required}"
+START_SYM="${2:?start symbol 0-5 required}"
+TCAS_ROOT="/home/xdu/☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研/hermes/tcas"
+RTL_DIR="$TCAS_ROOT/experiments/fault_injection_1024/common/rtl"
+P1_DIR="$TCAS_ROOT/experiments/fault_injection_1024/projects/P1"
+TB="$(cd "$(dirname "$0")" && pwd)/sc01_p1_rtl_tb.sv"
+OUT="$(cd "$(dirname "$0")" && pwd)"
+PROGRESS="$OUT/progress.txt"
+COMBINED="$OUT/combined_summary.txt"
+echo "$(date -Iseconds) RESUME N07 P1 tau=$TAU from_symbol=$START_SYM stages=1-7+10 two-frames" | tee -a "$PROGRESS"
+
+heartbeat() {
+  local log="$1" s="$2"
+  local n last
+  n=$(grep -c '^TRIAL' "$log" 2>/dev/null || true)
+  n=${n:-0}
+  last=$(grep '^TRIAL' "$log" 2>/dev/null | tail -1 | tr -d '\r' || true)
+  printf '%s symbol=%s trials=%s/560 last=%s\n' "$(date '+%H:%M:%S')" "$s" "$n" "${last:-none}"
+}
+
+for s in 0 1 2 3 4 5; do
+  if [ "$s" -lt "$START_SYM" ]; then
+    continue
+  fi
+  LOG="$OUT/run_sym${s}.log"
+  SIM="/tmp/n07_p1_tau${TAU}_sym${s}.vvp"
+  echo "===== $(date -Iseconds) COMPILE P1 tau=$TAU symbol=$s =====" | tee -a "$PROGRESS"
+  iverilog -g2012 -Wall -o "$SIM" \
+    -P sc01_p1_fault_injection_tb.THRESHOLD="$TAU" \
+    -P sc01_p1_fault_injection_tb.STAGE_MODE=0 \
+    -P sc01_p1_fault_injection_tb.SYMBOL_MIN="$s" \
+    -P sc01_p1_fault_injection_tb.SYMBOL_MAX="$s" \
+    -I "$RTL_DIR" \
+    "$RTL_DIR/twiddle_rom_1024.sv" \
+    "$RTL_DIR/fft_common.sv" \
+    "$RTL_DIR/datapath_v5.sv" \
+    "$RTL_DIR/protection_rtl.sv" \
+    "$RTL_DIR/protection_primitives_v5.sv" \
+    "$RTL_DIR/protected_stages_v5.sv" \
+    "$RTL_DIR/p1_thresholded_stages.sv" \
+    "$P1_DIR/top_p1_pfft_ecc.sv" \
+    "$TB" > "$OUT/compile_sym${s}.log" 2>&1
+
+  echo "===== $(date -Iseconds) RUN vvp P1 symbol=$s =====" | tee -a "$PROGRESS"
+  : > "$LOG"
+  (
+    cd "$TCAS_ROOT"
+    stdbuf -oL -eL /usr/bin/vvp "$SIM"
+  ) > "$LOG" 2>&1 &
+  sim=$!
+  while kill -0 "$sim" 2>/dev/null; do
+    heartbeat "$LOG" "$s" | tee -a "$PROGRESS"
+    sleep 15
+  done
+  wait "$sim" || {
+    echo "$(date -Iseconds) FAIL vvp P1 symbol=$s exit=$?" | tee -a "$PROGRESS"
+    exit 1
+  }
+  sum=$(grep '^SUMMARY' "$LOG" | tr -d '\r' || true)
+  echo "$(date -Iseconds) DONE P1 symbol=$s $sum" | tee -a "$PROGRESS"
+  echo "symbol=$s $sum" >> "$COMBINED"
+done
+echo "$(date -Iseconds) ALL_DONE P1 tau=$TAU 3360 trials resume_from=$START_SYM" | tee -a "$PROGRESS"
+grep -h '^SUMMARY ' "$OUT"/run_sym*.log | tee -a "$COMBINED"

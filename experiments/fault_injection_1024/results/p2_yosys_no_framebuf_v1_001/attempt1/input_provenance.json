@@ -1,0 +1,66 @@
+{
+  "contract": {
+    "path": "experiments/fault_injection_1024/P2_YOSYS_NO_FRAMEBUF_V1_001.md",
+    "sha256": "FC0BE998B9DAFCFD79B52D3F8D28B26F3EFF54AA831222C45D5B6A8B7B41B641",
+    "size_bytes": 1275
+  },
+  "historical_baseline": {
+    "BRAM36_equivalent": 16.0,
+    "DSP48E1": 1392,
+    "FF": 12474,
+    "LC_estimate": 69464,
+    "LUT1_to_LUT6": 95826,
+    "RAMB18E1": 0,
+    "RAMB36E1": 16
+  },
+  "qualification": {
+    "path": "experiments/fault_injection_1024/results/p2_rtl_no_framebuf_v1_001/attempt1/qualification.json",
+    "sha256": "9C0496174958776FCF70BD3D2414F5D7D5A39DA3DB6C9CE1D9741032D66EC786",
+    "size_bytes": 973
+  },
+  "record_id": "P2-YOSYS-NO-FRAMEBUF-V1-001",
+  "schema": "p2-yosys-no-framebuf-v1-001-input-provenance-v1",
+  "selected_top": "top_p2_pfft_tmr_no_framebuf_v1",
+  "sources": [
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/twiddle_rom_1024.sv",
+      "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+      "size_bytes": 83641
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/fft_common.sv",
+      "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+      "size_bytes": 17880
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/protection_rtl.sv",
+      "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+      "size_bytes": 3555
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/datapath_v5.sv",
+      "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+      "size_bytes": 23743
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/protection_primitives_v5.sv",
+      "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+      "size_bytes": 10785
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/protected_stages_v5.sv",
+      "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+      "size_bytes": 15730
+    },
+    {
+      "path": "experiments/fault_injection_1024/projects/P2/top_p2_pfft_tmr.sv",
+      "sha256": "F5E7354F5EC137206E3E1900D693C17BB801B83E81588707FE489B4FCFDB92F3",
+      "size_bytes": 7083
+    },
+    {
+      "path": "experiments/fault_injection_1024/projects/P2/top_p2_pfft_tmr_no_framebuf_v1.sv",
+      "sha256": "160F22B6A75776831FE093E9F33BE4D3FDE1DA52DFBC380385CCB7F977610052",
+      "size_bytes": 3493
+    }
+  ]
+}

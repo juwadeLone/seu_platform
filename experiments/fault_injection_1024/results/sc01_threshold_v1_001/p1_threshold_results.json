@@ -1,0 +1,18 @@
+{
+  "arch_id": "P1",
+  "threshold": 0,
+  "total_trials": 3360,
+  "corrected": 3360,
+  "detected_only": 0,
+  "silent_bounded_residual": 0,
+  "miscorrection": 0,
+  "strict_pass_rate": 100.0,
+  "gao_pass_rate": 100.0,
+  "exact_decode": {
+    "corrected": 3360,
+    "detected_only": 0,
+    "silent": 0,
+    "miscorrection": 0,
+    "pass_rate": 100.0
+  }
+}

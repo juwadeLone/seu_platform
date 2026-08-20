@@ -1,0 +1,337 @@
+{
+  "checks": [
+    {
+      "evidence": [
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\config\\seven_architecture_contract.json",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\config\\seven_architecture_fault_matrix.json",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\config\\seven_architecture_memory_map.json",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\config\\yosys_resource_contract_v2.json",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\config\\five_architecture_fault_matrix.json",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\SEVEN_ARCHITECTURE_MATRIX_V1.md",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\当前实验任务卡.md",
+        "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\实验决策记录.md"
+      ],
+      "name": "all_files_exist",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "seven_architecture_contract.json": "FROZEN_PENDING_STATIC_AUDIT",
+        "seven_architecture_fault_matrix.json": "FROZEN_PENDING_STATIC_AUDIT",
+        "seven_architecture_memory_map.json": "FROZEN_PENDING_STATIC_AUDIT",
+        "yosys_resource_contract_v2.json": "FROZEN_PENDING_STATIC_AUDIT"
+      },
+      "name": "contract_status",
+      "status": "PASS"
+    },
+    {
+      "evidence": [
+        "FFT1024-SEVEN-ARCH-V1",
+        "FFT1024-SEVEN-ARCH-V1",
+        "FFT1024-SEVEN-ARCH-V1",
+        "FFT1024-SEVEN-ARCH-V1"
+      ],
+      "name": "experiment_id",
+      "status": "PASS"
+    },
+    {
+      "evidence": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "P0",
+        "P1",
+        "P2"
+      ],
+      "name": "architecture_order",
+      "status": "PASS"
+    },
+    {
+      "evidence": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "P0",
+        "P1",
+        "P2"
+      ],
+      "name": "architecture_keys",
+      "status": "PASS"
+    },
+    {
+      "evidence": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "P0",
+        "P1",
+        "P2"
+      ],
+      "name": "fault_domains",
+      "status": "PASS"
+    },
+    {
+      "evidence": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "P0",
+        "P1",
+        "P2"
+      ],
+      "name": "yosys_tops",
+      "status": "PASS"
+    },
+    {
+      "evidence": [
+        "S0",
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "name": "subfft_group",
+      "status": "PASS"
+    },
+    {
+      "evidence": [
+        "P0",
+        "P1",
+        "P2"
+      ],
+      "name": "pfft_group",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "PFFT": "P0",
+        "SubFFT": "S0"
+      },
+      "name": "baselines",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "backpressure_in_tests": false,
+        "beats_per_frame": 256,
+        "lanes_per_beat": 4,
+        "last_beat_index": 255,
+        "p1_stage8_buffer_processing_absorbed_in_common_external_latency": true,
+        "pfft_architectures": [
+          "P0",
+          "P1",
+          "P2"
+        ],
+        "pfft_common_reorder_buffer": "two_frame_2048_complex_word_block_ram",
+        "pfft_latency_cycles": 525,
+        "pfft_pair_wait_and_sync_read_cycles": 257,
+        "physical_delay_depths": [
+          128,
+          64,
+          32,
+          16,
+          8,
+          4,
+          2,
+          1,
+          1,
+          1
+        ],
+        "stage_first_token_latencies": [
+          130,
+          65,
+          33,
+          17,
+          9,
+          5,
+          3,
+          2,
+          2,
+          2
+        ],
+        "subfft_architectures": [
+          "S0",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "subfft_latency_cycles": 268
+      },
+      "name": "latencies",
+      "status": "PASS"
+    },
+    {
+      "evidence": [
+        {
+          "depth": 128,
+          "extra_first_token_cycles": 1,
+          "implementation": "block",
+          "payload_width_bits": 70,
+          "ports": "one_read_plus_one_write_per_lane_per_cycle",
+          "read_semantics": "synchronous_read_first",
+          "rtl_attribute": "ram_style=block",
+          "secded_codeword_width_bits": 78,
+          "stage": 1
+        },
+        {
+          "depths": [
+            64,
+            32,
+            16,
+            8,
+            4,
+            2,
+            1
+          ],
+          "extra_first_token_cycles": 0,
+          "implementation": "distributed",
+          "payload_width_bits": 70,
+          "ports": "one_read_plus_one_write_per_lane_per_cycle",
+          "read_semantics": "asynchronous_read",
+          "rtl_attribute": "ram_style=distributed",
+          "secded_codeword_width_bits": 78,
+          "stages": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        }
+      ],
+      "name": "memory_policy",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "p1_stage8_pending_symbols": {
+          "architectures": [
+            "P1"
+          ],
+          "implementation": "block",
+          "logical_capacity_complex_words": 512,
+          "must_be_in_functional_correction_path": true,
+          "physical_partition": "two_memories_x_256_addresses",
+          "read_semantics": "synchronous_read_first",
+          "rtl_attribute": "ram_style=block",
+          "word_width_bits": 70
+        },
+        "pfft_common_frame_reorder": {
+          "architectures": [
+            "P0",
+            "P1",
+            "P2"
+          ],
+          "implementation": "block",
+          "logical_capacity": "2_banks_x_1024_complex_words",
+          "physical_partition": "four_lane_memories_x_512_addresses",
+          "read_semantics": "synchronous_read_first",
+          "rtl_attribute": "ram_style=block",
+          "word_width_bits": 70
+        }
+      },
+      "name": "large_buffers",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "actual": "245088778244C2B774B64C6259F7912B0CC41B4865919EC81A7C7B9A7A39BFE9",
+        "expected": "245088778244C2B774B64C6259F7912B0CC41B4865919EC81A7C7B9A7A39BFE9"
+      },
+      "name": "legacy_trial_hash",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "P0": {
+          "group": "PFFT",
+          "no_fault_only": true,
+          "protection_claim": "none"
+        },
+        "S0": {
+          "group": "SubFFT",
+          "no_fault_only": true,
+          "protection_claim": "none"
+        }
+      },
+      "name": "baseline_no_fault_only",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "common_frame_reorder": true,
+        "name": "unprotected_pfft_baseline",
+        "stage8_protection_buffer": false,
+        "stages_1_10": "single_functional_p_sdf"
+      },
+      "name": "p0_common_buffer",
+      "status": "PASS"
+    },
+    {
+      "evidence": [
+        "results/seven_arch_v1/python_gate.json",
+        "results/python_seven_arch_raw.csv",
+        "results/python_seven_arch_summary.json",
+        "results/rtl_seven_arch_qualification.json",
+        "results/yosys_seven_subfft_group.csv",
+        "results/yosys_seven_pfft_group.csv",
+        "results/yosys_seven_arch_summary.json",
+        "results/seven_architecture_audit.md",
+        "logs/seven_arch_v1/"
+      ],
+      "name": "frozen_outputs_unique",
+      "status": "FAIL"
+    },
+    {
+      "evidence": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "P0",
+        "P1",
+        "P2"
+      ],
+      "name": "matrix_markdown_ids",
+      "status": "PASS"
+    },
+    {
+      "evidence": "task card revision",
+      "name": "task_card_gate",
+      "status": "PASS"
+    },
+    {
+      "evidence": "D43-D47",
+      "name": "decision_gate",
+      "status": "PASS"
+    },
+    {
+      "evidence": [
+        "check_symbols_reencoded_from_received_functional_outputs",
+        "expected_residual_recomputed_from_post_fault_received_symbols",
+        "p1_stage8_buffer_removed_or_not_in_corrected_data_path",
+        "memory_primitive_class_differs_for_same_declared_geometry",
+        "declared_block_memory_expanded_to_payload_sized_flip_flops",
+        "critical_blackbox_or_unresolved_module"
+      ],
+      "name": "hard_failure_guards",
+      "status": "PASS"
+    }
+  ],
+  "experiment_id": "FFT1024-SEVEN-ARCH-V1",
+  "files": {
+    "SEVEN_ARCHITECTURE_MATRIX_V1.md": "6F1FA52C989DA789A3E09438ADD06A03324BA9A09E1D58329A71F5804C5EF63C",
+    "config\\five_architecture_fault_matrix.json": "245088778244C2B774B64C6259F7912B0CC41B4865919EC81A7C7B9A7A39BFE9",
+    "config\\seven_architecture_contract.json": "A17C69F865E1B2C42C08CB4C5475F23D4E08E28AC008BA80696A1ABCC22B75A3",
+    "config\\seven_architecture_fault_matrix.json": "B0CBAA6DC2EC287C819836495502F9E64CCC570996FA862D58D61A972075674E",
+    "config\\seven_architecture_memory_map.json": "187F28B4841F2C1BE3C9FDD38A7AA679EB3436408746EAAC1C8C3FAAA2102C03",
+    "config\\yosys_resource_contract_v2.json": "07448DA53BFA12C8F718704E8021B8CBC7D087C180BC1EA4E469CDD9E74A5F79"
+  },
+  "mode": "pending_freeze",
+  "status": "FAILED"
+}

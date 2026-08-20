@@ -1,0 +1,16 @@
+{
+  "architecture_id": "P2",
+  "group": "PFFT",
+  "expected_trials": 16809,
+  "fault_domains": ["no_fault", "storage", "computation", "out_of_capability"],
+  "rtl_top": "top_p2_pfft_tmr",
+  "baseline": "P0",
+  "twiddle_schedule": "canonical_radix2_DIF_no_exchange",
+  "complete_butterflies_by_stage": [12, 12, 12, 12, 12, 12, 12, 12, 6, 6],
+  "generic_complex_multipliers_by_stage": [12, 12, 12, 12, 12, 12, 9, 6, 0, 0],
+  "expected_DSP48E1_by_stage": [192, 192, 192, 192, 192, 192, 144, 96, 0, 0],
+  "expected_DSP48E1_total": 1392,
+  "expected_vector": "vectors/qualification_p2_no_exchange_expected_8frames.hex",
+  "expected_vector_sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204",
+  "evidence_state": "RTL_QUALIFICATION_VERIFIED_YOSYS_PREFLIGHT_ENVIRONMENT_BLOCKED_DSP_NOT_MEASURED"
+}

@@ -1,0 +1,7 @@
+{
+  "command": "C:\\Program Files\\Inkscape\\bin\\python.exe D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P2\\run_p2_no_framebuf_v1.py",
+  "raw_sha256": "757E398F54A9F5C73A199571BBB4F1C99893AA048AEB2C861068A06FE4A969D3",
+  "status": "VERIFIED",
+  "summary_sha256": "CB4A2C9200102B91AF64AE2A6E24B3762D3AAE51DCC2CB730D537A5D75F3C25C",
+  "trial_count": 16809
+}

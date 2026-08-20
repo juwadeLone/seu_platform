@@ -1,0 +1,16 @@
+stage=1 SUMMARY threshold=5 total=490 corrected=448 detected_only=0 silent_bounded_residual=42 miscorrection=0 silent_unbounded=0 corrected_no_flag=0
+SUMMARY recovery_rate=100.00%
+stage=2 SUMMARY threshold=5 total=490 corrected=448 detected_only=0 silent_bounded_residual=42 miscorrection=0 silent_unbounded=0 corrected_no_flag=0
+SUMMARY recovery_rate=100.00%
+stage=3 SUMMARY threshold=5 total=490 corrected=448 detected_only=0 silent_bounded_residual=42 miscorrection=0 silent_unbounded=0 corrected_no_flag=0
+SUMMARY recovery_rate=100.00%
+stage=4 SUMMARY threshold=5 total=490 corrected=448 detected_only=0 silent_bounded_residual=42 miscorrection=0 silent_unbounded=0 corrected_no_flag=0
+SUMMARY recovery_rate=100.00%
+stage=5 SUMMARY threshold=5 total=490 corrected=434 detected_only=0 silent_bounded_residual=40 miscorrection=0 silent_unbounded=16 corrected_no_flag=0
+SUMMARY recovery_rate=96.73%
+stage=6 SUMMARY threshold=5 total=490 corrected=426 detected_only=0 silent_bounded_residual=29 miscorrection=8 silent_unbounded=27 corrected_no_flag=0
+SUMMARY recovery_rate=92.86%
+stage=7 SUMMARY threshold=5 total=490 corrected=434 detected_only=0 silent_bounded_residual=31 miscorrection=0 silent_unbounded=25 corrected_no_flag=0
+SUMMARY recovery_rate=94.90%
+stage=8 SUMMARY threshold=5 total=490 corrected=448 detected_only=0 silent_bounded_residual=24 miscorrection=0 silent_unbounded=18 corrected_no_flag=0
+SUMMARY recovery_rate=96.33%

@@ -1,0 +1,62 @@
+{
+  "cell_counts": {
+    "BUFG": 1,
+    "IBUF": 284,
+    "OBUF": 282,
+    "p0_pfft_no_exchange_pipeline_v3": 1
+  },
+  "delta_vs_historical_p0": {
+    "BRAM36_equivalent": -8.0,
+    "DSP48E1": -464,
+    "FF": -4166,
+    "LC_estimate": -19,
+    "LUT1_to_LUT6": -31010,
+    "RAMB18E1": -16,
+    "RAMB36E1": 0
+  },
+  "historical_p0": {
+    "BRAM36_equivalent": 8.0,
+    "DSP48E1": 464,
+    "FF": 4166,
+    "LC_estimate": 22689,
+    "LUT1_to_LUT6": 31010,
+    "RAMB18E1": 16,
+    "RAMB36E1": 0
+  },
+  "log": {
+    "path": "experiments/fault_injection_1024/logs/p0_no_framebuf_v1_001/attempt2/yosys_synthesis.log",
+    "sha256": "3C4823FC339ED08FA469A30E77DF415FE8FFC3126BE67FAA19CF8DE0E2ECE321",
+    "size_bytes": 6100181
+  },
+  "netlist": {
+    "path": "experiments/fault_injection_1024/build/p0_no_framebuf_v1_001/attempt2/yosys/post_synthesis_netlist.json",
+    "sha256": "430DD0E5B3A59F2CE182D24F65EB3B5B63D2F11E0AA4653C7DF722EABB94112C",
+    "size_bytes": 26774527
+  },
+  "qualification": {
+    "path": "experiments/fault_injection_1024/results/p0_no_framebuf_v1_001/attempt2/qualification.json",
+    "sha256": "CCF9F8BC60433F0221EA163A551741BFC0CEC0152B562809DA826B63547610FF",
+    "size_bytes": 1261
+  },
+  "record_id": "P0-NO-FRAMEBUF-V1-001",
+  "resources": {
+    "BRAM36_equivalent": 0.0,
+    "DSP48E1": 0,
+    "FF": 0,
+    "LC_estimate": 22670,
+    "LUT1_to_LUT6": 0,
+    "RAMB18E1": 0,
+    "RAMB36E1": 0,
+    "distributed_memory_cells_total": 0
+  },
+  "schema": "p0-no-framebuf-v1-001-resource-result-v1",
+  "scope": "Yosys synth_xilinx -family xc7 estimate; not Vivado implementation",
+  "script": {
+    "path": "experiments/fault_injection_1024/build/p0_no_framebuf_v1_001/attempt2/yosys/synthesis.ys",
+    "sha256": "C10761C70A777F7D27AC2F24DBCD86D8F58184C1C05422DC42BB58D133BB24A2",
+    "size_bytes": 1206
+  },
+  "status": "VERIFIED",
+  "timestamp_utc": "2026-07-24T03:47:41.595581+00:00",
+  "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 13.2.1)"
+}

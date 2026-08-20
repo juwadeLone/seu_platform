@@ -1,0 +1,76 @@
+{
+  "cell_counts": {
+    "BUFG": 1,
+    "CARRY4": 11349,
+    "DSP48E1": 1392,
+    "FDRE": 12462,
+    "IBUF": 284,
+    "INV": 1761,
+    "LUT1": 87,
+    "LUT2": 41511,
+    "LUT3": 10257,
+    "LUT4": 150,
+    "LUT5": 4518,
+    "LUT6": 38943,
+    "MUXF7": 16128,
+    "MUXF8": 7935,
+    "OBUF": 282,
+    "RAM32M": 828,
+    "RAM64M": 288,
+    "RAMB36E1": 12
+  },
+  "delta_vs_historical_p0": {
+    "BRAM36_equivalent": -4.0,
+    "DSP48E1": 0,
+    "FF": -12,
+    "LC_estimate": -44,
+    "LUT1_to_LUT6": -360,
+    "RAMB18E1": 0,
+    "RAMB36E1": -4
+  },
+  "historical_p0": {
+    "BRAM36_equivalent": 16.0,
+    "DSP48E1": 1392,
+    "FF": 12474,
+    "LC_estimate": 69464,
+    "LUT1_to_LUT6": 95826,
+    "RAMB18E1": 0,
+    "RAMB36E1": 16
+  },
+  "log": {
+    "path": "experiments/fault_injection_1024/logs/p2_yosys_no_framebuf_v1_001/attempt2/yosys_synthesis.log",
+    "sha256": "65A8CB51AB738ADBC4C18294E5AE8AB9A21C90232D9F3AE5EF404AE267D84119",
+    "size_bytes": 6475780
+  },
+  "netlist": {
+    "path": "experiments/fault_injection_1024/build/p2_yosys_no_framebuf_v1_001/attempt2/yosys/post_synthesis_netlist.json",
+    "sha256": "EF7F6B296943584AA335E2D2D2D57810E07D4D103223BFD1AF04D38DB99FAADC",
+    "size_bytes": 27334224
+  },
+  "qualification": {
+    "path": "experiments/fault_injection_1024/results/p2_yosys_no_framebuf_v1_001/attempt2/qualification.json",
+    "sha256": "9C0496174958776FCF70BD3D2414F5D7D5A39DA3DB6C9CE1D9741032D66EC786",
+    "size_bytes": 973
+  },
+  "record_id": "P2-YOSYS-NO-FRAMEBUF-V1-001",
+  "resources": {
+    "BRAM36_equivalent": 12.0,
+    "DSP48E1": 1392,
+    "FF": 12462,
+    "LC_estimate": 69420,
+    "LUT1_to_LUT6": 95466,
+    "RAMB18E1": 0,
+    "RAMB36E1": 12,
+    "distributed_memory_cells_total": 1116
+  },
+  "schema": "p0-no-framebuf-v1-001-resource-result-v1",
+  "scope": "Yosys synth_xilinx -family xc7 estimate; not Vivado implementation",
+  "script": {
+    "path": "experiments/fault_injection_1024/build/p2_yosys_no_framebuf_v1_001/attempt2/yosys/synthesis.ys",
+    "sha256": "337BAC81AB60130AA1E6396C2DCDEF637765751B7FA06FC6A540152D0632A6C0",
+    "size_bytes": 1216
+  },
+  "status": "VERIFIED",
+  "timestamp_utc": "2026-07-24T04:09:59.099064+00:00",
+  "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 13.2.1)"
+}

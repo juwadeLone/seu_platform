@@ -1,0 +1,16 @@
+2026-08-13T20:06:44+08:00 START N07 S1 tau=5 paths=0-6 two-frames 490 trials
+20:06:45 trials=0/490 last=none
+20:07:00 trials=35/490 last=TRIAL stage=8 symbol=0 component=real bit=34 detected=1 corrected=1 location=0 match=1 category=corrected
+20:07:15 trials=73/490 last=TRIAL stage=8 symbol=1 component=real bit=2 detected=0 corrected=0 location=- match=0 category=silent_bounded_residual
+20:07:30 trials=111/490 last=TRIAL stage=8 symbol=1 component=imag bit=5 detected=1 corrected=1 location=1 match=1 category=corrected
+20:07:45 trials=149/490 last=TRIAL stage=8 symbol=2 component=real bit=8 detected=1 corrected=1 location=2 match=1 category=corrected
+20:08:00 trials=187/490 last=TRIAL stage=8 symbol=2 component=imag bit=11 detected=1 corrected=1 location=2 match=1 category=corrected
+20:08:15 trials=225/490 last=TRIAL stage=8 symbol=3 component=real bit=14 detected=1 corrected=1 location=3 match=1 category=corrected
+20:08:30 trials=263/490 last=TRIAL stage=8 symbol=3 component=imag bit=17 detected=1 corrected=1 location=3 match=1 category=corrected
+20:08:45 trials=301/490 last=TRIAL stage=8 symbol=4 component=real bit=20 detected=1 corrected=1 location=4 match=1 category=corrected
+20:09:00 trials=339/490 last=TRIAL stage=8 symbol=4 component=imag bit=23 detected=1 corrected=1 location=4 match=1 category=corrected
+20:09:15 trials=377/490 last=TRIAL stage=8 symbol=5 component=real bit=26 detected=1 corrected=1 location=5 match=1 category=corrected
+20:09:30 trials=415/490 last=TRIAL stage=8 symbol=5 component=imag bit=29 detected=1 corrected=1 location=5 match=1 category=corrected
+20:09:45 trials=453/490 last=TRIAL stage=8 symbol=6 component=real bit=32 detected=1 corrected=1 location=6 match=1 category=corrected
+2026-08-13T20:10:00+08:00 ALL_DONE S1 tau=5 SUMMARY threshold=5 total=490 corrected=448 detected_only=0 silent_bounded_residual=24 miscorrection=0 silent_unbounded=18 corrected_no_flag=0
+SUMMARY recovery_rate=96.33%

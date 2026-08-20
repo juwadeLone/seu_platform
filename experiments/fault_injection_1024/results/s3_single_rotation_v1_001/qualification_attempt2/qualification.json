@@ -1,0 +1,32 @@
+﻿{
+    "schema":  "s3-single-rotation-qualification-v1",
+    "status":  "VERIFIED",
+    "attempt":  "qualification_attempt2",
+    "target":  "S3 1024-point four-lane ten-stage radix-2 SubFFT",
+    "gates":  {
+                  "bit_exact_2048_beats":  true,
+                  "latency_268":  true,
+                  "out_valid_out_last_frame_boundaries":  true,
+                  "existing_secded_upper_ecc_stage9_tmr_injections":  true,
+                  "lower_arithmetic_ecc_injection":  true,
+                  "fft_algorithm_twiddles_ecc_rule_unchanged":  true
+              },
+    "artifacts":  [
+                      {
+                          "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\s3_single_rotation_v1_001\\qualification_attempt2\\bit_exact_sim.log",
+                          "sha256":  "CD939639F296206DAC54B1133824CE0C9A77B0A88F5C58F11E5D98BC10B81C2C",
+                          "size_bytes":  308
+                      },
+                      {
+                          "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\s3_single_rotation_v1_001\\qualification_attempt2\\existing_connectivity_sim.log",
+                          "sha256":  "37D33C4629EC62D6BED2244D38CE5ED3311B33A85CC22DEC997BF0E11B527FEC",
+                          "size_bytes":  548
+                      },
+                      {
+                          "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\s3_single_rotation_v1_001\\qualification_attempt2\\lower_connectivity_sim.log",
+                          "sha256":  "1038D5EFEB5D7DDEF5327D6224ACF2D9CD035290982F47F2BA949B09F5C8D849",
+                          "size_bytes":  444
+                      }
+                  ],
+    "claim_boundary":  "RTL qualification only"
+}

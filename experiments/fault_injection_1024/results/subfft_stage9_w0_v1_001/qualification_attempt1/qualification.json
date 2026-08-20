@@ -1,0 +1,63 @@
+﻿{
+    "schema":  "subfft-stage9-w0-qualification-v1",
+    "status":  "VERIFIED",
+    "attempt":  "qualification_attempt1",
+    "python_modified":  false,
+    "rtl_scope":  "shared subfft_stage9 lane0 W_1024^0 direct connection only",
+    "architectures":  {
+                          "S0":  "VERIFIED",
+                          "S1":  "VERIFIED",
+                          "S2":  "VERIFIED",
+                          "S3":  "VERIFIED"
+                      },
+    "gates":  {
+                  "bit_exact_2048_beats_each":  true,
+                  "latency_268_each":  true,
+                  "valid_last_frame_boundaries":  true,
+                  "gao_ecc_preserved":  true,
+                  "tmr_preserved":  true,
+                  "s3_arithmetic_and_secded_ecc_preserved":  true
+              },
+    "artifacts":  [
+                      {
+                          "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\qualification_attempt1\\S0_sim.log",
+                          "sha256":  "AA989B4981CF1D21B092896D7BFA3EE5CC920744ECA3CA735D921D58F14FDDBF",
+                          "size_bytes":  308
+                      },
+                      {
+                          "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\qualification_attempt1\\S1_connectivity_sim.log",
+                          "sha256":  "C17576C20452DA552C57C499736EED89946A360534D954B1565B105C6F39A79A",
+                          "size_bytes":  390
+                      },
+                      {
+                          "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\qualification_attempt1\\S1_sim.log",
+                          "sha256":  "77C4465BF0FEDC28454E7363A853EC60334E7F68B8A6C64FA98E02C8FB6D0619",
+                          "size_bytes":  308
+                      },
+                      {
+                          "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\qualification_attempt1\\S2_connectivity_sim.log",
+                          "sha256":  "CCD3F05786317CCABD564DB9F844DD138AAD2A214AA6D1CA14EC588F1D872CB9",
+                          "size_bytes":  384
+                      },
+                      {
+                          "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\qualification_attempt1\\S2_sim.log",
+                          "sha256":  "AE6BF54DCF9DA1CA141D4FC2F8B24C177E121565233AD4ACA4813F0AE466435D",
+                          "size_bytes":  308
+                      },
+                      {
+                          "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\qualification_attempt1\\S3_connectivity_sim.log",
+                          "sha256":  "37D33C4629EC62D6BED2244D38CE5ED3311B33A85CC22DEC997BF0E11B527FEC",
+                          "size_bytes":  548
+                      },
+                      {
+                          "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\qualification_attempt1\\S3_lower_connectivity_sim.log",
+                          "sha256":  "1038D5EFEB5D7DDEF5327D6224ACF2D9CD035290982F47F2BA949B09F5C8D849",
+                          "size_bytes":  444
+                      },
+                      {
+                          "path":  "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\results\\subfft_stage9_w0_v1_001\\qualification_attempt1\\S3_sim.log",
+                          "sha256":  "CD939639F296206DAC54B1133824CE0C9A77B0A88F5C58F11E5D98BC10B81C2C",
+                          "size_bytes":  308
+                      }
+                  ]
+}

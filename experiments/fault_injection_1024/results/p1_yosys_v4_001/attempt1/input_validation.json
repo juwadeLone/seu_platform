@@ -1,0 +1,134 @@
+{
+  "failures": [],
+  "qualification": {
+    "path": "experiments/fault_injection_1024/results/p1_rtl_v4_001/qualification_attempt1/qualification.json",
+    "sha256": "94744A73F09ADFC1CA2DB60CA8558E8DA99E8CF3DD21B59D014323715FD295F5",
+    "size_bytes": 5576
+  },
+  "schema": "p1-yosys-v4-001-input-validation-v1",
+  "sources": [
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/twiddle_rom_1024.sv",
+      "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+      "size_bytes": 83641
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/fft_common.sv",
+      "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+      "size_bytes": 17880
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/protection_rtl.sv",
+      "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+      "size_bytes": 3555
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/datapath_v5.sv",
+      "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+      "size_bytes": 23743
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/protection_primitives_v5.sv",
+      "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+      "size_bytes": 10785
+    },
+    {
+      "path": "experiments/fault_injection_1024/common/rtl/protected_stages_v5.sv",
+      "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+      "size_bytes": 15730
+    },
+    {
+      "path": "experiments/fault_injection_1024/projects/P1/top_p1_pfft_ecc.sv",
+      "sha256": "1DAC697E0642D24D89B77B622493565B521B8CEBDE2B0A3053FC4E183FBC72E5",
+      "size_bytes": 48726
+    }
+  ],
+  "staged_sources": [
+    {
+      "source": {
+        "path": "experiments/fault_injection_1024/common/rtl/twiddle_rom_1024.sv",
+        "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "size_bytes": 83641
+      },
+      "staged": {
+        "path": "experiments/fault_injection_1024/build/p1_yosys_v4_001/attempt1/staged_sources/00_twiddle_rom_1024.sv",
+        "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "size_bytes": 83641
+      }
+    },
+    {
+      "source": {
+        "path": "experiments/fault_injection_1024/common/rtl/fft_common.sv",
+        "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "size_bytes": 17880
+      },
+      "staged": {
+        "path": "experiments/fault_injection_1024/build/p1_yosys_v4_001/attempt1/staged_sources/01_fft_common.sv",
+        "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "size_bytes": 17880
+      }
+    },
+    {
+      "source": {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_rtl.sv",
+        "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "size_bytes": 3555
+      },
+      "staged": {
+        "path": "experiments/fault_injection_1024/build/p1_yosys_v4_001/attempt1/staged_sources/02_protection_rtl.sv",
+        "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "size_bytes": 3555
+      }
+    },
+    {
+      "source": {
+        "path": "experiments/fault_injection_1024/common/rtl/datapath_v5.sv",
+        "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "size_bytes": 23743
+      },
+      "staged": {
+        "path": "experiments/fault_injection_1024/build/p1_yosys_v4_001/attempt1/staged_sources/03_datapath_v5.sv",
+        "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "size_bytes": 23743
+      }
+    },
+    {
+      "source": {
+        "path": "experiments/fault_injection_1024/common/rtl/protection_primitives_v5.sv",
+        "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "size_bytes": 10785
+      },
+      "staged": {
+        "path": "experiments/fault_injection_1024/build/p1_yosys_v4_001/attempt1/staged_sources/04_protection_primitives_v5.sv",
+        "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "size_bytes": 10785
+      }
+    },
+    {
+      "source": {
+        "path": "experiments/fault_injection_1024/common/rtl/protected_stages_v5.sv",
+        "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "size_bytes": 15730
+      },
+      "staged": {
+        "path": "experiments/fault_injection_1024/build/p1_yosys_v4_001/attempt1/staged_sources/05_protected_stages_v5.sv",
+        "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "size_bytes": 15730
+      }
+    },
+    {
+      "source": {
+        "path": "experiments/fault_injection_1024/projects/P1/top_p1_pfft_ecc.sv",
+        "sha256": "1DAC697E0642D24D89B77B622493565B521B8CEBDE2B0A3053FC4E183FBC72E5",
+        "size_bytes": 48726
+      },
+      "staged": {
+        "path": "experiments/fault_injection_1024/build/p1_yosys_v4_001/attempt1/staged_sources/06_top_p1_pfft_ecc.sv",
+        "sha256": "1DAC697E0642D24D89B77B622493565B521B8CEBDE2B0A3053FC4E183FBC72E5",
+        "size_bytes": 48726
+      }
+    }
+  ],
+  "status": "VERIFIED",
+  "tool": "C:\\Users\\pc\\Downloads\\oss-cad-suite\\bin\\yosys.exe"
+}

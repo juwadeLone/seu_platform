@@ -1,0 +1,105 @@
+{
+  "schema_version": 4,
+  "experiment_id": "FFT1024-SEVEN-ARCH-V3",
+  "status": "FROZEN",
+  "seed": 20260721,
+  "no_fault_frames": [
+    {"id": "zero", "generator": "constant", "real": 0, "imag": 0},
+    {"id": "impulse_first", "generator": "impulse", "index": 0, "real": 1048576, "imag": -524288},
+    {"id": "impulse_last", "generator": "impulse", "index": 1023, "real": -1048576, "imag": 524288},
+    {"id": "four_lane_impulse", "generator": "lane_impulses", "indices": [0, 1, 2, 3], "real_values": [1048576, -1048576, 524288, -524288], "imag_values": [0, 262144, -262144, 131072]},
+    {"id": "alternating", "generator": "alternating", "amplitude": 262144},
+    {"id": "ramp", "generator": "signed_ramp", "left_shift": 10},
+    {"id": "boundary_safe", "generator": "alternating", "amplitude": 1073741824},
+    {"id": "random_seeded", "generator": "uniform_random", "min": -1048576, "max": 1048575, "seed": 20260721}
+  ],
+  "fault_frames": ["random_seeded"],
+  "subfft_positions_per_lane": [0, 63, 127, 255],
+  "pfft_physical_indices": [0, 255, 511, 1023],
+  "pfft_direct_group_beats": [0, 63, 127, 255],
+  "component_bits": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34],
+  "components": ["real", "imag"],
+  "memory_codeword_bits": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77],
+  "architecture_domains": {
+    "S1": {"path_stages": [1, 2, 3, 4, 5, 6, 7, 8], "paths": [0, 1, 2, 3, 4, 5, 6], "tmr_stages": [9, 10], "replicas": [0, 1, 2]},
+    "S2": {"tmr_stages": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "replicas": [0, 1, 2], "fault_domains": ["storage", "computation"]},
+    "S3": {"ecc_stages": [1, 2, 3, 4, 5, 6, 7, 8], "functional_memory_lanes": [0, 1, 2, 3], "arithmetic_symbols": [0, 1, 2, 3, 4, 5], "tmr_stages": [9, 10], "replicas": [0, 1, 2]},
+    "P1": {"direct_ecc_stages": [1, 2, 3, 4, 5, 6, 7], "two_beat_ecc_stages": [10], "functional_memory_lanes": [0, 1, 2, 3], "arithmetic_symbols": [0, 1, 2, 3, 4, 5], "tmr_stages": [8, 9], "replicas": [0, 1, 2]},
+    "P2": {"tmr_stages": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "replicas": [0, 1, 2], "fault_domains": ["storage", "computation"]}
+  },
+  "trial_schedule": {
+    "combination_rule": "exhaustive_cartesian_product_of_each_architecture_domain_with_its_declared_stage_position_symbol_component_and_bit_sets",
+    "S1": {
+      "path_effect_stages": [1, 2, 3, 4, 5, 6, 7, 8],
+      "path_effect_domains": ["storage", "computation"],
+      "path_positions_per_lane": [0, 63, 127, 255],
+      "path_output_bits": "component_bits",
+      "residual_capture": "fault_free_stage8_quantization_metadata_captured_before_injection_effect_is_applied"
+    },
+    "S2": {
+      "tmr_stages": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "tmr_domains": ["storage", "computation"],
+      "physical_indices": [0, 255, 511, 1023],
+      "replicas": [0, 1, 2],
+      "tmr_bits": "component_bits"
+    },
+    "S3": {
+      "memory_stages": [1, 2, 3, 4, 5, 6, 7],
+      "memory_positions_per_lane": [0, 63, 127, 255],
+      "memory_bits": "memory_codeword_bits",
+      "arithmetic_stages": [1, 2, 3, 4, 5, 6, 7, 8],
+      "arithmetic_group_positions": [0, 63, 127, 255],
+      "arithmetic_symbols": [0, 1, 2, 3, 4, 5],
+      "arithmetic_bits": "component_bits",
+      "tmr_stages": [9, 10]
+    },
+    "P1": {
+      "memory_stages": [1, 2, 3, 4, 5, 6, 7, 8],
+      "memory_physical_indices": [0, 255, 511, 1023],
+      "memory_bits": "memory_codeword_bits",
+      "direct_arithmetic_stages": [1, 2, 3, 4, 5, 6, 7],
+      "direct_group_beats": [0, 63, 127, 255],
+      "stage10_two_beat_groups": 128,
+      "stage10_branches": ["upper", "lower"],
+      "arithmetic_symbols": [0, 1, 2, 3, 4, 5],
+      "arithmetic_bits": "component_bits",
+      "tmr_stages": [8, 9]
+    },
+    "P2": {
+      "tmr_stages": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "tmr_domains": ["storage", "computation"],
+      "physical_indices": [0, 255, 511, 1023],
+      "replicas": [0, 1, 2],
+      "tmr_bits": "component_bits"
+    },
+    "out_of_capability": {
+      "representative_component_bits": [0, 34],
+      "representative_memory_bits": [0, 77],
+      "positions": "first_declared_position_for_each_applicable_architecture_and_stage"
+    }
+  },
+  "frozen_outputs": [
+    "vectors/subfft_python_golden.jsonl",
+    "vectors/pfft_python_golden.jsonl",
+    "results/python_five_arch_raw.csv",
+    "results/python_five_arch_summary.json",
+    "results/rtl_python_qualification.json",
+    "results/yosys_subfft_group.csv",
+    "results/yosys_pfft_group.csv",
+    "results/five_architecture_audit.md",
+    "logs/"
+  ],
+  "pass_fail": {
+    "no_fault": "all protected outputs and valid ordering are bit-identical to their group golden model",
+    "memory_ecc": "single codeword-bit error is classified correctly and decoded data is bit-identical to golden",
+    "arithmetic_ecc": "for every declared 35-bit functional/check component bit, the 39-bit compensated syndrome detects and uniquely locates the single-symbol error and the next-stage transfer is bit-identical to golden",
+    "gao_path_ecc": "for every declared 35-bit path-output component bit, the 39-bit compensated syndrome detects, uniquely locates and corrects the single complete-path error at the Stage-8 boundary",
+    "residual_compensation": "fault-free compensated syndrome is exactly zero; expected residual is captured before injection and must remain byte-identical when received symbols are faulted",
+    "pfft_stage10_pairing": "128 adjacent-two-beat groups form four complete butterflies each; upper and lower codewords separately cover all 1024 Stage-10 physical outputs exactly once",
+    "tmr": "one-replica storage or computation effect is masked bit-identically at the same-stage voter",
+    "sdc": "zero silent data corruptions in all declared single-fault trials",
+    "determinism": "two identical commands produce byte-identical summaries and raw-record hashes",
+    "subfft_stream": "each of four independent single-lane children exposes eight explicit R2SDF stage traces with depths 128,64,32,16,8,4,2,1; every frame has 256 contiguous valid beats, last only at beat255, fixed 267-cycle latency, deterministic frequency-index mapping, and bit-identical values",
+    "pfft_stream": "each nonoverlapping adjacent frame pair uses the common two-bank reorder contract; every restored frame has 256 contiguous valid beats, last only at beat255, fixed 523-cycle input-to-output latency, original frame/index order, and bit-identical values"
+  }
+}

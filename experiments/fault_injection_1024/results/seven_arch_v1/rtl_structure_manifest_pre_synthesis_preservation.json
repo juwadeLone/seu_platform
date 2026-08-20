@@ -1,0 +1,196 @@
+{
+  "contracts": [
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\config\\seven_architecture_contract.json",
+      "sha256": "DF67A343795D6B3B460081BD0EE86CCE0AA97EF7E61D443E1AD579846D6CC60C"
+    },
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\config\\seven_architecture_fault_matrix.json",
+      "sha256": "0F2023E946CF4BEEC5E64386BB39866E68443B0346F1722CB2AD019D86AA7E66"
+    },
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\config\\seven_architecture_memory_map.json",
+      "sha256": "9710A4AB9D369E804DB38C61ABCFBDA0CC4B62186A8F4CC685869E607A88211C"
+    },
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\config\\yosys_resource_contract_v2.json",
+      "sha256": "5946125E005016732F282F01AF22029BEC34509D833884E90CD88C2907C3D293"
+    }
+  ],
+  "memory_policy": {
+    "feedback_depth_128": "fft_memory_v5 block synchronous read",
+    "feedback_depth_64_32_16_8_4_2_1": "fft_memory_v5 distributed asynchronous read",
+    "p1_pending": "p1_pending_bram_v5 block synchronous 1R1W",
+    "pfft_common": "pfft_frame_buffer_lane_v5 block synchronous 1R1W"
+  },
+  "schema": "rtl-seven-architecture-manifest-v1",
+  "sources": [
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+      "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580"
+    },
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+      "sha256": "AFDF8B24573C5B440016D117886335FA6F21E82267B4C4E6F33E5793BD9FB7CB"
+    },
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+      "sha256": "CC053566AB3797B265BB03FB7DD4D503CF8D6BE525A3E08E7C5636AAE609F2D5"
+    },
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+      "sha256": "9B94AC1D3DA67C1257AD18D1BD7A2BB3E269D4AD9A98CBB564348143911480E2"
+    },
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+      "sha256": "D0ECEC2C2E383259881ECB17D09C6E2C3E4B6A75B63FFF323819F9EE61102B99"
+    },
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+      "sha256": "2E50D97B10A5813FC02F35886A071EA7BDC2121FAB28FCB8E43D55B1E0D3B66D"
+    },
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+      "sha256": "E38E8473A2752DAA8323410A404AFBB9B07F274DA3681B37F7441D0852E0BBCB"
+    },
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+      "sha256": "45C56DC6D49258FC326BC0C861DE8E74581490AFB77E1C4B545E1E211A0283DD"
+    }
+  ],
+  "status": "VERIFIED",
+  "structural_audit": {
+    "checks": [
+      {
+        "name": "seven_named_synthesis_tops",
+        "pass": true
+      },
+      {
+        "name": "subfft_child_has_eight_explicit_r2sdf_stages",
+        "pass": true
+      },
+      {
+        "name": "s1_has_seven_complete_child_paths",
+        "pass": true
+      },
+      {
+        "name": "s2_tmr_all_ten_stages",
+        "pass": true
+      },
+      {
+        "name": "s3_ecc_eight_then_tmr_two",
+        "pass": true
+      },
+      {
+        "name": "p2_tmr_all_ten_stages",
+        "pass": true
+      },
+      {
+        "name": "p1_ecc_1_7_dedicated_stage8_then_tmr",
+        "pass": true
+      },
+      {
+        "name": "tmr_wrapper_triplicates_complete_stage",
+        "pass": true
+      },
+      {
+        "name": "ecc_feedback_is_78_bit_secded",
+        "pass": true
+      },
+      {
+        "name": "independent_check_streams_encode_before_operator",
+        "pass": true
+      },
+      {
+        "name": "p1_stage8_has_same_and_cross_boundaries",
+        "pass": true
+      },
+      {
+        "name": "p1_pending_functional_capacity_two_by_256x78",
+        "pass": true
+      },
+      {
+        "name": "p1_check_metadata_is_operand_not_post_result",
+        "pass": true
+      },
+      {
+        "name": "pfft_common_buffer_exact_shared_template",
+        "pass": true
+      },
+      {
+        "name": "depth128_block_sync_smaller_distributed_async",
+        "pass": true
+      },
+      {
+        "name": "explicit_clean_received_boundaries",
+        "pass": true
+      },
+      {
+        "name": "baselines_are_independent_complete_tops",
+        "pass": true
+      },
+      {
+        "name": "no_proxy_in_source_set",
+        "pass": true
+      }
+    ],
+    "passed": 18,
+    "status": "VERIFIED",
+    "total": 18
+  },
+  "target": "1024-point four-lane ten-stage radix-2 FFT",
+  "tops": {
+    "P0": {
+      "common_frame_bram": "four shared-template 512x70 synchronous memories",
+      "stages_1_10": "single functional P-SDF",
+      "top": "top_p0_pfft_unprotected"
+    },
+    "P1": {
+      "check_operand_metadata_bram": "four 256x78 SECDED banks",
+      "common_frame_bram": "four shared-template 512x70 synchronous memories",
+      "pending_functional_bram": "two 256x78 SECDED banks",
+      "stage_8": "SECDED plus 256 same-frame and 256 adjacent-frame exact-operator groups",
+      "stages_1_7": "SECDED plus direct independent-check arithmetic ECC",
+      "stages_9_10": "full-stage TMR",
+      "top": "top_p1_pfft_ecc"
+    },
+    "P2": {
+      "common_frame_bram": "four shared-template 512x70 synchronous memories",
+      "stages_1_10": "three complete stage replicas and voter per stage",
+      "top": "top_p2_pfft_tmr"
+    },
+    "S0": {
+      "stages_1_8": "four independent complete eight-stage R2SDF children",
+      "stages_9_10": "single functional stages",
+      "top": "top_s0_subfft_unprotected"
+    },
+    "S1": {
+      "stages_1_8": "seven complete eight-stage R2SDF paths and Gao 7-4-3 boundary",
+      "stages_9_10": "full-stage TMR",
+      "top": "top_s1_gao_subfft_ecc"
+    },
+    "S2": {
+      "stages_1_10": "three complete stage replicas and voter per stage",
+      "top": "top_s2_subfft_tmr"
+    },
+    "S3": {
+      "stages_1_8": "four SECDED functional memories plus four functional and two independent check operators",
+      "stages_9_10": "full-stage TMR",
+      "top": "top_s3_subfft_ecc"
+    }
+  },
+  "vectors": [
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\qualification_input_10frames.hex",
+      "sha256": "01EBA212B22E2BE2B1F2A6E31800F02B6A85E2EEAE5D890BF1F366D8A46E9916"
+    },
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\qualification_subfft_expected_8frames.hex",
+      "sha256": "28646A28FB95F108CD4B050FC4D9F9E2DB27D11F8516DFCF4270462E30260EDD"
+    },
+    {
+      "path": "Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\qualification_pfft_expected_8frames.hex",
+      "sha256": "48C8D6A1948A36D837183E112C4C14FFD5C861E075195B301773857C5F361BE2"
+    }
+  ]
+}

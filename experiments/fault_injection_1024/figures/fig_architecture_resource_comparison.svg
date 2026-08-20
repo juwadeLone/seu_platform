@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="7.16in" height="3.5in" viewBox="0 0 1432 700">
+<rect x="0" y="0" width="1432" height="700" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1"/>
+<text x="716.0" y="43" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="29" font-weight="bold" fill="#202020">Architecture-level Yosys resource estimates</text>
+<text x="716.0" y="72" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" fill="#555555">1024-point, four-lane, ten-stage RTL proxies; xc7 common flow</text>
+<text x="387.5" y="116" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="25" font-weight="bold" fill="#202020">LUTs</text>
+<line x1="235" y1="466" x2="540" y2="466" stroke="#333333" stroke-width="1.5"/>
+<line x1="235.0" y1="466" x2="235.0" y2="474" stroke="#333333" stroke-width="1.2"/>
+<text x="235.0" y="500" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" fill="#202020">0</text>
+<line x1="387.5" y1="466" x2="387.5" y2="474" stroke="#333333" stroke-width="1.2"/>
+<text x="387.5" y="500" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" fill="#202020">17404</text>
+<line x1="540.0" y1="466" x2="540.0" y2="474" stroke="#333333" stroke-width="1.2"/>
+<text x="540.0" y="500" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" fill="#202020">34808</text>
+<rect x="235" y="158" width="305" height="52" rx="4" fill="#F0F0F0" stroke="none" stroke-width="1"/>
+<rect x="235" y="158" width="62.142610894047344" height="52" rx="4" fill="#0072B2" stroke="none" stroke-width="1"/>
+<text x="306.1426108940473" y="192" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#202020">7092</text>
+<text x="217" y="192" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#0072B2">Sub-FFT ECC</text>
+<rect x="235" y="270" width="305" height="52" rx="4" fill="#F0F0F0" stroke="none" stroke-width="1"/>
+<rect x="235" y="270" width="123.34764996552516" height="52" rx="4" fill="#D55E00" stroke="none" stroke-width="1"/>
+<text x="367.3476499655252" y="304" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#202020">14077</text>
+<text x="217" y="304" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#D55E00">Stage-voted TMR</text>
+<rect x="235" y="382" width="305" height="52" rx="4" fill="#F0F0F0" stroke="none" stroke-width="1"/>
+<rect x="235" y="382" width="305.0" height="52" rx="4" fill="#009E73" stroke="none" stroke-width="1"/>
+<text x="535" y="416" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#FFFFFF">34808</text>
+<text x="217" y="416" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#009E73">Proposed hybrid</text>
+<text x="802.5" y="116" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="25" font-weight="bold" fill="#202020">DSP48E1</text>
+<line x1="650" y1="466" x2="955" y2="466" stroke="#333333" stroke-width="1.5"/>
+<line x1="650.0" y1="466" x2="650.0" y2="474" stroke="#333333" stroke-width="1.2"/>
+<text x="650.0" y="500" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" fill="#202020">0</text>
+<line x1="802.5" y1="466" x2="802.5" y2="474" stroke="#333333" stroke-width="1.2"/>
+<text x="802.5" y="500" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" fill="#202020">240</text>
+<line x1="955.0" y1="466" x2="955.0" y2="474" stroke="#333333" stroke-width="1.2"/>
+<text x="955.0" y="500" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" fill="#202020">480</text>
+<rect x="650" y="158" width="305" height="52" rx="4" fill="#F0F0F0" stroke="none" stroke-width="1"/>
+<rect x="650" y="158" width="115.64583333333333" height="52" rx="4" fill="#0072B2" stroke="none" stroke-width="1"/>
+<text x="774.6458333333334" y="192" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#202020">182</text>
+<rect x="650" y="270" width="305" height="52" rx="4" fill="#F0F0F0" stroke="none" stroke-width="1"/>
+<rect x="650" y="270" width="305.0" height="52" rx="4" fill="#D55E00" stroke="none" stroke-width="1"/>
+<text x="950" y="304" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#FFFFFF">480</text>
+<rect x="650" y="382" width="305" height="52" rx="4" fill="#F0F0F0" stroke="none" stroke-width="1"/>
+<rect x="650" y="382" width="198.25" height="52" rx="4" fill="#009E73" stroke="none" stroke-width="1"/>
+<text x="857.25" y="416" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#202020">312</text>
+<text x="1217.5" y="116" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="25" font-weight="bold" fill="#202020">BRAM18 equivalents</text>
+<line x1="1065" y1="466" x2="1370" y2="466" stroke="#333333" stroke-width="1.5"/>
+<line x1="1065.0" y1="466" x2="1065.0" y2="474" stroke="#333333" stroke-width="1.2"/>
+<text x="1065.0" y="500" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" fill="#202020">0</text>
+<line x1="1217.5" y1="466" x2="1217.5" y2="474" stroke="#333333" stroke-width="1.2"/>
+<text x="1217.5" y="500" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" fill="#202020">96</text>
+<line x1="1370.0" y1="466" x2="1370.0" y2="474" stroke="#333333" stroke-width="1.2"/>
+<text x="1370.0" y="500" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="18" font-weight="normal" fill="#202020">192</text>
+<rect x="1065" y="158" width="305" height="52" rx="4" fill="#F0F0F0" stroke="none" stroke-width="1"/>
+<rect x="1065" y="158" width="177.91666666666666" height="52" rx="4" fill="#0072B2" stroke="none" stroke-width="1"/>
+<text x="1251.9166666666667" y="192" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#202020">112</text>
+<rect x="1065" y="270" width="305" height="52" rx="4" fill="#F0F0F0" stroke="none" stroke-width="1"/>
+<rect x="1065" y="270" width="305.0" height="52" rx="4" fill="#D55E00" stroke="none" stroke-width="1"/>
+<text x="1365" y="304" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#FFFFFF">192</text>
+<rect x="1065" y="382" width="305" height="52" rx="4" fill="#F0F0F0" stroke="none" stroke-width="1"/>
+<rect x="1065" y="382" width="257.34375" height="52" rx="4" fill="#009E73" stroke="none" stroke-width="1"/>
+<text x="1331.34375" y="416" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#202020">162</text>
+<line x1="46" y1="540" x2="1386" y2="540" stroke="#B0B0B0" stroke-width="1"/>
+<text x="55" y="578" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="bold" fill="#202020">Interpretation:</text>
+<text x="205" y="578" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" fill="#202020">the proposed hybrid reduces DSP and BRAM demand relative to stage-voted TMR,</text>
+<text x="205" y="609" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="20" font-weight="normal" fill="#202020">while its explicit SECDED and arithmetic-decode networks increase LUT demand.</text>
+<text x="55" y="655" text-anchor="start" font-family="Times New Roman, Times, serif" font-size="19" font-weight="normal" fill="#555555">Values are Yosys synthesis estimates, not Vivado post-implementation utilization.</text>
+</svg>

@@ -1,0 +1,468 @@
+{
+  "total_trials": 13440,
+  "no_fault_residual_max": 0,
+  "zero_syndrome_count": 0,
+  "zero_syndrome_pct": 0.0,
+  "nonzero_count": 13440,
+  "min_nonzero_syndrome": 1,
+  "max_syndrome": 17179869184,
+  "percentiles": {
+    "p1": 1,
+    "p5": 2,
+    "p10": 8,
+    "p25": 256,
+    "p50": 131072,
+    "p75": 67108864,
+    "p90": 2147483648,
+    "p95": 8589934592,
+    "p99": 17179869184
+  },
+  "histogram_0_to_10": [
+    {
+      "value": 0,
+      "count": 0
+    },
+    {
+      "value": 1,
+      "count": 384
+    },
+    {
+      "value": 2,
+      "count": 384
+    },
+    {
+      "value": 3,
+      "count": 0
+    },
+    {
+      "value": 4,
+      "count": 384
+    },
+    {
+      "value": 5,
+      "count": 0
+    },
+    {
+      "value": 6,
+      "count": 0
+    },
+    {
+      "value": 7,
+      "count": 0
+    },
+    {
+      "value": 8,
+      "count": 384
+    },
+    {
+      "value": 9,
+      "count": 0
+    },
+    {
+      "value": 10,
+      "count": 0
+    }
+  ],
+  "histogram_small_values": [
+    {
+      "value": 0,
+      "count": 0
+    },
+    {
+      "value": 1,
+      "count": 384
+    },
+    {
+      "value": 2,
+      "count": 384
+    },
+    {
+      "value": 3,
+      "count": 0
+    },
+    {
+      "value": 4,
+      "count": 384
+    },
+    {
+      "value": 5,
+      "count": 0
+    },
+    {
+      "value": 6,
+      "count": 0
+    },
+    {
+      "value": 7,
+      "count": 0
+    },
+    {
+      "value": 8,
+      "count": 384
+    },
+    {
+      "value": 9,
+      "count": 0
+    },
+    {
+      "value": 10,
+      "count": 0
+    },
+    {
+      "value": 11,
+      "count": 0
+    },
+    {
+      "value": 12,
+      "count": 0
+    },
+    {
+      "value": 13,
+      "count": 0
+    },
+    {
+      "value": 14,
+      "count": 0
+    },
+    {
+      "value": 15,
+      "count": 0
+    },
+    {
+      "value": 16,
+      "count": 384
+    },
+    {
+      "value": 17,
+      "count": 0
+    },
+    {
+      "value": 18,
+      "count": 0
+    },
+    {
+      "value": 19,
+      "count": 0
+    },
+    {
+      "value": 20,
+      "count": 0
+    },
+    {
+      "value": 21,
+      "count": 0
+    },
+    {
+      "value": 22,
+      "count": 0
+    },
+    {
+      "value": 23,
+      "count": 0
+    },
+    {
+      "value": 24,
+      "count": 0
+    },
+    {
+      "value": 25,
+      "count": 0
+    },
+    {
+      "value": 26,
+      "count": 0
+    },
+    {
+      "value": 27,
+      "count": 0
+    },
+    {
+      "value": 28,
+      "count": 0
+    },
+    {
+      "value": 29,
+      "count": 0
+    },
+    {
+      "value": 30,
+      "count": 0
+    },
+    {
+      "value": 31,
+      "count": 0
+    },
+    {
+      "value": 32,
+      "count": 384
+    },
+    {
+      "value": 33,
+      "count": 0
+    },
+    {
+      "value": 34,
+      "count": 0
+    },
+    {
+      "value": 35,
+      "count": 0
+    },
+    {
+      "value": 36,
+      "count": 0
+    },
+    {
+      "value": 37,
+      "count": 0
+    },
+    {
+      "value": 38,
+      "count": 0
+    },
+    {
+      "value": 39,
+      "count": 0
+    },
+    {
+      "value": 40,
+      "count": 0
+    },
+    {
+      "value": 41,
+      "count": 0
+    },
+    {
+      "value": 42,
+      "count": 0
+    },
+    {
+      "value": 43,
+      "count": 0
+    },
+    {
+      "value": 44,
+      "count": 0
+    },
+    {
+      "value": 45,
+      "count": 0
+    },
+    {
+      "value": 46,
+      "count": 0
+    },
+    {
+      "value": 47,
+      "count": 0
+    },
+    {
+      "value": 48,
+      "count": 0
+    },
+    {
+      "value": 49,
+      "count": 0
+    },
+    {
+      "value": 50,
+      "count": 0
+    },
+    {
+      "value": 51,
+      "count": 0
+    },
+    {
+      "value": 52,
+      "count": 0
+    },
+    {
+      "value": 53,
+      "count": 0
+    },
+    {
+      "value": 54,
+      "count": 0
+    },
+    {
+      "value": 55,
+      "count": 0
+    },
+    {
+      "value": 56,
+      "count": 0
+    },
+    {
+      "value": 57,
+      "count": 0
+    },
+    {
+      "value": 58,
+      "count": 0
+    },
+    {
+      "value": 59,
+      "count": 0
+    },
+    {
+      "value": 60,
+      "count": 0
+    },
+    {
+      "value": 61,
+      "count": 0
+    },
+    {
+      "value": 62,
+      "count": 0
+    },
+    {
+      "value": 63,
+      "count": 0
+    },
+    {
+      "value": 64,
+      "count": 384
+    },
+    {
+      "value": 65,
+      "count": 0
+    },
+    {
+      "value": 66,
+      "count": 0
+    },
+    {
+      "value": 67,
+      "count": 0
+    },
+    {
+      "value": 68,
+      "count": 0
+    },
+    {
+      "value": 69,
+      "count": 0
+    },
+    {
+      "value": 70,
+      "count": 0
+    },
+    {
+      "value": 71,
+      "count": 0
+    },
+    {
+      "value": 72,
+      "count": 0
+    },
+    {
+      "value": 73,
+      "count": 0
+    },
+    {
+      "value": 74,
+      "count": 0
+    },
+    {
+      "value": 75,
+      "count": 0
+    },
+    {
+      "value": 76,
+      "count": 0
+    },
+    {
+      "value": 77,
+      "count": 0
+    },
+    {
+      "value": 78,
+      "count": 0
+    },
+    {
+      "value": 79,
+      "count": 0
+    },
+    {
+      "value": 80,
+      "count": 0
+    },
+    {
+      "value": 81,
+      "count": 0
+    },
+    {
+      "value": 82,
+      "count": 0
+    },
+    {
+      "value": 83,
+      "count": 0
+    },
+    {
+      "value": 84,
+      "count": 0
+    },
+    {
+      "value": 85,
+      "count": 0
+    },
+    {
+      "value": 86,
+      "count": 0
+    },
+    {
+      "value": 87,
+      "count": 0
+    },
+    {
+      "value": 88,
+      "count": 0
+    },
+    {
+      "value": 89,
+      "count": 0
+    },
+    {
+      "value": 90,
+      "count": 0
+    },
+    {
+      "value": 91,
+      "count": 0
+    },
+    {
+      "value": 92,
+      "count": 0
+    },
+    {
+      "value": 93,
+      "count": 0
+    },
+    {
+      "value": 94,
+      "count": 0
+    },
+    {
+      "value": 95,
+      "count": 0
+    },
+    {
+      "value": 96,
+      "count": 0
+    },
+    {
+      "value": 97,
+      "count": 0
+    },
+    {
+      "value": 98,
+      "count": 0
+    },
+    {
+      "value": 99,
+      "count": 0
+    }
+  ]
+}

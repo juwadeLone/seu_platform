@@ -1,0 +1,17 @@
+2026-08-14T12:45:07+08:00 START_V2 arch=s3 k=8 trials=200 tau=2 site=experiments/fault_injection_1024/results/n08_multi_k8_s3_v2_001/sites_k8_v1.csv
+2026-08-14T12:45:08+08:00 COMPILE_OK_V2 arch=s3 k=8
+2026-08-14T12:45:08+08:00 RUNNING_V2 arch=s3 k=8 trials=0/200 last=none
+2026-08-14T12:45:23+08:00 RUNNING_V2 arch=s3 k=8 trials=13/200 last=TRIAL trial=12 k=8 injected=8 match=1 det=11111110 cor=11111110 unc=00000000 loc=510a08 category=corrected
+2026-08-14T12:45:38+08:00 RUNNING_V2 arch=s3 k=8 trials=28/200 last=TRIAL trial=27 k=8 injected=8 match=1 det=11111111 cor=11111111 unc=00000000 loc=510a0b category=corrected
+2026-08-14T12:45:53+08:00 RUNNING_V2 arch=s3 k=8 trials=43/200 last=TRIAL trial=42 k=8 injected=8 match=1 det=11111111 cor=11111111 unc=00000000 loc=510a0b category=corrected
+2026-08-14T12:46:08+08:00 RUNNING_V2 arch=s3 k=8 trials=57/200 last=TRIAL trial=56 k=8 injected=8 match=1 det=10011111 cor=10011111 unc=00000000 loc=605344 category=corrected
+2026-08-14T12:46:23+08:00 RUNNING_V2 arch=s3 k=8 trials=72/200 last=TRIAL trial=71 k=8 injected=8 match=1 det=11111111 cor=11111111 unc=00000000 loc=69d344 category=corrected
+2026-08-14T12:46:38+08:00 RUNNING_V2 arch=s3 k=8 trials=87/200 last=TRIAL trial=86 k=8 injected=8 match=1 det=11111111 cor=11111111 unc=00000000 loc=69d344 category=corrected
+2026-08-14T12:46:53+08:00 RUNNING_V2 arch=s3 k=8 trials=102/200 last=TRIAL trial=101 k=8 injected=8 match=1 det=11111111 cor=11111111 unc=00000000 loc=69d344 category=corrected
+2026-08-14T12:47:08+08:00 RUNNING_V2 arch=s3 k=8 trials=117/200 last=TRIAL trial=116 k=8 injected=8 match=1 det=11111111 cor=11111111 unc=00000000 loc=69d344 category=corrected
+2026-08-14T12:47:23+08:00 RUNNING_V2 arch=s3 k=8 trials=132/200 last=TRIAL trial=131 k=8 injected=8 match=1 det=11111101 cor=11111101 unc=00000000 loc=69d344 category=corrected
+2026-08-14T12:47:38+08:00 RUNNING_V2 arch=s3 k=8 trials=147/200 last=TRIAL trial=146 k=8 injected=8 match=1 det=11111111 cor=11111111 unc=00000000 loc=69d344 category=corrected
+2026-08-14T12:47:53+08:00 RUNNING_V2 arch=s3 k=8 trials=162/200 last=TRIAL trial=161 k=8 injected=8 match=1 det=10011111 cor=10011111 unc=00000000 loc=605344 category=corrected
+2026-08-14T12:48:08+08:00 RUNNING_V2 arch=s3 k=8 trials=177/200 last=TRIAL trial=176 k=8 injected=8 match=1 det=11111111 cor=11111111 unc=00000000 loc=69d344 category=corrected
+2026-08-14T12:48:23+08:00 RUNNING_V2 arch=s3 k=8 trials=192/200 last=TRIAL trial=191 k=8 injected=8 match=1 det=11111111 cor=11111111 unc=00000000 loc=69d344 category=corrected
+2026-08-14T12:48:38+08:00 DONE_V2 arch=s3 k=8 SUMMARY arch=S3 k=8 total=200 corrected=188 corrected_no_flag=0 detected_only=12 silent_bounded_residual=0 miscorrection=0 silent_unbounded=0 timeout=0

@@ -1,0 +1,78 @@
+{
+  "threshold_0": {
+    "S3": {
+      "arch_id": "S3",
+      "threshold": 0,
+      "total_trials": 3360,
+      "corrected": 3360,
+      "detected_only": 0,
+      "silent_bounded_residual": 0,
+      "miscorrection": 0,
+      "strict_pass_rate": 100.0,
+      "gao_pass_rate": 100.0,
+      "exact_decode": {
+        "corrected": 3360,
+        "detected_only": 0,
+        "silent": 0,
+        "miscorrection": 0,
+        "pass_rate": 100.0
+      }
+    },
+    "P1": {
+      "arch_id": "P1",
+      "threshold": 0,
+      "total_trials": 3360,
+      "corrected": 3360,
+      "detected_only": 0,
+      "silent_bounded_residual": 0,
+      "miscorrection": 0,
+      "strict_pass_rate": 100.0,
+      "gao_pass_rate": 100.0,
+      "exact_decode": {
+        "corrected": 3360,
+        "detected_only": 0,
+        "silent": 0,
+        "miscorrection": 0,
+        "pass_rate": 100.0
+      }
+    }
+  },
+  "threshold_1": {
+    "S3": {
+      "arch_id": "S3",
+      "threshold": 1,
+      "total_trials": 3360,
+      "corrected": 3264,
+      "detected_only": 0,
+      "silent_bounded_residual": 96,
+      "miscorrection": 0,
+      "strict_pass_rate": 97.14,
+      "gao_pass_rate": 100.0,
+      "exact_decode": {
+        "corrected": 3360,
+        "detected_only": 0,
+        "silent": 0,
+        "miscorrection": 0,
+        "pass_rate": 100.0
+      }
+    },
+    "P1": {
+      "arch_id": "P1",
+      "threshold": 1,
+      "total_trials": 3360,
+      "corrected": 3264,
+      "detected_only": 0,
+      "silent_bounded_residual": 96,
+      "miscorrection": 0,
+      "strict_pass_rate": 97.14,
+      "gao_pass_rate": 100.0,
+      "exact_decode": {
+        "corrected": 3360,
+        "detected_only": 0,
+        "silent": 0,
+        "miscorrection": 0,
+        "pass_rate": 100.0
+      }
+    }
+  }
+}

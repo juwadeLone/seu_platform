@@ -1,0 +1,37 @@
+2026-08-14T12:55:57+08:00 START_V2_REPEAT arch=s3 k=2 trials=500 tau=2 site=experiments/fault_injection_1024/results/n08_multi_k2_s3_v2_002/sites_k2_v1.csv
+2026-08-14T12:55:58+08:00 COMPILE_OK_V2_REPEAT arch=s3 k=2
+2026-08-14T12:55:58+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=0/500 last=none
+2026-08-14T12:56:13+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=13/500 last=TRIAL trial=12 k=2 injected=2 match=1 det=00100010 cor=00100010 unc=00000000 loc=010008 category=corrected
+2026-08-14T12:56:28+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=28/500 last=TRIAL trial=27 k=2 injected=2 match=1 det=00001001 cor=00001001 unc=00000000 loc=000401 category=corrected
+2026-08-14T12:56:43+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=43/500 last=TRIAL trial=42 k=2 injected=2 match=1 det=00010100 cor=00010100 unc=00000000 loc=002040 category=corrected
+2026-08-14T12:56:58+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=58/500 last=TRIAL trial=57 k=2 injected=2 match=1 det=11000000 cor=11000000 unc=00000000 loc=440000 category=corrected
+2026-08-14T12:57:13+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=72/500 last=TRIAL trial=71 k=2 injected=2 match=1 det=00001001 cor=00001001 unc=00000000 loc=000805 category=corrected
+2026-08-14T12:57:28+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=87/500 last=TRIAL trial=86 k=2 injected=2 match=1 det=00010100 cor=00010100 unc=00000000 loc=004140 category=corrected
+2026-08-14T12:57:43+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=102/500 last=TRIAL trial=101 k=2 injected=2 match=1 det=11000000 cor=11000000 unc=00000000 loc=940000 category=corrected
+2026-08-14T12:57:58+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=118/500 last=TRIAL trial=117 k=2 injected=2 match=1 det=11000000 cor=11000000 unc=00000000 loc=440000 category=corrected
+2026-08-14T12:58:13+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=133/500 last=TRIAL trial=132 k=2 injected=2 match=1 det=00100010 cor=00100010 unc=00000000 loc=010008 category=corrected
+2026-08-14T12:58:28+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=148/500 last=TRIAL trial=147 k=2 injected=2 match=1 det=00001001 cor=00001001 unc=00000000 loc=000401 category=corrected
+2026-08-14T12:58:43+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=163/500 last=TRIAL trial=162 k=2 injected=2 match=1 det=00010100 cor=00010100 unc=00000000 loc=002040 category=corrected
+2026-08-14T12:58:58+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=178/500 last=TRIAL trial=177 k=2 injected=2 match=1 det=11000000 cor=11000000 unc=00000000 loc=440000 category=corrected
+2026-08-14T12:59:13+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=193/500 last=TRIAL trial=192 k=2 injected=2 match=1 det=00100010 cor=00100010 unc=00000000 loc=010008 category=corrected
+2026-08-14T12:59:28+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=209/500 last=TRIAL trial=208 k=2 injected=2 match=1 det=00100010 cor=00100010 unc=00000000 loc=000018 category=corrected
+2026-08-14T12:59:43+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=224/500 last=TRIAL trial=223 k=2 injected=2 match=1 det=00001001 cor=00001001 unc=00000000 loc=000003 category=corrected
+2026-08-14T12:59:58+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=239/500 last=TRIAL trial=238 k=2 injected=2 match=1 det=00000100 cor=00000100 unc=00000000 loc=0000c0 category=corrected
+2026-08-14T13:00:13+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=255/500 last=TRIAL trial=254 k=2 injected=2 match=1 det=00010100 cor=00010100 unc=00000000 loc=004140 category=corrected
+2026-08-14T13:00:28+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=270/500 last=TRIAL trial=269 k=2 injected=2 match=1 det=11000000 cor=11000000 unc=00000000 loc=940000 category=corrected
+2026-08-14T13:00:43+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=285/500 last=TRIAL trial=284 k=2 injected=2 match=1 det=00100010 cor=00100010 unc=00000000 loc=020028 category=corrected
+2026-08-14T13:00:58+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=301/500 last=TRIAL trial=300 k=2 injected=2 match=1 det=00100010 cor=00100010 unc=00000000 loc=010008 category=corrected
+2026-08-14T13:01:13+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=316/500 last=TRIAL trial=315 k=2 injected=2 match=1 det=00001001 cor=00001001 unc=00000000 loc=000401 category=corrected
+2026-08-14T13:01:28+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=331/500 last=TRIAL trial=330 k=2 injected=2 match=1 det=00010100 cor=00010100 unc=00000000 loc=002040 category=corrected
+2026-08-14T13:01:43+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=346/500 last=TRIAL trial=345 k=2 injected=2 match=1 det=11000000 cor=11000000 unc=00000000 loc=440000 category=corrected
+2026-08-14T13:01:58+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=362/500 last=TRIAL trial=361 k=2 injected=2 match=1 det=11000000 cor=11000000 unc=00000000 loc=0c0000 category=corrected
+2026-08-14T13:02:13+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=377/500 last=TRIAL trial=376 k=2 injected=2 match=1 det=00100010 cor=00100010 unc=00000000 loc=000018 category=corrected
+2026-08-14T13:02:28+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=392/500 last=TRIAL trial=391 k=2 injected=2 match=1 det=00001001 cor=00001001 unc=00000000 loc=000003 category=corrected
+2026-08-14T13:02:43+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=407/500 last=TRIAL trial=406 k=2 injected=2 match=1 det=00010100 cor=00010100 unc=00000000 loc=0000c0 category=corrected
+2026-08-14T13:02:58+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=422/500 last=TRIAL trial=421 k=2 injected=2 match=1 det=11000000 cor=11000000 unc=00000000 loc=0c0000 category=corrected
+2026-08-14T13:03:13+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=438/500 last=TRIAL trial=437 k=2 injected=2 match=1 det=11000000 cor=11000000 unc=00000000 loc=940000 category=corrected
+2026-08-14T13:03:28+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=453/500 last=TRIAL trial=452 k=2 injected=2 match=1 det=00100010 cor=00100010 unc=00000000 loc=020028 category=corrected
+2026-08-14T13:03:43+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=468/500 last=TRIAL trial=467 k=2 injected=2 match=1 det=00001001 cor=00001001 unc=00000000 loc=000805 category=corrected
+2026-08-14T13:03:58+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=483/500 last=TRIAL trial=482 k=2 injected=2 match=1 det=00010100 cor=00010100 unc=00000000 loc=004140 category=corrected
+2026-08-14T13:04:13+08:00 RUNNING_V2_REPEAT arch=s3 k=2 trials=499/500 last=TRIAL trial=498 k=2 injected=2 match=1 det=00010100 cor=00010100 unc=00000000 loc=002040 category=corrected
+2026-08-14T13:04:28+08:00 DONE_V2_REPEAT arch=s3 k=2 SUMMARY arch=S3 k=2 total=500 corrected=497 corrected_no_flag=0 detected_only=3 silent_bounded_residual=0 miscorrection=0 silent_unbounded=0 timeout=0

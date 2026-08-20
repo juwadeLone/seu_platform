@@ -1,0 +1,94 @@
+{
+  "cell_counts": {
+    "BUFG": 1,
+    "CARRY4": 11349,
+    "DSP48E1": 1392,
+    "FDRE": 12462,
+    "IBUF": 284,
+    "INV": 1761,
+    "LUT1": 87,
+    "LUT2": 41511,
+    "LUT3": 10257,
+    "LUT4": 150,
+    "LUT5": 4518,
+    "LUT6": 38943,
+    "MUXF7": 16128,
+    "MUXF8": 7935,
+    "OBUF": 282,
+    "RAM32M": 828,
+    "RAM64M": 288,
+    "RAMB36E1": 12
+  },
+  "delta_vs_historical_p2": {
+    "BRAM36_equivalent": -4.0,
+    "DSP48E1": 0,
+    "FF": -12,
+    "LC_estimate": -44,
+    "LUT1_to_LUT6": -360,
+    "RAMB18E1": 0,
+    "RAMB36E1": -4
+  },
+  "historical_p2": {
+    "BRAM36_equivalent": 16.0,
+    "DSP48E1": 1392,
+    "FF": 12474,
+    "LC_estimate": 69464,
+    "LUT1_to_LUT6": 95826,
+    "RAMB18E1": 0,
+    "RAMB36E1": 16
+  },
+  "input_provenance": {
+    "path": "experiments/fault_injection_1024/results/p2_yosys_no_framebuf_v1_001/attempt2/input_provenance.json",
+    "sha256": "706E67B3D2380795A85A292A97D7F81A05E47523DE32F0A956CCD583D6558138",
+    "size_bytes": 2462
+  },
+  "post_synthesis_netlist": {
+    "path": "experiments/fault_injection_1024/build/p2_yosys_no_framebuf_v1_001/attempt2/yosys/post_synthesis_netlist.json",
+    "sha256": "EF7F6B296943584AA335E2D2D2D57810E07D4D103223BFD1AF04D38DB99FAADC",
+    "size_bytes": 27334224
+  },
+  "preflight": {
+    "path": "experiments/fault_injection_1024/results/p2_yosys_no_framebuf_v1_001/attempt2/preflight.json",
+    "sha256": "3D1CCCD6BFED6CDFB60F5EB742BA641A83A4528B071859EC9D562895756FEFF3",
+    "size_bytes": 512
+  },
+  "qualification": {
+    "path": "experiments/fault_injection_1024/results/p2_yosys_no_framebuf_v1_001/attempt2/qualification.json",
+    "sha256": "9C0496174958776FCF70BD3D2414F5D7D5A39DA3DB6C9CE1D9741032D66EC786",
+    "size_bytes": 973
+  },
+  "raw_support_result": {
+    "path": "experiments/fault_injection_1024/results/p2_yosys_no_framebuf_v1_001/attempt2/resource_result.json",
+    "sha256": "BDEAA010BEE7784862AA9E5D3D21F59BE0887E8E9B615C7A767782A6E4750CC6",
+    "size_bytes": 2294
+  },
+  "record_id": "P2-YOSYS-NO-FRAMEBUF-V1-001",
+  "resources": {
+    "BRAM36_equivalent": 12.0,
+    "DSP48E1": 1392,
+    "FF": 12462,
+    "LC_estimate": 69420,
+    "LUT1_to_LUT6": 95466,
+    "RAMB18E1": 0,
+    "RAMB36E1": 12,
+    "distributed_memory_cells_total": 1116
+  },
+  "schema": "p2-yosys-no-framebuf-v1-001-resource-result-v1",
+  "scope": "Yosys synth_xilinx -family xc7 estimate; not Vivado implementation",
+  "selected_top": "top_p2_pfft_tmr_no_framebuf_v1",
+  "status": "VERIFIED",
+  "structure_boundary": {
+    "terminal_frame_pair_buffer_instances": 0,
+    "tmr_stage_wrappers": 10
+  },
+  "synthesis_log": {
+    "path": "experiments/fault_injection_1024/logs/p2_yosys_no_framebuf_v1_001/attempt2/yosys_synthesis.log",
+    "sha256": "65A8CB51AB738ADBC4C18294E5AE8AB9A21C90232D9F3AE5EF404AE267D84119",
+    "size_bytes": 6475780
+  },
+  "version_gate": {
+    "path": "experiments/fault_injection_1024/results/p2_yosys_no_framebuf_v1_001/attempt2/yosys_version_gate.json",
+    "sha256": "A434BC61307DD3E50F7A997902CA376B64507734F2DCB9D242E3332E179EC04A",
+    "size_bytes": 272
+  }
+}

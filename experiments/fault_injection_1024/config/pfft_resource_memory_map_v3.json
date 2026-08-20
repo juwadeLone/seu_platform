@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "experiment_id": "PFFT-RES-V3-001",
+  "status": "P1_STAGE8_STATIC_SCHEDULE_AND_RTL_STRUCTURE_READY_QUALIFICATION_PENDING",
+  "target_family": "xc7",
+  "mapping_rule": "memory_role_geometry_and_port_semantics_only_never_protection_name",
+  "feedback_memories": [
+    {
+      "architectures": ["P0", "P2"],
+      "stages": [1],
+      "payload_width_bits": 70,
+      "depth_per_functional_lane": 128,
+      "implementation": "block",
+      "read_semantics": "synchronous_read_first"
+    },
+    {
+      "architectures": ["P0", "P2"],
+      "stages": [2, 3, 4, 5, 6, 7, 8],
+      "payload_width_bits": 70,
+      "depths_per_functional_lane": [64, 32, 16, 8, 4, 2, 1],
+      "implementation": "distributed",
+      "read_semantics": "asynchronous_read"
+    },
+    {
+      "architectures": ["P1"],
+      "stages": [1],
+      "payload_width_bits": 70,
+      "secded_codeword_width_bits": 78,
+      "depth_per_functional_lane": 128,
+      "implementation": "block",
+      "read_semantics": "synchronous_read_first"
+    },
+    {
+      "architectures": ["P1"],
+      "stages": [2, 3, 4, 5, 6, 7, 8],
+      "payload_width_bits": 70,
+      "secded_codeword_width_bits": 78,
+      "depths_per_functional_lane": [64, 32, 16, 8, 4, 2, 1],
+      "implementation": "distributed",
+      "read_semantics": "asynchronous_read"
+    }
+  ],
+  "large_buffers": {
+    "pfft_common_frame_reorder": {
+      "architectures": ["P0", "P2"],
+      "logical_capacity": "2_banks_x_1024_complex_words",
+      "physical_partition": "four_lane_memories_x_512_addresses",
+      "word_width_bits": 70,
+      "implementation": "block"
+    },
+    "p1_stage8_functional_operand_histories": {
+      "architectures": ["P1"],
+      "logical_roles": [
+        "four_functional_result_histories",
+        "four_operand_A_histories",
+        "four_operand_B_histories"
+      ],
+      "physical_partition": "12_banks_x_512_addresses",
+      "secded_codeword_width_bits": 78,
+      "implementation": "block",
+      "port_semantics": "one_synchronous_read_plus_one_write_per_bank",
+      "read_during_write": "schedule_avoids_ambiguous_same_address_dependency",
+      "must_be_in_functional_correction_path": true
+    },
+    "p1_stage8_single_check_pair_background_fifo": {
+      "architectures": ["P1"],
+      "task_payload": [
+        "23_bit_group_release_branch_exponent_tag",
+        "four_functional_SECDED_codewords",
+        "four_operand_A_SECDED_codewords",
+        "four_operand_B_SECDED_codewords"
+      ],
+      "task_payload_width_bits": 959,
+      "minimum_depth_entries_enqueue_before_issue": 129,
+      "equivalent_fallthrough_organization": "registered_head_plus_128_entry_synchronous_tail_RAM_with_same_cycle_fallthrough",
+      "tail_physical_partition": "1_bank_x_128_addresses_x_959_bits",
+      "tail_implementation": "block",
+      "urgent_cross_storage": "four_entry_register_skid_queue",
+      "scheduler": "urgent_cross_then_background_same_earliest_output_first",
+      "physical_check_pairs": 1,
+      "check_butterflies": 2,
+      "service_rate_tasks_per_cycle": 1,
+      "fixed_stage8_local_latency_cycles": 258,
+      "isolated_pair_drain_issue_cycles_after_input_window": 128,
+      "static_schedule_evidence": "results/pfft_resource_v3_001/schedule_feasibility_attempt1.json",
+      "evidence_class": "STATIC_SCHEDULE_MODEL_NOT_RTL_SIMULATION_NOT_YOSYS",
+      "must_drain_to_zero": true
+    },
+    "p1_stage8_corrected_result_banks": {
+      "architectures": ["P1"],
+      "physical_partition": "2_banks_x_512_addresses",
+      "word_width_bits": 312,
+      "word_contents": "four_corrected_78_bit_SECDED_codewords",
+      "implementation": "block",
+      "port_semantics": "one_synchronous_read_plus_at_most_one_write_per_bank",
+      "read_during_write": "explicit_same_address_forwarding",
+      "must_be_in_functional_correction_path": true
+    }
+  },
+  "replication_rules": {
+    "P0": "one_functional_memory_instance_per_declared_lane",
+    "P1": "one_SECDED_functional_memory_per_lane_plus_single_check_pair_scheduler_storage",
+    "P2": "three_identical_instances_of_each_functional_stage_memory",
+    "p1_stage9_stage10": "three_complete_stage_replicas_plus_voter"
+  },
+  "post_synthesis_pass_fail": {
+    "declared_block": "must_map_to_RAMB18E1_or_RAMB36E1",
+    "declared_distributed": "must_map_to_Xilinx_distributed_RAM_primitives",
+    "same_geometry": "same_role_depth_width_and_port_semantics_must_have_same_primitive_class_across_architectures",
+    "p1_stage8_static_geometry": "must_retain_12_history_plus_1_background_FIFO_plus_2_result_block_arrays_totaling_921472_logical_bits",
+    "p1_stage8_post_synthesis": "aggregate_RAMB_capacity_below_the_live_single_check_pair_scheduler_must_be_at_least_921472_bits_or_25_BRAM36_equivalents",
+    "p1_stage8_evidence_limit": "aggregate_capacity_retention_only_not_per_role_primitive_attribution"
+  }
+}

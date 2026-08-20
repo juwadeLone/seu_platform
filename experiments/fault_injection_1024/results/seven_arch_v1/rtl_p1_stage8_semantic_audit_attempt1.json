@@ -1,0 +1,16 @@
+{
+  "status": "FAILED_BLOCKED_BEFORE_RTL_QUALIFICATION",
+  "date": "2026-07-21",
+  "scope": "P1 Stage 8 RTL semantic connectivity audit",
+  "evidence": [
+    "ecc_stage4_v5 selected ordinary heterogeneous functional arithmetic at PFFT Stage 8 and did not route its independent_butterfly_ecc_v5 result into the functional path",
+    "p1_stage8_pair_protector_v5 explicitly implemented only the cross-frame subset and omitted the frozen 256 same-frame groups",
+    "the two stored check values were formed from already-produced Stage 8 functional outputs instead of operands encoded before the protected operator"
+  ],
+  "gate_effect": "P1 and the seven-top RTL qualification remain BLOCKED; Yosys is forbidden until corrected and requalified",
+  "source_sha256_before_correction": {
+    "protected_stages_v5.sv": "2E50D97B10A5813FC02F35886A071EA7BDC2121FAB28FCB8E43D55B1E0D3B66D",
+    "p1_stage8_v5.sv": "0C2B5715E90E87F7CD7D470A7B861D9026ED94E55446DAB789AC71CA628DEEF2",
+    "seven_tops.sv": "3699038FBEB055D5AA356E487B4F3E295C8A5C03EA8A04314CF1413EF5C0AFAA"
+  }
+}

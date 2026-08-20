@@ -1,0 +1,196 @@
+{
+  "evidence_class": "input_identity_and_qualification_gate_not_synthesis_measurement",
+  "experiment_id": "PFFT-RES-V3-001",
+  "fingerprint": {
+    "config_sha256": "6422033B5CECD4471BF88A2D495B6C4843BB0D9A7E4754BCA5314DAD55EDA0E6",
+    "contract_sha256": "2C5C0B010F4BFEDEE8503D7DABCC6AA5882683FB2FA29D54BB7EB09EC6A27D73",
+    "input_manifest_sha256": "BFD3E634FE59DC4C94CA0F26E63482948FB1EFC1687A50F290B996AA27C6C3F3",
+    "memory_map_sha256": "1B8F31C59330DF8732CD0D4696AC892C8663E792FA6917C4D4BA795F580292FB",
+    "qualification_sha256": "32BF0BD8FE2073C9239A1922D5B373BDFAC93E1CCA42A6CA6F202DB19C71DF45",
+    "runner_sha256": "629490E0C550E1EBFFEA76021F3B6BD1BD1939FDCD70D82805BE718B45925C3B",
+    "schedule_sha256": "0D2D271893C3528CD5CBB34EDFC32178C1DA7E35770D80FF9E58E5F3BAC836D6",
+    "source_sha256_by_architecture": {
+      "P0": {
+        "common/rtl/datapath_v5.sv": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "common/rtl/fft_common.sv": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "common/rtl/protected_stages_v5.sv": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "common/rtl/protection_primitives_v5.sv": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "common/rtl/protection_rtl.sv": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "common/rtl/twiddle_rom_1024.sv": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "projects/P0/top_p0_pfft_unprotected.sv": "AF56137D7BC711E655F4316C34D4A351AA9D5A907B4E79215053A17D56A8C114"
+      },
+      "P1": {
+        "common/rtl/datapath_v5.sv": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "common/rtl/fft_common.sv": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "common/rtl/protected_stages_v5.sv": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "common/rtl/protection_primitives_v5.sv": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "common/rtl/protection_rtl.sv": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "common/rtl/twiddle_rom_1024.sv": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "projects/P1/top_p1_pfft_ecc.sv": "A2189C214C946CEB2B97B64BF9E19470231EEB7E9A66C0AAC50B6FEF70086117"
+      },
+      "P2": {
+        "common/rtl/datapath_v5.sv": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "common/rtl/fft_common.sv": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "common/rtl/protected_stages_v5.sv": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "common/rtl/protection_primitives_v5.sv": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "common/rtl/protection_rtl.sv": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "common/rtl/twiddle_rom_1024.sv": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "projects/P2/top_p2_pfft_tmr.sv": "F5E7354F5EC137206E3E1900D693C17BB801B83E81588707FE489B4FCFDB92F3"
+      }
+    },
+    "structure_manifest_sha256": "8BBA3F2E45207ED9E6AB87E1C0B16564B50EEBB7D99FF1689D6C4E7AC31F0E68",
+    "vector_manifest_sha256": "B69BFC3D85360039295E9B7FA5A379F55B11228506AAD777B068387F65F19FE1",
+    "yosys_executable_sha256": "059916904062A877B530E6169FA22DBCE32EC66118B75E9A2198F86EA67BA3EB"
+  },
+  "input_manifest": {
+    "hashed_record_count": 33,
+    "path": "experiments/fault_injection_1024/config/pfft_resource_v3_input_manifest.json",
+    "sha256": "BFD3E634FE59DC4C94CA0F26E63482948FB1EFC1687A50F290B996AA27C6C3F3"
+  },
+  "policy": {
+    "independent_source_top_per_architecture": true,
+    "no_automatic_retry": true,
+    "no_backfill": true,
+    "stop_on_first_failure": true
+  },
+  "python": {
+    "executable": "C:\\Program Files\\Inkscape\\bin\\python.exe",
+    "sha256": "B5C33DF60C2A8421DCF8117A67E848436B5D395C71EC1C0DFD96BAD10F441D7F"
+  },
+  "qualification_gate": {
+    "qualification": "experiments/fault_injection_1024/results/pfft_resource_v3_001/qualification_attempt1/rtl_qualification.json",
+    "qualification_sha256": "32BF0BD8FE2073C9239A1922D5B373BDFAC93E1CCA42A6CA6F202DB19C71DF45",
+    "schedule": "experiments/fault_injection_1024/results/pfft_resource_v3_001/schedule_feasibility_attempt1.json",
+    "schedule_sha256": "0D2D271893C3528CD5CBB34EDFC32178C1DA7E35770D80FF9E58E5F3BAC836D6",
+    "status": "VERIFIED",
+    "structure_manifest": "experiments/fault_injection_1024/results/pfft_resource_v3_001/qualification_attempt1/rtl_structure_manifest.json",
+    "structure_manifest_sha256": "8BBA3F2E45207ED9E6AB87E1C0B16564B50EEBB7D99FF1689D6C4E7AC31F0E68"
+  },
+  "schema": "pfft-resource-v3-001-yosys-input-validation-v1",
+  "sources_by_architecture": {
+    "P0": [
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\twiddle_rom_1024.sv",
+        "relative_path": "common/rtl/twiddle_rom_1024.sv",
+        "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\fft_common.sv",
+        "relative_path": "common/rtl/fft_common.sv",
+        "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_rtl.sv",
+        "relative_path": "common/rtl/protection_rtl.sv",
+        "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\datapath_v5.sv",
+        "relative_path": "common/rtl/datapath_v5.sv",
+        "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_primitives_v5.sv",
+        "relative_path": "common/rtl/protection_primitives_v5.sv",
+        "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protected_stages_v5.sv",
+        "relative_path": "common/rtl/protected_stages_v5.sv",
+        "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P0\\top_p0_pfft_unprotected.sv",
+        "relative_path": "projects/P0/top_p0_pfft_unprotected.sv",
+        "sha256": "AF56137D7BC711E655F4316C34D4A351AA9D5A907B4E79215053A17D56A8C114"
+      }
+    ],
+    "P1": [
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\twiddle_rom_1024.sv",
+        "relative_path": "common/rtl/twiddle_rom_1024.sv",
+        "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\fft_common.sv",
+        "relative_path": "common/rtl/fft_common.sv",
+        "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_rtl.sv",
+        "relative_path": "common/rtl/protection_rtl.sv",
+        "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\datapath_v5.sv",
+        "relative_path": "common/rtl/datapath_v5.sv",
+        "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_primitives_v5.sv",
+        "relative_path": "common/rtl/protection_primitives_v5.sv",
+        "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protected_stages_v5.sv",
+        "relative_path": "common/rtl/protected_stages_v5.sv",
+        "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P1\\top_p1_pfft_ecc.sv",
+        "relative_path": "projects/P1/top_p1_pfft_ecc.sv",
+        "sha256": "A2189C214C946CEB2B97B64BF9E19470231EEB7E9A66C0AAC50B6FEF70086117"
+      }
+    ],
+    "P2": [
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\twiddle_rom_1024.sv",
+        "relative_path": "common/rtl/twiddle_rom_1024.sv",
+        "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\fft_common.sv",
+        "relative_path": "common/rtl/fft_common.sv",
+        "sha256": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_rtl.sv",
+        "relative_path": "common/rtl/protection_rtl.sv",
+        "sha256": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\datapath_v5.sv",
+        "relative_path": "common/rtl/datapath_v5.sv",
+        "sha256": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_primitives_v5.sv",
+        "relative_path": "common/rtl/protection_primitives_v5.sv",
+        "sha256": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protected_stages_v5.sv",
+        "relative_path": "common/rtl/protected_stages_v5.sv",
+        "sha256": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE"
+      },
+      {
+        "absolute_path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P2\\top_p2_pfft_tmr.sv",
+        "relative_path": "projects/P2/top_p2_pfft_tmr.sv",
+        "sha256": "F5E7354F5EC137206E3E1900D693C17BB801B83E81588707FE489B4FCFDB92F3"
+      }
+    ]
+  },
+  "status": "VERIFIED",
+  "timestamp_utc": "2026-07-23T13:51:08.145724+00:00",
+  "tops": {
+    "P0": "top_p0_pfft_unprotected",
+    "P1": "top_p1_pfft_ecc",
+    "P2": "top_p2_pfft_tmr"
+  },
+  "yosys": {
+    "flow": "synth_xilinx -family xc7",
+    "sha256": "059916904062A877B530E6169FA22DBCE32EC66118B75E9A2198F86EA67BA3EB",
+    "specified_executable": "C:\\Users\\pc\\Downloads\\oss-cad-suite\\bin\\yosys.exe",
+    "version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 13.2.1)"
+  }
+}

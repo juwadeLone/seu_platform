@@ -1,0 +1,84 @@
+﻿{
+    "schema":  "s3-single-rotation-yosys-resource-v1",
+    "status":  "VERIFIED",
+    "attempt":  "yosys_attempt1",
+    "tool":  "Yosys 0.66+181",
+    "flow":  "synth_xilinx -family xc7",
+    "top":  "top_s3_subfft_ecc",
+    "resources":  {
+                      "lc":  97719,
+                      "raw_lut_cells":  120686,
+                      "ff":  5972,
+                      "dsp48e1":  960,
+                      "ramb18e1":  12,
+                      "ramb36e1":  0,
+                      "bram36_equivalent":  6,
+                      "distributed_memory_cells":  404
+                  },
+    "frozen_s3":  {
+                      "lc":  175749,
+                      "raw_lut_cells":  218338,
+                      "ff":  5972,
+                      "dsp48e1":  2496,
+                      "ramb18e1":  12,
+                      "ramb36e1":  0,
+                      "bram36_equivalent":  6,
+                      "distributed_memory_cells":  404
+                  },
+    "delta":  {
+                  "lc":  -78030,
+                  "raw_lut_cells":  -97652,
+                  "ff":  0,
+                  "dsp48e1":  -1536,
+                  "ramb18e1":  0,
+                  "ramb36e1":  0,
+                  "bram36_equivalent":  0,
+                  "distributed_memory_cells":  0
+              },
+    "structural":  {
+                       "generic_complex_multipliers":  60,
+                       "generic_complex_multipliers_inferred_from_dsp_mapping":  "960/16",
+                       "independent_rotation_ecc_v5_active":  false,
+                       "stage1_to_8_required_lower_rotations":  "8 stages x 6 encoded streams = 48",
+                       "stage9_tmr_rotations":  "3 replicas x 4 lanes = 12"
+                   },
+    "qualification":  "experiments/fault_injection_1024/results/s3_single_rotation_v1_001/qualification_attempt2/qualification.json",
+    "artifacts":  [
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\s3_single_rotation_v1_001\\yosys_attempt1\\preflight.ys",
+                          "sha256":  "982B38F84E7EFBCE3CDE18ABB9D95F8D363EFEC1C37D4D4DAE648424F2BC0071",
+                          "size_bytes":  898
+                      },
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\s3_single_rotation_v1_001\\yosys_attempt1\\preflight.log",
+                          "sha256":  "149431A23DE0595909E5F7003E3FEF1D8ECC80FE1872FC8ECFE10CD1B3B2FE22",
+                          "size_bytes":  413445
+                      },
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\s3_single_rotation_v1_001\\yosys_attempt1\\preflight.json",
+                          "sha256":  "5EBFB2C47E8C8034414BA1DC6A9E620980FFB43E3EF39BE19E9639BBEECFC570",
+                          "size_bytes":  4129278
+                      },
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\s3_single_rotation_v1_001\\yosys_attempt1\\synth.ys",
+                          "sha256":  "FFA3C2DE4251F2471A5BA6E12FF9AA31AAA9A14DD56E7FAB24EA4526BB81EFEC",
+                          "size_bytes":  939
+                      },
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\s3_single_rotation_v1_001\\yosys_attempt1\\synth.log",
+                          "sha256":  "942D515B2195C25790AD78E5AA84F757BFA591A779ACEC873624FEC149C9C010",
+                          "size_bytes":  5829596
+                      },
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\s3_single_rotation_v1_001\\yosys_attempt1\\synth.json",
+                          "sha256":  "03624ADB252721681DCB914BF4FE261ED28F2D596A0A9A6A303EA3CC4EB9E625",
+                          "size_bytes":  29412942
+                      },
+                      {
+                          "path":  "experiments\\fault_injection_1024\\results\\s3_single_rotation_v1_001\\yosys_attempt1\\startup_environment.json",
+                          "sha256":  "15A835DCDFD4681A2AC4F989EEFD509CA535B6128E64DD3C1197FCD296683B0F",
+                          "size_bytes":  1456
+                      }
+                  ],
+    "claim_boundary":  "Yosys xc7 synthesis resource estimate only; not Vivado post-implementation, timing, Fmax, or power"
+}

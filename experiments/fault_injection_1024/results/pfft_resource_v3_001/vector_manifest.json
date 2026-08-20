@@ -1,0 +1,65 @@
+{
+  "P1_unchanged_exchange_vector": {
+    "line_count": 2048,
+    "path": "experiments/fault_injection_1024/common/vectors/qualification_pfft_expected_8frames.hex",
+    "rewritten_by_this_tool": false,
+    "sha256": "48C8D6A1948A36D837183E112C4C14FFD5C861E075195B301773857C5F361BE2"
+  },
+  "experiment_id": "PFFT-RES-V3-001",
+  "frame_contract": {
+    "checked_output_frames": 8,
+    "frame_ids": [
+      "zero",
+      "impulse_first",
+      "impulse_last",
+      "four_lane_impulse",
+      "alternating",
+      "ramp",
+      "boundary_safe",
+      "random_seeded"
+    ],
+    "input_beats": 2560,
+    "input_frames": 10,
+    "order_contract": "experiments/fault_injection_1024/config/seven_architecture_fault_matrix.json",
+    "order_contract_sha256": "754E11C08E31D7DA7F687E339EDC525C7D7588D60BF6FCF485E19DA634F5A381",
+    "output_beats_per_architecture": 2048,
+    "output_order": "natural_output[bit_reverse(4*beat+lane,10)]",
+    "packed_bits_per_beat": 280,
+    "source": "experiments/fault_injection_1024/config/legacy_protected_trial_set.json",
+    "source_sha256": "245088778244C2B774B64C6259F7912B0CC41B4865919EC81A7C7B9A7A39BFE9"
+  },
+  "generator": {
+    "path": "experiments/fault_injection_1024/common/tools/generate_pfft_no_exchange_vectors_v3.py",
+    "python": "C:\\Program Files\\Inkscape\\bin\\python.exe",
+    "python_sha256": "B5C33DF60C2A8421DCF8117A67E848436B5D395C71EC1C0DFD96BAD10F441D7F",
+    "sha256": "82F74A8A64150F8FA27EB054BD3DFF90D51277C6CA2CEB018C50CC9FAB28B12C"
+  },
+  "input": {
+    "line_count": 2560,
+    "matches_regenerated_eight_frames_plus_two_zero_padding_frames": true,
+    "path": "experiments/fault_injection_1024/common/vectors/qualification_input_10frames.hex",
+    "sha256": "01EBA212B22E2BE2B1F2A6E31800F02B6A85E2EEAE5D890BF1F366D8A46E9916"
+  },
+  "model": {
+    "function": "common.python.fixed_fft.pfft_no_exchange_1024",
+    "path": "experiments/fault_injection_1024/common/python/fixed_fft.py",
+    "schedule": "canonical_radix2_DIF_no_exchange",
+    "sha256": "5541827C4618BA20DCA416A86DBE5EA59B9703170DFD49196632831485732DEF"
+  },
+  "outputs": {
+    "P0": {
+      "line_count": 2048,
+      "path": "experiments/fault_injection_1024/projects/P0/vectors/qualification_p0_no_exchange_expected_8frames.hex",
+      "sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204"
+    },
+    "P0_and_P2_byte_identical": true,
+    "P2": {
+      "line_count": 2048,
+      "path": "experiments/fault_injection_1024/projects/P2/vectors/qualification_p2_no_exchange_expected_8frames.hex",
+      "sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204"
+    },
+    "shared_sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204"
+  },
+  "schema": "pfft-resource-v3-001-vector-manifest-v1",
+  "status": "VERIFIED"
+}

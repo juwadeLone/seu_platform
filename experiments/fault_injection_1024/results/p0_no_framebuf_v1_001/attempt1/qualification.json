@@ -1,0 +1,33 @@
+{
+  "checks": {
+    "continuous_frame_boundaries": true,
+    "each_frame_256_beats": true,
+    "eight_frames_2048_beats_bit_exact": true,
+    "out_last_at_each_frame_end": true,
+    "out_valid_continuous": true
+  },
+  "compile_exit_code": 0,
+  "compile_log": {
+    "path": "experiments/fault_injection_1024/logs/p0_no_framebuf_v1_001/attempt1/iverilog_compile.log",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "size_bytes": 0
+  },
+  "fixed_latency_is_acceptance_criterion": false,
+  "input_manifest": {
+    "path": "experiments/fault_injection_1024/results/p0_no_framebuf_v1_001/attempt1/input_manifest.json",
+    "sha256": "A95CFEC633838409EC757B4C8A64C2F656D832283EA6678633CCBE4DBF7EAFAF",
+    "size_bytes": 2726
+  },
+  "measured_latency": 268,
+  "record_id": "P0-NO-FRAMEBUF-V1-001",
+  "schema": "p0-no-framebuf-v1-001-qualification-v1",
+  "simulation_exit_code": 0,
+  "simulation_log": {
+    "path": "experiments/fault_injection_1024/logs/p0_no_framebuf_v1_001/attempt1/rtl_qualification.log",
+    "sha256": "F42C5B3F95341244D9F4ACF0698FD10B9620B02B088A46606C7877A1F1F9EF9D",
+    "size_bytes": 232
+  },
+  "status": "VERIFIED",
+  "synthesis_authorized": true,
+  "timestamp_utc": "2026-07-24T03:45:56.442311+00:00"
+}

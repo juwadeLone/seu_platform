@@ -1,0 +1,47 @@
+# PFFT-RES-V3-001 S06 attempt2 execution audit
+
+状态：`FAILED_RUNNER_IO_AFTER_P1 / NO_FINAL_TABLE / P2_UNEXECUTED`
+
+## 授权与隔离
+
+- 作者于2026-07-23明确授权沙箱外隔离attempt2。
+- 冻结合同SHA-256：`2C5C0B010F4BFEDEE8503D7DABCC6AA5882683FB2FA29D54BB7EB09EC6A27D73`。
+- 原runner SHA-256：`629490E0C550E1EBFFEA76021F3B6BD1BD1939FDCD70D82805BE718B45925C3B`。
+- attempt2 wrapper SHA-256：`94C25848D84C4C5AE4C48C344841802D05FF9EC896A15486A4904C31E8D90C89`。
+- 指定Yosys SHA-256：`059916904062A877B530E6169FA22DBCE32EC66118B75E9A2198F86EA67BA3EB`。
+- attempt1原始失败证据未覆盖。
+
+## Preflight
+
+P0、P1、P2均退出0。preflight结果SHA-256：
+`04762CCECB3EB5C1A7393FA9DAAD734C3F3F54C1490E623F24B586D7CECD1155`。
+
+## 已完成的正式综合
+
+| Architecture | LC estimate | LUT1--6 | FF | DSP48E1 | BRAM36 equivalent | Post-synthesis audit | D95 target |
+|---|---:|---:|---:|---:|---:|---|---|
+| P0 | 22689 | 31010 | 4166 | 464 | 8.0 | VERIFIED | VERIFIED |
+| P1 | 88418 | 109462 | 14767 | 736 | 46.5 | VERIFIED | VERIFIED |
+
+- P0日志SHA-256：`BA089BAFDA5DE9D87DE9BD37B626E3E3DEE81202BDD0C77BBC7B9F19C4BC3142`。
+- P1日志SHA-256：`440E94D28FA67E6650A5EA00F08944E980B0B94E15D12841D964DBC05571BE36`。
+
+这些数字是指定Yosys `xc7`综合资源估计，不是Vivado post-implementation、
+布线后Fmax或功耗结果。
+
+## 停止原因与证据边界
+
+前台调用监控在10秒后返回超时并关闭stdout，但既有沙箱外Python/Yosys进程继续运行。
+P0和P1完成后，runner在向已关闭stdout写进度信息时报告
+`OSError(22, 'Invalid argument')`。P2正式综合未启动。
+
+原始结果：
+`yosys_raw_measurements_attempt2.json`，SHA-256
+`7DD775206B4D3BF003BA2BC87201423095D3163ADC017C20AD4FB29AB3EC3EAB`。
+
+根据冻结的失败即停止策略：
+
+- 不补跑P2；
+- 不创建或回填最终三工程比较表；
+- 不把P0/P1局部结果表述为完整资源实验；
+- 不修改RTL或结果迎合P2理论目标1392。

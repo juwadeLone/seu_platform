@@ -1,0 +1,910 @@
+{
+  "architectures": [
+    {
+      "architecture_id": "P2",
+      "blackbox_audit": {
+        "critical_blackboxes": [],
+        "primitive_blackboxes": [
+          "BUFG",
+          "CARRY4",
+          "DSP48E1",
+          "FDRE",
+          "IBUF",
+          "INV",
+          "LUT1",
+          "LUT2",
+          "LUT3",
+          "LUT4",
+          "LUT5",
+          "LUT6",
+          "MUXF7",
+          "MUXF8",
+          "OBUF",
+          "RAM32M",
+          "RAM64M",
+          "RAMB36E1"
+        ],
+        "status": "VERIFIED"
+      },
+      "cell_counts": {
+        "BUFG": 1,
+        "CARRY4": 11351,
+        "DSP48E1": 1392,
+        "FDRE": 12474,
+        "IBUF": 284,
+        "INV": 1763,
+        "LUT1": 87,
+        "LUT2": 41522,
+        "LUT3": 10257,
+        "LUT4": 771,
+        "LUT5": 4518,
+        "LUT6": 38671,
+        "MUXF7": 16304,
+        "MUXF8": 8023,
+        "OBUF": 282,
+        "RAM32M": 828,
+        "RAM64M": 288,
+        "RAMB36E1": 16
+      },
+      "command_sidecar": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/attempt3_p2/yosys_attempt3_P2.command.json",
+      "command_sidecar_sha256": "671026D84639AEAFD483AD1D2C12EE92DDC07CCD87C20645A42DBFE3C8CA7766",
+      "log": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/attempt3_p2/yosys_attempt3_P2.log",
+      "log_sha256": "899BC8DC7F07BB93BB77CD6028B462A48581B83F515505A59EC2D65618C38894",
+      "memory_mapping_audit": {
+        "scope": "P1_stage8_single_check_pair_scheduler",
+        "status": "NOT_APPLICABLE"
+      },
+      "missing_metrics": [],
+      "post_synthesis_audit_status": "VERIFIED",
+      "post_synthesis_netlist": "experiments/fault_injection_1024/build/pfft_resource_v3_001/attempt3_p2/yosys/attempt3/P2_netlist.json",
+      "post_synthesis_netlist_sha256": "E5D1B570E4DFE4327B72B0B4ABD801516E2B14FE2A81B9ADABEA3CDE993BC707",
+      "pre_synthesis_hierarchy": "experiments/fault_injection_1024/build/pfft_resource_v3_001/attempt3_p2/yosys/attempt3/P2_hierarchy.json",
+      "pre_synthesis_hierarchy_sha256": "C97ED439D4813FCD4F0E1B5DCAB75D7EC1D3ECF66EF779C48EC04180B5B5EADF",
+      "replica_preservation_audit": {
+        "checks": [
+          {
+            "expected_tmr": true,
+            "explicit_voter_module_children": [
+              {
+                "instance": "q0i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q0r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3r",
+                "module": "vote35"
+              }
+            ],
+            "replica_children": [
+              {
+                "instance": "rep[0].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[1].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[2].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              }
+            ],
+            "replica_count": 3,
+            "stage": 1,
+            "stage_root": {
+              "instance": "s1",
+              "module_hdlname": "p2_tmr_pfft_stage4_no_exchange_v3",
+              "module_key": "$paramod$a53e20b417a9ec53715eeb06b50573f7bb2b45b8\\p2_tmr_pfft_stage4_no_exchange_v3",
+              "path": "top_p2_pfft_tmr/u/s1"
+            },
+            "stage_root_is_tmr": true,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": true,
+            "explicit_voter_module_children": [
+              {
+                "instance": "q0i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q0r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3r",
+                "module": "vote35"
+              }
+            ],
+            "replica_children": [
+              {
+                "instance": "rep[0].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[1].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[2].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              }
+            ],
+            "replica_count": 3,
+            "stage": 2,
+            "stage_root": {
+              "instance": "s2",
+              "module_hdlname": "p2_tmr_pfft_stage4_no_exchange_v3",
+              "module_key": "$paramod$85512758f5e3e51d2f06d1883f5eddf99a323e64\\p2_tmr_pfft_stage4_no_exchange_v3",
+              "path": "top_p2_pfft_tmr/u/s2"
+            },
+            "stage_root_is_tmr": true,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": true,
+            "explicit_voter_module_children": [
+              {
+                "instance": "q0i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q0r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3r",
+                "module": "vote35"
+              }
+            ],
+            "replica_children": [
+              {
+                "instance": "rep[0].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[1].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[2].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              }
+            ],
+            "replica_count": 3,
+            "stage": 3,
+            "stage_root": {
+              "instance": "s3",
+              "module_hdlname": "p2_tmr_pfft_stage4_no_exchange_v3",
+              "module_key": "$paramod$aedb1a04da129083d007f2555b5bfaf0e99d260f\\p2_tmr_pfft_stage4_no_exchange_v3",
+              "path": "top_p2_pfft_tmr/u/s3"
+            },
+            "stage_root_is_tmr": true,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": true,
+            "explicit_voter_module_children": [
+              {
+                "instance": "q0i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q0r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3r",
+                "module": "vote35"
+              }
+            ],
+            "replica_children": [
+              {
+                "instance": "rep[0].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[1].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[2].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              }
+            ],
+            "replica_count": 3,
+            "stage": 4,
+            "stage_root": {
+              "instance": "s4",
+              "module_hdlname": "p2_tmr_pfft_stage4_no_exchange_v3",
+              "module_key": "$paramod$2993274386077744536197e848f81a9aebe9f758\\p2_tmr_pfft_stage4_no_exchange_v3",
+              "path": "top_p2_pfft_tmr/u/s4"
+            },
+            "stage_root_is_tmr": true,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": true,
+            "explicit_voter_module_children": [
+              {
+                "instance": "q0i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q0r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3r",
+                "module": "vote35"
+              }
+            ],
+            "replica_children": [
+              {
+                "instance": "rep[0].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[1].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[2].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              }
+            ],
+            "replica_count": 3,
+            "stage": 5,
+            "stage_root": {
+              "instance": "s5",
+              "module_hdlname": "p2_tmr_pfft_stage4_no_exchange_v3",
+              "module_key": "$paramod$30de15d5d41ca5157d544740dac50f8b556df732\\p2_tmr_pfft_stage4_no_exchange_v3",
+              "path": "top_p2_pfft_tmr/u/s5"
+            },
+            "stage_root_is_tmr": true,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": true,
+            "explicit_voter_module_children": [
+              {
+                "instance": "q0i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q0r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3r",
+                "module": "vote35"
+              }
+            ],
+            "replica_children": [
+              {
+                "instance": "rep[0].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[1].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[2].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              }
+            ],
+            "replica_count": 3,
+            "stage": 6,
+            "stage_root": {
+              "instance": "s6",
+              "module_hdlname": "p2_tmr_pfft_stage4_no_exchange_v3",
+              "module_key": "$paramod$d70fcae6e6b1b25a1166c8763e5aaba697b24e34\\p2_tmr_pfft_stage4_no_exchange_v3",
+              "path": "top_p2_pfft_tmr/u/s6"
+            },
+            "stage_root_is_tmr": true,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": true,
+            "explicit_voter_module_children": [
+              {
+                "instance": "q0i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q0r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3r",
+                "module": "vote35"
+              }
+            ],
+            "replica_children": [
+              {
+                "instance": "rep[0].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[1].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[2].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              }
+            ],
+            "replica_count": 3,
+            "stage": 7,
+            "stage_root": {
+              "instance": "s7",
+              "module_hdlname": "p2_tmr_pfft_stage4_no_exchange_v3",
+              "module_key": "$paramod$0554f750bc52edd405349f2826681362b1e38adb\\p2_tmr_pfft_stage4_no_exchange_v3",
+              "path": "top_p2_pfft_tmr/u/s7"
+            },
+            "stage_root_is_tmr": true,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": true,
+            "explicit_voter_module_children": [
+              {
+                "instance": "q0i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q0r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3r",
+                "module": "vote35"
+              }
+            ],
+            "replica_children": [
+              {
+                "instance": "rep[0].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[1].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              },
+              {
+                "instance": "rep[2].u",
+                "module": "pfft_stage4_sdf_no_exchange_v3"
+              }
+            ],
+            "replica_count": 3,
+            "stage": 8,
+            "stage_root": {
+              "instance": "s8",
+              "module_hdlname": "p2_tmr_pfft_stage4_no_exchange_v3",
+              "module_key": "$paramod$356df58be365942fa60da905c852acbba53b6cf9\\p2_tmr_pfft_stage4_no_exchange_v3",
+              "path": "top_p2_pfft_tmr/u/s8"
+            },
+            "stage_root_is_tmr": true,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": true,
+            "explicit_voter_module_children": [
+              {
+                "instance": "q0i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q0r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3r",
+                "module": "vote35"
+              }
+            ],
+            "replica_children": [
+              {
+                "instance": "rep[0].u",
+                "module": "pfft_stage9_no_exchange_v3"
+              },
+              {
+                "instance": "rep[1].u",
+                "module": "pfft_stage9_no_exchange_v3"
+              },
+              {
+                "instance": "rep[2].u",
+                "module": "pfft_stage9_no_exchange_v3"
+              }
+            ],
+            "replica_count": 3,
+            "stage": 9,
+            "stage_root": {
+              "instance": "s9",
+              "module_hdlname": "p2_tmr_pfft_stage9_no_exchange_v3",
+              "module_key": "p2_tmr_pfft_stage9_no_exchange_v3",
+              "path": "top_p2_pfft_tmr/u/s9"
+            },
+            "stage_root_is_tmr": true,
+            "status": "VERIFIED"
+          },
+          {
+            "expected_tmr": true,
+            "explicit_voter_module_children": [
+              {
+                "instance": "q0i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q0r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q1r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q2r",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3i",
+                "module": "vote35"
+              },
+              {
+                "instance": "q3r",
+                "module": "vote35"
+              }
+            ],
+            "replica_children": [
+              {
+                "instance": "rep[0].u",
+                "module": "pfft_stage10"
+              },
+              {
+                "instance": "rep[1].u",
+                "module": "pfft_stage10"
+              },
+              {
+                "instance": "rep[2].u",
+                "module": "pfft_stage10"
+              }
+            ],
+            "replica_count": 3,
+            "stage": 10,
+            "stage_root": {
+              "instance": "s10",
+              "module_hdlname": "p2_tmr_pfft_stage10_v3",
+              "module_key": "p2_tmr_pfft_stage10_v3",
+              "path": "top_p2_pfft_tmr/u/s10"
+            },
+            "stage_root_is_tmr": true,
+            "status": "VERIFIED"
+          }
+        ],
+        "expected_tmr_stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "failures": [],
+        "live_tmr_or_voter_modules": {
+          "p2_pfft_tmr_no_exchange_core_v3": 1,
+          "p2_tmr_pfft_stage10_v3": 1,
+          "p2_tmr_pfft_stage4_no_exchange_v3": 8,
+          "p2_tmr_pfft_stage9_no_exchange_v3": 1,
+          "vote35": 80
+        },
+        "status": "VERIFIED"
+      },
+      "resources": {
+        "BRAM36_equivalent": 16.0,
+        "DSP48E1": 1392,
+        "FF": 12474,
+        "LC_estimate": 69464,
+        "LUT1_to_LUT6": 95826,
+        "RAMB18E1": 0,
+        "RAMB36E1": 16,
+        "distributed_memory_cells": {
+          "RAM32M": 828,
+          "RAM64M": 288
+        },
+        "distributed_memory_cells_total": 1116
+      },
+      "script": "experiments/fault_injection_1024/build/pfft_resource_v3_001/attempt3_p2/yosys/attempt3/P2_synth.ys",
+      "script_sha256": "28C8F3C79F80B5EFF9612B212627D88E99F2292079D947B4E4657DD18AD393EE",
+      "source_hashes": {
+        "common/rtl/datapath_v5.sv": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "common/rtl/fft_common.sv": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "common/rtl/protected_stages_v5.sv": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "common/rtl/protection_primitives_v5.sv": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "common/rtl/protection_rtl.sv": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "common/rtl/twiddle_rom_1024.sv": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "projects/P2/top_p2_pfft_tmr.sv": "F5E7354F5EC137206E3E1900D693C17BB801B83E81588707FE489B4FCFDB92F3"
+      },
+      "status": "VERIFIED",
+      "target_checks": {
+        "DSP48E1_by_stage": {
+          "expected": [
+            192,
+            192,
+            192,
+            192,
+            192,
+            192,
+            144,
+            96,
+            0,
+            0
+          ],
+          "measured": [
+            192,
+            192,
+            192,
+            192,
+            192,
+            192,
+            144,
+            96,
+            0,
+            0
+          ],
+          "pass": true,
+          "unassigned": 0
+        },
+        "DSP48E1_per_generic_complex_multiplier": {
+          "expected": 16,
+          "measured": 16.0,
+          "pass": true
+        },
+        "DSP48E1_total": {
+          "expected": 1392,
+          "measured": 1392,
+          "pass": true
+        },
+        "generic_complex_multipliers_by_stage": {
+          "expected": [
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            9,
+            6,
+            0,
+            0
+          ],
+          "measured": [
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            9,
+            6,
+            0,
+            0
+          ],
+          "pass": true,
+          "unassigned": 0
+        },
+        "generic_complex_multipliers_total": {
+          "expected": 87,
+          "measured": 87,
+          "pass": true
+        }
+      },
+      "target_status": "VERIFIED",
+      "top": "top_p2_pfft_tmr",
+      "warning_audit": {
+        "critical_warnings": [],
+        "status": "VERIFIED",
+        "warnings": [
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "ABC: Warning: The network is combinational (run \"fraig\" or \"fraig_sweep\").",
+          "Warning: Resizing cell port $paramod$bc1ce2320367c34048c33280e277ce521e26ffb6\\fft_memory_v5.g_block.mem.0.0.ADDRBWRADDR from 17 bits to 16 bits.",
+          "Warning: Resizing cell port $paramod$bc1ce2320367c34048c33280e277ce521e26ffb6\\fft_memory_v5.g_block.mem.0.0.ADDRARDADDR from 17 bits to 16 bits.",
+          "Warning: Resizing cell port pfft_frame_buffer_lane_v5.memory.0.0.ADDRBWRADDR from 17 bits to 16 bits.",
+          "Warning: Resizing cell port pfft_frame_buffer_lane_v5.memory.0.0.ADDRARDADDR from 17 bits to 16 bits."
+        ]
+      }
+    }
+  ],
+  "attempt": "attempt3",
+  "evidence_class": "raw_Yosys_xc7_synthesis_measurements",
+  "experiment_id": "PFFT-RES-V3-001",
+  "failure_policy": "single_attempt_stop_on_first_failure_no_retry_no_backfill",
+  "input_fingerprint": {
+    "config_sha256": "6422033B5CECD4471BF88A2D495B6C4843BB0D9A7E4754BCA5314DAD55EDA0E6",
+    "contract_sha256": "2C5C0B010F4BFEDEE8503D7DABCC6AA5882683FB2FA29D54BB7EB09EC6A27D73",
+    "input_manifest_sha256": "BFD3E634FE59DC4C94CA0F26E63482948FB1EFC1687A50F290B996AA27C6C3F3",
+    "memory_map_sha256": "1B8F31C59330DF8732CD0D4696AC892C8663E792FA6917C4D4BA795F580292FB",
+    "qualification_sha256": "32BF0BD8FE2073C9239A1922D5B373BDFAC93E1CCA42A6CA6F202DB19C71DF45",
+    "runner_sha256": "629490E0C550E1EBFFEA76021F3B6BD1BD1939FDCD70D82805BE718B45925C3B",
+    "schedule_sha256": "0D2D271893C3528CD5CBB34EDFC32178C1DA7E35770D80FF9E58E5F3BAC836D6",
+    "source_sha256_by_architecture": {
+      "P0": {
+        "common/rtl/datapath_v5.sv": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "common/rtl/fft_common.sv": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "common/rtl/protected_stages_v5.sv": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "common/rtl/protection_primitives_v5.sv": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "common/rtl/protection_rtl.sv": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "common/rtl/twiddle_rom_1024.sv": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "projects/P0/top_p0_pfft_unprotected.sv": "AF56137D7BC711E655F4316C34D4A351AA9D5A907B4E79215053A17D56A8C114"
+      },
+      "P1": {
+        "common/rtl/datapath_v5.sv": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "common/rtl/fft_common.sv": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "common/rtl/protected_stages_v5.sv": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "common/rtl/protection_primitives_v5.sv": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "common/rtl/protection_rtl.sv": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "common/rtl/twiddle_rom_1024.sv": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "projects/P1/top_p1_pfft_ecc.sv": "A2189C214C946CEB2B97B64BF9E19470231EEB7E9A66C0AAC50B6FEF70086117"
+      },
+      "P2": {
+        "common/rtl/datapath_v5.sv": "148AA60400D01FAC101AF327E61017D1B831D9FAED5871C5D488A5E876D180B2",
+        "common/rtl/fft_common.sv": "6094617317A8823D04BBFD7F984839DF21AE722D56B7941D7495FC785224CE74",
+        "common/rtl/protected_stages_v5.sv": "55343BAD0DE77ED923651CC4A4FA93405791F50CA408A5678FA05097A73A6CCE",
+        "common/rtl/protection_primitives_v5.sv": "AF75E7E7402C1335EBA50C3439F58CED9F7BFC139B56DC9F61223142A076FB21",
+        "common/rtl/protection_rtl.sv": "0056FD20196BA88A43E56C02CAB1B1883583338415D91279EC7C049FD35B7A7F",
+        "common/rtl/twiddle_rom_1024.sv": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580",
+        "projects/P2/top_p2_pfft_tmr.sv": "F5E7354F5EC137206E3E1900D693C17BB801B83E81588707FE489B4FCFDB92F3"
+      }
+    },
+    "structure_manifest_sha256": "8BBA3F2E45207ED9E6AB87E1C0B16564B50EEBB7D99FF1689D6C4E7AC31F0E68",
+    "vector_manifest_sha256": "B69BFC3D85360039295E9B7FA5A379F55B11228506AAD777B068387F65F19FE1",
+    "yosys_executable_sha256": "059916904062A877B530E6169FA22DBCE32EC66118B75E9A2198F86EA67BA3EB"
+  },
+  "result_class": "VERIFIED_PARTIAL_ARCHITECTURE_COMPLETION",
+  "schema": "pfft-resource-v3-001-yosys-raw-measurements-v1",
+  "status": "VERIFIED_P2_COMPLETION",
+  "target_failures": [],
+  "timestamp_utc": "2026-07-23T14:26:24.208014+00:00"
+}

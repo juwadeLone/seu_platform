@@ -1,0 +1,17 @@
+{
+  "architecture_id": "P2",
+  "group": "PFFT",
+  "role": "per_stage_full_tmr",
+  "python_model": "common.python.fixed_fft.pfft_no_exchange_1024",
+  "twiddle_schedule": "canonical_dif_no_exchange",
+  "generic_complex_multipliers_by_stage": [12, 12, 12, 12, 12, 12, 9, 6, 0, 0],
+  "expected_vector": "vectors/qualification_p2_no_exchange_expected_8frames.hex",
+  "expected_vector_sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204",
+  "python_campaign": "projects.P2.run_p2",
+  "python_entry": "run_p2.py",
+  "rtl_sources": ["top_p2_pfft_tmr.sv"],
+  "testbench": "tb_p2.sv",
+  "rtl_top": "top_p2_pfft_tmr",
+  "baseline": "P0",
+  "result_group": "../../results/pfft_resource_v3_001/"
+}

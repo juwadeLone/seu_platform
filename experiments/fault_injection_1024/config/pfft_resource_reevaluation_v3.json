@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "experiment_id": "PFFT-RES-V3-001",
+  "status": "S03_S04_STATIC_READY_QUALIFICATION_PENDING",
+  "authorized_date": "2026-07-23",
+  "decisions": ["D89", "D90", "D94", "D95"],
+  "claim_boundary": "Yosys_xc7_synthesis_resource_estimates_only_not_Vivado_post_implementation_timing_Fmax_power_or_board_measurement",
+  "python_executable": "C:/Program Files/Inkscape/bin/python.exe",
+  "iverilog_executable": "C:/iverilog/bin/iverilog.exe",
+  "vvp_executable": "C:/iverilog/bin/vvp.exe",
+  "yosys_executable": "C:/Users/pc/Downloads/oss-cad-suite/bin/yosys.exe",
+  "target": {
+    "family": "xc7",
+    "device_context": "Xilinx Virtex-7 XC7VX690T-2FFG1761",
+    "flow": "synth_xilinx -family xc7"
+  },
+  "tops": {
+    "P0": "top_p0_pfft_unprotected",
+    "P1": "top_p1_pfft_ecc",
+    "P2": "top_p2_pfft_tmr"
+  },
+  "twiddle_schedules": {
+    "P0": "canonical_radix2_DIF_no_exchange",
+    "P1": "D90_ECC_oriented_exchange",
+    "P2": "canonical_radix2_DIF_no_exchange"
+  },
+  "dsp_hypothesis": {
+    "dsp_per_generic_complex_multiplier": 16,
+    "P0": {
+      "generic_complex_multipliers_by_stage": [4, 4, 4, 4, 4, 4, 3, 2, 0, 0],
+      "DSP48E1_by_stage": [64, 64, 64, 64, 64, 64, 48, 32, 0, 0],
+      "DSP48E1_total": 464
+    },
+    "P1": {
+      "generic_complex_multipliers_by_stage": [0, 6, 6, 6, 6, 6, 6, 4, 6, 0],
+      "DSP48E1_by_stage": [0, 96, 96, 96, 96, 96, 96, 64, 96, 0],
+      "DSP48E1_total": 736
+    },
+    "P2": {
+      "generic_complex_multipliers_by_stage": [12, 12, 12, 12, 12, 12, 9, 6, 0, 0],
+      "DSP48E1_by_stage": [192, 192, 192, 192, 192, 192, 144, 96, 0, 0],
+      "DSP48E1_total": 1392
+    }
+  },
+  "complete_butterfly_contract": {
+    "scope": "PFFT_Stages_1_to_8_SDF",
+    "contains": ["feedback_state", "upper_branch", "lower_branch", "one_time_shared_output_rotation_slot"],
+    "P0_units_per_stage": 4,
+    "P1_units_per_ECC_stage": 6,
+    "P1_unit_partition": "four_functional_plus_two_check",
+    "P2_units_per_stage": 12,
+    "forbidden": "separate_upper_feedback_or_lower_generic_multiplier_banks_for_one_complete_SDF_unit"
+  },
+  "p1_stage8_single_check_pair_gate": {
+    "status": "PASS_STATIC_FEASIBILITY_AND_SINGLE_PAIR_RTL_STRUCTURE_QUALIFICATION_PENDING",
+    "physical_check_pairs_required": 1,
+    "check_butterflies": 2,
+    "service_capacity_codewords_per_cycle": 1,
+    "scheduler": "earliest_output_first_urgent_cross_plus_background_same",
+    "safe_queue_entries_enqueue_before_issue": 129,
+    "equivalent_queue_organization": "128_stored_entries_plus_one_same_cycle_input_skid",
+    "fixed_stage8_local_latency_cycles": 258,
+    "rtl_memory_structure": {
+      "functional_histories": "12_x_512x78_synchronous_simple_dual_port_block_RAM",
+      "background_fifo": "registered_head_plus_128_x_959_synchronous_tail_block_RAM",
+      "urgent_fifo": "four_entry_register_skid",
+      "corrected_results": "2_x_512x312_synchronous_block_RAM_with_forwarding"
+    },
+    "static_schedule_evidence": "results/pfft_resource_v3_001/schedule_feasibility_attempt1.json",
+    "evidence_class": "STATIC_SCHEDULE_MODEL_NOT_RTL_SIMULATION_NOT_YOSYS",
+    "failure_action": "STOP_WITH_BLOCKED_P1_STAGE8_SINGLE_CHECK_PAIR_INFEASIBLE",
+    "forbidden_fallback": "do_not_add_second_check_pair_or_change_target_to_768_without_new_author_authorization"
+  },
+  "qualification": {
+    "expected_output_beats_per_architecture": 2048,
+    "target_latency_cycles": 525,
+    "require_bit_exact": true,
+    "require_continuous_out_valid_after_first": true,
+    "require_out_last_every_256_beats": true,
+    "require_project_specific_expected_vectors": true
+  },
+  "resource_metrics": [
+    "LC_estimate",
+    "LUT1_to_LUT6",
+    "FF",
+    "DSP48E1",
+    "RAMB18E1",
+    "RAMB36E1",
+    "distributed_memory"
+  ],
+  "memory_map": "config/pfft_resource_memory_map_v3.json",
+  "input_manifest": "config/pfft_resource_v3_input_manifest.json",
+  "snapshot": "archive/migration/2026-07-23/pre_edit/2026-07-23_PFFT-RES-V3-001_authorized",
+  "result_root": "results/pfft_resource_v3_001",
+  "log_root": "logs/pfft_resource_v3_001",
+  "build_root": "build/pfft_resource_v3_001",
+  "stop_on_first_failure": true,
+  "no_automatic_retry": true
+}

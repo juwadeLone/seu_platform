@@ -1,0 +1,22 @@
+2026-08-14T12:10:18+08:00 START arch=s3 k=5 trials=200 tau=2
+arch=s3 k=5 trials=200 events=1000
+stage_counts=1:125,2:125,3:125,4:125,5:125,6:125,7:125,8:125
+symbol_counts=0:167,1:166,2:167,3:167,4:166,5:167
+component_counts=0:502,1:498
+bit_min=28 bit_max=29
+2026-08-14T12:10:19+08:00 COMPILE_OK arch=s3 k=5
+2026-08-14T12:10:19+08:00 RUNNING arch=s3 k=5 trials=0/200 last=none
+2026-08-14T12:10:34+08:00 RUNNING arch=s3 k=5 trials=13/200 last=TRIAL trial=12 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:10:49+08:00 RUNNING arch=s3 k=5 trials=28/200 last=TRIAL trial=27 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:11:04+08:00 RUNNING arch=s3 k=5 trials=42/200 last=TRIAL trial=41 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:11:19+08:00 RUNNING arch=s3 k=5 trials=57/200 last=TRIAL trial=56 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:11:34+08:00 RUNNING arch=s3 k=5 trials=72/200 last=TRIAL trial=71 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:11:49+08:00 RUNNING arch=s3 k=5 trials=87/200 last=TRIAL trial=86 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:12:04+08:00 RUNNING arch=s3 k=5 trials=102/200 last=TRIAL trial=101 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:12:19+08:00 RUNNING arch=s3 k=5 trials=117/200 last=TRIAL trial=116 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:12:34+08:00 RUNNING arch=s3 k=5 trials=132/200 last=TRIAL trial=131 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:12:49+08:00 RUNNING arch=s3 k=5 trials=147/200 last=TRIAL trial=146 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:13:04+08:00 RUNNING arch=s3 k=5 trials=162/200 last=TRIAL trial=161 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:13:19+08:00 RUNNING arch=s3 k=5 trials=178/200 last=TRIAL trial=177 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:13:34+08:00 RUNNING arch=s3 k=5 trials=193/200 last=TRIAL trial=192 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+2026-08-14T12:13:49+08:00 DONE arch=s3 k=5 SUMMARY arch=S3 k=5 total=200 corrected=195 detected_only=0 silent_bounded_residual=0 miscorrection=5 silent_unbounded=0 timeout=0

@@ -1,0 +1,123 @@
+{
+  "schema": "yosys-seven-architecture-preflight-v1",
+  "status": "VERIFIED",
+  "tops": {
+    "P0": {
+      "exit_code": 0,
+      "log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\yosys_preflight_P0.log",
+      "log_sha256": "7AE4F9CC5A1217C7A40EC8010026A8251980A9DF9B17B22ECFE3435F31FBDA4B",
+      "script": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\build\\yosys_seven_arch_v1\\preflight\\P0_preflight.ys",
+      "script_sha256": "42020C0676EB95A6C1106FCE00E8839C4B45EE2FF93AF48E4AC190D0A7EF8011"
+    },
+    "P1": {
+      "exit_code": 0,
+      "log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\yosys_preflight_P1.log",
+      "log_sha256": "019443B7AF4F3A149F96A5E69CA4D9AEEAE077BAEF0465805B318DF274194271",
+      "script": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\build\\yosys_seven_arch_v1\\preflight\\P1_preflight.ys",
+      "script_sha256": "370008EED52B3DF95ABC5CDEE0646138CBAFBA33EB4A8A812D36473D7ADB2905"
+    },
+    "P2": {
+      "exit_code": 0,
+      "log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\yosys_preflight_P2.log",
+      "log_sha256": "1CB0FF7EBEAAB32418E4A171114BC7F94A7697ED1F623E3A3D326CF1DC340FDE",
+      "script": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\build\\yosys_seven_arch_v1\\preflight\\P2_preflight.ys",
+      "script_sha256": "C63B004E208E421348ED4AC704829B20F6EFF234FDA54D42C25FEE17CE75F4C6"
+    },
+    "S0": {
+      "exit_code": 0,
+      "log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\yosys_preflight_S0.log",
+      "log_sha256": "9339B7C82468C4E970A8A06022B970EB2599E1AEC5048AA4AE5E5CE60F549305",
+      "script": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\build\\yosys_seven_arch_v1\\preflight\\S0_preflight.ys",
+      "script_sha256": "94F25474026F7DDD550BD9CF40E500F9D2439748ED6C498C9F7D24E16B34D67B"
+    },
+    "S1": {
+      "exit_code": 0,
+      "log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\yosys_preflight_S1.log",
+      "log_sha256": "E9B8DB715BFF7E8248E17AB16218D307D36A8249A571E59C9AB12CB91096DAEB",
+      "script": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\build\\yosys_seven_arch_v1\\preflight\\S1_preflight.ys",
+      "script_sha256": "16AABA1B2191CE7AFB88326BB1D299880FDCB8EB7161233C620D274DE79262FE"
+    },
+    "S2": {
+      "exit_code": 0,
+      "log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\yosys_preflight_S2.log",
+      "log_sha256": "6C4D5770B2A74DABE9FBD261988C8D5CF054E83052432E84A00A0C7500C37DFB",
+      "script": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\build\\yosys_seven_arch_v1\\preflight\\S2_preflight.ys",
+      "script_sha256": "043D51B15D713D341D2A8F1FAFBFA9F651E6E789DA7979E1304E5288366E6184"
+    },
+    "S3": {
+      "exit_code": 0,
+      "log": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\logs\\seven_arch_v1\\yosys_preflight_S3.log",
+      "log_sha256": "DFF4D43D96D6E3917A8A789F19E382B60F1C8F219F9970CF82CB411EB99856AB",
+      "script": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\build\\yosys_seven_arch_v1\\preflight\\S3_preflight.ys",
+      "script_sha256": "4DF60CC7F4524055A57B64FEB212DCE57BDC5F8477F300A33C49345E3B5D27A4"
+    }
+  },
+  "validation": {
+    "config": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\config\\yosys_resource_contract_v2.json",
+    "config_sha256": "547509AFC3CA3C4DC91C98379DE0D984EA4A05DBD20EA39010FA2C6BAD1A39BA",
+    "manifest": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\results\\seven_arch_v1\\rtl_structure_manifest.json",
+    "manifest_sha256": "54CBEFC02657CD7D854A37DF631992950735A43509E61D2B0710A21927929356",
+    "memory_map": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\config\\seven_architecture_memory_map.json",
+    "memory_map_sha256": "9710A4AB9D369E804DB38C61ABCFBDA0CC4B62186A8F4CC685869E607A88211C",
+    "qualification": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\results\\seven_arch_v1\\rtl_qualification.json",
+    "qualification_sha256": "B11F9FEB331546C9A84C4E962AAAC7D21F018F84A3F4096E0B6B30FB60FCD2EE",
+    "schema": "yosys-seven-architecture-input-validation-v1",
+    "sources": [
+      {
+        "absolute_path": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\generated\\twiddle_rom_1024.sv",
+        "relative_path": "rtl_five_arch/generated/twiddle_rom_1024.sv",
+        "sha256": "B4234FCE9876C39227FD9B48A753F82CBD2909E63487D667FD5B1204D5D1D580"
+      },
+      {
+        "absolute_path": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\fft_common.sv",
+        "relative_path": "rtl_five_arch/fft_common.sv",
+        "sha256": "AFDF8B24573C5B440016D117886335FA6F21E82267B4C4E6F33E5793BD9FB7CB"
+      },
+      {
+        "absolute_path": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_five_arch\\protection_rtl.sv",
+        "relative_path": "rtl_five_arch/protection_rtl.sv",
+        "sha256": "CC053566AB3797B265BB03FB7DD4D503CF8D6BE525A3E08E7C5636AAE609F2D5"
+      },
+      {
+        "absolute_path": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\datapath_v5.sv",
+        "relative_path": "rtl_seven_arch/datapath_v5.sv",
+        "sha256": "9B94AC1D3DA67C1257AD18D1BD7A2BB3E269D4AD9A98CBB564348143911480E2"
+      },
+      {
+        "absolute_path": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protection_primitives_v5.sv",
+        "relative_path": "rtl_seven_arch/protection_primitives_v5.sv",
+        "sha256": "D0ECEC2C2E383259881ECB17D09C6E2C3E4B6A75B63FFF323819F9EE61102B99"
+      },
+      {
+        "absolute_path": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\protected_stages_v5.sv",
+        "relative_path": "rtl_seven_arch/protected_stages_v5.sv",
+        "sha256": "C8B1FAF35B416B4D88979082362A3982D1AED33189ACB6681F1E5473DD736715"
+      },
+      {
+        "absolute_path": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\p1_stage8_v5.sv",
+        "relative_path": "rtl_seven_arch/p1_stage8_v5.sv",
+        "sha256": "E38E8473A2752DAA8323410A404AFBB9B07F274DA3681B37F7441D0852E0BBCB"
+      },
+      {
+        "absolute_path": "D:\\☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研\\朱奥博士写论文\\抗辐照论文\\论文4\\Computer_Society_LaTeX_template\\experiments\\fault_injection_1024\\rtl_seven_arch\\seven_tops.sv",
+        "relative_path": "rtl_seven_arch/seven_tops.sv",
+        "sha256": "A6AA70F6DF89153E699964388E3B52455083E839CD236D73417343F81FCABD48"
+      }
+    ],
+    "status": "VERIFIED",
+    "timestamp_utc": "2026-07-21T07:18:40.831382+00:00",
+    "tops": {
+      "P0": "top_p0_pfft_unprotected",
+      "P1": "top_p1_pfft_ecc",
+      "P2": "top_p2_pfft_tmr",
+      "S0": "top_s0_subfft_unprotected",
+      "S1": "top_s1_gao_subfft_ecc",
+      "S2": "top_s2_subfft_tmr",
+      "S3": "top_s3_subfft_ecc"
+    },
+    "yosys_executable_sha256": "059916904062A877B530E6169FA22DBCE32EC66118B75E9A2198F86EA67BA3EB",
+    "yosys_runtime_alias": "C:\\Users\\pc\\DOWNLO~1\\OSS-CA~1\\bin\\yosys.exe",
+    "yosys_specified_executable": "C:\\Users\\pc\\Downloads\\oss-cad-suite\\bin\\yosys.exe",
+    "yosys_version": "Yosys 0.66+181 (git sha1 afe6b18f2, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 13.2.1)"
+  }
+}

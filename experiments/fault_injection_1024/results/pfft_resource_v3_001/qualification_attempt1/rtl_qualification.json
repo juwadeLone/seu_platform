@@ -1,0 +1,361 @@
+{
+  "bit_exact": {
+    "P0": {
+      "beats": 2048,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_p0",
+        "-o",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\build\\pfft_resource_v3_001\\qualification_attempt1\\p0_bit_exact.vvp",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\twiddle_rom_1024.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\fft_common.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_rtl.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\datapath_v5.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_primitives_v5.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protected_stages_v5.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P0\\top_p0_pfft_unprotected.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P0\\tb_p0.sv"
+      ],
+      "compile_log": {
+        "path": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/qualification_attempt1/rtl_p0_compile.log",
+        "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "size_bytes": 0
+      },
+      "data_errors": 0,
+      "elaboration": {
+        "active_fft_complex_mul_q28_instances": 29,
+        "expected_active_fft_complex_mul_q28_instances": 29,
+        "image": {
+          "path": "experiments/fault_injection_1024/build/pfft_resource_v3_001/qualification_attempt1/p0_bit_exact.vvp",
+          "sha256": "6804458B64264991ABD7518EC9663EB8813122209430B3C7AF0BBEC7AD344362",
+          "size_bytes": 8912807
+        },
+        "module_instance_counts": {
+          "fft_complex_mul_q28": 29,
+          "fft_complex_rotate_trivial_1024": 3,
+          "fft_memory_v5": 32,
+          "p0_pfft_no_exchange_core_v3": 1,
+          "p0_pfft_no_exchange_pipeline_v3": 1,
+          "pfft_frame_buffer_lane_v5": 4,
+          "pfft_frame_pair_buffer_v5": 1,
+          "pfft_stage10": 1,
+          "pfft_stage4_sdf_no_exchange_v3": 8,
+          "pfft_stage9_no_exchange_v3": 1,
+          "r2sdf_lane_pfft_no_exchange_v3": 32,
+          "tb_p0": 1,
+          "top_p0_pfft_unprotected": 1,
+          "twiddle_rom_1024": 29
+        },
+        "scope_count": 144,
+        "status": "VERIFIED"
+      },
+      "expected_beats": 2048,
+      "expected_latency_cycles": 525,
+      "gap_errors": 0,
+      "last_errors": 0,
+      "measured": {
+        "beats": 2048,
+        "data_errors": 0,
+        "gap_errors": 0,
+        "last_errors": 0,
+        "latency_cycles": 525
+      },
+      "measured_latency_cycles": 525,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\build\\pfft_resource_v3_001\\qualification_attempt1\\p0_bit_exact.vvp"
+      ],
+      "simulation_log": {
+        "path": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/qualification_attempt1/rtl_p0_simulation.log",
+        "sha256": "C74B83BE032752EC9E66C20338BF0727727DEE8D926948491BC58228F0A80B09",
+        "size_bytes": 188
+      },
+      "status": "VERIFIED",
+      "testbench_top": "tb_p0",
+      "top": "top_p0_pfft_unprotected"
+    },
+    "P1": {
+      "beats": 2048,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_p1",
+        "-o",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\build\\pfft_resource_v3_001\\qualification_attempt1\\p1_bit_exact.vvp",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\twiddle_rom_1024.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\fft_common.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_rtl.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\datapath_v5.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_primitives_v5.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protected_stages_v5.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P1\\top_p1_pfft_ecc.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P1\\tb_p1.sv"
+      ],
+      "compile_log": {
+        "path": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/qualification_attempt1/rtl_p1_compile.log",
+        "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "size_bytes": 0
+      },
+      "data_errors": 0,
+      "elaboration": {
+        "P1_stage8_single_check_pair": {
+          "descendant_fft_complex_mul_q28_instances": 2,
+          "scheduler_instances": 1,
+          "scheduler_module": "p1_stage8_single_check_pair_scheduler_v3"
+        },
+        "active_fft_complex_mul_q28_instances": 46,
+        "expected_active_fft_complex_mul_q28_instances": 46,
+        "image": {
+          "path": "experiments/fault_injection_1024/build/pfft_resource_v3_001/qualification_attempt1/p1_bit_exact.vvp",
+          "sha256": "5C7DE58BC88B83F7B96925B4856D7C64748DB909900D36BC6CED5AB822B9D8FA",
+          "size_bytes": 14635505
+        },
+        "module_instance_counts": {
+          "arithmetic_boundary_from_clean_v5": 8,
+          "arithmetic_corrector_643": 8,
+          "fft_complex_mul_q28": 46,
+          "fft_complex_rotate_trivial_1024": 14,
+          "fft_memory_v5": 32,
+          "independent_check_operator_pair_v5": 1,
+          "p1_ecc_stage4_v3": 7,
+          "p1_pfft_ecc_core_v3": 1,
+          "p1_pfft_stage10_single_cycle_v3": 3,
+          "p1_pfft_stage9_exchange_v3": 3,
+          "p1_stage8_functional_v3": 1,
+          "p1_stage8_single_check_pair_scheduler_v3": 1,
+          "p1_tmr_pfft_stage10_v3": 1,
+          "p1_tmr_pfft_stage9_v3": 1,
+          "pfft_phi_calc": 23,
+          "secded_decode70": 48,
+          "secded_encode70": 48,
+          "tb_p1": 1,
+          "top_p1_pfft_ecc": 1,
+          "twiddle_rom_1024": 46,
+          "vote35": 16
+        },
+        "scope_count": 310,
+        "status": "VERIFIED"
+      },
+      "expected_beats": 2048,
+      "expected_latency_cycles": 525,
+      "gap_errors": 0,
+      "last_errors": 0,
+      "measured": {
+        "beats": 2048,
+        "data_errors": 0,
+        "gap_errors": 0,
+        "last_errors": 0,
+        "latency_cycles": 525
+      },
+      "measured_latency_cycles": 525,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\build\\pfft_resource_v3_001\\qualification_attempt1\\p1_bit_exact.vvp"
+      ],
+      "simulation_log": {
+        "path": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/qualification_attempt1/rtl_p1_simulation.log",
+        "sha256": "5E937B6229D2234608204B983B6CA59C9A3954580B887CAC4399075200C322F4",
+        "size_bytes": 188
+      },
+      "status": "VERIFIED",
+      "testbench_top": "tb_p1",
+      "top": "top_p1_pfft_ecc"
+    },
+    "P2": {
+      "beats": 2048,
+      "compile_command": [
+        "C:\\iverilog\\bin\\iverilog.exe",
+        "-g2012",
+        "-s",
+        "tb_p2",
+        "-o",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\build\\pfft_resource_v3_001\\qualification_attempt1\\p2_bit_exact.vvp",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\twiddle_rom_1024.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\fft_common.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_rtl.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\datapath_v5.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_primitives_v5.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protected_stages_v5.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P2\\top_p2_pfft_tmr.sv",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P2\\tb_p2.sv"
+      ],
+      "compile_log": {
+        "path": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/qualification_attempt1/rtl_p2_compile.log",
+        "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "size_bytes": 0
+      },
+      "data_errors": 0,
+      "elaboration": {
+        "active_fft_complex_mul_q28_instances": 87,
+        "expected_active_fft_complex_mul_q28_instances": 87,
+        "image": {
+          "path": "experiments/fault_injection_1024/build/pfft_resource_v3_001/qualification_attempt1/p2_bit_exact.vvp",
+          "sha256": "9DCF6867B7AF3B94A4BAD16AFD38D237E917F20AA9A5F4F20B3AD211204FCDB2",
+          "size_bytes": 27050651
+        },
+        "module_instance_counts": {
+          "fft_complex_mul_q28": 87,
+          "fft_complex_rotate_trivial_1024": 9,
+          "fft_memory_v5": 96,
+          "p2_pfft_tmr_no_exchange_core_v3": 1,
+          "p2_tmr_pfft_stage10_v3": 1,
+          "p2_tmr_pfft_stage4_no_exchange_v3": 8,
+          "p2_tmr_pfft_stage9_no_exchange_v3": 1,
+          "pfft_frame_buffer_lane_v5": 4,
+          "pfft_frame_pair_buffer_v5": 1,
+          "pfft_stage10": 3,
+          "pfft_stage4_sdf_no_exchange_v3": 24,
+          "pfft_stage9_no_exchange_v3": 3,
+          "r2sdf_lane_pfft_no_exchange_v3": 96,
+          "tb_p2": 1,
+          "top_p2_pfft_tmr": 1,
+          "twiddle_rom_1024": 87,
+          "vote35": 80
+        },
+        "scope_count": 503,
+        "status": "VERIFIED"
+      },
+      "expected_beats": 2048,
+      "expected_latency_cycles": 525,
+      "gap_errors": 0,
+      "last_errors": 0,
+      "measured": {
+        "beats": 2048,
+        "data_errors": 0,
+        "gap_errors": 0,
+        "last_errors": 0,
+        "latency_cycles": 525
+      },
+      "measured_latency_cycles": 525,
+      "simulation_command": [
+        "C:\\iverilog\\bin\\vvp.exe",
+        "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\build\\pfft_resource_v3_001\\qualification_attempt1\\p2_bit_exact.vvp"
+      ],
+      "simulation_log": {
+        "path": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/qualification_attempt1/rtl_p2_simulation.log",
+        "sha256": "BD5A1234161EEE283C3C265772B38731D7C04499EFDBD3E9F21B64031380DBA0",
+        "size_bytes": 188
+      },
+      "status": "VERIFIED",
+      "testbench_top": "tb_p2",
+      "top": "top_p2_pfft_tmr"
+    }
+  },
+  "claim_boundary": "Qualification establishes source structure, elaborated active multiplier instances, connectivity spots, bit-exact outputs, stream continuity, out_last cadence, and deterministic latency. It is not a synthesized resource result, timing result, Fmax, power, board, or radiation result.",
+  "connectivity": {
+    "compile_command": [
+      "C:\\iverilog\\bin\\iverilog.exe",
+      "-g2012",
+      "-s",
+      "pfft_connectivity_spot_tb_v3",
+      "-o",
+      "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\build\\pfft_resource_v3_001\\qualification_attempt1\\pfft_connectivity_spot_v3.vvp",
+      "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\twiddle_rom_1024.sv",
+      "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\fft_common.sv",
+      "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_rtl.sv",
+      "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\datapath_v5.sv",
+      "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protection_primitives_v5.sv",
+      "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\protected_stages_v5.sv",
+      "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P0\\top_p0_pfft_unprotected.sv",
+      "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P1\\top_p1_pfft_ecc.sv",
+      "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P2\\top_p2_pfft_tmr.sv",
+      "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\rtl\\pfft_connectivity_spot_tb_v3.sv"
+    ],
+    "compile_log": {
+      "path": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/qualification_attempt1/connectivity_compile.log",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "size_bytes": 0
+    },
+    "required_marker": "PASS_V3_CONNECTIVITY",
+    "simulation_command": [
+      "C:\\iverilog\\bin\\vvp.exe",
+      "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\build\\pfft_resource_v3_001\\qualification_attempt1\\pfft_connectivity_spot_v3.vvp"
+    ],
+    "simulation_log": {
+      "path": "experiments/fault_injection_1024/logs/pfft_resource_v3_001/qualification_attempt1/connectivity_simulation.log",
+      "sha256": "33EBDEF0F1B5FCB92874D0A4BFAA55DDA93B46DD8B301C939946BE5074345DDD",
+      "size_bytes": 470
+    },
+    "status": "VERIFIED"
+  },
+  "evidence_class": "RTL_BIT_EXACT_QUALIFICATION_NOT_YOSYS_NOT_PHYSICAL_IMPLEMENTATION",
+  "experiment_id": "PFFT-RES-V3-001",
+  "failure": null,
+  "inputs": {
+    "config": {
+      "path": "experiments/fault_injection_1024/config/pfft_resource_reevaluation_v3.json",
+      "sha256": "6422033B5CECD4471BF88A2D495B6C4843BB0D9A7E4754BCA5314DAD55EDA0E6",
+      "size_bytes": 4182
+    },
+    "contract": {
+      "path": "experiments/fault_injection_1024/PFFT_RESOURCE_REEVALUATION_V3.md",
+      "sha256": "2C5C0B010F4BFEDEE8503D7DABCC6AA5882683FB2FA29D54BB7EB09EC6A27D73",
+      "size_bytes": 7690
+    },
+    "input_manifest": {
+      "path": "experiments/fault_injection_1024/config/pfft_resource_v3_input_manifest.json",
+      "sha256": "BFD3E634FE59DC4C94CA0F26E63482948FB1EFC1687A50F290B996AA27C6C3F3",
+      "size_bytes": 12622
+    },
+    "memory_map": {
+      "path": "experiments/fault_injection_1024/config/pfft_resource_memory_map_v3.json",
+      "sha256": "1B8F31C59330DF8732CD0D4696AC892C8663E792FA6917C4D4BA795F580292FB",
+      "size_bytes": 4876
+    },
+    "schedule_feasibility": {
+      "path": "experiments/fault_injection_1024/results/pfft_resource_v3_001/schedule_feasibility_attempt1.json",
+      "sha256": "0D2D271893C3528CD5CBB34EDFC32178C1DA7E35770D80FF9E58E5F3BAC836D6",
+      "size_bytes": 889072
+    },
+    "snapshot_manifest": {
+      "path": "archive/migration/2026-07-23/pre_edit/2026-07-23_PFFT-RES-V3-001_authorized/snapshot_sha256.csv",
+      "sha256": "32AC8D933E32392468064FF78E584DBC1ED11C54F0DEC07D53BA45A2FFE82D03",
+      "size_bytes": 4596
+    },
+    "vector_manifest": {
+      "path": "experiments/fault_injection_1024/results/pfft_resource_v3_001/vector_manifest.json",
+      "sha256": "B69BFC3D85360039295E9B7FA5A379F55B11228506AAD777B068387F65F19FE1",
+      "size_bytes": 2807
+    }
+  },
+  "manifest_sha256": "8BBA3F2E45207ED9E6AB87E1C0B16564B50EEBB7D99FF1689D6C4E7AC31F0E68",
+  "policy": {
+    "architecture_order": [
+      "P0",
+      "P1",
+      "P2"
+    ],
+    "no_automatic_retry": true,
+    "qualification_before_yosys": true,
+    "single_attempt": "attempt1",
+    "stop_on_first_failure": true
+  },
+  "schema": "pfft-resource-v3-001-rtl-qualification-v1",
+  "status": "VERIFIED",
+  "structure_manifest": {
+    "path": "experiments/fault_injection_1024/results/pfft_resource_v3_001/qualification_attempt1/rtl_structure_manifest.json",
+    "sha256": "8BBA3F2E45207ED9E6AB87E1C0B16564B50EEBB7D99FF1689D6C4E7AC31F0E68",
+    "size_bytes": 24769
+  },
+  "timestamp_utc": "2026-07-23T13:49:22.546556+00:00",
+  "tools": {
+    "iverilog": {
+      "path": "C:/iverilog/bin/iverilog.exe",
+      "sha256": "803B8844AF2CC8ED70B5F08B07FFA749901280E81339617CA3E72CBBB852BD2B",
+      "size_bytes": 88064
+    },
+    "python": {
+      "path": "C:/Program Files/Inkscape/bin/python.exe",
+      "sha256": "B5C33DF60C2A8421DCF8117A67E848436B5D395C71EC1C0DFD96BAD10F441D7F",
+      "size_bytes": 101651
+    },
+    "vvp": {
+      "path": "C:/iverilog/bin/vvp.exe",
+      "sha256": "E2F442F4D5AA76E55C85C3FF77E4446FBFDB9946B7CFE8A2DFF87F275DA17B62",
+      "size_bytes": 945664
+    }
+  }
+}

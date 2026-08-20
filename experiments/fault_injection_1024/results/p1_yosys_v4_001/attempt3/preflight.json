@@ -1,0 +1,30 @@
+{
+  "command": {
+    "path": "experiments/fault_injection_1024/logs/p1_yosys_v4_001/attempt3/yosys_preflight.command.json",
+    "sha256": "99A9FF5B2499E549AB5B1B28B02B117C01219C539141D5E0FAABDE6548493A31",
+    "size_bytes": 423
+  },
+  "exit_code": 0,
+  "hierarchy": {
+    "path": "experiments/fault_injection_1024/build/p1_yosys_v4_001/attempt3/P1_hierarchy.json",
+    "sha256": "CF92EBB4979F4392F62A43AA7E5251261823A93AC94ACFDA320E617A45A9EDBE",
+    "size_bytes": 4860066
+  },
+  "schema": "p1-yosys-v4-001-attempt3-preflight-v1",
+  "status": "VERIFIED",
+  "stderr": {
+    "path": "experiments/fault_injection_1024/logs/p1_yosys_v4_001/attempt3/yosys_preflight.stderr.log",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "size_bytes": 0
+  },
+  "stdout": {
+    "path": "experiments/fault_injection_1024/logs/p1_yosys_v4_001/attempt3/yosys_preflight.stdout.log",
+    "sha256": "114DD2A5F168D8097A7646462B087EDA16F009D8342E51754D14CACC9E34FB74",
+    "size_bytes": 654126
+  },
+  "yosys_log": {
+    "path": "experiments/fault_injection_1024/build/p1_yosys_v4_001/attempt3/preflight_yosys.log",
+    "sha256": "114DD2A5F168D8097A7646462B087EDA16F009D8342E51754D14CACC9E34FB74",
+    "size_bytes": 654126
+  }
+}

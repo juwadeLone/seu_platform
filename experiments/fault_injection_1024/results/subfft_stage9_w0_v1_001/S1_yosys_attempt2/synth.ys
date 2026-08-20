@@ -1,0 +1,5 @@
+read_verilog -sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/common/rtl/twiddle_rom_1024.sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/common/rtl/fft_common.sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/common/rtl/protection_rtl.sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/common/rtl/datapath_v5.sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/common/rtl/protection_primitives_v5.sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/common/rtl/protected_stages_v5.sv D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/projects/S1/top_s1_gao_subfft_ecc.sv
+hierarchy -check -top top_s1_gao_subfft_ecc
+synth_xilinx -family xc7 -top top_s1_gao_subfft_ecc
+stat -tech xilinx
+write_json D:/JuWade_research/Per_stage_FFT/experiments/fault_injection_1024/results/subfft_stage9_w0_v1_001/S1_yosys_attempt2/synth.json

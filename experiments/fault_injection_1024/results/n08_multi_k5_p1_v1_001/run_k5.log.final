@@ -1,0 +1,1208 @@
+/home/xdu/☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研/hermes/tcas/experiments/fault_injection_1024/results/n08_multi_rtl_tb_p1.sv:40: Warning: Calling system function $fgets() as a task.
+/home/xdu/☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研/hermes/tcas/experiments/fault_injection_1024/results/n08_multi_rtl_tb_p1.sv:40:          The functions return value will be ignored.
+/home/xdu/☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研/hermes/tcas/experiments/fault_injection_1024/results/n08_multi_rtl_tb_p1.sv:69: Warning: Calling system function $fgets() as a task.
+/home/xdu/☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研/hermes/tcas/experiments/fault_injection_1024/results/n08_multi_rtl_tb_p1.sv:69:          The functions return value will be ignored.
+WARNING: /home/xdu/☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆朱奥科研/hermes/tcas/experiments/fault_injection_1024/results/n08_multi_rtl_tb_p1.sv:68: $readmemh(experiments/fault_injection_1024/common/vectors/qualification_input_10frames.hex): Too many words in the file for the requested range [0:511].
+N08_P1_RTL threshold=3 k=5 trials=200 site=                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   trial,sites(stage:symbol:component:bit;...)
+
+INJECT trial=0 stage=2 symbol=1 component=0 bit=24
+INJECT trial=0 stage=3 symbol=2 component=0 bit=23
+INJECT trial=0 stage=4 symbol=4 component=0 bit=25
+INJECT trial=0 stage=5 symbol=5 component=0 bit=9
+INJECT trial=0 stage=6 symbol=3 component=0 bit=6
+TRIAL trial=0 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=1 stage=1 symbol=3 component=1 bit=26
+INJECT trial=1 stage=3 symbol=5 component=1 bit=20
+INJECT trial=1 stage=6 symbol=1 component=1 bit=11
+INJECT trial=1 stage=7 symbol=2 component=1 bit=4
+INJECT trial=1 stage=10 symbol=0 component=0 bit=10
+TRIAL trial=1 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=2 stage=2 symbol=0 component=1 bit=16
+INJECT trial=2 stage=4 symbol=2 component=0 bit=2
+INJECT trial=2 stage=5 symbol=4 component=1 bit=1
+INJECT trial=2 stage=7 symbol=5 component=0 bit=27
+INJECT trial=2 stage=10 symbol=3 component=0 bit=22
+TRIAL trial=2 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=3 stage=1 symbol=1 component=0 bit=30
+INJECT trial=3 stage=2 symbol=3 component=1 bit=3
+INJECT trial=3 stage=3 symbol=4 component=0 bit=12
+INJECT trial=3 stage=5 symbol=2 component=1 bit=18
+INJECT trial=3 stage=6 symbol=0 component=0 bit=32
+TRIAL trial=3 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=4 stage=1 symbol=0 component=1 bit=17
+INJECT trial=4 stage=3 symbol=2 component=0 bit=5
+INJECT trial=4 stage=4 symbol=5 component=1 bit=21
+INJECT trial=4 stage=7 symbol=4 component=1 bit=8
+INJECT trial=4 stage=10 symbol=1 component=1 bit=34
+TRIAL trial=4 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=5 stage=2 symbol=1 component=0 bit=29
+INJECT trial=5 stage=4 symbol=4 component=0 bit=14
+INJECT trial=5 stage=5 symbol=5 component=0 bit=31
+INJECT trial=5 stage=6 symbol=3 component=0 bit=19
+INJECT trial=5 stage=10 symbol=0 component=0 bit=15
+TRIAL trial=5 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=6 stage=1 symbol=3 component=1 bit=0
+INJECT trial=6 stage=3 symbol=5 component=1 bit=28
+INJECT trial=6 stage=5 symbol=4 component=1 bit=7
+INJECT trial=6 stage=6 symbol=1 component=1 bit=13
+INJECT trial=6 stage=7 symbol=2 component=1 bit=33
+TRIAL trial=6 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=7 stage=1 symbol=1 component=0 bit=25
+INJECT trial=7 stage=2 symbol=0 component=1 bit=23
+INJECT trial=7 stage=4 symbol=2 component=0 bit=6
+INJECT trial=7 stage=7 symbol=5 component=0 bit=24
+INJECT trial=7 stage=10 symbol=3 component=0 bit=9
+TRIAL trial=7 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=8 stage=2 symbol=3 component=1 bit=20
+INJECT trial=8 stage=3 symbol=4 component=0 bit=10
+INJECT trial=8 stage=4 symbol=5 component=1 bit=11
+INJECT trial=8 stage=5 symbol=2 component=1 bit=26
+INJECT trial=8 stage=6 symbol=0 component=0 bit=4
+TRIAL trial=8 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=9 stage=1 symbol=0 component=1 bit=2
+INJECT trial=9 stage=3 symbol=2 component=0 bit=22
+INJECT trial=9 stage=6 symbol=3 component=0 bit=27
+INJECT trial=9 stage=7 symbol=4 component=1 bit=16
+INJECT trial=9 stage=10 symbol=1 component=1 bit=1
+TRIAL trial=9 k=5 injected=5 detected=1 corrected=1 match=0 category=MISCORRECTION
+INJECT trial=10 stage=2 symbol=1 component=0 bit=12
+INJECT trial=10 stage=4 symbol=4 component=0 bit=32
+INJECT trial=10 stage=5 symbol=5 component=0 bit=30
+INJECT trial=10 stage=7 symbol=2 component=1 bit=3
+INJECT trial=10 stage=10 symbol=0 component=0 bit=18
+TRIAL trial=10 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=11 stage=1 symbol=3 component=1 bit=21
+INJECT trial=11 stage=2 symbol=0 component=1 bit=5
+INJECT trial=11 stage=3 symbol=5 component=1 bit=34
+INJECT trial=11 stage=5 symbol=4 component=1 bit=17
+INJECT trial=11 stage=6 symbol=1 component=1 bit=8
+TRIAL trial=11 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=12 stage=1 symbol=1 component=0 bit=14
+INJECT trial=12 stage=3 symbol=4 component=0 bit=15
+INJECT trial=12 stage=4 symbol=2 component=0 bit=19
+INJECT trial=12 stage=7 symbol=5 component=0 bit=29
+INJECT trial=12 stage=10 symbol=3 component=0 bit=31
+TRIAL trial=12 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=13 stage=2 symbol=3 component=1 bit=28
+INJECT trial=13 stage=4 symbol=5 component=1 bit=13
+INJECT trial=13 stage=5 symbol=2 component=1 bit=0
+INJECT trial=13 stage=6 symbol=0 component=0 bit=33
+INJECT trial=13 stage=10 symbol=1 component=1 bit=7
+TRIAL trial=13 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=14 stage=1 symbol=0 component=1 bit=6
+INJECT trial=14 stage=3 symbol=2 component=0 bit=9
+INJECT trial=14 stage=5 symbol=5 component=0 bit=25
+INJECT trial=14 stage=6 symbol=3 component=0 bit=24
+INJECT trial=14 stage=7 symbol=4 component=1 bit=23
+TRIAL trial=14 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=15 stage=1 symbol=3 component=1 bit=11
+INJECT trial=15 stage=2 symbol=1 component=0 bit=10
+INJECT trial=15 stage=4 symbol=4 component=0 bit=4
+INJECT trial=15 stage=7 symbol=2 component=1 bit=20
+INJECT trial=15 stage=10 symbol=0 component=0 bit=26
+TRIAL trial=15 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=16 stage=2 symbol=0 component=1 bit=22
+INJECT trial=16 stage=3 symbol=5 component=1 bit=1
+INJECT trial=16 stage=4 symbol=2 component=0 bit=27
+INJECT trial=16 stage=5 symbol=4 component=1 bit=2
+INJECT trial=16 stage=6 symbol=1 component=1 bit=16
+TRIAL trial=16 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=17 stage=1 symbol=1 component=0 bit=32
+INJECT trial=17 stage=3 symbol=4 component=0 bit=18
+INJECT trial=17 stage=6 symbol=0 component=0 bit=3
+INJECT trial=17 stage=7 symbol=5 component=0 bit=12
+INJECT trial=17 stage=10 symbol=3 component=0 bit=30
+TRIAL trial=17 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=18 stage=2 symbol=3 component=1 bit=34
+INJECT trial=18 stage=4 symbol=5 component=1 bit=8
+INJECT trial=18 stage=5 symbol=2 component=1 bit=21
+INJECT trial=18 stage=7 symbol=4 component=1 bit=5
+INJECT trial=18 stage=10 symbol=1 component=1 bit=17
+TRIAL trial=18 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=19 stage=1 symbol=0 component=1 bit=19
+INJECT trial=19 stage=2 symbol=1 component=0 bit=15
+INJECT trial=19 stage=3 symbol=2 component=0 bit=31
+INJECT trial=19 stage=5 symbol=5 component=0 bit=14
+INJECT trial=19 stage=6 symbol=3 component=0 bit=29
+TRIAL trial=19 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=20 stage=1 symbol=3 component=1 bit=13
+INJECT trial=20 stage=3 symbol=5 component=1 bit=7
+INJECT trial=20 stage=4 symbol=4 component=0 bit=33
+INJECT trial=20 stage=7 symbol=2 component=1 bit=28
+INJECT trial=20 stage=10 symbol=0 component=0 bit=0
+TRIAL trial=20 k=5 injected=5 detected=1 corrected=1 match=0 category=MISCORRECTION
+INJECT trial=21 stage=2 symbol=0 component=1 bit=9
+INJECT trial=21 stage=4 symbol=2 component=0 bit=24
+INJECT trial=21 stage=5 symbol=4 component=1 bit=6
+INJECT trial=21 stage=6 symbol=1 component=1 bit=23
+INJECT trial=21 stage=10 symbol=3 component=0 bit=25
+TRIAL trial=21 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=22 stage=1 symbol=1 component=0 bit=4
+INJECT trial=22 stage=3 symbol=4 component=0 bit=26
+INJECT trial=22 stage=5 symbol=2 component=1 bit=11
+INJECT trial=22 stage=6 symbol=0 component=0 bit=20
+INJECT trial=22 stage=7 symbol=5 component=0 bit=10
+TRIAL trial=22 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=23 stage=1 symbol=0 component=1 bit=27
+INJECT trial=23 stage=2 symbol=3 component=1 bit=1
+INJECT trial=23 stage=4 symbol=5 component=1 bit=16
+INJECT trial=23 stage=7 symbol=4 component=1 bit=22
+INJECT trial=23 stage=10 symbol=1 component=1 bit=2
+TRIAL trial=23 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=24 stage=2 symbol=1 component=0 bit=18
+INJECT trial=24 stage=3 symbol=2 component=0 bit=30
+INJECT trial=24 stage=4 symbol=4 component=0 bit=3
+INJECT trial=24 stage=5 symbol=5 component=0 bit=32
+INJECT trial=24 stage=6 symbol=3 component=0 bit=12
+TRIAL trial=24 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=25 stage=1 symbol=3 component=1 bit=8
+INJECT trial=25 stage=3 symbol=5 component=1 bit=17
+INJECT trial=25 stage=6 symbol=1 component=1 bit=5
+INJECT trial=25 stage=7 symbol=2 component=1 bit=34
+INJECT trial=25 stage=10 symbol=0 component=0 bit=21
+TRIAL trial=25 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=26 stage=2 symbol=0 component=1 bit=31
+INJECT trial=26 stage=4 symbol=2 component=0 bit=29
+INJECT trial=26 stage=5 symbol=4 component=1 bit=19
+INJECT trial=26 stage=7 symbol=5 component=0 bit=15
+INJECT trial=26 stage=10 symbol=3 component=0 bit=14
+TRIAL trial=26 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=27 stage=1 symbol=1 component=0 bit=33
+INJECT trial=27 stage=2 symbol=3 component=1 bit=7
+INJECT trial=27 stage=3 symbol=4 component=0 bit=0
+INJECT trial=27 stage=5 symbol=2 component=1 bit=13
+INJECT trial=27 stage=6 symbol=0 component=0 bit=28
+TRIAL trial=27 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=28 stage=1 symbol=0 component=1 bit=24
+INJECT trial=28 stage=3 symbol=2 component=0 bit=25
+INJECT trial=28 stage=4 symbol=5 component=1 bit=23
+INJECT trial=28 stage=7 symbol=4 component=1 bit=9
+INJECT trial=28 stage=10 symbol=1 component=1 bit=6
+TRIAL trial=28 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=29 stage=2 symbol=1 component=0 bit=26
+INJECT trial=29 stage=4 symbol=4 component=0 bit=20
+INJECT trial=29 stage=5 symbol=5 component=0 bit=4
+INJECT trial=29 stage=6 symbol=3 component=0 bit=10
+INJECT trial=29 stage=10 symbol=0 component=0 bit=11
+TRIAL trial=29 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=30 stage=1 symbol=3 component=1 bit=16
+INJECT trial=30 stage=3 symbol=5 component=1 bit=2
+INJECT trial=30 stage=5 symbol=4 component=1 bit=27
+INJECT trial=30 stage=6 symbol=1 component=1 bit=22
+INJECT trial=30 stage=7 symbol=2 component=1 bit=1
+TRIAL trial=30 k=5 injected=5 detected=1 corrected=1 match=0 category=MISCORRECTION
+INJECT trial=31 stage=1 symbol=1 component=0 bit=3
+INJECT trial=31 stage=2 symbol=0 component=1 bit=30
+INJECT trial=31 stage=4 symbol=2 component=0 bit=12
+INJECT trial=31 stage=7 symbol=5 component=0 bit=18
+INJECT trial=31 stage=10 symbol=3 component=0 bit=32
+TRIAL trial=31 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=32 stage=2 symbol=3 component=1 bit=17
+INJECT trial=32 stage=3 symbol=4 component=0 bit=21
+INJECT trial=32 stage=4 symbol=5 component=1 bit=5
+INJECT trial=32 stage=5 symbol=2 component=1 bit=8
+INJECT trial=32 stage=6 symbol=0 component=0 bit=34
+TRIAL trial=32 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=33 stage=1 symbol=0 component=1 bit=29
+INJECT trial=33 stage=3 symbol=2 component=0 bit=14
+INJECT trial=33 stage=6 symbol=3 component=0 bit=15
+INJECT trial=33 stage=7 symbol=4 component=1 bit=31
+INJECT trial=33 stage=10 symbol=1 component=1 bit=19
+TRIAL trial=33 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=34 stage=2 symbol=1 component=0 bit=0
+INJECT trial=34 stage=4 symbol=4 component=0 bit=28
+INJECT trial=34 stage=5 symbol=5 component=0 bit=33
+INJECT trial=34 stage=7 symbol=2 component=1 bit=7
+INJECT trial=34 stage=10 symbol=0 component=0 bit=13
+TRIAL trial=34 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=35 stage=1 symbol=3 component=1 bit=23
+INJECT trial=35 stage=2 symbol=0 component=1 bit=25
+INJECT trial=35 stage=3 symbol=5 component=1 bit=6
+INJECT trial=35 stage=5 symbol=4 component=1 bit=24
+INJECT trial=35 stage=6 symbol=1 component=1 bit=9
+TRIAL trial=35 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=36 stage=1 symbol=1 component=0 bit=20
+INJECT trial=36 stage=3 symbol=4 component=0 bit=11
+INJECT trial=36 stage=4 symbol=2 component=0 bit=10
+INJECT trial=36 stage=7 symbol=5 component=0 bit=26
+INJECT trial=36 stage=10 symbol=3 component=0 bit=4
+TRIAL trial=36 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=37 stage=2 symbol=3 component=1 bit=2
+INJECT trial=37 stage=4 symbol=5 component=1 bit=22
+INJECT trial=37 stage=5 symbol=2 component=1 bit=16
+INJECT trial=37 stage=6 symbol=0 component=0 bit=1
+INJECT trial=37 stage=10 symbol=1 component=1 bit=27
+TRIAL trial=37 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=38 stage=1 symbol=0 component=1 bit=12
+INJECT trial=38 stage=3 symbol=2 component=0 bit=32
+INJECT trial=38 stage=5 symbol=5 component=0 bit=3
+INJECT trial=38 stage=6 symbol=3 component=0 bit=18
+INJECT trial=38 stage=7 symbol=4 component=1 bit=30
+TRIAL trial=38 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=39 stage=1 symbol=3 component=1 bit=5
+INJECT trial=39 stage=2 symbol=1 component=0 bit=21
+INJECT trial=39 stage=4 symbol=4 component=0 bit=34
+INJECT trial=39 stage=7 symbol=2 component=1 bit=17
+INJECT trial=39 stage=10 symbol=0 component=0 bit=8
+TRIAL trial=39 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=40 stage=2 symbol=0 component=1 bit=14
+INJECT trial=40 stage=3 symbol=5 component=1 bit=19
+INJECT trial=40 stage=4 symbol=2 component=0 bit=15
+INJECT trial=40 stage=5 symbol=4 component=1 bit=29
+INJECT trial=40 stage=6 symbol=1 component=1 bit=31
+TRIAL trial=40 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=41 stage=1 symbol=1 component=0 bit=28
+INJECT trial=41 stage=3 symbol=4 component=0 bit=13
+INJECT trial=41 stage=6 symbol=0 component=0 bit=7
+INJECT trial=41 stage=7 symbol=5 component=0 bit=0
+INJECT trial=41 stage=10 symbol=3 component=0 bit=33
+TRIAL trial=41 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=42 stage=2 symbol=3 component=1 bit=6
+INJECT trial=42 stage=4 symbol=5 component=1 bit=9
+INJECT trial=42 stage=5 symbol=2 component=1 bit=23
+INJECT trial=42 stage=7 symbol=4 component=1 bit=25
+INJECT trial=42 stage=10 symbol=1 component=1 bit=24
+TRIAL trial=42 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=43 stage=1 symbol=0 component=1 bit=10
+INJECT trial=43 stage=2 symbol=1 component=0 bit=11
+INJECT trial=43 stage=3 symbol=2 component=0 bit=4
+INJECT trial=43 stage=5 symbol=5 component=0 bit=20
+INJECT trial=43 stage=6 symbol=3 component=0 bit=26
+TRIAL trial=43 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=44 stage=1 symbol=3 component=1 bit=22
+INJECT trial=44 stage=3 symbol=5 component=1 bit=27
+INJECT trial=44 stage=4 symbol=4 component=0 bit=1
+INJECT trial=44 stage=7 symbol=2 component=1 bit=2
+INJECT trial=44 stage=10 symbol=0 component=0 bit=16
+TRIAL trial=44 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=45 stage=2 symbol=0 component=1 bit=32
+INJECT trial=45 stage=4 symbol=2 component=0 bit=18
+INJECT trial=45 stage=5 symbol=4 component=1 bit=12
+INJECT trial=45 stage=6 symbol=1 component=1 bit=30
+INJECT trial=45 stage=10 symbol=3 component=0 bit=3
+TRIAL trial=45 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=46 stage=1 symbol=1 component=0 bit=34
+INJECT trial=46 stage=3 symbol=4 component=0 bit=8
+INJECT trial=46 stage=5 symbol=2 component=1 bit=5
+INJECT trial=46 stage=6 symbol=0 component=0 bit=17
+INJECT trial=46 stage=7 symbol=5 component=0 bit=21
+TRIAL trial=46 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=47 stage=1 symbol=0 component=1 bit=15
+INJECT trial=47 stage=2 symbol=3 component=1 bit=19
+INJECT trial=47 stage=4 symbol=5 component=1 bit=31
+INJECT trial=47 stage=7 symbol=4 component=1 bit=14
+INJECT trial=47 stage=10 symbol=1 component=1 bit=29
+TRIAL trial=47 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=48 stage=2 symbol=1 component=0 bit=13
+INJECT trial=48 stage=3 symbol=2 component=0 bit=33
+INJECT trial=48 stage=4 symbol=4 component=0 bit=7
+INJECT trial=48 stage=5 symbol=5 component=0 bit=28
+INJECT trial=48 stage=6 symbol=3 component=0 bit=0
+TRIAL trial=48 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=49 stage=1 symbol=3 component=1 bit=9
+INJECT trial=49 stage=3 symbol=5 component=1 bit=24
+INJECT trial=49 stage=6 symbol=1 component=1 bit=25
+INJECT trial=49 stage=7 symbol=2 component=1 bit=6
+INJECT trial=49 stage=10 symbol=0 component=0 bit=23
+TRIAL trial=49 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=50 stage=2 symbol=0 component=1 bit=4
+INJECT trial=50 stage=4 symbol=2 component=0 bit=26
+INJECT trial=50 stage=5 symbol=4 component=1 bit=10
+INJECT trial=50 stage=7 symbol=5 component=0 bit=11
+INJECT trial=50 stage=10 symbol=3 component=0 bit=20
+TRIAL trial=50 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=51 stage=1 symbol=1 component=0 bit=1
+INJECT trial=51 stage=2 symbol=3 component=1 bit=27
+INJECT trial=51 stage=3 symbol=4 component=0 bit=16
+INJECT trial=51 stage=5 symbol=2 component=1 bit=22
+INJECT trial=51 stage=6 symbol=0 component=0 bit=2
+TRIAL trial=51 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=52 stage=1 symbol=0 component=1 bit=18
+INJECT trial=52 stage=3 symbol=2 component=0 bit=3
+INJECT trial=52 stage=4 symbol=5 component=1 bit=30
+INJECT trial=52 stage=7 symbol=4 component=1 bit=32
+INJECT trial=52 stage=10 symbol=1 component=1 bit=12
+TRIAL trial=52 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=53 stage=2 symbol=1 component=0 bit=8
+INJECT trial=53 stage=4 symbol=4 component=0 bit=17
+INJECT trial=53 stage=5 symbol=5 component=0 bit=34
+INJECT trial=53 stage=6 symbol=3 component=0 bit=21
+INJECT trial=53 stage=10 symbol=0 component=0 bit=5
+TRIAL trial=53 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=54 stage=1 symbol=3 component=1 bit=31
+INJECT trial=54 stage=3 symbol=5 component=1 bit=29
+INJECT trial=54 stage=5 symbol=4 component=1 bit=15
+INJECT trial=54 stage=6 symbol=1 component=1 bit=14
+INJECT trial=54 stage=7 symbol=2 component=1 bit=19
+TRIAL trial=54 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=55 stage=1 symbol=1 component=0 bit=7
+INJECT trial=55 stage=2 symbol=0 component=1 bit=33
+INJECT trial=55 stage=4 symbol=2 component=0 bit=0
+INJECT trial=55 stage=7 symbol=5 component=0 bit=13
+INJECT trial=55 stage=10 symbol=3 component=0 bit=28
+TRIAL trial=55 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=56 stage=2 symbol=3 component=1 bit=24
+INJECT trial=56 stage=3 symbol=4 component=0 bit=23
+INJECT trial=56 stage=4 symbol=5 component=1 bit=25
+INJECT trial=56 stage=5 symbol=2 component=1 bit=9
+INJECT trial=56 stage=6 symbol=0 component=0 bit=6
+TRIAL trial=56 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=57 stage=1 symbol=0 component=1 bit=26
+INJECT trial=57 stage=3 symbol=2 component=0 bit=20
+INJECT trial=57 stage=6 symbol=3 component=0 bit=11
+INJECT trial=57 stage=7 symbol=4 component=1 bit=4
+INJECT trial=57 stage=10 symbol=1 component=1 bit=10
+TRIAL trial=57 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=58 stage=2 symbol=1 component=0 bit=16
+INJECT trial=58 stage=4 symbol=4 component=0 bit=2
+INJECT trial=58 stage=5 symbol=5 component=0 bit=1
+INJECT trial=58 stage=7 symbol=2 component=1 bit=27
+INJECT trial=58 stage=10 symbol=0 component=0 bit=22
+TRIAL trial=58 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=59 stage=1 symbol=3 component=1 bit=30
+INJECT trial=59 stage=2 symbol=0 component=1 bit=3
+INJECT trial=59 stage=3 symbol=5 component=1 bit=12
+INJECT trial=59 stage=5 symbol=4 component=1 bit=18
+INJECT trial=59 stage=6 symbol=1 component=1 bit=32
+TRIAL trial=59 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=60 stage=1 symbol=1 component=0 bit=17
+INJECT trial=60 stage=3 symbol=4 component=0 bit=5
+INJECT trial=60 stage=4 symbol=2 component=0 bit=21
+INJECT trial=60 stage=7 symbol=5 component=0 bit=8
+INJECT trial=60 stage=10 symbol=3 component=0 bit=34
+TRIAL trial=60 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=61 stage=2 symbol=3 component=1 bit=29
+INJECT trial=61 stage=4 symbol=5 component=1 bit=14
+INJECT trial=61 stage=5 symbol=2 component=1 bit=31
+INJECT trial=61 stage=6 symbol=0 component=0 bit=19
+INJECT trial=61 stage=10 symbol=1 component=1 bit=15
+TRIAL trial=61 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=62 stage=1 symbol=0 component=1 bit=0
+INJECT trial=62 stage=3 symbol=2 component=0 bit=28
+INJECT trial=62 stage=5 symbol=5 component=0 bit=7
+INJECT trial=62 stage=6 symbol=3 component=0 bit=13
+INJECT trial=62 stage=7 symbol=4 component=1 bit=33
+TRIAL trial=62 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=63 stage=1 symbol=3 component=1 bit=25
+INJECT trial=63 stage=2 symbol=1 component=0 bit=23
+INJECT trial=63 stage=4 symbol=4 component=0 bit=6
+INJECT trial=63 stage=7 symbol=2 component=1 bit=24
+INJECT trial=63 stage=10 symbol=0 component=0 bit=9
+TRIAL trial=63 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=64 stage=2 symbol=0 component=1 bit=20
+INJECT trial=64 stage=3 symbol=5 component=1 bit=10
+INJECT trial=64 stage=4 symbol=2 component=0 bit=11
+INJECT trial=64 stage=5 symbol=4 component=1 bit=26
+INJECT trial=64 stage=6 symbol=1 component=1 bit=4
+TRIAL trial=64 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=65 stage=1 symbol=1 component=0 bit=2
+INJECT trial=65 stage=3 symbol=4 component=0 bit=22
+INJECT trial=65 stage=6 symbol=0 component=0 bit=27
+INJECT trial=65 stage=7 symbol=5 component=0 bit=16
+INJECT trial=65 stage=10 symbol=3 component=0 bit=1
+TRIAL trial=65 k=5 injected=5 detected=1 corrected=1 match=0 category=MISCORRECTION
+INJECT trial=66 stage=2 symbol=3 component=1 bit=12
+INJECT trial=66 stage=4 symbol=5 component=1 bit=32
+INJECT trial=66 stage=5 symbol=2 component=1 bit=30
+INJECT trial=66 stage=7 symbol=4 component=1 bit=3
+INJECT trial=66 stage=10 symbol=1 component=1 bit=18
+TRIAL trial=66 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=67 stage=1 symbol=0 component=1 bit=21
+INJECT trial=67 stage=2 symbol=1 component=0 bit=5
+INJECT trial=67 stage=3 symbol=2 component=0 bit=34
+INJECT trial=67 stage=5 symbol=5 component=0 bit=17
+INJECT trial=67 stage=6 symbol=3 component=0 bit=8
+TRIAL trial=67 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=68 stage=1 symbol=3 component=1 bit=14
+INJECT trial=68 stage=3 symbol=5 component=1 bit=15
+INJECT trial=68 stage=4 symbol=4 component=0 bit=19
+INJECT trial=68 stage=7 symbol=2 component=1 bit=29
+INJECT trial=68 stage=10 symbol=0 component=0 bit=31
+TRIAL trial=68 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=69 stage=2 symbol=0 component=1 bit=28
+INJECT trial=69 stage=4 symbol=2 component=0 bit=13
+INJECT trial=69 stage=5 symbol=4 component=1 bit=0
+INJECT trial=69 stage=6 symbol=1 component=1 bit=33
+INJECT trial=69 stage=10 symbol=3 component=0 bit=7
+TRIAL trial=69 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=70 stage=1 symbol=1 component=0 bit=6
+INJECT trial=70 stage=3 symbol=4 component=0 bit=9
+INJECT trial=70 stage=5 symbol=2 component=1 bit=25
+INJECT trial=70 stage=6 symbol=0 component=0 bit=24
+INJECT trial=70 stage=7 symbol=5 component=0 bit=23
+TRIAL trial=70 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=71 stage=1 symbol=0 component=1 bit=11
+INJECT trial=71 stage=2 symbol=3 component=1 bit=10
+INJECT trial=71 stage=4 symbol=5 component=1 bit=4
+INJECT trial=71 stage=7 symbol=4 component=1 bit=20
+INJECT trial=71 stage=10 symbol=1 component=1 bit=26
+TRIAL trial=71 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=72 stage=2 symbol=1 component=0 bit=22
+INJECT trial=72 stage=3 symbol=2 component=0 bit=1
+INJECT trial=72 stage=4 symbol=4 component=0 bit=27
+INJECT trial=72 stage=5 symbol=5 component=0 bit=2
+INJECT trial=72 stage=6 symbol=3 component=0 bit=16
+TRIAL trial=72 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=73 stage=1 symbol=3 component=1 bit=32
+INJECT trial=73 stage=3 symbol=5 component=1 bit=18
+INJECT trial=73 stage=6 symbol=1 component=1 bit=3
+INJECT trial=73 stage=7 symbol=2 component=1 bit=12
+INJECT trial=73 stage=10 symbol=0 component=0 bit=30
+TRIAL trial=73 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=74 stage=2 symbol=0 component=1 bit=34
+INJECT trial=74 stage=4 symbol=2 component=0 bit=8
+INJECT trial=74 stage=5 symbol=4 component=1 bit=21
+INJECT trial=74 stage=7 symbol=5 component=0 bit=5
+INJECT trial=74 stage=10 symbol=3 component=0 bit=17
+TRIAL trial=74 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=75 stage=1 symbol=1 component=0 bit=19
+INJECT trial=75 stage=2 symbol=3 component=1 bit=15
+INJECT trial=75 stage=3 symbol=4 component=0 bit=31
+INJECT trial=75 stage=5 symbol=2 component=1 bit=14
+INJECT trial=75 stage=6 symbol=0 component=0 bit=29
+TRIAL trial=75 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=76 stage=1 symbol=0 component=1 bit=13
+INJECT trial=76 stage=3 symbol=2 component=0 bit=7
+INJECT trial=76 stage=4 symbol=5 component=1 bit=33
+INJECT trial=76 stage=7 symbol=4 component=1 bit=28
+INJECT trial=76 stage=10 symbol=1 component=1 bit=0
+TRIAL trial=76 k=5 injected=5 detected=1 corrected=1 match=0 category=MISCORRECTION
+INJECT trial=77 stage=2 symbol=1 component=0 bit=9
+INJECT trial=77 stage=4 symbol=4 component=0 bit=24
+INJECT trial=77 stage=5 symbol=5 component=0 bit=6
+INJECT trial=77 stage=6 symbol=3 component=0 bit=23
+INJECT trial=77 stage=10 symbol=0 component=0 bit=25
+TRIAL trial=77 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=78 stage=1 symbol=3 component=1 bit=4
+INJECT trial=78 stage=3 symbol=5 component=1 bit=26
+INJECT trial=78 stage=5 symbol=4 component=1 bit=11
+INJECT trial=78 stage=6 symbol=1 component=1 bit=20
+INJECT trial=78 stage=7 symbol=2 component=1 bit=10
+TRIAL trial=78 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=79 stage=1 symbol=1 component=0 bit=27
+INJECT trial=79 stage=2 symbol=0 component=1 bit=1
+INJECT trial=79 stage=4 symbol=2 component=0 bit=16
+INJECT trial=79 stage=7 symbol=5 component=0 bit=22
+INJECT trial=79 stage=10 symbol=3 component=0 bit=2
+TRIAL trial=79 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=80 stage=2 symbol=3 component=1 bit=18
+INJECT trial=80 stage=3 symbol=4 component=0 bit=30
+INJECT trial=80 stage=4 symbol=5 component=1 bit=3
+INJECT trial=80 stage=5 symbol=2 component=1 bit=32
+INJECT trial=80 stage=6 symbol=0 component=0 bit=12
+TRIAL trial=80 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=81 stage=1 symbol=0 component=1 bit=8
+INJECT trial=81 stage=3 symbol=2 component=0 bit=17
+INJECT trial=81 stage=6 symbol=3 component=0 bit=5
+INJECT trial=81 stage=7 symbol=4 component=1 bit=34
+INJECT trial=81 stage=10 symbol=1 component=1 bit=21
+TRIAL trial=81 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=82 stage=2 symbol=1 component=0 bit=31
+INJECT trial=82 stage=4 symbol=4 component=0 bit=29
+INJECT trial=82 stage=5 symbol=5 component=0 bit=19
+INJECT trial=82 stage=7 symbol=2 component=1 bit=15
+INJECT trial=82 stage=10 symbol=0 component=0 bit=14
+TRIAL trial=82 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=83 stage=1 symbol=3 component=1 bit=33
+INJECT trial=83 stage=2 symbol=0 component=1 bit=7
+INJECT trial=83 stage=3 symbol=5 component=1 bit=0
+INJECT trial=83 stage=5 symbol=4 component=1 bit=13
+INJECT trial=83 stage=6 symbol=1 component=1 bit=28
+TRIAL trial=83 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=84 stage=1 symbol=1 component=0 bit=24
+INJECT trial=84 stage=3 symbol=4 component=0 bit=25
+INJECT trial=84 stage=4 symbol=2 component=0 bit=23
+INJECT trial=84 stage=7 symbol=5 component=0 bit=9
+INJECT trial=84 stage=10 symbol=3 component=0 bit=6
+TRIAL trial=84 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=85 stage=2 symbol=3 component=1 bit=26
+INJECT trial=85 stage=4 symbol=5 component=1 bit=20
+INJECT trial=85 stage=5 symbol=2 component=1 bit=4
+INJECT trial=85 stage=6 symbol=0 component=0 bit=10
+INJECT trial=85 stage=10 symbol=1 component=1 bit=11
+TRIAL trial=85 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=86 stage=1 symbol=0 component=1 bit=16
+INJECT trial=86 stage=3 symbol=2 component=0 bit=2
+INJECT trial=86 stage=5 symbol=5 component=0 bit=27
+INJECT trial=86 stage=6 symbol=3 component=0 bit=22
+INJECT trial=86 stage=7 symbol=4 component=1 bit=1
+TRIAL trial=86 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=87 stage=1 symbol=3 component=1 bit=3
+INJECT trial=87 stage=2 symbol=1 component=0 bit=30
+INJECT trial=87 stage=4 symbol=4 component=0 bit=12
+INJECT trial=87 stage=7 symbol=2 component=1 bit=18
+INJECT trial=87 stage=10 symbol=0 component=0 bit=32
+TRIAL trial=87 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=88 stage=2 symbol=0 component=1 bit=17
+INJECT trial=88 stage=3 symbol=5 component=1 bit=21
+INJECT trial=88 stage=4 symbol=2 component=0 bit=5
+INJECT trial=88 stage=5 symbol=4 component=1 bit=8
+INJECT trial=88 stage=6 symbol=1 component=1 bit=34
+TRIAL trial=88 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=89 stage=1 symbol=1 component=0 bit=29
+INJECT trial=89 stage=3 symbol=4 component=0 bit=14
+INJECT trial=89 stage=6 symbol=0 component=0 bit=15
+INJECT trial=89 stage=7 symbol=5 component=0 bit=31
+INJECT trial=89 stage=10 symbol=3 component=0 bit=19
+TRIAL trial=89 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=90 stage=2 symbol=3 component=1 bit=0
+INJECT trial=90 stage=4 symbol=5 component=1 bit=28
+INJECT trial=90 stage=5 symbol=2 component=1 bit=33
+INJECT trial=90 stage=7 symbol=4 component=1 bit=7
+INJECT trial=90 stage=10 symbol=1 component=1 bit=13
+TRIAL trial=90 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=91 stage=1 symbol=0 component=1 bit=23
+INJECT trial=91 stage=2 symbol=1 component=0 bit=25
+INJECT trial=91 stage=3 symbol=2 component=0 bit=6
+INJECT trial=91 stage=5 symbol=5 component=0 bit=24
+INJECT trial=91 stage=6 symbol=3 component=0 bit=9
+TRIAL trial=91 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=92 stage=1 symbol=3 component=1 bit=20
+INJECT trial=92 stage=3 symbol=5 component=1 bit=11
+INJECT trial=92 stage=4 symbol=4 component=0 bit=10
+INJECT trial=92 stage=7 symbol=2 component=1 bit=26
+INJECT trial=92 stage=10 symbol=0 component=0 bit=4
+TRIAL trial=92 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=93 stage=2 symbol=0 component=1 bit=2
+INJECT trial=93 stage=4 symbol=2 component=0 bit=22
+INJECT trial=93 stage=5 symbol=4 component=1 bit=16
+INJECT trial=93 stage=6 symbol=1 component=1 bit=1
+INJECT trial=93 stage=10 symbol=3 component=0 bit=27
+TRIAL trial=93 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=94 stage=1 symbol=1 component=0 bit=12
+INJECT trial=94 stage=3 symbol=4 component=0 bit=32
+INJECT trial=94 stage=5 symbol=2 component=1 bit=3
+INJECT trial=94 stage=6 symbol=0 component=0 bit=18
+INJECT trial=94 stage=7 symbol=5 component=0 bit=30
+TRIAL trial=94 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=95 stage=1 symbol=0 component=1 bit=5
+INJECT trial=95 stage=2 symbol=3 component=1 bit=21
+INJECT trial=95 stage=4 symbol=5 component=1 bit=34
+INJECT trial=95 stage=7 symbol=4 component=1 bit=17
+INJECT trial=95 stage=10 symbol=1 component=1 bit=8
+TRIAL trial=95 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=96 stage=2 symbol=1 component=0 bit=14
+INJECT trial=96 stage=3 symbol=2 component=0 bit=19
+INJECT trial=96 stage=4 symbol=4 component=0 bit=15
+INJECT trial=96 stage=5 symbol=5 component=0 bit=29
+INJECT trial=96 stage=6 symbol=3 component=0 bit=31
+TRIAL trial=96 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=97 stage=1 symbol=3 component=1 bit=28
+INJECT trial=97 stage=3 symbol=5 component=1 bit=13
+INJECT trial=97 stage=6 symbol=1 component=1 bit=7
+INJECT trial=97 stage=7 symbol=2 component=1 bit=0
+INJECT trial=97 stage=10 symbol=0 component=0 bit=33
+TRIAL trial=97 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=98 stage=2 symbol=0 component=1 bit=6
+INJECT trial=98 stage=4 symbol=2 component=0 bit=9
+INJECT trial=98 stage=5 symbol=4 component=1 bit=23
+INJECT trial=98 stage=7 symbol=5 component=0 bit=25
+INJECT trial=98 stage=10 symbol=3 component=0 bit=24
+TRIAL trial=98 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=99 stage=1 symbol=1 component=0 bit=10
+INJECT trial=99 stage=2 symbol=3 component=1 bit=11
+INJECT trial=99 stage=3 symbol=4 component=0 bit=4
+INJECT trial=99 stage=5 symbol=2 component=1 bit=20
+INJECT trial=99 stage=6 symbol=0 component=0 bit=26
+TRIAL trial=99 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=100 stage=1 symbol=0 component=1 bit=22
+INJECT trial=100 stage=3 symbol=2 component=0 bit=27
+INJECT trial=100 stage=4 symbol=5 component=1 bit=1
+INJECT trial=100 stage=7 symbol=4 component=1 bit=2
+INJECT trial=100 stage=10 symbol=1 component=1 bit=16
+TRIAL trial=100 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=101 stage=2 symbol=1 component=0 bit=32
+INJECT trial=101 stage=4 symbol=4 component=0 bit=18
+INJECT trial=101 stage=5 symbol=5 component=0 bit=12
+INJECT trial=101 stage=6 symbol=3 component=0 bit=30
+INJECT trial=101 stage=10 symbol=0 component=0 bit=3
+TRIAL trial=101 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=102 stage=1 symbol=3 component=1 bit=34
+INJECT trial=102 stage=3 symbol=5 component=1 bit=8
+INJECT trial=102 stage=5 symbol=4 component=1 bit=5
+INJECT trial=102 stage=6 symbol=1 component=1 bit=17
+INJECT trial=102 stage=7 symbol=2 component=1 bit=21
+TRIAL trial=102 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=103 stage=1 symbol=1 component=0 bit=15
+INJECT trial=103 stage=2 symbol=0 component=1 bit=19
+INJECT trial=103 stage=4 symbol=2 component=0 bit=31
+INJECT trial=103 stage=7 symbol=5 component=0 bit=14
+INJECT trial=103 stage=10 symbol=3 component=0 bit=29
+TRIAL trial=103 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=104 stage=2 symbol=3 component=1 bit=13
+INJECT trial=104 stage=3 symbol=4 component=0 bit=33
+INJECT trial=104 stage=4 symbol=5 component=1 bit=7
+INJECT trial=104 stage=5 symbol=2 component=1 bit=28
+INJECT trial=104 stage=6 symbol=0 component=0 bit=0
+TRIAL trial=104 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=105 stage=1 symbol=0 component=1 bit=9
+INJECT trial=105 stage=3 symbol=2 component=0 bit=24
+INJECT trial=105 stage=6 symbol=3 component=0 bit=25
+INJECT trial=105 stage=7 symbol=4 component=1 bit=6
+INJECT trial=105 stage=10 symbol=1 component=1 bit=23
+TRIAL trial=105 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=106 stage=2 symbol=1 component=0 bit=4
+INJECT trial=106 stage=4 symbol=4 component=0 bit=26
+INJECT trial=106 stage=5 symbol=5 component=0 bit=10
+INJECT trial=106 stage=7 symbol=2 component=1 bit=11
+INJECT trial=106 stage=10 symbol=0 component=0 bit=20
+TRIAL trial=106 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=107 stage=1 symbol=3 component=1 bit=1
+INJECT trial=107 stage=2 symbol=0 component=1 bit=27
+INJECT trial=107 stage=3 symbol=5 component=1 bit=16
+INJECT trial=107 stage=5 symbol=4 component=1 bit=22
+INJECT trial=107 stage=6 symbol=1 component=1 bit=2
+TRIAL trial=107 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=108 stage=1 symbol=1 component=0 bit=18
+INJECT trial=108 stage=3 symbol=4 component=0 bit=3
+INJECT trial=108 stage=4 symbol=2 component=0 bit=30
+INJECT trial=108 stage=7 symbol=5 component=0 bit=32
+INJECT trial=108 stage=10 symbol=3 component=0 bit=12
+TRIAL trial=108 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=109 stage=2 symbol=3 component=1 bit=8
+INJECT trial=109 stage=4 symbol=5 component=1 bit=17
+INJECT trial=109 stage=5 symbol=2 component=1 bit=34
+INJECT trial=109 stage=6 symbol=0 component=0 bit=21
+INJECT trial=109 stage=10 symbol=1 component=1 bit=5
+TRIAL trial=109 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=110 stage=1 symbol=0 component=1 bit=31
+INJECT trial=110 stage=3 symbol=2 component=0 bit=29
+INJECT trial=110 stage=5 symbol=5 component=0 bit=15
+INJECT trial=110 stage=6 symbol=3 component=0 bit=14
+INJECT trial=110 stage=7 symbol=4 component=1 bit=19
+TRIAL trial=110 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=111 stage=1 symbol=3 component=1 bit=7
+INJECT trial=111 stage=2 symbol=1 component=0 bit=33
+INJECT trial=111 stage=4 symbol=4 component=0 bit=0
+INJECT trial=111 stage=7 symbol=2 component=1 bit=13
+INJECT trial=111 stage=10 symbol=0 component=0 bit=28
+TRIAL trial=111 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=112 stage=2 symbol=0 component=1 bit=24
+INJECT trial=112 stage=3 symbol=5 component=1 bit=23
+INJECT trial=112 stage=4 symbol=2 component=0 bit=25
+INJECT trial=112 stage=5 symbol=4 component=1 bit=9
+INJECT trial=112 stage=6 symbol=1 component=1 bit=6
+TRIAL trial=112 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=113 stage=1 symbol=1 component=0 bit=26
+INJECT trial=113 stage=3 symbol=4 component=0 bit=20
+INJECT trial=113 stage=6 symbol=0 component=0 bit=11
+INJECT trial=113 stage=7 symbol=5 component=0 bit=4
+INJECT trial=113 stage=10 symbol=3 component=0 bit=10
+TRIAL trial=113 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=114 stage=2 symbol=3 component=1 bit=16
+INJECT trial=114 stage=4 symbol=5 component=1 bit=2
+INJECT trial=114 stage=5 symbol=2 component=1 bit=1
+INJECT trial=114 stage=7 symbol=4 component=1 bit=27
+INJECT trial=114 stage=10 symbol=1 component=1 bit=22
+TRIAL trial=114 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=115 stage=1 symbol=0 component=1 bit=30
+INJECT trial=115 stage=2 symbol=1 component=0 bit=3
+INJECT trial=115 stage=3 symbol=2 component=0 bit=12
+INJECT trial=115 stage=5 symbol=5 component=0 bit=18
+INJECT trial=115 stage=6 symbol=3 component=0 bit=32
+TRIAL trial=115 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=116 stage=1 symbol=3 component=1 bit=17
+INJECT trial=116 stage=3 symbol=5 component=1 bit=5
+INJECT trial=116 stage=4 symbol=4 component=0 bit=21
+INJECT trial=116 stage=7 symbol=2 component=1 bit=8
+INJECT trial=116 stage=10 symbol=0 component=0 bit=34
+TRIAL trial=116 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=117 stage=2 symbol=0 component=1 bit=29
+INJECT trial=117 stage=4 symbol=2 component=0 bit=14
+INJECT trial=117 stage=5 symbol=4 component=1 bit=31
+INJECT trial=117 stage=6 symbol=1 component=1 bit=19
+INJECT trial=117 stage=10 symbol=3 component=0 bit=15
+TRIAL trial=117 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=118 stage=1 symbol=1 component=0 bit=0
+INJECT trial=118 stage=3 symbol=4 component=0 bit=28
+INJECT trial=118 stage=5 symbol=2 component=1 bit=7
+INJECT trial=118 stage=6 symbol=0 component=0 bit=13
+INJECT trial=118 stage=7 symbol=5 component=0 bit=33
+TRIAL trial=118 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=119 stage=1 symbol=0 component=1 bit=25
+INJECT trial=119 stage=2 symbol=3 component=1 bit=23
+INJECT trial=119 stage=4 symbol=5 component=1 bit=6
+INJECT trial=119 stage=7 symbol=4 component=1 bit=24
+INJECT trial=119 stage=10 symbol=1 component=1 bit=9
+TRIAL trial=119 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=120 stage=2 symbol=1 component=0 bit=20
+INJECT trial=120 stage=3 symbol=2 component=0 bit=10
+INJECT trial=120 stage=4 symbol=4 component=0 bit=11
+INJECT trial=120 stage=5 symbol=5 component=0 bit=26
+INJECT trial=120 stage=6 symbol=3 component=0 bit=4
+TRIAL trial=120 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=121 stage=1 symbol=3 component=1 bit=2
+INJECT trial=121 stage=3 symbol=5 component=1 bit=22
+INJECT trial=121 stage=6 symbol=1 component=1 bit=27
+INJECT trial=121 stage=7 symbol=2 component=1 bit=16
+INJECT trial=121 stage=10 symbol=0 component=0 bit=1
+TRIAL trial=121 k=5 injected=5 detected=1 corrected=1 match=0 category=MISCORRECTION
+INJECT trial=122 stage=2 symbol=0 component=1 bit=12
+INJECT trial=122 stage=4 symbol=2 component=0 bit=32
+INJECT trial=122 stage=5 symbol=4 component=1 bit=30
+INJECT trial=122 stage=7 symbol=5 component=0 bit=3
+INJECT trial=122 stage=10 symbol=3 component=0 bit=18
+TRIAL trial=122 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=123 stage=1 symbol=1 component=0 bit=21
+INJECT trial=123 stage=2 symbol=3 component=1 bit=5
+INJECT trial=123 stage=3 symbol=4 component=0 bit=34
+INJECT trial=123 stage=5 symbol=2 component=1 bit=17
+INJECT trial=123 stage=6 symbol=0 component=0 bit=8
+TRIAL trial=123 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=124 stage=1 symbol=0 component=1 bit=14
+INJECT trial=124 stage=3 symbol=2 component=0 bit=15
+INJECT trial=124 stage=4 symbol=5 component=1 bit=19
+INJECT trial=124 stage=7 symbol=4 component=1 bit=29
+INJECT trial=124 stage=10 symbol=1 component=1 bit=31
+TRIAL trial=124 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=125 stage=2 symbol=1 component=0 bit=28
+INJECT trial=125 stage=4 symbol=4 component=0 bit=13
+INJECT trial=125 stage=5 symbol=5 component=0 bit=0
+INJECT trial=125 stage=6 symbol=3 component=0 bit=33
+INJECT trial=125 stage=10 symbol=0 component=0 bit=7
+TRIAL trial=125 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=126 stage=1 symbol=3 component=1 bit=6
+INJECT trial=126 stage=3 symbol=5 component=1 bit=9
+INJECT trial=126 stage=5 symbol=4 component=1 bit=25
+INJECT trial=126 stage=6 symbol=1 component=1 bit=24
+INJECT trial=126 stage=7 symbol=2 component=1 bit=23
+TRIAL trial=126 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=127 stage=1 symbol=1 component=0 bit=11
+INJECT trial=127 stage=2 symbol=0 component=1 bit=10
+INJECT trial=127 stage=4 symbol=2 component=0 bit=4
+INJECT trial=127 stage=7 symbol=5 component=0 bit=20
+INJECT trial=127 stage=10 symbol=3 component=0 bit=26
+TRIAL trial=127 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=128 stage=2 symbol=3 component=1 bit=22
+INJECT trial=128 stage=3 symbol=4 component=0 bit=1
+INJECT trial=128 stage=4 symbol=5 component=1 bit=27
+INJECT trial=128 stage=5 symbol=2 component=1 bit=2
+INJECT trial=128 stage=6 symbol=0 component=0 bit=16
+TRIAL trial=128 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=129 stage=1 symbol=0 component=1 bit=32
+INJECT trial=129 stage=3 symbol=2 component=0 bit=18
+INJECT trial=129 stage=6 symbol=3 component=0 bit=3
+INJECT trial=129 stage=7 symbol=4 component=1 bit=12
+INJECT trial=129 stage=10 symbol=1 component=1 bit=30
+TRIAL trial=129 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=130 stage=2 symbol=1 component=0 bit=34
+INJECT trial=130 stage=4 symbol=4 component=0 bit=8
+INJECT trial=130 stage=5 symbol=5 component=0 bit=21
+INJECT trial=130 stage=7 symbol=2 component=1 bit=5
+INJECT trial=130 stage=10 symbol=0 component=0 bit=17
+TRIAL trial=130 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=131 stage=1 symbol=3 component=1 bit=19
+INJECT trial=131 stage=2 symbol=0 component=1 bit=15
+INJECT trial=131 stage=3 symbol=5 component=1 bit=31
+INJECT trial=131 stage=5 symbol=4 component=1 bit=14
+INJECT trial=131 stage=6 symbol=1 component=1 bit=29
+TRIAL trial=131 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=132 stage=1 symbol=1 component=0 bit=13
+INJECT trial=132 stage=3 symbol=4 component=0 bit=7
+INJECT trial=132 stage=4 symbol=2 component=0 bit=33
+INJECT trial=132 stage=7 symbol=5 component=0 bit=28
+INJECT trial=132 stage=10 symbol=3 component=0 bit=0
+TRIAL trial=132 k=5 injected=5 detected=1 corrected=1 match=0 category=MISCORRECTION
+INJECT trial=133 stage=2 symbol=3 component=1 bit=9
+INJECT trial=133 stage=4 symbol=5 component=1 bit=24
+INJECT trial=133 stage=5 symbol=2 component=1 bit=6
+INJECT trial=133 stage=6 symbol=0 component=0 bit=23
+INJECT trial=133 stage=10 symbol=1 component=1 bit=25
+TRIAL trial=133 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=134 stage=1 symbol=0 component=1 bit=4
+INJECT trial=134 stage=3 symbol=2 component=0 bit=26
+INJECT trial=134 stage=5 symbol=5 component=0 bit=11
+INJECT trial=134 stage=6 symbol=3 component=0 bit=20
+INJECT trial=134 stage=7 symbol=4 component=1 bit=10
+TRIAL trial=134 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=135 stage=1 symbol=3 component=1 bit=27
+INJECT trial=135 stage=2 symbol=1 component=0 bit=1
+INJECT trial=135 stage=4 symbol=4 component=0 bit=16
+INJECT trial=135 stage=7 symbol=2 component=1 bit=22
+INJECT trial=135 stage=10 symbol=0 component=0 bit=2
+TRIAL trial=135 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=136 stage=2 symbol=0 component=1 bit=18
+INJECT trial=136 stage=3 symbol=5 component=1 bit=30
+INJECT trial=136 stage=4 symbol=2 component=0 bit=3
+INJECT trial=136 stage=5 symbol=4 component=1 bit=32
+INJECT trial=136 stage=6 symbol=1 component=1 bit=12
+TRIAL trial=136 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=137 stage=1 symbol=1 component=0 bit=8
+INJECT trial=137 stage=3 symbol=4 component=0 bit=17
+INJECT trial=137 stage=6 symbol=0 component=0 bit=5
+INJECT trial=137 stage=7 symbol=5 component=0 bit=34
+INJECT trial=137 stage=10 symbol=3 component=0 bit=21
+TRIAL trial=137 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=138 stage=2 symbol=3 component=1 bit=31
+INJECT trial=138 stage=4 symbol=5 component=1 bit=29
+INJECT trial=138 stage=5 symbol=2 component=1 bit=19
+INJECT trial=138 stage=7 symbol=4 component=1 bit=15
+INJECT trial=138 stage=10 symbol=1 component=1 bit=14
+TRIAL trial=138 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=139 stage=1 symbol=0 component=1 bit=33
+INJECT trial=139 stage=2 symbol=1 component=0 bit=7
+INJECT trial=139 stage=3 symbol=2 component=0 bit=0
+INJECT trial=139 stage=5 symbol=5 component=0 bit=13
+INJECT trial=139 stage=6 symbol=3 component=0 bit=28
+TRIAL trial=139 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=140 stage=1 symbol=3 component=1 bit=24
+INJECT trial=140 stage=3 symbol=5 component=1 bit=25
+INJECT trial=140 stage=4 symbol=4 component=0 bit=23
+INJECT trial=140 stage=7 symbol=2 component=1 bit=9
+INJECT trial=140 stage=10 symbol=0 component=0 bit=6
+TRIAL trial=140 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=141 stage=2 symbol=0 component=1 bit=26
+INJECT trial=141 stage=4 symbol=2 component=0 bit=20
+INJECT trial=141 stage=5 symbol=4 component=1 bit=4
+INJECT trial=141 stage=6 symbol=1 component=1 bit=10
+INJECT trial=141 stage=10 symbol=3 component=0 bit=11
+TRIAL trial=141 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=142 stage=1 symbol=1 component=0 bit=16
+INJECT trial=142 stage=3 symbol=4 component=0 bit=2
+INJECT trial=142 stage=5 symbol=2 component=1 bit=27
+INJECT trial=142 stage=6 symbol=0 component=0 bit=22
+INJECT trial=142 stage=7 symbol=5 component=0 bit=1
+TRIAL trial=142 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=143 stage=1 symbol=0 component=1 bit=3
+INJECT trial=143 stage=2 symbol=3 component=1 bit=30
+INJECT trial=143 stage=4 symbol=5 component=1 bit=12
+INJECT trial=143 stage=7 symbol=4 component=1 bit=18
+INJECT trial=143 stage=10 symbol=1 component=1 bit=32
+TRIAL trial=143 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=144 stage=2 symbol=1 component=0 bit=17
+INJECT trial=144 stage=3 symbol=2 component=0 bit=21
+INJECT trial=144 stage=4 symbol=4 component=0 bit=5
+INJECT trial=144 stage=5 symbol=5 component=0 bit=8
+INJECT trial=144 stage=6 symbol=3 component=0 bit=34
+TRIAL trial=144 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=145 stage=1 symbol=3 component=1 bit=29
+INJECT trial=145 stage=3 symbol=5 component=1 bit=14
+INJECT trial=145 stage=6 symbol=1 component=1 bit=15
+INJECT trial=145 stage=7 symbol=2 component=1 bit=31
+INJECT trial=145 stage=10 symbol=0 component=0 bit=19
+TRIAL trial=145 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=146 stage=2 symbol=0 component=1 bit=0
+INJECT trial=146 stage=4 symbol=2 component=0 bit=28
+INJECT trial=146 stage=5 symbol=4 component=1 bit=33
+INJECT trial=146 stage=7 symbol=5 component=0 bit=7
+INJECT trial=146 stage=10 symbol=3 component=0 bit=13
+TRIAL trial=146 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=147 stage=1 symbol=1 component=0 bit=23
+INJECT trial=147 stage=2 symbol=3 component=1 bit=25
+INJECT trial=147 stage=3 symbol=4 component=0 bit=6
+INJECT trial=147 stage=5 symbol=2 component=1 bit=24
+INJECT trial=147 stage=6 symbol=0 component=0 bit=9
+TRIAL trial=147 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=148 stage=1 symbol=0 component=1 bit=20
+INJECT trial=148 stage=3 symbol=2 component=0 bit=11
+INJECT trial=148 stage=4 symbol=5 component=1 bit=10
+INJECT trial=148 stage=7 symbol=4 component=1 bit=26
+INJECT trial=148 stage=10 symbol=1 component=1 bit=4
+TRIAL trial=148 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=149 stage=2 symbol=1 component=0 bit=2
+INJECT trial=149 stage=4 symbol=4 component=0 bit=22
+INJECT trial=149 stage=5 symbol=5 component=0 bit=16
+INJECT trial=149 stage=6 symbol=3 component=0 bit=1
+INJECT trial=149 stage=10 symbol=0 component=0 bit=27
+TRIAL trial=149 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=150 stage=1 symbol=3 component=1 bit=12
+INJECT trial=150 stage=3 symbol=5 component=1 bit=32
+INJECT trial=150 stage=5 symbol=4 component=1 bit=3
+INJECT trial=150 stage=6 symbol=1 component=1 bit=18
+INJECT trial=150 stage=7 symbol=2 component=1 bit=30
+TRIAL trial=150 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=151 stage=1 symbol=1 component=0 bit=5
+INJECT trial=151 stage=2 symbol=0 component=1 bit=21
+INJECT trial=151 stage=4 symbol=2 component=0 bit=34
+INJECT trial=151 stage=7 symbol=5 component=0 bit=17
+INJECT trial=151 stage=10 symbol=3 component=0 bit=8
+TRIAL trial=151 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=152 stage=2 symbol=3 component=1 bit=14
+INJECT trial=152 stage=3 symbol=4 component=0 bit=19
+INJECT trial=152 stage=4 symbol=5 component=1 bit=15
+INJECT trial=152 stage=5 symbol=2 component=1 bit=29
+INJECT trial=152 stage=6 symbol=0 component=0 bit=31
+TRIAL trial=152 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=153 stage=1 symbol=0 component=1 bit=28
+INJECT trial=153 stage=3 symbol=2 component=0 bit=13
+INJECT trial=153 stage=6 symbol=3 component=0 bit=7
+INJECT trial=153 stage=7 symbol=4 component=1 bit=0
+INJECT trial=153 stage=10 symbol=1 component=1 bit=33
+TRIAL trial=153 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=154 stage=2 symbol=1 component=0 bit=6
+INJECT trial=154 stage=4 symbol=4 component=0 bit=9
+INJECT trial=154 stage=5 symbol=5 component=0 bit=23
+INJECT trial=154 stage=7 symbol=2 component=1 bit=25
+INJECT trial=154 stage=10 symbol=0 component=0 bit=24
+TRIAL trial=154 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=155 stage=1 symbol=3 component=1 bit=10
+INJECT trial=155 stage=2 symbol=0 component=1 bit=11
+INJECT trial=155 stage=3 symbol=5 component=1 bit=4
+INJECT trial=155 stage=5 symbol=4 component=1 bit=20
+INJECT trial=155 stage=6 symbol=1 component=1 bit=26
+TRIAL trial=155 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=156 stage=1 symbol=1 component=0 bit=22
+INJECT trial=156 stage=3 symbol=4 component=0 bit=27
+INJECT trial=156 stage=4 symbol=2 component=0 bit=1
+INJECT trial=156 stage=7 symbol=5 component=0 bit=2
+INJECT trial=156 stage=10 symbol=3 component=0 bit=16
+TRIAL trial=156 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=157 stage=2 symbol=3 component=1 bit=32
+INJECT trial=157 stage=4 symbol=5 component=1 bit=18
+INJECT trial=157 stage=5 symbol=2 component=1 bit=12
+INJECT trial=157 stage=6 symbol=0 component=0 bit=30
+INJECT trial=157 stage=10 symbol=1 component=1 bit=3
+TRIAL trial=157 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=158 stage=1 symbol=0 component=1 bit=34
+INJECT trial=158 stage=3 symbol=2 component=0 bit=8
+INJECT trial=158 stage=5 symbol=5 component=0 bit=5
+INJECT trial=158 stage=6 symbol=3 component=0 bit=17
+INJECT trial=158 stage=7 symbol=4 component=1 bit=21
+TRIAL trial=158 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=159 stage=1 symbol=3 component=1 bit=15
+INJECT trial=159 stage=2 symbol=1 component=0 bit=19
+INJECT trial=159 stage=4 symbol=4 component=0 bit=31
+INJECT trial=159 stage=7 symbol=2 component=1 bit=14
+INJECT trial=159 stage=10 symbol=0 component=0 bit=29
+TRIAL trial=159 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=160 stage=2 symbol=0 component=1 bit=13
+INJECT trial=160 stage=3 symbol=5 component=1 bit=33
+INJECT trial=160 stage=4 symbol=2 component=0 bit=7
+INJECT trial=160 stage=5 symbol=4 component=1 bit=28
+INJECT trial=160 stage=6 symbol=1 component=1 bit=0
+TRIAL trial=160 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=161 stage=1 symbol=1 component=0 bit=9
+INJECT trial=161 stage=3 symbol=4 component=0 bit=24
+INJECT trial=161 stage=6 symbol=0 component=0 bit=25
+INJECT trial=161 stage=7 symbol=5 component=0 bit=6
+INJECT trial=161 stage=10 symbol=3 component=0 bit=23
+TRIAL trial=161 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=162 stage=2 symbol=3 component=1 bit=4
+INJECT trial=162 stage=4 symbol=5 component=1 bit=26
+INJECT trial=162 stage=5 symbol=2 component=1 bit=10
+INJECT trial=162 stage=7 symbol=4 component=1 bit=11
+INJECT trial=162 stage=10 symbol=1 component=1 bit=20
+TRIAL trial=162 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=163 stage=1 symbol=0 component=1 bit=1
+INJECT trial=163 stage=2 symbol=1 component=0 bit=27
+INJECT trial=163 stage=3 symbol=2 component=0 bit=16
+INJECT trial=163 stage=5 symbol=5 component=0 bit=22
+INJECT trial=163 stage=6 symbol=3 component=0 bit=2
+TRIAL trial=163 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=164 stage=1 symbol=3 component=1 bit=18
+INJECT trial=164 stage=3 symbol=5 component=1 bit=3
+INJECT trial=164 stage=4 symbol=4 component=0 bit=30
+INJECT trial=164 stage=7 symbol=2 component=1 bit=32
+INJECT trial=164 stage=10 symbol=0 component=0 bit=12
+TRIAL trial=164 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=165 stage=2 symbol=0 component=1 bit=8
+INJECT trial=165 stage=4 symbol=2 component=0 bit=17
+INJECT trial=165 stage=5 symbol=4 component=1 bit=34
+INJECT trial=165 stage=6 symbol=1 component=1 bit=21
+INJECT trial=165 stage=10 symbol=3 component=0 bit=5
+TRIAL trial=165 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=166 stage=1 symbol=1 component=0 bit=31
+INJECT trial=166 stage=3 symbol=4 component=0 bit=29
+INJECT trial=166 stage=5 symbol=2 component=1 bit=15
+INJECT trial=166 stage=6 symbol=0 component=0 bit=14
+INJECT trial=166 stage=7 symbol=5 component=0 bit=19
+TRIAL trial=166 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=167 stage=1 symbol=0 component=1 bit=7
+INJECT trial=167 stage=2 symbol=3 component=1 bit=33
+INJECT trial=167 stage=4 symbol=5 component=1 bit=0
+INJECT trial=167 stage=7 symbol=4 component=1 bit=13
+INJECT trial=167 stage=10 symbol=1 component=1 bit=28
+TRIAL trial=167 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=168 stage=2 symbol=1 component=0 bit=24
+INJECT trial=168 stage=3 symbol=2 component=0 bit=23
+INJECT trial=168 stage=4 symbol=4 component=0 bit=25
+INJECT trial=168 stage=5 symbol=5 component=0 bit=9
+INJECT trial=168 stage=6 symbol=3 component=0 bit=6
+TRIAL trial=168 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=169 stage=1 symbol=3 component=1 bit=26
+INJECT trial=169 stage=3 symbol=5 component=1 bit=20
+INJECT trial=169 stage=6 symbol=1 component=1 bit=11
+INJECT trial=169 stage=7 symbol=2 component=1 bit=4
+INJECT trial=169 stage=10 symbol=0 component=0 bit=10
+TRIAL trial=169 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=170 stage=2 symbol=0 component=1 bit=16
+INJECT trial=170 stage=4 symbol=2 component=0 bit=2
+INJECT trial=170 stage=5 symbol=4 component=1 bit=1
+INJECT trial=170 stage=7 symbol=5 component=0 bit=27
+INJECT trial=170 stage=10 symbol=3 component=0 bit=22
+TRIAL trial=170 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=171 stage=1 symbol=1 component=0 bit=30
+INJECT trial=171 stage=2 symbol=3 component=1 bit=3
+INJECT trial=171 stage=3 symbol=4 component=0 bit=12
+INJECT trial=171 stage=5 symbol=2 component=1 bit=18
+INJECT trial=171 stage=6 symbol=0 component=0 bit=32
+TRIAL trial=171 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=172 stage=1 symbol=0 component=1 bit=17
+INJECT trial=172 stage=3 symbol=2 component=0 bit=5
+INJECT trial=172 stage=4 symbol=5 component=1 bit=21
+INJECT trial=172 stage=7 symbol=4 component=1 bit=8
+INJECT trial=172 stage=10 symbol=1 component=1 bit=34
+TRIAL trial=172 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=173 stage=2 symbol=1 component=0 bit=29
+INJECT trial=173 stage=4 symbol=4 component=0 bit=14
+INJECT trial=173 stage=5 symbol=5 component=0 bit=31
+INJECT trial=173 stage=6 symbol=3 component=0 bit=19
+INJECT trial=173 stage=10 symbol=0 component=0 bit=15
+TRIAL trial=173 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=174 stage=1 symbol=3 component=1 bit=0
+INJECT trial=174 stage=3 symbol=5 component=1 bit=28
+INJECT trial=174 stage=5 symbol=4 component=1 bit=7
+INJECT trial=174 stage=6 symbol=1 component=1 bit=13
+INJECT trial=174 stage=7 symbol=2 component=1 bit=33
+TRIAL trial=174 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=175 stage=1 symbol=1 component=0 bit=25
+INJECT trial=175 stage=2 symbol=0 component=1 bit=23
+INJECT trial=175 stage=4 symbol=2 component=0 bit=6
+INJECT trial=175 stage=7 symbol=5 component=0 bit=24
+INJECT trial=175 stage=10 symbol=3 component=0 bit=9
+TRIAL trial=175 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=176 stage=2 symbol=3 component=1 bit=20
+INJECT trial=176 stage=3 symbol=4 component=0 bit=10
+INJECT trial=176 stage=4 symbol=5 component=1 bit=11
+INJECT trial=176 stage=5 symbol=2 component=1 bit=26
+INJECT trial=176 stage=6 symbol=0 component=0 bit=4
+TRIAL trial=176 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=177 stage=1 symbol=0 component=1 bit=2
+INJECT trial=177 stage=3 symbol=2 component=0 bit=22
+INJECT trial=177 stage=6 symbol=3 component=0 bit=27
+INJECT trial=177 stage=7 symbol=4 component=1 bit=16
+INJECT trial=177 stage=10 symbol=1 component=1 bit=1
+TRIAL trial=177 k=5 injected=5 detected=1 corrected=1 match=0 category=MISCORRECTION
+INJECT trial=178 stage=2 symbol=1 component=0 bit=12
+INJECT trial=178 stage=4 symbol=4 component=0 bit=32
+INJECT trial=178 stage=5 symbol=5 component=0 bit=30
+INJECT trial=178 stage=7 symbol=2 component=1 bit=3
+INJECT trial=178 stage=10 symbol=0 component=0 bit=18
+TRIAL trial=178 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=179 stage=1 symbol=3 component=1 bit=21
+INJECT trial=179 stage=2 symbol=0 component=1 bit=5
+INJECT trial=179 stage=3 symbol=5 component=1 bit=34
+INJECT trial=179 stage=5 symbol=4 component=1 bit=17
+INJECT trial=179 stage=6 symbol=1 component=1 bit=8
+TRIAL trial=179 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=180 stage=1 symbol=1 component=0 bit=14
+INJECT trial=180 stage=3 symbol=4 component=0 bit=15
+INJECT trial=180 stage=4 symbol=2 component=0 bit=19
+INJECT trial=180 stage=7 symbol=5 component=0 bit=29
+INJECT trial=180 stage=10 symbol=3 component=0 bit=31
+TRIAL trial=180 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=181 stage=2 symbol=3 component=1 bit=28
+INJECT trial=181 stage=4 symbol=5 component=1 bit=13
+INJECT trial=181 stage=5 symbol=2 component=1 bit=0
+INJECT trial=181 stage=6 symbol=0 component=0 bit=33
+INJECT trial=181 stage=10 symbol=1 component=1 bit=7
+TRIAL trial=181 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=182 stage=1 symbol=0 component=1 bit=6
+INJECT trial=182 stage=3 symbol=2 component=0 bit=9
+INJECT trial=182 stage=5 symbol=5 component=0 bit=25
+INJECT trial=182 stage=6 symbol=3 component=0 bit=24
+INJECT trial=182 stage=7 symbol=4 component=1 bit=23
+TRIAL trial=182 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=183 stage=1 symbol=3 component=1 bit=11
+INJECT trial=183 stage=2 symbol=1 component=0 bit=10
+INJECT trial=183 stage=4 symbol=4 component=0 bit=4
+INJECT trial=183 stage=7 symbol=2 component=1 bit=20
+INJECT trial=183 stage=10 symbol=0 component=0 bit=26
+TRIAL trial=183 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=184 stage=2 symbol=0 component=1 bit=22
+INJECT trial=184 stage=3 symbol=5 component=1 bit=1
+INJECT trial=184 stage=4 symbol=2 component=0 bit=27
+INJECT trial=184 stage=5 symbol=4 component=1 bit=2
+INJECT trial=184 stage=6 symbol=1 component=1 bit=16
+TRIAL trial=184 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=185 stage=1 symbol=1 component=0 bit=32
+INJECT trial=185 stage=3 symbol=4 component=0 bit=18
+INJECT trial=185 stage=6 symbol=0 component=0 bit=3
+INJECT trial=185 stage=7 symbol=5 component=0 bit=12
+INJECT trial=185 stage=10 symbol=3 component=0 bit=30
+TRIAL trial=185 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=186 stage=2 symbol=3 component=1 bit=34
+INJECT trial=186 stage=4 symbol=5 component=1 bit=8
+INJECT trial=186 stage=5 symbol=2 component=1 bit=21
+INJECT trial=186 stage=7 symbol=4 component=1 bit=5
+INJECT trial=186 stage=10 symbol=1 component=1 bit=17
+TRIAL trial=186 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=187 stage=1 symbol=0 component=1 bit=19
+INJECT trial=187 stage=2 symbol=1 component=0 bit=15
+INJECT trial=187 stage=3 symbol=2 component=0 bit=31
+INJECT trial=187 stage=5 symbol=5 component=0 bit=14
+INJECT trial=187 stage=6 symbol=3 component=0 bit=29
+TRIAL trial=187 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=188 stage=1 symbol=3 component=1 bit=13
+INJECT trial=188 stage=3 symbol=5 component=1 bit=7
+INJECT trial=188 stage=4 symbol=4 component=0 bit=33
+INJECT trial=188 stage=7 symbol=2 component=1 bit=28
+INJECT trial=188 stage=10 symbol=0 component=0 bit=0
+TRIAL trial=188 k=5 injected=5 detected=1 corrected=1 match=0 category=MISCORRECTION
+INJECT trial=189 stage=2 symbol=0 component=1 bit=9
+INJECT trial=189 stage=4 symbol=2 component=0 bit=24
+INJECT trial=189 stage=5 symbol=4 component=1 bit=6
+INJECT trial=189 stage=6 symbol=1 component=1 bit=23
+INJECT trial=189 stage=10 symbol=3 component=0 bit=25
+TRIAL trial=189 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=190 stage=1 symbol=1 component=0 bit=4
+INJECT trial=190 stage=3 symbol=4 component=0 bit=26
+INJECT trial=190 stage=5 symbol=2 component=1 bit=11
+INJECT trial=190 stage=6 symbol=0 component=0 bit=20
+INJECT trial=190 stage=7 symbol=5 component=0 bit=10
+TRIAL trial=190 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=191 stage=1 symbol=0 component=1 bit=27
+INJECT trial=191 stage=2 symbol=3 component=1 bit=1
+INJECT trial=191 stage=4 symbol=5 component=1 bit=16
+INJECT trial=191 stage=7 symbol=4 component=1 bit=22
+INJECT trial=191 stage=10 symbol=1 component=1 bit=2
+TRIAL trial=191 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=192 stage=2 symbol=1 component=0 bit=18
+INJECT trial=192 stage=3 symbol=2 component=0 bit=30
+INJECT trial=192 stage=4 symbol=4 component=0 bit=3
+INJECT trial=192 stage=5 symbol=5 component=0 bit=32
+INJECT trial=192 stage=6 symbol=3 component=0 bit=12
+TRIAL trial=192 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=193 stage=1 symbol=3 component=1 bit=8
+INJECT trial=193 stage=3 symbol=5 component=1 bit=17
+INJECT trial=193 stage=6 symbol=1 component=1 bit=5
+INJECT trial=193 stage=7 symbol=2 component=1 bit=34
+INJECT trial=193 stage=10 symbol=0 component=0 bit=21
+TRIAL trial=193 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=194 stage=2 symbol=0 component=1 bit=31
+INJECT trial=194 stage=4 symbol=2 component=0 bit=29
+INJECT trial=194 stage=5 symbol=4 component=1 bit=19
+INJECT trial=194 stage=7 symbol=5 component=0 bit=15
+INJECT trial=194 stage=10 symbol=3 component=0 bit=14
+TRIAL trial=194 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=195 stage=1 symbol=1 component=0 bit=33
+INJECT trial=195 stage=2 symbol=3 component=1 bit=7
+INJECT trial=195 stage=3 symbol=4 component=0 bit=0
+INJECT trial=195 stage=5 symbol=2 component=1 bit=13
+INJECT trial=195 stage=6 symbol=0 component=0 bit=28
+TRIAL trial=195 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=196 stage=1 symbol=0 component=1 bit=24
+INJECT trial=196 stage=3 symbol=2 component=0 bit=25
+INJECT trial=196 stage=4 symbol=5 component=1 bit=23
+INJECT trial=196 stage=7 symbol=4 component=1 bit=9
+INJECT trial=196 stage=10 symbol=1 component=1 bit=6
+TRIAL trial=196 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=197 stage=2 symbol=1 component=0 bit=26
+INJECT trial=197 stage=4 symbol=4 component=0 bit=20
+INJECT trial=197 stage=5 symbol=5 component=0 bit=4
+INJECT trial=197 stage=6 symbol=3 component=0 bit=10
+INJECT trial=197 stage=10 symbol=0 component=0 bit=11
+TRIAL trial=197 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+INJECT trial=198 stage=1 symbol=3 component=1 bit=16
+INJECT trial=198 stage=3 symbol=5 component=1 bit=2
+INJECT trial=198 stage=5 symbol=4 component=1 bit=27
+INJECT trial=198 stage=6 symbol=1 component=1 bit=22
+INJECT trial=198 stage=7 symbol=2 component=1 bit=1
+TRIAL trial=198 k=5 injected=5 detected=1 corrected=1 match=0 category=MISCORRECTION
+INJECT trial=199 stage=1 symbol=1 component=0 bit=3
+INJECT trial=199 stage=2 symbol=0 component=1 bit=30
+INJECT trial=199 stage=4 symbol=2 component=0 bit=12
+INJECT trial=199 stage=7 symbol=5 component=0 bit=18
+INJECT trial=199 stage=10 symbol=3 component=0 bit=32
+TRIAL trial=199 k=5 injected=5 detected=1 corrected=1 match=1 category=corrected
+SUMMARY arch=P1 k=5 total=200 corrected=190 detected_only=0 silent_bounded_residual=0 miscorrection=10 silent_unbounded=0 timeout=0

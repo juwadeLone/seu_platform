@@ -1,0 +1,13 @@
+{
+  "architecture_id": "S3",
+  "group": "SubFFT",
+  "role": "proposed_per_stage_ecc",
+  "python_campaign": "projects.S3.run_s3",
+  "python_entry": "run_s3.py",
+  "rtl_sources": ["top_s3_subfft_ecc.sv"],
+  "testbench": "tb_s3.sv",
+  "rtl_top": "top_s3_subfft_ecc",
+  "baseline": "S0",
+  "result_group": "results/seven_arch_v1/yosys_subfft_group.csv",
+  "v2_gate": "review_clean_received_port_order_before_execution"
+}

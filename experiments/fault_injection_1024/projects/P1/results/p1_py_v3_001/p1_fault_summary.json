@@ -1,0 +1,65 @@
+{
+  "architecture_id": "P1",
+  "contract_hash": "46F95591006D6841F5B9C3149B7B55F0A4DA7B94CBB3900A08C9042E16314678",
+  "determinism": {
+    "method": "second_in_process_full_row_replay_to_sha256_sink",
+    "pass": true,
+    "raw_sha256": "5A12E2A65DBBFC7449537F826246FC305E8429C22034A5CE5DC5781B48626827",
+    "replay_sha256": "5A12E2A65DBBFC7449537F826246FC305E8429C22034A5CE5DC5781B48626827"
+  },
+  "domains": {
+    "computation": {
+      "fail": 0,
+      "pass": 120960,
+      "sdc": 0,
+      "trials": 120960
+    },
+    "no_fault": {
+      "fail": 0,
+      "pass": 8,
+      "sdc": 0,
+      "trials": 8
+    },
+    "out_of_capability": {
+      "fail": 0,
+      "pass": 2,
+      "sdc": 0,
+      "trials": 2
+    },
+    "storage": {
+      "fail": 0,
+      "pass": 3864,
+      "sdc": 0,
+      "trials": 3864
+    }
+  },
+  "evidence_boundary": "P1 owns Stage-1--7 direct common-operator groups, Stage-8/9 full-stage TMR, and Stage-10 two-adjacent-beat complete-butterfly upper/lower arithmetic ECC groups.",
+  "expected_count_pass": true,
+  "expected_trial_count": 124834,
+  "experiment_id": "FFT1024-SEVEN-ARCH-V3",
+  "failures": 0,
+  "gate_hash": "76E2F8FEE4576007DA4CC036707842793FED675CD8664A27E9B486AE2B019BC4",
+  "group": "PFFT",
+  "legacy_matrix_hash": "687F079C078CC5E5BE9DA99B12D722FE823490ECFCE539686806C24F0AFE8A85",
+  "matrix_hash": "9B2255BE547C67B43E3FDE3447C68F112E2B941CDFE2AC078F255C24DC1D93DB",
+  "memory_hash": "55D535B3E557A86D8131C14E4624D479552A13613A6BB1B33192E90F72080AD6",
+  "model_hash": "AE06C0B4AFD2247200A19F5AB8F1DDBEA67A212096BFA364D2DBEDA588993C5B",
+  "p1_stage10": {
+    "alignment": "one_input_beat_plus_one_output_beat_registers",
+    "covered_physical_outputs": 1024,
+    "cross_frame_grouping": false,
+    "functional_butterflies_per_group": 4,
+    "lower_codewords": 128,
+    "two_beat_groups": 128,
+    "upper_codewords": 128
+  },
+  "protection_claim": "stage1_7_single_memory_or_independent_operator_symbol_effect;stage8_9_single_complete_replica_effect;stage10_two_beat_independent_operator_symbol_effect",
+  "raw_csv": {
+    "path": "D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\projects\\P1\\results\\p1_py_v3_001\\p1_fault_raw.csv",
+    "sha256": "5A12E2A65DBBFC7449537F826246FC305E8429C22034A5CE5DC5781B48626827"
+  },
+  "script_hash": "AE06C0B4AFD2247200A19F5AB8F1DDBEA67A212096BFA364D2DBEDA588993C5B",
+  "sdc": 0,
+  "status": "VERIFIED",
+  "trial_count": 124834
+}

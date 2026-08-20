@@ -1,0 +1,26 @@
+{
+  "architecture_id": "P1",
+  "error": "[Errno 2] No such file or directory: 'D:\\\\JuWade_research\\\\Per_stage_FFT\\\\experiments\\\\fault_injection_1024\\\\results\\\\seven_arch_v2\\\\python_gate.json'",
+  "error_type": "FileNotFoundError",
+  "experiment_id": "FFT1024-SEVEN-ARCH-V2",
+  "status": "FAILED",
+  "traceback": [
+    "Traceback (most recent call last):",
+    "  File \"D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\python\\campaign_support.py\", line 425, in run_project",
+    "    bundle = load_contract_bundle(architecture_id)",
+    "             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\python\\campaign_support.py\", line 99, in load_contract_bundle",
+    "    gate = load_json(GATE_PATH)",
+    "           ^^^^^^^^^^^^^^^^^^^^",
+    "  File \"D:\\JuWade_research\\Per_stage_FFT\\experiments\\fault_injection_1024\\common\\python\\campaign_support.py\", line 54, in load_json",
+    "    return json.loads(path.read_text(encoding=\"utf-8\"))",
+    "                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"C:\\Program Files\\Inkscape\\lib\\python3.12\\pathlib.py\", line 1027, in read_text",
+    "    with self.open(mode='r', encoding=encoding, errors=errors) as f:",
+    "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"C:\\Program Files\\Inkscape\\lib\\python3.12\\pathlib.py\", line 1013, in open",
+    "    return io.open(self, mode, buffering, encoding, errors, newline)",
+    "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "FileNotFoundError: [Errno 2] No such file or directory: 'D:\\\\JuWade_research\\\\Per_stage_FFT\\\\experiments\\\\fault_injection_1024\\\\results\\\\seven_arch_v2\\\\python_gate.json'"
+  ]
+}

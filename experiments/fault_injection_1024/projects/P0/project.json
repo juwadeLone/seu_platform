@@ -1,0 +1,17 @@
+{
+  "architecture_id": "P0",
+  "group": "PFFT",
+  "role": "unprotected_baseline",
+  "python_model": "common.python.fixed_fft.pfft_no_exchange_1024",
+  "twiddle_schedule": "canonical_dif_no_exchange",
+  "generic_complex_multipliers_by_stage": [4, 4, 4, 4, 4, 4, 3, 2, 0, 0],
+  "expected_vector": "vectors/qualification_p0_no_exchange_expected_8frames.hex",
+  "expected_vector_sha256": "97366FC46491067FFA4D17605A9AC0CD59FDA6C899B506C7BEE7F8614B829204",
+  "python_campaign": "projects.P0.run_p0",
+  "python_entry": "run_p0.py",
+  "rtl_sources": ["top_p0_pfft_unprotected.sv"],
+  "testbench": "tb_p0.sv",
+  "rtl_top": "top_p0_pfft_unprotected",
+  "baseline": "P0",
+  "result_group": "../../results/pfft_resource_v3_001/"
+}

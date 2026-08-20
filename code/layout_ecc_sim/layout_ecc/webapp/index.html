@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>layout_ecc — 三维打击核查看器（M3）</title>
+<style>
+  :root { --bg:#0f1419; --panel:#1a2129; --line:#2a3441; --txt:#d8e1ea;
+          --dim:#8b98a5; --acc:#4da3ff; --warn:#ffb454; --ok:#7ee787; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { height:100%; background:var(--bg); color:var(--txt);
+               font:14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif; }
+  body { display:flex; flex-direction:column; }
+  header { padding:10px 18px; border-bottom:1px solid var(--line);
+           display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+  header h1 { font-size:17px; font-weight:600; }
+  .badge { font-size:11px; padding:2px 8px; border-radius:10px;
+           background:#3a2b12; color:var(--warn); border:1px solid #6b4e17; }
+  main { flex:1; display:flex; min-height:0; }
+  form { width:300px; flex:none; background:var(--panel); border-right:1px solid var(--line);
+         padding:14px 14px 18px; overflow:auto; }
+  form h2 { font-size:12px; color:var(--acc); margin:12px 0 6px;
+            text-transform:uppercase; letter-spacing:.05em; }
+  form h2:first-child { margin-top:0; }
+  label { display:flex; justify-content:space-between; align-items:center;
+          margin:5px 0; font-size:13px; color:var(--dim); gap:8px; }
+  label b { color:var(--txt); font-weight:500; }
+  input, select { background:#0d1117; color:var(--txt); border:1px solid var(--line);
+                  border-radius:6px; padding:4px 7px; width:118px; font:inherit; }
+  input[type=checkbox] { width:auto; padding:0; margin-right:2px; }
+  #domToggles label { justify-content:flex-start; }
+  button { margin-top:10px; width:100%; padding:8px; border:0; border-radius:8px;
+           background:var(--acc); color:#08131f; font-weight:700; cursor:pointer; }
+  button.sec { background:#26313d; color:var(--txt); font-weight:500; margin-top:6px; }
+  #stage { flex:1; position:relative; min-width:0; }
+  canvas { position:absolute; inset:0; width:100%; height:100%;
+           touch-action:none; cursor:grab; display:block; }
+  canvas:active { cursor:grabbing; }
+  #read { padding:6px 14px; border-top:1px solid var(--line); background:#0f1419;
+          font-size:13px; min-height:28px; }
+  #read b { color:var(--ok); }
+  .mini { font-size:11.5px; color:var(--dim); margin-top:8px; line-height:1.45; }
+  .sw { display:inline-block; width:10px; height:10px; border-radius:2px; margin:0 4px 0 8px; }
+  #hover { position:absolute; pointer-events:none; background:#0f1419ee;
+           border:1px solid #2a3441; border-radius:8px; padding:8px 10px;
+           font-size:12px; color:var(--txt); display:none; max-width:240px;
+           z-index:2; }
+  #hover b { color:var(--ok); }
+</style>
+</head>
+<body>
+<header>
+  <h1>几何打击器 · 三维查看器</h1>
+  <span class="badge">P1 · s1–s10 着色 · 黑=空 Site</span>
+</header>
+<main>
+<form id="cfg">
+  <h2>打击参数</h2>
+  <label><b>中心 x</b><input id="x0" type="number" step="0.1" value="12"></label>
+  <label><b>中心 y</b><input id="y0" type="number" step="0.1" value="20"></label>
+  <label><b>LET</b><input id="let" type="number" step="1" value="15"></label>
+  <label><b>θ °（天顶角）</b><input id="theta" type="number" step="5" value="45"></label>
+  <label><b>φ °（方位角）</b><input id="phi" type="number" step="5" value="30"></label>
+  <label><b>核半径 a0</b><input id="a0" type="number" step="0.5" value="12"></label>
+  <label><b>k_LET</b><input id="klet" type="number" step="0.05" value="0.25"></label>
+  <label><b>随机种子</b><input id="seed" type="number" value="1"></label>
+  <button id="go" type="submit">▶ 构造椭圆并抽样</button>
+  <button class="sec" id="rand" type="button">随机打击中心</button>
+  <button class="sec" id="lock" type="button">俯视锁定：关（拖拽会转相机）</button>
+  <button class="sec" id="reset" type="button">重置视角</button>
+
+  <h2>故障域（指南第 8 节）</h2>
+  <p class="mini" style="margin-top:0">
+    同一 Site 在同一 (x,y) 上叠加多个故障域；同一个椭圆对每个域各求一次交，
+    跨域相关性因此保留。勾选只影响黄/红标记的显示，计算始终覆盖全部域。
+  </p>
+  <div id="domToggles"></div>
+
+  <h2>着色</h2>
+  <label><b>模式</b>
+    <select id="colorMode" style="width:118px">
+      <option value="stage">按 FFT 级</option>
+      <option value="resource">按资源类型</option>
+    </select>
+  </label>
+  <label><b>级边界</b>
+    <span><input id="showBbox" type="checkbox"> 叠加包围盒</span>
+  </label>
+  <p class="mini" id="stageLegend"></p>
+
+  <h2>格子含义</h2>
+  <p class="mini">
+    整片是 P1 在 <b>xc7vx690t</b> 上占用包围盒里的 Site 栅格（RPM 坐标）。<br>
+    默认按 FFT 级 HSV 着色（图例 s1–s10）；可切到资源类型。<br>
+    <span class="sw" style="background:#14181e;border:1px solid #3d6b99"></span>黑色 = 包围盒内空闲<br>
+    <span class="sw" style="background:#ffd23f"></span>黄 = 椭圆候选（域×Site）　
+    <span class="sw" style="background:#ff5f56"></span>红 = 抽样翻转<br>
+    一格是一个 FPGA Site；悬停显示 stage / role。
+  </p>
+
+  <h2>几何用例（指南 9.3）</h2>
+  <select id="preset" style="width:100%;margin-top:4px">
+    <option value="">选择预设…</option>
+  </select>
+  <button class="sec" id="applyP" type="button">应用预设并打击</button>
+
+  <p class="mini">
+    黄/红钉在 Site 上；拖拽是转相机。俯视锁定后左键只平移。
+  </p>
+  <p class="mini" id="disc"></p>
+</form>
+<div id="stage">
+  <canvas id="cv"></canvas>
+  <div id="hover"></div>
+</div>
+</main>
+<div id="read">加载布局…</div>
+<script src="/static/engine.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const viewer = ChipStrikeViewer($("cv"), {
+  readout: $("read"),
+  onPick: (x, y) => { $("x0").value = x.toFixed(2); $("y0").value = y.toFixed(2); fire(); },
+  onHover: info => {
+    const el = $("hover");
+    if (!info) { el.style.display = "none"; return; }
+    el.style.display = "block";
+    el.innerHTML =
+      `<b>${info.site}</b><br>${info.rtype} · ${info.bels}<br>` +
+      `s${info.stage > 0 ? info.stage : "?"} · ${info.role}` +
+      `${info.shared ? " · <b>shared</b>" : ""}<br>` +
+      `${info.domains ? info.domains + "<br>" : ""}` +
+      `格 (${info.x}, ${info.y})`;
+  }
+});
+let layout = null;
+
+function buildDomainToggles(j) {
+  const box = $("domToggles");
+  box.innerHTML = "";
+  const apply = () => {
+    const on = [...box.querySelectorAll("input:checked")].map(i => i.value);
+    viewer.setDomainFilter(on.length === j.domains.length ? null : on);
+  };
+  for (const d of j.domains || []) {
+    const lab = document.createElement("label");
+    lab.innerHTML =
+      `<span><input type="checkbox" value="${d}" checked> ` +
+      `${(j.domain_labels || {})[d] || d} <span style="color:#5b6b7c">${d}</span></span>`;
+    lab.querySelector("input").addEventListener("change", apply);
+    box.appendChild(lab);
+  }
+}
+
+async function loadLayout() {
+  const j = await (await fetch("/api/layout")).json();
+  layout = j;
+  $("disc").textContent = j.disclaimer;
+  viewer.setLayout(j);
+  buildDomainToggles(j);
+  const leg = $("stageLegend");
+  if (leg && j.stage_colors) {
+    leg.innerHTML = j.stage_colors.map((c, i) => {
+      if (!i || !c) return "";
+      return `<span class="sw" style="background:${c}"></span>s${i}`;
+    }).join("");
+  }
+  $("colorMode") && ($("colorMode").onchange = e => viewer.setColorMode(e.target.value));
+  $("showBbox") && ($("showBbox").onchange = e => viewer.setShowBboxes(e.target.checked));
+  const sel = $("preset");
+  Object.entries(j.presets).forEach(([k, p]) => {
+    const o = document.createElement("option");
+    o.value = k; o.textContent = p.label; sel.appendChild(o);
+  });
+  $("x0").value = (j.default_x0 != null ? j.default_x0 : j.ncols / 2).toFixed(1);
+  $("y0").value = (j.default_y0 != null ? j.default_y0 : j.nrows / 2).toFixed(1);
+  if (j.default_a0) $("a0").value = j.default_a0;
+  fire();
+}
+async function fire() {
+  $("go").disabled = true;
+  try {
+    const cfg = {
+      x0: +$("x0").value, y0: +$("y0").value,
+      let: +$("let").value, theta: +$("theta").value, phi: +$("phi").value,
+      a0: +$("a0").value, k_let: +$("klet").value, seed: +$("seed").value
+    };
+    const j = await (await fetch("/api/strike", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(cfg)
+    })).json();
+    if (j.error) throw new Error(j.error);
+    viewer.setStrike(j);
+  } catch (e) {
+    $("read").textContent = "失败：" + e.message;
+  } finally { $("go").disabled = false; }
+}
+$("cfg").onsubmit = e => { e.preventDefault(); fire(); };
+$("rand").onclick = () => {
+  if (!layout) return;
+  $("x0").value = (Math.random() * layout.ncols).toFixed(2);
+  $("y0").value = (Math.random() * layout.nrows).toFixed(2);
+  $("seed").value = (Math.random() * 1e6 | 0);
+  fire();
+};
+$("reset").onclick = () => viewer.resetView();
+$("lock").onclick = e => {
+  const on = e.target.dataset.on !== "1";
+  e.target.dataset.on = on ? "1" : "0";
+  viewer.setLockChip(on);
+  e.target.textContent = on
+    ? "俯视锁定：开（左键平移，芯片不转）"
+    : "俯视锁定：关（拖拽会转相机）";
+};
+canvasHoverFollow();
+function canvasHoverFollow() {
+  $("cv").addEventListener("mousemove", ev => {
+    const el = $("hover");
+    if (el.style.display === "none") return;
+    const r = $("stage").getBoundingClientRect();
+    el.style.left = (ev.clientX - r.left + 14) + "px";
+    el.style.top = (ev.clientY - r.top + 14) + "px";
+  });
+}
+$("applyP").onclick = () => {
+  const p = layout && layout.presets[$("preset").value];
+  if (!p) return;
+  $("x0").value = p.x0; $("y0").value = p.y0; $("a0").value = p.a0;
+  fire();
+};
+["let","theta","phi","a0","klet"].forEach(id => {
+  $(id).addEventListener("change", fire);
+});
+loadLayout();
+</script>
+</body>
+</html>

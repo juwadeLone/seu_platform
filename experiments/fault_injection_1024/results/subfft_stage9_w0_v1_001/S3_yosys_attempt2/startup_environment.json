@@ -1,0 +1,18 @@
+﻿{
+    "captured_before_yosys_start":  true,
+    "architecture":  "S3",
+    "working_directory":  "C:\\Users\\pc\\AppData\\Local\\Temp\\SUBFFT9W0001A2",
+    "working_directory_is_ascii":  true,
+    "yosys":  {
+                  "path":  "C:\\Users\\pc\\Downloads\\oss-cad-suite\\bin\\yosys.exe",
+                  "sha256":  "059916904062A877B530E6169FA22DBCE32EC66118B75E9A2198F86EA67BA3EB"
+              },
+    "environment":  {
+                        "PATH":  "C:\\Users\\pc\\Downloads\\oss-cad-suite\\bin;C:\\Users\\pc\\Downloads\\oss-cad-suite\\lib;C:\\WINDOWS\\system32;C:\\WINDOWS",
+                        "YOSYSHQ_ROOT":  "C:\\Users\\pc\\Downloads\\oss-cad-suite\\",
+                        "PYTHONHOME":  null,
+                        "PYTHONPATH":  null
+                    },
+    "preflight_script_sha256":  "AC6F6FED9F74AA54A7BD295720030203DD65D73E3B9D42E8EFAC9D748542E896",
+    "synth_script_sha256":  "428354CDD5095F4A77360BE25794339C1E4BD6D5E34AB6C856429D4DBE435F0F"
+}

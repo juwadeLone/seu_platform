@@ -1,0 +1,4 @@
+arch=p1 k=8 expected_trials=200 actual_trials=200 bad_injected=0 timeouts=0
+SUMMARY arch=P1 k=8 total=200 corrected=185 detected_only=0 silent_bounded_residual=0 miscorrection=15 silent_unbounded=0 timeout=0
+site_sha256=59275769b190feef4d3c81f5886ce2c5141f0599a64d2bd2f0f4bae8ef3e8518
+log_sha256=f56b7366f9bc94fc53272106fbb5b2558f0e28811254188ab86c175dcc936985

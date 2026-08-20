@@ -1,0 +1,1 @@
+{"architecture_id":"S3","group":"SubFFT","expected_trials":26794,"fault_domains":["no_fault","storage","computation","out_of_capability"],"rtl_top":"top_s3_subfft_ecc","baseline":"S0","pre_execution_gate":"clean_received_port_order_review"}

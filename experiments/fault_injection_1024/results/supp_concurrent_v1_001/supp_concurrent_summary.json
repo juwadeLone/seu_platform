@@ -1,0 +1,26 @@
+{
+  "contract": "SUPPLEMENTARY_FAULT_EXPERIMENTS_V1.md",
+  "counts": {
+    "fail": 0,
+    "pass": 1096,
+    "total": 1096
+  },
+  "determinism": {
+    "pass": true,
+    "raw_sha256": "57DF1F094E51AE0A363BF7189857DAD668FCCD887CB19DD402FEE039C0B16A52",
+    "replay_sha256": "57DF1F094E51AE0A363BF7189857DAD668FCCD887CB19DD402FEE039C0B16A52"
+  },
+  "expected_total": 1096,
+  "experiment_id": "SUPP-CONC-V1-001",
+  "fault_frame": "random_seeded",
+  "legacy_matrix_sha256": "687F079C078CC5E5BE9DA99B12D722FE823490ECFCE539686806C24F0AFE8A85",
+  "scenario_design": {
+    "P1": "same as S3 over stages 1-7 ECC / 8-9 TMR / 10 two-beat ECC",
+    "S1_cross_path": "effects on paths 2 and 4 -> must reject, never misclaim",
+    "S1_same_path": "double effect confined to path 2 -> correctable",
+    "S2_P2": "one replica effect per stage, 45 pairs x4",
+    "S3": "45 pairs + {3,5,8} + all-10, x4 variants (bits 0/34, re/im)"
+  },
+  "script_sha256": "99543D75D627C58121924B8D9D8C4F134DDA85ACD529DDFF82D3D6571343D86C",
+  "status": "VERIFIED"
+}

@@ -1,0 +1,12 @@
+{
+  "architecture_id": "S2",
+  "group": "SubFFT",
+  "role": "per_stage_full_tmr",
+  "python_campaign": "projects.S2.run_s2",
+  "python_entry": "run_s2.py",
+  "rtl_sources": ["top_s2_subfft_tmr.sv"],
+  "testbench": "tb_s2.sv",
+  "rtl_top": "top_s2_subfft_tmr",
+  "baseline": "S0",
+  "result_group": "results/seven_arch_v1/yosys_subfft_group.csv"
+}

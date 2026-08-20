@@ -1,0 +1,14 @@
+{
+  "exit_code": 0,
+  "log": {
+    "path": "experiments/fault_injection_1024/logs/p2_yosys_no_framebuf_v1_001/attempt2/yosys_preflight.log",
+    "sha256": "E9BFDF1620197054ED71D2D976D510AE4D5DE11B368A5E4B8333891F930A6700",
+    "size_bytes": 591880
+  },
+  "script": {
+    "path": "experiments/fault_injection_1024/build/p2_yosys_no_framebuf_v1_001/attempt2/yosys/preflight.ys",
+    "sha256": "A6E90DDD733281A76D3A4A423CE480BFEEE16E90453D8B20DF4CAB350ABC56EF",
+    "size_bytes": 1168
+  },
+  "status": "VERIFIED"
+}
