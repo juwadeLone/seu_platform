@@ -1,0 +1,49 @@
+{
+  "provenance": "Copy of orbit_seu/env_data/weibull_7series_measured.json for layout_ecc_sim downstream use. 28nm Xilinx 7-series FPGA heavy-ion Weibull cross-section, fitted from ground beam test (NOT synthetic). Source: Lee, Wirthlin, Swift, Le, REDW 2014, DOI 10.1109/REDW.2014.7004595, OSTI PURL https://www.osti.gov/servlets/purl/1140364. Device under test: XC7K325T-1FBG900C (Kintex-7, 28nm).",
+  "source": {
+    "title": "Single-Event Characterization of the 28 nm Xilinx Kintex-7 Field-Programmable Gate Array under Heavy Ion Irradiation",
+    "authors": ["David S. Lee", "Michael J. Wirthlin", "Gary M. Swift", "Anthony C. Le"],
+    "venue": "2014 IEEE Radiation Effects Data Workshop (REDW)",
+    "doi": "10.1109/REDW.2014.7004595",
+    "osti_purl": "https://www.osti.gov/servlets/purl/1140364",
+    "device_tested": "XC7K325T-1FBG900C (Kintex-7, 28nm)",
+    "borrow_note": "xc7vx690t (Virtex-7) shares identical 28nm 7-series CRAM cells; same-family borrow per handover doc section '源1'."
+  },
+  "unit_note": "Paper Table 1 'A' is um^2/bit. orbit_seu/layout_ecc expect cm^2/bit. sigma_sat_cm2_per_bit = sigma_sat_raw_um2_per_bit * 1e-8.",
+  "orbit_seu_weibull_formula": "sigma(L) = sigma_sat * (1 - exp(-((L - let_threshold)/width)^shape)), L > let_threshold else 0",
+  "per_domain": {
+    "CRAM": {
+      "let_threshold": 0.4, "width": 338.5, "shape": 0.852,
+      "sigma_sat_cm2_per_bit": 3.34e-12, "sigma_sat_raw_um2_per_bit": 3.34e-08,
+      "tested_device_bits": 67930000,
+      "source": "Lee et al. 2014 Table 1, Config Memory row",
+      "confidence": "measured",
+      "borrow": "measured on XC7K325T; borrowed to xc7vx690t under same 28nm 7-series family"
+    },
+    "BRAM": {
+      "let_threshold": 0.1, "width": 87.5, "shape": 0.893,
+      "sigma_sat_cm2_per_bit": 3.82e-12, "sigma_sat_raw_um2_per_bit": 3.82e-08,
+      "tested_device_bits": 16404480,
+      "source": "Lee et al. 2014 Table 1, BRAM row",
+      "confidence": "measured",
+      "borrow": "measured on XC7K325T; borrowed to xc7vx690t under same 28nm 7-series family"
+    },
+    "FF": {
+      "let_threshold": 1.1, "width": 271.3, "shape": 1.090,
+      "sigma_sat_cm2_per_bit": 1.47e-11, "sigma_sat_raw_um2_per_bit": 1.47e-07,
+      "tested_device_bits": 393216,
+      "source": "Lee et al. 2014 Table 1, User Flip-flop row",
+      "confidence": "measured",
+      "borrow": "measured on XC7K325T; borrowed to xc7vx690t under same 28nm 7-series family"
+    }
+  },
+  "validation_anchor": {
+    "paper_table2_solar_min_per_bit_day": {"CRAM": 1.0e-07, "FF": 9.0e-08, "BRAM": 5.2e-07}
+  },
+  "layout_ecc_usage_note": "M9 is wired: layout_ecc/weibull.py loads this file; GUI default flip_model=weibull uses σ(LET) in cm²/bit with kernel area in cm². DSP is absent here (gap). Do not mix UG116 neutron numbers into this heavy-ion curve.",
+  "gaps": {
+    "UG116_neutron_FIT_crosscheck": "DONE 2026-08-22 (see ug116_7series_neutron_seu.json crosscheck_performed_2026_08_22): independent Wirthlin JINST 2014 LANSCE values within 21%/10% of UG116 v10.20, and sigma x JESD89A NYC flux reproduces the UG116 realtime FIT order of magnitude (~2x). Heavy-ion sigma_sat vs neutron sigma stays a particle-species comparison (3 orders apart, expected).",
+    "proton_sigma_E_table": "PARTIALLY FILLED 2026-08-22: proton_7series_sigma_E.json now carries measured TSL 180 MeV proton sigma (CRAM 8.29e-15, BRAM 8.19e-15 cm2/bit) from Wirthlin JINST 2014 Table 1; FF/DSP remain gaps and the file is not wired into any rate calculation.",
+    "xc7vx690t_per_domain_bits": "use actual device bits in config; not fabricated. Independently re-verified 2026-08-22 against vendor originals: DS180 v2.6.1 (108,300 slices, 3,600 DSP, 52,920 Kb BRAM, 8 FF/slice -> 866,400 FF) and UG470 Table 1-1 (bitstream 229,878,496)."
+  }
+}

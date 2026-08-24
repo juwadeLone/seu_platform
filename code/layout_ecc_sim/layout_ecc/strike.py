@@ -7,6 +7,9 @@ its own candidate.
 Defaults keep WP3/WP4 regressions:
   kernel_model='legacy_linear'  (a0 + k_let·LET)
   flip_model='bernoulli'        (independent per-domain coin)
+
+The viewer (gui.py) defaults to kernel_model='anchored' and
+flip_model='weibull' (Lee 2014 σ).
 """
 import math
 import random
@@ -16,6 +19,9 @@ from .geometry import classify_hits, ellipse_intersects_rect
 from .kernel import kernel_axes, kernel_axes_from_area
 from .mbu_patterns import sample_k, select_k
 from .units import RPM_TO_UM, area_um2_from_let, radius_um_from_area
+from .weibull import (
+    kernel_area_cm2, mu_upsets, p_at_least_one, poisson, sigma_cm2,
+)
 
 
 def _resolve_axes(let, theta_deg, a0, k_let, kernel_model, area_um2, rpm_to_um):
@@ -76,6 +82,30 @@ def _flip_bernoulli(candidates, rng, p_by_domain):
     return flipped
 
 
+def _flip_weibull(candidates, rng, let, area_cm2):
+    """One ion in A: N ~ Poisson(bits · σ(LET) / A); keep N ≥ 1.
+
+    DSP has no Lee σ: mu=0, never flipped. n_bits is the Poisson draw,
+    capped at the site occupancy (not the old n_bits=1 placeholder).
+    """
+    flipped = []
+    for entry in candidates:
+        sig = sigma_cm2(entry["domain"], let)
+        mu = mu_upsets(entry["bits"], sig, area_cm2)
+        n = 0 if sig is None else poisson(rng, mu)
+        n = min(int(n), int(entry["bits"]))
+        rec = dict(
+            entry,
+            n_bits=n,
+            mu=mu,
+            p_at_least_one=p_at_least_one(mu),
+            sigma_cm2=sig,
+        )
+        if n > 0:
+            flipped.append(rec)
+    return flipped
+
+
 def _flip_pattern(candidates, rng, x0, y0, shape):
     k = sample_k(rng)
     chosen = select_k(candidates, k, rng, shape=shape, x0=x0, y0=y0)
@@ -96,8 +126,12 @@ def run_strike(layout, x0, y0, let, theta_deg, phi_deg, a0,
     candidates = _collect_candidates(layout, x0, y0, a, b, phi)
     flip_model = flip_model or "bernoulli"
     pattern_k = None
+    area_cm2 = kernel_area_cm2(a, b, rpm, area_um2=kmeta.get("area_um2"))
+    kmeta["area_cm2"] = area_cm2
     if flip_model == "bernoulli":
         flipped = _flip_bernoulli(candidates, rng, p_by_domain)
+    elif flip_model == "weibull":
+        flipped = _flip_weibull(candidates, rng, let, area_cm2)
     elif flip_model == "pattern":
         flipped, pattern_k = _flip_pattern(
             candidates, rng, x0, y0, pattern_shape or "cluster")
@@ -113,22 +147,57 @@ def run_strike(layout, x0, y0, let, theta_deg, phi_deg, a0,
     }
     stages = sorted({f["stage_id"] for f in flipped if f["stage_id"] > 0})
     roles = sorted({f.get("module_role") or "unknown" for f in flipped})
+    proxy = flip_model != "weibull"
+    expected_zero = (
+        kmeta["kernel_model"] == "anchored" and len(candidates) == 0
+    )
+    if expected_zero:
+        r_um = kmeta.get("radius_um")
+        r_txt = f"{r_um:.2f}" if r_um is not None else "~0.96"
+        zero_note = (
+            " n_candidates=0 is expected for the anchored (default) kernel: "
+            f"physical radius {r_txt} µm is <1 Site grid "
+            f"({rpm:.2f} µm/cell, UG475-calibrated); this is not a crash."
+        )
+    else:
+        zero_note = ""
+    if flip_model == "weibull":
+        note = (
+            "flip_model=weibull: N ~ Poisson(bits·σ_Lee(LET)/A_kernel) with "
+            "σ from Lee et al. REDW 2014 (cm²/bit) and A in cm². "
+            "DSP_STATE has no Lee curve (never flipped). "
+            "CFG bits are UG470 bitstream/slice share, not essential bits. "
+            "RPM→µm uses units.py calibration "
+            "(RPM_TO_UM_Y=22.79, X_IN_CLB=8.63, source=calibrated, "
+            "data/rpm_grid_calibration.json), not an assumption. "
+            "The 3D ion track is display-only."
+        )
+    else:
+        note = (
+            "flip_model=%s still uses the legacy coin or MBU pattern; "
+            "n_bits=1 is a multiplicity placeholder unless pattern. "
+            "The 3D ion track is display-only."
+            % flip_model
+        )
+    note = note + zero_note
     return {
-        "proxy": True,
+        "proxy": proxy,
         "x0": x0, "y0": y0,
         "let": let, "theta_deg": theta_deg, "phi_deg": phi_deg,
         "a0": a0, "a": a, "b": b, "seed": int(seed), "k_let": k_let,
         "kernel_model": kmeta["kernel_model"],
         "area_um2": kmeta.get("area_um2"),
+        "area_cm2": kmeta.get("area_cm2"),
         "a0_eq_grid": kmeta.get("a0_eq_grid"),
         "radius_um": kmeta.get("radius_um"),
-        "rpm_to_um": kmeta.get("rpm_to_um"),
+        "rpm_to_um": kmeta.get("rpm_to_um", rpm),
         "flip_model": flip_model,
         "pattern_shape": pattern_shape if flip_model == "pattern" else None,
         "pattern_k": pattern_k,
         "n_candidates": len(candidates),
         "n_sites_covered": len({c["unit_id"] for c in candidates}),
         "n_flipped": len(flipped),
+        "n_bits_flipped": sum(int(f.get("n_bits") or 0) for f in flipped),
         "by_domain": by_domain,
         "domain_labels": LABEL,
         "stages_hit": stages,
@@ -136,12 +205,7 @@ def run_strike(layout, x0, y0, let, theta_deg, phi_deg, a0,
         "preview_class": classify_hits(flipped),
         "candidates": candidates,
         "flipped": flipped,
-        "note": ("Ellipse is a parameterized sensitive-area proxy on the die "
-                 "plane. One site can contribute several domain candidates; "
-                 "n_bits=1 is a placeholder multiplicity unless flip_model="
-                 "pattern. The 3D ion track is display-only; depth is a "
-                 "scalar folded into a via 1/cos(theta), not a 3D collection "
-                 "volume."),
+        "note": note,
     }
 
 

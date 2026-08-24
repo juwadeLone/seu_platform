@@ -45,7 +45,10 @@ class TestRadaelliFit(unittest.TestCase):
 
     def test_passport_tags(self):
         p = constants_passport()
-        self.assertEqual(p["rpm_to_um"]["source"], "assumption")
+        self.assertEqual(p["rpm_to_um"]["source"], "calibrated")
+        self.assertEqual(
+            p["rpm_to_um"]["calibration_file"],
+            "data/rpm_grid_calibration.json")
         self.assertIn("source:", p["radaelli_2005"]["source"])
         self.assertIn("assumption:", p["let_energy_bridge"])
 

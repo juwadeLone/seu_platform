@@ -113,6 +113,10 @@ class _Handler(BaseHTTPRequestHandler):
             with open(os.path.join(_WEB, "index.html"), "rb") as fh:
                 self._send(200, "text/html; charset=utf-8", fh.read())
             return
+        if path in ("/seu", "/seu.html", "/seu_inside.html"):
+            with open(os.path.join(_WEB, "seu_inside.html"), "rb") as fh:
+                self._send(200, "text/html; charset=utf-8", fh.read())
+            return
         if path == "/api/layout":
             self._send(200, "application/json",
                        json.dumps(_safe(_layout_payload())))
@@ -144,6 +148,9 @@ class _Handler(BaseHTTPRequestHandler):
                 a0=float(cfg.get("a0", _LAYOUT["default_a0"])),
                 seed=int(cfg.get("seed", 1)),
                 k_let=float(cfg.get("k_let", 0.25)),
+                kernel_model=str(cfg.get("kernel_model") or "anchored"),
+                flip_model=str(cfg.get("flip_model") or "weibull"),
+                rpm_to_um=float(cfg["rpm_to_um"]) if cfg.get("rpm_to_um") else None,
             )
             self._send(200, "application/json", json.dumps(_safe(out)))
         except Exception as exc:
@@ -177,6 +184,7 @@ def main(port=8610):
     srv = _Server(("127.0.0.1", port), _Handler)
     url = f"http://127.0.0.1:{port}"
     print(f"[layout_ecc] 3D strike viewer on {url}  (Ctrl+C to stop)")
+    print(f"[layout_ecc] SEU inside LUT/FF/BRAM: {url}/seu")
     threading.Timer(0.6, lambda: webbrowser.open(url)).start()
     try:
         srv.serve_forever()

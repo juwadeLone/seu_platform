@@ -26,12 +26,19 @@ window.ChipStrikeViewer = function (canvas, opts) {
   function ctxOf() {
     const dpr = window.devicePixelRatio || 1;
     const w = canvas.clientWidth, h = canvas.clientHeight;
-    if (w > 0 && canvas.width !== Math.round(w * dpr)) {
-      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    const bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+    // Height-only resizes used to leave the old backing store; trails piled up
+    // at the bottom (ion ray is drawn from off-canvas).
+    if (w > 0 && (canvas.width !== bw || canvas.height !== bh)) {
+      canvas.width = bw; canvas.height = bh;
     }
     const ctx = canvas.getContext("2d");
+    // Identity + device-pixel clear: WebView2 software 2D ignores CSS-space
+    // clearRect while a long stroke sits outside the clip.
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    return [ctx, canvas.clientWidth, canvas.clientHeight];
+    return [ctx, w, h];
   }
   function origin() {
     const L = S.layout;
@@ -120,9 +127,12 @@ window.ChipStrikeViewer = function (canvas, opts) {
   function draw() {
     const [ctx, w, h] = ctxOf();
     if (w === 0 || !S.layout) { requestAnimationFrame(draw); return; }
-    ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = "#070b10";
     ctx.fillRect(0, 0, w, h);
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(0, 0, w, h);
+    ctx.clip();
 
     const L = S.layout;
     const rmax = Math.hypot(L.ncols, L.nrows) * 0.55;
@@ -219,6 +229,7 @@ window.ChipStrikeViewer = function (canvas, opts) {
       ctx.beginPath(); ctx.arc(H[0], H[1], 4, 0, 2 * Math.PI); ctx.fill();
     }
 
+    ctx.restore();
     ctx.fillStyle = "#6b8aa5"; ctx.font = "11px sans-serif"; ctx.textAlign = "left";
     ctx.fillText(S.lockChip
       ? "俯视锁定：左键平移 · 滚轮缩放 · 单击选打击点"
@@ -230,12 +241,22 @@ window.ChipStrikeViewer = function (canvas, opts) {
         .map(([k, v]) => `${k} ${v.flip}/${v.cand}`).join(" · ");
       readout.innerHTML =
         `打击 <b>(${s.x0.toFixed(1)}, ${s.y0.toFixed(1)})</b>　` +
-        `核 a=<b>${s.a.toFixed(1)}</b> b=<b>${s.b.toFixed(1)}</b>　` +
+        `核 a=<b>${s.a.toFixed(2)}</b> b=<b>${s.b.toFixed(2)}</b>　` +
+        `${s.kernel_model || ""} / ${s.flip_model || ""}　` +
+        (s.area_um2 != null ? `A=${Number(s.area_um2).toFixed(3)} µm²　` : "") +
         `覆盖 Site <b>${s.n_sites_covered}</b>　` +
-        `候选(域×Site) <b>${s.n_candidates}</b>　翻转 <b>${s.n_flipped}</b>　` +
+        `候选(域×Site) <b>${s.n_candidates}</b>　翻转 <b>${s.n_flipped}</b>` +
+        (s.n_bits_flipped != null ? `（${s.n_bits_flipped} bit）` : "") + `　` +
         `跨级 ${ (s.stages_hit || []).length } [${(s.stages_hit || []).join(",")}]　` +
         `角色 [${(s.roles_hit || []).join(",")}]　` +
-        `${s.preview_class}<br><span style="color:#8b98a5">域 翻转/候选：${dom}</span>`;
+        `${s.preview_class}<br><span style="color:#8b98a5">域 翻转/候选：${dom}</span>` +
+        ((s.n_candidates === 0 && (s.kernel_model || "anchored") === "anchored")
+          ? `<br><span style="color:#ffb454">候选为 0 是预期：anchored 物理核半径 `
+            + `${s.radius_um != null ? Number(s.radius_um).toFixed(2) : "~0.96"} µm `
+            + `&lt; 1 个 Site 格（UG475 标定 `
+            + `${s.rpm_to_um != null ? Number(s.rpm_to_um).toFixed(2) : "22.79"} µm/格），不是崩溃。</span>`
+          : "") +
+        (s.note ? `<br><span style="color:#8b98a5">${s.note}</span>` : "");
     }
     requestAnimationFrame(draw);
   }

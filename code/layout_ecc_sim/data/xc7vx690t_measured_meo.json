@@ -1,0 +1,72 @@
+{
+  "mission": {
+    "duration_years": 1.0,
+    "sampling": { "orbits": 24, "points_per_orbit": 96 }
+  },
+  "orbit": {
+    "altitude_km": 20200,
+    "inclination_deg": 55.0,
+    "eccentricity": 0.001,
+    "raan_deg": 119.92,
+    "argp_deg": 0.0,
+    "mean_anomaly0_deg": 0.0
+  },
+  "magnetosphere": {
+    "cutoff_eq_gv": 14.9
+  },
+  "environment": {
+    "type": "files",
+    "let_spectra_files": {
+      "H": "env_data/spenvis_let/spenvis_H.let.txt",
+      "He": "env_data/spenvis_let/spenvis_He.let.txt",
+      "C": "env_data/spenvis_let/spenvis_C.let.txt",
+      "O": "env_data/spenvis_let/spenvis_O.let.txt",
+      "Mg": "env_data/spenvis_let/spenvis_Mg.let.txt",
+      "Si": "env_data/spenvis_let/spenvis_Si.let.txt",
+      "Fe": "env_data/spenvis_let/spenvis_Fe.let.txt"
+    },
+    "let_columns": { "let": 0, "diff_flux": 1 }
+  },
+  "device": {
+    "name": "XC7VX690T",
+    "part": "XC7VX690T",
+    "bits": 284934976,
+    "bits_note": "top-level bits = CRAM + BRAM + FF from AMD/Xilinx DS180 and UG470; DSP excluded (no Lee 2014 sigma)",
+    "heavy_ion_weibull_by_domain": {
+      "CRAM": {
+        "let_threshold": 0.4, "width": 338.5, "shape": 0.852,
+        "sigma_sat_cm2_per_bit": 3.34e-12,
+        "bits": 229878496,
+        "bits_source": "AMD/Xilinx UG470 7 Series FPGAs Configuration User Guide, Table 1-1 Bitstream Length, device 7VX690T: Configuration Bitstream Length = 229,878,496 bits. DS180/UG470 do not publish a separate FAR-addressable CRAM cell count; this vendor configuration size is used as CRAM bits."
+      },
+      "BRAM": {
+        "let_threshold": 0.1, "width": 87.5, "shape": 0.893,
+        "sigma_sat_cm2_per_bit": 3.82e-12,
+        "bits": 54190080,
+        "bits_source": "AMD/Xilinx DS180 7 Series FPGAs Data Sheet: Overview, Virtex-7 XC7VX690T Total Block RAM = 52,920 Kb. Conversion 52,920 × 1024 = 54,190,080 bits (same convention as Lee 2014 XC7K325T: 16,020 Kb × 1024 = 16,404,480)."
+      },
+      "FF": {
+        "let_threshold": 1.1, "width": 271.3, "shape": 1.090,
+        "sigma_sat_cm2_per_bit": 1.47e-11,
+        "bits": 866400,
+        "bits_source": "AMD/Xilinx UG474 7 Series FPGAs Configurable Logic Block User Guide, Table 3 Virtex-7 FPGA CLB Resources, device 7VX690T, Flip-Flops = 866,400. Same CLB Flip-Flops figure in DS180."
+      }
+    },
+    "excluded_domains": {
+      "DSP": {
+        "ds180_dsp_slices": 3600,
+        "ds180_source": "AMD/Xilinx DS180, Virtex-7 XC7VX690T DSP Slices = 3,600",
+        "reason": "Lee 2014 REDW Table 1 has no DSP heavy-ion Weibull; DSP is not included in N_SEU."
+      }
+    },
+    "dut_linear_reference": {
+      "part": "XC7K325T-1FBG900C",
+      "source": "Lee, Wirthlin, Swift, Le, 2014 IEEE REDW Table 1 tested-device bits (DOI 10.1109/REDW.2014.7004595)",
+      "bits": {
+        "CRAM": 67930000,
+        "BRAM": 16404480,
+        "FF": 393216
+      }
+    }
+  }
+}

@@ -2,58 +2,133 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>layout_ecc — 三维打击核查看器（M3）</title>
+<title>LayoutECC · 空间辐射打击仿真器 v1.0.1</title>
 <style>
-  :root { --bg:#0f1419; --panel:#1a2129; --line:#2a3441; --txt:#d8e1ea;
-          --dim:#8b98a5; --acc:#4da3ff; --warn:#ffb454; --ok:#7ee787; }
+  :root { --bg:#04070d; --bg2:#081120; --panel:rgba(13,22,38,.78); --line:#1b3350;
+          --txt:#d9e6f5; --dim:#7f93ab; --acc:#00e5ff; --acc2:#4da3ff; --warn:#ffb454;
+          --ok:#7ee787; --src:#5f7d9c; --glow:0 0 14px rgba(0,229,255,.35); }
   * { box-sizing:border-box; margin:0; padding:0; }
-  html, body { height:100%; background:var(--bg); color:var(--txt);
+  html, body { height:100%; color:var(--txt);
                font:14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif; }
-  body { display:flex; flex-direction:column; }
-  header { padding:10px 18px; border-bottom:1px solid var(--line);
-           display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
-  header h1 { font-size:17px; font-weight:600; }
-  .badge { font-size:11px; padding:2px 8px; border-radius:10px;
-           background:#3a2b12; color:var(--warn); border:1px solid #6b4e17; }
-  main { flex:1; display:flex; min-height:0; }
-  form { width:300px; flex:none; background:var(--panel); border-right:1px solid var(--line);
-         padding:14px 14px 18px; overflow:auto; }
-  form h2 { font-size:12px; color:var(--acc); margin:12px 0 6px;
-            text-transform:uppercase; letter-spacing:.05em; }
-  form h2:first-child { margin-top:0; }
+  body { display:flex; flex-direction:column; position:relative;
+         background:
+           radial-gradient(1100px 600px at 78% -10%, rgba(0,90,160,.20), transparent 60%),
+           radial-gradient(900px 500px at -10% 110%, rgba(0,190,255,.10), transparent 55%),
+           linear-gradient(180deg, var(--bg2), var(--bg) 45%);
+         overflow:hidden; }
+  body::before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.55;
+    background:
+      repeating-linear-gradient(0deg, transparent 0 47px, rgba(35,80,130,.10) 47px 48px),
+      repeating-linear-gradient(90deg, transparent 0 47px, rgba(35,80,130,.10) 47px 48px);
+  }
+  header { position:relative; padding:12px 20px 10px; display:flex; align-items:center;
+           gap:14px; flex-wrap:wrap; z-index:3;
+           background:linear-gradient(180deg, rgba(10,20,36,.92), rgba(6,12,22,.55));
+           border-bottom:1px solid var(--line); }
+  header::after { content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    background:linear-gradient(90deg, transparent, var(--acc) 30%, var(--acc2) 70%, transparent);
+    animation:scan 6s linear infinite; opacity:.85; }
+  @keyframes scan { 0%{transform:translateX(-30%)} 100%{transform:translateX(30%)} }
+  .logo { width:30px; height:30px; border-radius:8px; flex:none;
+    background:radial-gradient(circle at 34% 30%, #0e2a44, #071526 70%);
+    border:1px solid #17466b; box-shadow:var(--glow); position:relative; }
+  .logo::after { content:""; position:absolute; inset:6px; border-radius:50%;
+    border:2px solid var(--acc); border-right-color:transparent;
+    transform:rotate(35deg); box-shadow:0 0 8px rgba(0,229,255,.5); }
+  header h1 { font-size:17px; font-weight:700; letter-spacing:.12em;
+    background:linear-gradient(90deg,#eaf6ff, #7fd4ff);
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .sub { font-size:11px; color:var(--dim); letter-spacing:.24em; }
+  .chip { font-size:11px; padding:2px 9px; border-radius:999px; color:#9fdcff;
+          border:1px solid #17466b; background:rgba(10,34,58,.6); white-space:nowrap; }
+  .chip.hot { color:var(--warn); border-color:#5d431a; background:rgba(58,43,18,.45); }
+  .led { width:8px; height:8px; border-radius:50%; background:var(--ok);
+         box-shadow:0 0 7px var(--ok); display:inline-block; margin-right:5px;
+         animation:pulse 2.2s ease-in-out infinite; }
+  @keyframes pulse { 50%{opacity:.35} }
+  a.nav { margin-left:auto; color:var(--acc); text-decoration:none; font-size:13px;
+          letter-spacing:.04em; }
+  a.nav:hover { text-shadow:0 0 9px rgba(0,229,255,.8); }
+  main { flex:1; display:flex; min-height:0; z-index:2; }
+  form { width:326px; flex:none; padding:12px 12px 18px; overflow:auto; z-index:2;
+         background:linear-gradient(180deg, rgba(9,17,30,.86), rgba(5,10,18,.9));
+         border-right:1px solid var(--line); backdrop-filter:blur(7px); }
+  form::-webkit-scrollbar { width:8px; } 
+  form::-webkit-scrollbar-thumb { background:#17304d; border-radius:4px; }
+  .card { border:1px solid var(--line); border-radius:12px; padding:11px 12px 12px;
+          margin-bottom:12px; background:var(--panel);
+          box-shadow:0 4px 18px rgba(0,0,0,.35), inset 0 1px 0 rgba(120,190,255,.06); }
+  form h2 { font-size:11.5px; color:var(--acc); margin-bottom:7px; letter-spacing:.18em;
+            text-transform:uppercase; display:flex; align-items:center; gap:8px; }
+  form h2::before { content:""; width:8px; height:8px; flex:none;
+    background:linear-gradient(135deg, var(--acc), var(--acc2));
+    clip-path:polygon(0 0,100% 0,100% 100%); box-shadow:var(--glow); }
   label { display:flex; justify-content:space-between; align-items:center;
           margin:5px 0; font-size:13px; color:var(--dim); gap:8px; }
   label b { color:var(--txt); font-weight:500; }
-  input, select { background:#0d1117; color:var(--txt); border:1px solid var(--line);
-                  border-radius:6px; padding:4px 7px; width:118px; font:inherit; }
-  input[type=checkbox] { width:auto; padding:0; margin-right:2px; }
+  input, select { background:#060d18; color:var(--txt); border:1px solid #1d3a5c;
+                  border-radius:7px; padding:4px 7px; width:122px; font:inherit;
+                  font-variant-numeric:tabular-nums; }
+  input:focus, select:focus { outline:none; border-color:var(--acc);
+                              box-shadow:0 0 8px rgba(0,229,255,.35); }
+  input[type=checkbox] { width:auto; padding:0; margin-right:2px; accent-color:#00b7e0; }
   #domToggles label { justify-content:flex-start; }
-  button { margin-top:10px; width:100%; padding:8px; border:0; border-radius:8px;
-           background:var(--acc); color:#08131f; font-weight:700; cursor:pointer; }
-  button.sec { background:#26313d; color:var(--txt); font-weight:500; margin-top:6px; }
-  #stage { flex:1; position:relative; min-width:0; }
+  button { margin-top:10px; width:100%; padding:9px; border:0; border-radius:9px;
+           cursor:pointer; font-weight:700; letter-spacing:.06em;
+           background:linear-gradient(135deg,#00c3e8,#2f7bff); color:#03101d;
+           box-shadow:0 0 16px rgba(0,180,255,.30); transition:filter .15s; }
+  button:hover { filter:brightness(1.18); }
+  button.sec { background:rgba(18,36,60,.85); color:var(--txt); font-weight:500;
+               border:1px solid #1d3a5c; box-shadow:none; margin-top:6px; }
+  button.sec:hover { border-color:var(--acc); }
+  #stage { flex:1; position:relative; min-width:0; z-index:1; }
   canvas { position:absolute; inset:0; width:100%; height:100%;
            touch-action:none; cursor:grab; display:block; }
   canvas:active { cursor:grabbing; }
-  #read { padding:6px 14px; border-top:1px solid var(--line); background:#0f1419;
-          font-size:13px; min-height:28px; }
+  #read { padding:7px 16px; border-top:1px solid var(--line); z-index:3;
+          background:linear-gradient(180deg, rgba(6,12,22,.9), rgba(4,8,14,.96));
+          font:12.5px/1.5 Consolas, monospace; color:var(--dim); min-height:30px;
+          letter-spacing:.02em; }
   #read b { color:var(--ok); }
-  .mini { font-size:11.5px; color:var(--dim); margin-top:8px; line-height:1.45; }
-  .sw { display:inline-block; width:10px; height:10px; border-radius:2px; margin:0 4px 0 8px; }
-  #hover { position:absolute; pointer-events:none; background:#0f1419ee;
-           border:1px solid #2a3441; border-radius:8px; padding:8px 10px;
-           font-size:12px; color:var(--txt); display:none; max-width:240px;
-           z-index:2; }
+  .mini { font-size:11.5px; color:var(--dim); margin-top:8px; line-height:1.5; }
+  .src { font-size:10.5px; color:var(--src); margin-top:8px; line-height:1.55;
+         border-top:1px dashed #16304c; padding-top:6px; }
+  .src::before { content:"📎 来源 "; color:#3f6d99; letter-spacing:.06em; }
+  .src code { color:#8fb6dd; }
+  .sw { display:inline-block; width:10px; height:10px; border-radius:2px;
+        margin:0 4px 0 8px; box-shadow:0 0 6px rgba(255,255,255,.12); }
+  #hover { position:absolute; pointer-events:none; z-index:5; display:none;
+           max-width:250px; font-size:12px; color:var(--txt); padding:9px 11px;
+           background:rgba(8,16,30,.92); border:1px solid #21507e; border-radius:10px;
+           box-shadow:0 6px 22px rgba(0,0,0,.5), 0 0 12px rgba(0,140,255,.15);
+           backdrop-filter:blur(6px); }
   #hover b { color:var(--ok); }
+  details.refs { border:1px solid var(--line); border-radius:12px; padding:8px 12px;
+                 background:var(--panel); }
+  details.refs summary { cursor:pointer; color:var(--acc); font-size:11.5px;
+                         letter-spacing:.14em; }
+  details.refs ol { margin:8px 0 2px 18px; font-size:11px; color:var(--src);
+                    line-height:1.7; }
+  details.refs b { color:#9fc6ea; font-weight:500; }
 </style>
 </head>
 <body>
 <header>
-  <h1>几何打击器 · 三维查看器</h1>
-  <span class="badge">P1 · s1–s10 着色 · 黑=空 Site</span>
+  <div class="logo"></div>
+  <div>
+    <h1>LAYOUT&nbsp;ECC · 空间辐射打击仿真器</h1>
+    <div class="sub">RADIATION&nbsp;STRIKE&nbsp;SIMULATOR&nbsp;·&nbsp;28&nbsp;nm&nbsp;7-SERIES&nbsp;FPGA&nbsp;·&nbsp;v1.0.1</div>
+  </div>
+  <span class="chip" id="appVer">v1.0.1</span>
+  <span class="chip hot">P1 十级 FFT</span>
+  <span class="chip">XC7VX690T · 24,446 Sites</span>
+  <span class="chip"><span class="led"></span>数据全部可溯源</span>
+  <a class="nav" href="/orbit">轨道辐射环境 →</a>
+  <a class="nav" href="/seu" style="margin-left:0">LUT / FF / BRAM 内部怎么翻 →</a>
 </header>
 <main>
 <form id="cfg">
+  <div class="card">
   <h2>打击参数</h2>
   <label><b>中心 x</b><input id="x0" type="number" step="0.1" value="12"></label>
   <label><b>中心 y</b><input id="y0" type="number" step="0.1" value="20"></label>
@@ -63,21 +138,51 @@
   <label><b>核半径 a0</b><input id="a0" type="number" step="0.5" value="12"></label>
   <label><b>k_LET</b><input id="klet" type="number" step="0.05" value="0.25"></label>
   <label><b>随机种子</b><input id="seed" type="number" value="1"></label>
+  <label><b>核模型</b>
+    <select id="kernel" style="width:122px">
+      <option value="anchored" selected>anchored（WP8 µm²）</option>
+      <option value="legacy_linear">legacy a0（几何调试）</option>
+    </select>
+  </label>
+  <label><b>翻转模型</b>
+    <select id="flip" style="width:122px">
+      <option value="weibull" selected>Lee 2014 σ(LET)</option>
+      <option value="bernoulli">旧 P_DEFAULT</option>
+      <option value="pattern">WP9 MBU 图案</option>
+    </select>
+  </label>
+  <p class="mini" style="margin-top:0">
+    Lee σ 配 anchored 核时翻转很少、甚至候选为 0，是物理结果（核半径 &lt; 1 格），不是坏了。a0 / k_LET 只在 legacy 核下生效。
+  </p>
+  <p class="src">
+    布局坐标 = P1 OOC 布局 DCP（Vivado 2018.3，<code>xc7vx690tffg1761-2</code>）导出的 Site 栅格；
+    anchored 核面积 A(LET) = Radaelli 2005 SRAM MBU 面积幂律（Ebrahimi DAC'13 Table 1，α≈0.70，能量→LET 桥为显式假设）；
+    a0 / k_LET 为几何调试参数，无物理出处。
+  </p>
   <button id="go" type="submit">▶ 构造椭圆并抽样</button>
   <button class="sec" id="rand" type="button">随机打击中心</button>
   <button class="sec" id="lock" type="button">俯视锁定：关（拖拽会转相机）</button>
   <button class="sec" id="reset" type="button">重置视角</button>
+  </div>
 
+  <div class="card">
   <h2>故障域（指南第 8 节）</h2>
   <p class="mini" style="margin-top:0">
     同一 Site 在同一 (x,y) 上叠加多个故障域；同一个椭圆对每个域各求一次交，
     跨域相关性因此保留。勾选只影响黄/红标记的显示，计算始终覆盖全部域。
   </p>
   <div id="domToggles"></div>
+  <p class="src">
+    每域位数：CFG 2122 bits/slice ← UG470 Table 1-1 bitstream 229,878,496 ÷ DS180 slices 108,300（均摊，<b>非</b> essential bits）；
+    BRAM 36,864 ← UG473 RAMB36E1（36 Kb）；FF ← 布局 FD*/LD* 实例（器件总量 866,400 ← UG474/DS180，8 FF/slice）；
+    DSP 169 ← UG479 DSP48E1 数据通路寄存器——无实测 σ（Lee Table 1 无 DSP 行），weibull 模式永不翻转 DSP。
+  </p>
+  </div>
 
+  <div class="card">
   <h2>着色</h2>
   <label><b>模式</b>
-    <select id="colorMode" style="width:118px">
+    <select id="colorMode" style="width:122px">
       <option value="stage">按 FFT 级</option>
       <option value="resource">按资源类型</option>
     </select>
@@ -86,27 +191,49 @@
     <span><input id="showBbox" type="checkbox"> 叠加包围盒</span>
   </label>
   <p class="mini" id="stageLegend"></p>
+  <p class="src">级/角色标签 = WP1 层次名解析（unknown role 占 0.02%）；级色为 HSV 色带，仅用于区分。</p>
+  </div>
 
+  <div class="card">
   <h2>格子含义</h2>
   <p class="mini">
     整片是 P1 在 <b>xc7vx690t</b> 上占用包围盒里的 Site 栅格（RPM 坐标）。<br>
-    默认按 FFT 级 HSV 着色（图例 s1–s10）；可切到资源类型。<br>
-    <span class="sw" style="background:#14181e;border:1px solid #3d6b99"></span>黑色 = 包围盒内空闲<br>
+    <span class="sw" style="background:#0b1119;border:1px solid #2c5988"></span>暗格 = 包围盒内空闲<br>
     <span class="sw" style="background:#ffd23f"></span>黄 = 椭圆候选（域×Site）　
     <span class="sw" style="background:#ff5f56"></span>红 = 抽样翻转<br>
-    一格是一个 FPGA Site；悬停显示 stage / role。
+    一格是一个 FPGA Site；悬停显示 stage / role / 域位占位。
   </p>
+  <p class="src">
+    网格→物理尺寸：1 格 = Y 向 22.79 µm / X 向 8.63 µm（CLB 内，跨列非均匀）——2026-08-22 由
+    <b>UG475 v1.9 官方 die 尺寸 × Project X-Ray 栅格数</b>标定（tile 行 45.58 µm、列 34.53 µm），
+    详见 <code>data/rpm_grid_calibration.json</code>（含 UG475 SHA-256 与 K325T 独立验证）。
+  </p>
+  </div>
 
+  <div class="card">
   <h2>几何用例（指南 9.3）</h2>
   <select id="preset" style="width:100%;margin-top:4px">
     <option value="">选择预设…</option>
   </select>
   <button class="sec" id="applyP" type="button">应用预设并打击</button>
+  <p class="mini">黄/红钉在 Site 上；拖拽转相机。俯视锁定后左键只平移。</p>
+  </div>
 
-  <p class="mini">
-    黄/红钉在 Site 上；拖拽是转相机。俯视锁定后左键只平移。
-  </p>
-  <p class="mini" id="disc"></p>
+  <details class="refs">
+    <summary>资料来源总表（全部参数出处）</summary>
+    <ol>
+      <li><b>重离子 σ(LET) Weibull（CRAM/BRAM/FF 三域）</b>：Lee, Wirthlin, Swift, Le, 2014 IEEE REDW, DOI 10.1109/REDW.2014.7004595，Table 1（σsat = A µm²/bit × 1e-8；DUT XC7K325T，28 nm 同族借用）。OSTI 全文公开。</li>
+      <li><b>RPM 格 → µm</b>：Xilinx UG475 v1.9《7 Series Packaging and Pinout》Chapter 4 官方 die 尺寸 × Project X-Ray tilegrid（K70T/A200T 双器件拟合，K325T 独立验证）→ data/rpm_grid_calibration.json。</li>
+      <li><b>anchored 核面积 A(E)</b>：Radaelli 2005（经 Ebrahimi DAC 2013 Table 1 转录，22/47/95/144 MeV → 1.178/1.902/2.903/4.613 µm²）；能量→LET 桥为平台显式假设。</li>
+      <li><b>MBU P(k)（pattern 模型）</b>：Pérez-Celis &amp; Wirthlin, IEEE TNS 2021, DOI 10.1109/TNS.2021.3071704（SBU 70% / MCU 30%）；交叉验证：Wirthlin 2014 JINST 9 C01025 Table 2（65.0% / 26.8%）。</li>
+      <li><b>器件资源（slices/DSP/BRAM/FF）</b>：AMD DS180 v2.6.1 Table 1（108,300 slices · 3,600 DSP · 52,920 Kb BRAM · 8 FF/slice）；UG470 Table 1-1（bitstream 229,878,496）；UG473（RAMB36E1）；UG479（DSP48E1）。</li>
+      <li><b>中子锚点（校验用，不进重离子核）</b>：AMD UG116 v10.20（2025-07-23）28 nm 行 CRAM 5.69e-15 / BRAM 5.57e-15 cm²/bit；独立实测 Wirthlin 2014 JINST Table 1（LANSCE 6.89e-15/6.15e-15）差 ≤21%，交叉校验通过（2026-08-22）。</li>
+      <li><b>质子 σ(E)（存表未接线）</b>：Wirthlin, Takai, Harding, 2014 JINST 9 C01025, DOI 10.1088/1748-0221/9/01/C01025，Table 1（TSL 180 MeV 质子 CRAM 8.29e-15 / BRAM 8.19e-15）。</li>
+      <li><b>布局数据</b>：P1 OOC 布线 DCP（Vivado 2018.3）导出 primitive_map.csv，24,446 Site / 140,907 原语；共享 Site 2.5%。</li>
+      <li><b>已知缺口（不编造）</b>：DSP48E1 无公开 σ（Lee 无 / UG116 无 / NEPP 测的是 RTG4）；FF 无厂商中子 σ；essential bits 需 bitstream/SEM。详见 handover/审计_假设值真实化_20260822.md。</li>
+    </ol>
+  </details>
+  <p class="mini" id="disc" style="margin-top:8px"></p>
 </form>
 <div id="stage">
   <canvas id="cv"></canvas>
@@ -114,6 +241,7 @@
 </div>
 </main>
 <div id="read">加载布局…</div>
+<div id="verfoot" style="padding:4px 16px 8px;font:11px/1.4 Consolas,monospace;color:#5f7d9c;border-top:1px solid #1b3350">LayoutECC 桌面仿真器 v1.0.1</div>
 <script src="/static/engine.js"></script>
 <script>
 const $ = id => document.getElementById(id);
@@ -145,7 +273,7 @@ function buildDomainToggles(j) {
     const lab = document.createElement("label");
     lab.innerHTML =
       `<span><input type="checkbox" value="${d}" checked> ` +
-      `${(j.domain_labels || {})[d] || d} <span style="color:#5b6b7c">${d}</span></span>`;
+      `${(j.domain_labels || {})[d] || d} <span style="color:#4a6480">${d}</span></span>`;
     lab.querySelector("input").addEventListener("change", apply);
     box.appendChild(lab);
   }
@@ -182,7 +310,8 @@ async function fire() {
     const cfg = {
       x0: +$("x0").value, y0: +$("y0").value,
       let: +$("let").value, theta: +$("theta").value, phi: +$("phi").value,
-      a0: +$("a0").value, k_let: +$("klet").value, seed: +$("seed").value
+      a0: +$("a0").value, k_let: +$("klet").value, seed: +$("seed").value,
+      kernel_model: $("kernel").value, flip_model: $("flip").value
     };
     const j = await (await fetch("/api/strike", {
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -227,7 +356,7 @@ $("applyP").onclick = () => {
   $("x0").value = p.x0; $("y0").value = p.y0; $("a0").value = p.a0;
   fire();
 };
-["let","theta","phi","a0","klet"].forEach(id => {
+["let","theta","phi","a0","klet","kernel","flip"].forEach(id => {
   $(id).addEventListener("change", fire);
 });
 loadLayout();

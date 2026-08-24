@@ -19,6 +19,14 @@ venv/
 .DS_Store
 Thumbs.db
 *.swp
+.cursor/
+
+# PyInstaller 中间产物（保留 dist/ 与 release/ 交付 exe）
+code/layout_ecc_sim/build/
+*.exe.bak
+
+# 本地审计缓存（UG PDF / tilegrid 转储，不入库）
+scratch_audit/
 
 # 注意: 以下为平台数据与证据文件, 保留入库
 #   layout_ecc_sim/data/**  (CSV/JSON 证据, 含 P1_routed_ooc.dcp 布局源)

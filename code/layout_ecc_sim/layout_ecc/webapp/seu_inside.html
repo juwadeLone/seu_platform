@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>layout_ecc — SEU 在 LUT / FF / BRAM 里具体翻什么</title>
+<style>
+  :root { --bg:#0f1419; --panel:#1a2129; --line:#2a3441; --txt:#d8e1ea;
+          --dim:#8b98a5; --acc:#4da3ff; --warn:#ffb454; --ok:#7ee787;
+          --bad:#ff7b72; --node:#4da3ff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--txt);
+         font:14px/1.55 "Segoe UI","Microsoft YaHei",sans-serif; }
+  header { padding:12px 22px; border-bottom:1px solid var(--line);
+           display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+  header h1 { font-size:18px; font-weight:600; }
+  a.back { color:var(--acc); text-decoration:none; font-size:13px; }
+  a.back:hover { text-decoration:underline; }
+  .badge { font-size:11px; padding:2px 8px; border-radius:10px;
+           background:#3a2b12; color:var(--warn); border:1px solid #6b4e17; }
+  nav { display:flex; gap:8px; padding:12px 22px 0; flex-wrap:wrap; }
+  nav button { border:1px solid var(--line); background:var(--panel); color:var(--txt);
+               padding:7px 14px; border-radius:8px; cursor:pointer; font:inherit; }
+  nav button.on { background:var(--acc); color:#08131f; font-weight:700; border-color:var(--acc); }
+  input[type=range] { width:100%; accent-color:var(--acc); }
+  .legend-row { display:flex; gap:14px; flex-wrap:wrap; font-size:12.5px; color:var(--dim); margin-top:8px; }
+  .legend-row i { display:inline-block; width:12px; height:12px; border-radius:2px; margin-right:4px; vertical-align:middle; }
+  .page { display:none; padding:16px 22px 40px; max-width:1180px; }
+  .page.on { display:block; }
+  .row { display:grid; grid-template-columns:1.15fr .85fr; gap:16px; align-items:start; }
+  @media (max-width: 960px) { .row { grid-template-columns:1fr; } }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px;
+          padding:14px 16px; }
+  .card h2 { font-size:15px; color:var(--acc); margin-bottom:8px; }
+  .card h3 { font-size:13px; color:var(--warn); margin:12px 0 6px; }
+  p, li { color:var(--txt); }
+  .dim { color:var(--dim); font-size:13px; }
+  ul { margin:6px 0 8px 18px; }
+  li { margin:3px 0; }
+  svg { width:100%; height:auto; display:block; background:#0d1117; border-radius:8px; }
+  .bit { cursor:pointer; }
+  .bit:hover { filter:brightness(1.2); }
+  kbd { background:#26313d; padding:1px 6px; border-radius:4px; font-size:12px; }
+  .out { font-family:Consolas,ui-monospace,monospace; font-size:13px;
+         background:#0d1117; border:1px solid var(--line); border-radius:8px;
+         padding:10px 12px; white-space:pre-wrap; min-height:4.5em; }
+  .ok { color:var(--ok); } .bad { color:var(--bad); }
+  table.tt { width:100%; border-collapse:collapse; font-size:13px; margin-top:8px; }
+  table.tt th, table.tt td { border-bottom:1px solid var(--line); padding:4px 6px; text-align:center; }
+  table.tt th { color:var(--dim); font-weight:500; }
+  table.tt tr.hit td { background:#3a1515; }
+  .btns { display:flex; gap:8px; flex-wrap:wrap; margin:8px 0; }
+  .btns button { margin:0; width:auto; padding:6px 12px; border:0; border-radius:7px;
+                 background:#26313d; color:var(--txt); cursor:pointer; font:inherit; }
+  .btns button.acc { background:var(--acc); color:#08131f; font-weight:700; }
+  .map { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:10px; }
+  .map div { background:#0d1117; border:1px solid var(--line); border-radius:8px; padding:8px; font-size:12.5px; }
+  .map b { display:block; color:var(--acc); margin-bottom:4px; }
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="/">← 回到打击器</a>
+  <h1>离子打中之后，LUT / FF / BRAM 里到底翻了什么</h1>
+  <span class="badge">示意电路 · 不是版图级网表</span>
+</header>
+<nav>
+  <button class="on" data-p="phys">共同物理：怎么算「翻」</button>
+  <button data-p="lut">LUT（配置 SRAM）</button>
+  <button data-p="ff">FF（用户状态）</button>
+  <button data-p="bram">BRAM（数据阵列）</button>
+  <button data-p="size">面积：σsat 到底有多大</button>
+</nav>
+
+<section id="phys" class="page on">
+  <div class="row">
+    <div class="card">
+      <h2>三种资源共用同一套双稳态</h2>
+      <p>7 系列里 LUT 真值表、FF 的 Q、BRAM 的每一个数据位，底层都是<strong>两个反相器首尾相咬</strong>的 SRAM/锁存单元。稳定态只有 0 和 1。所谓翻转，就是这个咬合被外电荷推过再生点，自己锁到另一边。</p>
+      <svg viewBox="0 0 560 260" aria-label="交叉耦合反相器与电荷收集">
+        <text x="16" y="22" fill="#8b98a5" font-size="12">交叉耦合反相器（所有 SEU 存储位的骨架）</text>
+        <rect x="70" y="70" width="90" height="50" rx="6" fill="#1a2129" stroke="#4da3ff"/>
+        <text x="115" y="100" fill="#d8e1ea" font-size="13" text-anchor="middle">INV1</text>
+        <rect x="280" y="70" width="90" height="50" rx="6" fill="#1a2129" stroke="#4da3ff"/>
+        <text x="325" y="100" fill="#d8e1ea" font-size="13" text-anchor="middle">INV2</text>
+        <path d="M160 85 H280" stroke="#7ee787" stroke-width="2" fill="none"/>
+        <path d="M160 105 H200 V160 H250 V95 H280" stroke="#ffb454" stroke-width="2" fill="none"/>
+        <circle cx="160" cy="85" r="6" fill="#7ee787"/>
+        <circle cx="280" cy="95" r="6" fill="#ffb454"/>
+        <text x="148" y="72" fill="#7ee787" font-size="12">Q</text>
+        <text x="286" y="82" fill="#ffb454" font-size="12">Qb</text>
+        <path d="M200 10 L210 70" stroke="#ff7b72" stroke-width="2" marker-end="url(#arr)"/>
+        <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8" fill="#ff7b72"/></marker></defs>
+        <text x="214" y="36" fill="#ff7b72" font-size="12">重离子径迹</text>
+        <text x="16" y="200" fill="#8b98a5" font-size="12">关态管漏极收集电子/空穴 → 节点电压被拉走</text>
+        <text x="16" y="220" fill="#8b98a5" font-size="12">若收集电荷 Q &gt; Qcrit，再生环把 Q/Qb 对调并锁死 → 这一位从 0 变 1 或从 1 变 0</text>
+        <text x="16" y="244" fill="#8b98a5" font-size="12">一次 MCU 会沿径迹翻相邻 k 个单元；orbit_seu 的 N_SEU 把这记成 k 次翻转</text>
+      </svg>
+      <p class="dim" style="margin-top:8px">这是 CREME 时代的有效 LET 图像，不是 3D 收集体积仿真。7 系列 28 nm SRAM 的 Qcrit 很小，所以低 LET 的 H/He 也能翻（Lee 2014 的 Lth 只有 0.1–1.1 MeV·cm²/mg）。</p>
+    </div>
+    <div class="card">
+      <h2>和打击器四个域怎么对应</h2>
+      <div class="map">
+        <div><b>LUT 真值表</b>属于 <span class="ok">CFG / CRAM</span>。写进 bitstream，一直保持到回读/纠错/重配。</div>
+        <div><b>FF 的 Q</b>属于 <span class="ok">FF_STATE</span>。用户状态，时钟沿可以覆盖，使能关掉就一直错。</div>
+        <div><b>BRAM 阵列</b>属于 <span class="ok">BRAM_STATE</span>。数据，写端口或 scrub 才能改回来。</div>
+        <div><b>DSP 流水寄存器</b>属于 DSP_STATE，电路更像 FF。Lee 2014 没有 DSP 截面，次数表未计入。</div>
+      </div>
+      <h3>还没画进这页、但芯片里也有的</h3>
+      <ul>
+        <li>互连 PIPs / 开关盒：同样是 CRAM SRAM，翻了会改连线，功能错得更「像短路」。打击器里并进 CFG。</li>
+        <li>LUT 输出后面的那颗 FF：那是 FF_STATE，不是 LUT SRAM。</li>
+        <li>BRAM 的模式位、级联位：那是 CRAM，不是阵列数据。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="lut" class="page">
+  <div class="row">
+    <div class="card">
+      <h2>LUT 电路：SRAM 真值表 + 输入选择的多路器</h2>
+      <p>7 系列 Slice 里是 <strong>LUT6</strong>：64 bit 配置 SRAM + 64 选 1 的树形 mux，输入 A5…A0 当地址去读那一位。下面用 <strong>LUT3（8 bit）</strong> 把同一件事画清楚——真实芯片只是格子从 8 变成 64。</p>
+      <svg id="lutSvg" viewBox="0 0 560 320"></svg>
+      <div class="btns">
+        <button class="acc" id="lutHit">打中当前高亮的那一格</button>
+        <button id="lutReset">恢复 bitstream</button>
+      </div>
+      <p class="dim">点格子 = 选中要打的 SRAM 单元。这不是用户数据，是配置位：功能本身被改写。</p>
+    </div>
+    <div class="card">
+      <h2>这一击之后发生什么</h2>
+      <div class="out" id="lutOut"></div>
+      <table class="tt" id="lutTable"></table>
+      <h3>和「BRAM 翻转」的差别</h3>
+      <ul>
+        <li>LUT SRAM 在上电配置时写入，运行中通常不再写。翻了就一直是错函数，直到 SEM/回读纠正或重新加载 bitstream。</li>
+        <li>只有地址恰好等于被翻那一格时，O6 才错；其它输入组合仍对。所以看起来像「某组输入下偶发组合逻辑错误」。</li>
+        <li>若 LUT 配成 SRL/分布式 RAM，格子变成用户数据，机制仍是 SRAM 单元翻转，只是语义从 CFG 变成了类似 BRAM。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="ff" class="page">
+  <div class="row">
+    <div class="card">
+      <h2>FF 电路：主从 D 触发器（两级锁存）</h2>
+      <p>7 系列 Slice 有 8 个 FF，常用原语是 FDRE：D、时钟、时钟使能 CE、同步复位。存储发生在<strong>从锁存器</strong>的交叉耦合节点上，不是「线被打断」。</p>
+      <svg id="ffSvg" viewBox="0 0 560 280"></svg>
+      <div class="btns">
+        <button class="acc" id="ffHit">离子打中从锁存器 Q</button>
+        <button id="ffClk">来一个时钟沿（CE=1，重采 D）</button>
+        <button id="ffHold">关掉 CE 再打一次</button>
+        <button id="ffReset">复位到 Q=0</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>这一击之后发生什么</h2>
+      <div class="out" id="ffOut"></div>
+      <h3>电路上「怎么反转」</h3>
+      <ul>
+        <li>从锁存器关态漏极收集电荷 → Q 节点电压越过再生点 → 两个反相器把 Q/Qb 对调。Q 引脚立刻变反。</li>
+        <li><strong>CE=1</strong>：下一有效时钟沿会把当前 D 写进从锁存器。若组合逻辑还在送正确的 D，FF <em>自己恢复</em>。</li>
+        <li><strong>CE=0</strong>（保持）：没有采样，错误一直停在 Q 上，直到使能再次打开。状态机、计数器最怕这种。</li>
+        <li>若离子只在组合逻辑上打出窄脉冲（SET），脉冲被时钟采进 FF，看起来也像 FF 翻了——源头不是 FF 单元本身。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="bram" class="page">
+  <div class="row">
+    <div class="card">
+      <h2>BRAM 电路：字线/位线 + 6T SRAM 阵列</h2>
+      <p>Virtex-7 的 RAMB36 是真双口 SRAM 阵列（36 Kb）。每一个数据位仍是 6 管单元：两个反相器 + 两个字线控制的传输管。点阵列中的一格 = 打中那一颗存储单元。</p>
+      <svg id="bramSvg" viewBox="0 0 560 340"></svg>
+      <div class="btns">
+        <button class="acc" id="bramHit">打中选中的那一格</button>
+        <button id="bramRead">按当前地址读出</button>
+        <button id="bramWrite">把该地址写回正确值（scrub/写口）</button>
+        <button id="bramReset">全部清零</button>
+      </div>
+      <p class="dim">示意阵列 4 字 × 8 bit。真实 RAMB36 按模式可以是 32K×1 … 512×72。</p>
+    </div>
+    <div class="card">
+      <h2>这一击之后发生什么</h2>
+      <div class="out" id="bramOut"></div>
+      <h3>和 LUT / FF 的差别</h3>
+      <ul>
+        <li><strong>怎么翻</strong>：6T 单元被收集电荷推过再生点，那一格的 0/1 对调。位线只在读周期才接上去，所以静止时也照样能翻（漏极仍在）。</li>
+        <li><strong>用户看见什么</strong>：只有读到那个地址时，对应比特才错。没读到就暂时「看不见」，但位已经错了。</li>
+        <li><strong>怎么回来</strong>：写端口覆盖、ECC 纠错写回、或配置帧 scrub（那是 CRAM，不是阵列）。空等时钟不会像 FF 那样自动恢复。</li>
+        <li>7 系列 BRAM 可开 64+8 SECDED。单位翻转能纠；MCU 翻多位就可能 DUE。次数表里的 BRAM 率是 <em>bit 翻转</em>，还没有走到这一层。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="size" class="page">
+  <div class="card" style="margin-bottom:16px">
+    <h2>横截面不是 LUT/BRAM 在芯片上占的那一块</h2>
+    <p>Lee 2014 的饱和截面 σsat 是<strong>打中就会翻的灵敏面积</strong>（高 LET 下 ≈ 关态漏极收集区），单位是 <em>每个 bit</em>。LUT 那一格、RAMB36 那一整块，是很多个单元铺出来的几何外壳，比灵敏区大两到三个数量级。</p>
+    <p class="dim">数字：σsat 来自 Lee REDW 2014 Table 1（JSON 里的 cm²/bit）。28 nm 6T SRAM 单元 0.127 µm² 是 TSMC 同代高密度 SRAM 的公开数字（VLSI 2009 / EE Times），用来当「一个存储单元有多大」的尺子，<strong>不是</strong> Xilinx 公布的 CRAM 版图。1 RPM 格 = Y 向 22.8 µm（X 向 CLB 内 8.6 µm、跨列非均匀）是 2026-08-22 用 UG475 v1.9 官方 die 尺寸 × Project X-Ray 栅格数标定的，见 <code>data/rpm_grid_calibration.json</code>。</p>
+  </div>
+  <div class="row">
+    <div class="card">
+      <h2>同一把尺子：一个 SRAM 单元 vs 三块灵敏区</h2>
+      <p class="dim">把 0.127 µm² 的 6T 单元画成大方块。红/绿/蓝小块是 σsat 按面积开方后的边长，三者同一比例。</p>
+      <svg id="sizeCell" viewBox="0 0 640 300"></svg>
+      <div class="legend-row">
+        <span><i style="background:#3d5a45;border:1px solid #8b98a5"></i>6T 单元 0.127 µm²（边长 356 nm）</span>
+        <span><i style="background:#7ee787"></i>CRAM/LUT bit 18 nm</span>
+        <span><i style="background:#4da3ff"></i>BRAM bit 20 nm</span>
+        <span><i style="background:#ffb454"></i>FF bit 38 nm</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>为啥觉得「那么大」</h2>
+      <ul>
+        <li><strong>科学计数法骗人。</strong> 3.34×10<sup>−12</sup> cm²/bit 看起来像实验室大数，开方只有 <b>18 nm</b>，就是一只漏极。28 nm 工艺下这是对的量级。</li>
+        <li><strong>FF 比 SRAM 大约 4 倍</strong>（1.47×10<sup>−11</sup> / 3.34×10<sup>−12</sup> = 4.4）。触发器管子、漏区比 6T SRAM 大，不是 Slice 画得更大。</li>
+        <li><strong>LUT 和 BRAM 的 bit 几乎一样大</strong>（18 nm vs 20 nm）。BRAM「块头大」是因为一块 RAMB36 里有 36 Kb 个这样的小单元，不是每个 bit 像砖头。</li>
+        <li><strong>整片次数大是因为 bit 多。</strong> vx690t 约 2.30 亿 CRAM × 每 bit 18 nm 级灵敏区。单 bit 并不大。</li>
+      </ul>
+      <div class="out" id="sizeOut"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>缩放窗口：从漏极拉到 Lee 测试芯片的管芯</h2>
+    <p class="dim">窗口边长 <b id="sizeWin">356 nm</b>。拖到最左只看得见灵敏区；拖到最右出现 Kintex-7 XC7K325T 管芯 9.8×16.8 mm（EE Times 对 Lee 同款 DUT 的公开尺寸）。</p>
+    <input id="sizeZoom" type="range" min="0" max="1000" value="180">
+    <svg id="sizeZoomSvg" viewBox="0 0 640 360"></svg>
+  </div>
+</section>
+
+<script>
+const $ = id => document.getElementById(id);
+document.querySelectorAll("nav button").forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll("nav button").forEach(x => x.classList.toggle("on", x===b));
+    document.querySelectorAll(".page").forEach(p => p.classList.toggle("on", p.id===b.dataset.p));
+  };
+});
+
+/* ---------- LUT3 demo: intended AND of A,B,C ---------- */
+const LUT_N = 8;
+let lutBits = Array(LUT_N).fill(0);
+function lutGold(i) { return (i === 7) ? 1 : 0; } // ABC=111
+lutBits = lutBits.map((_,i) => lutGold(i));
+let lutSel = 7;
+
+function drawLut() {
+  const ns = "http://www.w3.org/2000/svg";
+  const s = $("lutSvg"); s.innerHTML = "";
+  const add = (tag, attrs, text) => {
+    const e = document.createElementNS(ns, tag);
+    for (const [k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+    if (text != null) e.textContent = text;
+    s.appendChild(e); return e;
+  };
+  add("text", {x:16,y:22,fill:"#8b98a5","font-size":12}, "LUT3 示意：8 个配置 SRAM → mux → O");
+  for (let i=0;i<8;i++) {
+    const x = 24 + (i%4)*70, y = 46 + Math.floor(i/4)*70;
+    const on = lutBits[i]===1;
+    const cell = add("rect", {x,y,width:58,height:52,rx:6,fill:on?"#14301c":"#1a2129",
+      stroke: i===lutSel ? "#4da3ff" : (on?"#7ee787":"#2a3441"), "stroke-width": i===lutSel?2.5:1,
+      class:"bit", "data-i":i});
+    cell.style.cursor="pointer";
+    cell.onclick = () => { lutSel=i; drawLut(); renderLut(); };
+    add("text", {x:x+29,y:y+22,fill:"#d8e1ea","font-size":11,"text-anchor":"middle"},
+        "A"+((i>>2)&1)+" B"+((i>>1)&1)+" C"+(i&1));
+    add("text", {x:x+29,y:y+40,fill:on?"#7ee787":"#8b98a5","font-size":13,"text-anchor":"middle","font-weight":700},
+        String(lutBits[i]));
+  }
+  add("rect", {x:330,y:70,width:200,height:160,rx:8,fill:"#12181f",stroke:"#2a3441"});
+  add("text", {x:430,y:98,fill:"#8b98a5","font-size":12,"text-anchor":"middle"}, "64:1 mux（此处 8:1）");
+  add("text", {x:430,y:128,fill:"#d8e1ea","font-size":13,"text-anchor":"middle"}, "地址 = {A,B,C}");
+  add("text", {x:430,y:168,fill:"#4da3ff","font-size":22,"text-anchor":"middle","font-weight":700},
+      "O = "+lutBits[lutSel]);
+  add("text", {x:430,y:198,fill:"#8b98a5","font-size":12,"text-anchor":"middle"}, "现输入指向格 "+lutSel);
+}
+function renderLut() {
+  let html = "<tr><th>ABC</th><th>应输出（AND）</th><th>现 SRAM</th><th></th></tr>";
+  let nerr = 0;
+  for (let i=0;i<8;i++) {
+    const g = lutGold(i), v = lutBits[i], hit = v!==g;
+    if (hit) nerr++;
+    const abc = ((i>>2)&1)+""+((i>>1)&1)+""+(i&1);
+    html += `<tr class="${i===lutSel?"hit":""}"><td>${abc}</td><td>${g}</td><td>${v}</td><td>${hit?"<span class=bad>错</span>":"<span class=ok>对</span>"}</td></tr>`;
+  }
+  $("lutTable").innerHTML = html;
+  const g = lutGold(lutSel), v = lutBits[lutSel];
+  $("lutOut").innerHTML =
+    `设计意图：O = A AND B AND C（只有 ABC=111 为 1）。\n`+
+    `bitstream 格[${lutSel}] 现在 = ${v}（应为 ${g}）。\n`+
+    (v===g
+      ? `<span class=ok>这一格还没翻。</span> 点「打中」会把该 SRAM 从 ${v} 翻到 ${1-v}。`
+      : `<span class=bad>配置位已翻。</span> 当输入组合 ABC 选中格 ${lutSel} 时，O 会给出错误电平；其它 7 种输入仍正确。功能被改写，不是「输出抖一下」。`)+
+    `\n真值表里共 ${nerr} 处与设计不符。`;
+}
+$("lutHit").onclick = () => { lutBits[lutSel] ^= 1; drawLut(); renderLut(); };
+$("lutReset").onclick = () => { lutBits = lutBits.map((_,i)=>lutGold(i)); lutSel=7; drawLut(); renderLut(); };
+
+/* ---------- FF demo ---------- */
+const ff = { q:0, ce:1, last:"就绪。D 固定为 0，模拟「组合逻辑仍正确」。" };
+function drawFf() {
+  const ns = "http://www.w3.org/2000/svg";
+  const s = $("ffSvg"); s.innerHTML = "";
+  const add = (tag, attrs, text) => {
+    const e = document.createElementNS(ns, tag);
+    for (const [k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+    if (text != null) e.textContent = text;
+    s.appendChild(e);
+  };
+  add("text", {x:16,y:22,fill:"#8b98a5","font-size":12}, "FDRE 示意：主锁存（跟 D）→ 从锁存（持 Q）");
+  add("rect", {x:40,y:70,width:140,height:110,rx:8,fill:"#12181f",stroke:"#2a3441"});
+  add("text", {x:110,y:98,fill:"#8b98a5","font-size":12,"text-anchor":"middle"}, "主锁存 master");
+  add("text", {x:110,y:132,fill:"#d8e1ea","font-size":14,"text-anchor":"middle"}, "跟 D=0");
+  add("rect", {x:250,y:70,width:160,height:110,rx:8,fill: ff.q?"#3a1515":"#14301c",
+               stroke: ff.q?"#ff7b72":"#7ee787", "stroke-width":2.2});
+  add("text", {x:330,y:98,fill:"#8b98a5","font-size":12,"text-anchor":"middle"}, "从锁存 slave");
+  add("text", {x:330,y:140,fill:ff.q?"#ff7b72":"#7ee787","font-size":28,"text-anchor":"middle","font-weight":700},
+      "Q = "+ff.q);
+  add("line", {x1:180,y1:125,x2:250,y2:125,stroke:"#4da3ff","stroke-width":2});
+  add("text", {x:470,y:100,fill:"#8b98a5","font-size":12}, "CE = "+ff.ce);
+  add("text", {x:470,y:122,fill:"#8b98a5","font-size":12}, "CLK 沿");
+  add("text", {x:16,y:220,fill:"#8b98a5","font-size":12}, "离子打的是从锁存器那个交叉耦合节点，不是时钟树，也不是 D 那根线。");
+  add("text", {x:16,y:242,fill:"#8b98a5","font-size":12}, "Q 立刻变反；会不会自己好，取决于下一次采样能不能把正确的 D 写回来。");
+}
+function renderFf() {
+  $("ffOut").innerHTML =
+    `当前 Q = ${ff.q}，CE = ${ff.ce}，D 线 = 0（假设前面逻辑没坏）。\n`+
+    ff.last + "\n" +
+    (ff.q===0
+      ? `<span class=ok>Q 与设计一致。</span>`
+      : (ff.ce
+          ? `<span class=bad>Q 已错。</span> 点「时钟沿」会重采 D=0，Q 回到 0。`
+          : `<span class=bad>Q 已错且 CE=0。</span> 时钟沿被忽略，错误会一直保持。`));
+}
+$("ffHit").onclick = () => { ff.ce=1; ff.q ^= 1; ff.last="从锁存器节点被收集电荷推过再生点，Q 立即翻转。"; drawFf(); renderFf(); };
+$("ffClk").onclick = () => {
+  if (ff.ce) { ff.q = 0; ff.last="时钟沿且 CE=1：从锁存器被 D=0 覆盖，SEU 被冲掉。"; }
+  else ff.last="CE=0，时钟沿不到从锁存器，Q 保持错误值。";
+  drawFf(); renderFf();
+};
+$("ffHold").onclick = () => { ff.ce=0; ff.q ^= 1; ff.last="CE 已关，再打从锁存器：Q 翻转后没有采样路径可恢复。"; drawFf(); renderFf(); };
+$("ffReset").onclick = () => { ff.q=0; ff.ce=1; ff.last="同步复位/重载，Q=0。"; drawFf(); renderFf(); };
+
+/* ---------- BRAM demo 4 x 8, gold all zeros ---------- */
+const BR = { rows:4, cols:8, sel:[0,0], data:null };
+function bramFresh() {
+  BR.data = Array.from({length:BR.rows}, () => Array(BR.cols).fill(0));
+}
+bramFresh();
+function drawBram() {
+  const ns = "http://www.w3.org/2000/svg";
+  const s = $("bramSvg"); s.innerHTML = "";
+  const add = (tag, attrs, text) => {
+    const e = document.createElementNS(ns, tag);
+    for (const [k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+    if (text != null) e.textContent = text;
+    s.appendChild(e); return e;
+  };
+  add("text", {x:16,y:20,fill:"#8b98a5","font-size":12}, "6T SRAM 阵列示意（字线横、位线竖）");
+  const x0=70, y0=48, w=48, h=44;
+  for (let c=0;c<BR.cols;c++)
+    add("text", {x:x0+c*w+24,y:40,fill:"#8b98a5","font-size":11,"text-anchor":"middle"}, "BL"+c);
+  for (let r=0;r<BR.rows;r++) {
+    add("text", {x:16,y:y0+r*h+28,fill:"#8b98a5","font-size":11}, "WL"+r);
+    for (let c=0;c<BR.cols;c++) {
+      const on = BR.data[r][c]===1;
+      const sel = BR.sel[0]===r && BR.sel[1]===c;
+      const cell = add("rect", {x:x0+c*w,y:y0+r*h,width:w-6,height:h-6,rx:5,
+        fill:on?"#3a1515":"#1a2129", stroke: sel?"#4da3ff":(on?"#ff7b72":"#2a3441"),
+        "stroke-width": sel?2.4:1, class:"bit"});
+      cell.style.cursor="pointer";
+      ((rr,cc) => { cell.onclick = () => { BR.sel=[rr,cc]; drawBram(); renderBram(); }; })(r,c);
+      add("text", {x:x0+c*w+(w-6)/2,y:y0+r*h+26,fill:on?"#ff7b72":"#7ee787",
+        "font-size":14,"text-anchor":"middle","font-weight":700}, String(BR.data[r][c]));
+    }
+  }
+  add("text", {x:16,y:250,fill:"#8b98a5","font-size":12},
+      "读：字线打开传输管，位线电压被单元拉开 → 灵敏放大器给出那一位。");
+  add("text", {x:16,y:272,fill:"#8b98a5","font-size":12},
+      "SEU 发生在交叉耦合节点上，不需要正在读。没读到这个地址时，错误已经在阵列里。");
+  add("text", {x:16,y:304,fill:"#4da3ff","font-size":13},
+      "当前地址 WL"+BR.sel[0]+"  选中 bit"+BR.sel[1]+"  该字 = "+BR.data[BR.sel[0]].join(""));
+}
+function renderBram() {
+  const [r,c] = BR.sel;
+  const word = BR.data[r].join("");
+  const gold = "00000000";
+  const err = word !== gold;
+  $("bramOut").innerHTML =
+    `地址 ${r} 的 8bit 字：${word}（设计值 ${gold}）。\n`+
+    `选中单元 [${r},${c}] = ${BR.data[r][c]}。\n`+
+    (err
+      ? `<span class=bad>阵列数据已翻。</span> 读这个地址会得到错误字。其它地址不受影响。时钟不会自动修好；要点「写回」。`
+      : `<span class=ok>该字仍全 0。</span> 点「打中」会把选中那一格 0→1，模拟 6T 单元翻转。`);
+}
+$("bramHit").onclick = () => { const [r,c]=BR.sel; BR.data[r][c]^=1; drawBram(); renderBram(); };
+$("bramRead").onclick = () => { drawBram(); renderBram(); };
+$("bramWrite").onclick = () => { BR.data[BR.sel[0]] = Array(BR.cols).fill(0); drawBram(); renderBram(); };
+$("bramReset").onclick = () => { bramFresh(); drawBram(); renderBram(); };
+
+/* ---------- size: σsat vs cell vs die ---------- */
+const SIG = {
+  CRAM: { cm2: 3.34e-12, color: "#7ee787", name: "CRAM / LUT bit" },
+  BRAM: { cm2: 3.82e-12, color: "#4da3ff", name: "BRAM bit" },
+  FF:   { cm2: 1.47e-11, color: "#ffb454", name: "FF bit" }
+};
+const CELL_UM2 = 0.127;                 // TSMC 28nm HD 6T, VLSI 2009
+const CELL_UM = Math.sqrt(CELL_UM2);    // 0.356 µm
+const DIE_W = 9870, DIE_H = 16920;      // XC7K325T µm, UG475 v1.9 Fig 4-20 (F1/G1); EE Times 9.8x16.8 corroborates
+const RPM_UM = 22.79;                   // units.py calibrated (Y axis); X in-CLB 8.63, see data/rpm_grid_calibration.json
+function satUm2(cm2) { return cm2 * 1e8; }          // cm² → µm²
+function satUm(cm2) { return Math.sqrt(satUm2(cm2)); }
+
+function drawSizeCell() {
+  const ns = "http://www.w3.org/2000/svg";
+  const s = $("sizeCell"); if (!s) return;
+  s.innerHTML = "";
+  const add = (tag, attrs, text) => {
+    const e = document.createElementNS(ns, tag);
+    for (const [k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+    if (text != null) e.textContent = text;
+    s.appendChild(e); return e;
+  };
+  add("text", {x:16,y:20,fill:"#8b98a5","font-size":12},
+      "同一比例：大方块 = 一个 28 nm 6T 单元；小色块 = 该 bit 的 σsat");
+  const box = 220, x0 = 24, y0 = 36;
+  add("rect", {x:x0,y:y0,width:box,height:box,fill:"#151c24",stroke:"#8b98a5"});
+  add("text", {x:x0+box/2,y:y0+box+18,fill:"#8b98a5","font-size":11,"text-anchor":"middle"},
+      "6T 单元 356 nm × 356 nm");
+  const keys = ["CRAM","BRAM","FF"];
+  let acc = 8;
+  keys.forEach(k => {
+    const side = box * (satUm(SIG[k].cm2) / CELL_UM);
+    add("rect", {x:x0+acc,y:y0+box-side-8,width:side,height:side,
+                 fill:SIG[k].color, stroke:"#0d1117", "stroke-width":0.6});
+    acc += side + 6;
+  });
+  add("text", {x:x0+8,y:y0+16,fill:"#d8e1ea","font-size":11},
+      "三个灵敏区都挤在单元一角：LUT/BRAM 几乎重叠，FF 大约大一圈");
+  // side-by-side equivalent squares at 2.2× extra zoom of drains only
+  const zx = 300, zy = 50, zbox = 200;
+  add("rect", {x:zx,y:zy,width:zbox,height:zbox,fill:"#10161c",stroke:"#2a3441"});
+  add("text", {x:zx+zbox/2,y:zy-8,fill:"#8b98a5","font-size":11,"text-anchor":"middle"},
+      "只放大灵敏区（相对 FF 最大块）");
+  const ffSide = satUm(SIG.FF.cm2);
+  keys.forEach((k,i) => {
+    const side = zbox * 0.72 * (satUm(SIG[k].cm2) / ffSide);
+    const x = zx + 18 + i*60;
+    const y = zy + zbox - 28 - side;
+    add("rect", {x,y,width:side,height:side,fill:SIG[k].color});
+    add("text", {x:x+side/2,y:zy+zbox-8,fill:SIG[k].color,"font-size":10,"text-anchor":"middle"}, k);
+  });
+  const lines = keys.map(k => {
+    const um2 = satUm2(SIG[k].cm2), um = satUm(SIG[k].cm2);
+    const frac = 100 * um2 / CELL_UM2;
+    return `${k}  σsat = ${um2.toExponential(2)} µm²  边长 ${ (um*1000).toFixed(0) } nm  ≈ 单元面积的 ${frac.toFixed(2)}%`;
+  });
+  $("sizeOut").textContent =
+    lines.join("\n") +
+    `\nFF / CRAM = ${(SIG.FF.cm2/SIG.CRAM.cm2).toFixed(2)}  （管子更大，不是 Tile 更大）` +
+    `\nBRAM / CRAM = ${(SIG.BRAM.cm2/SIG.CRAM.cm2).toFixed(2)}  （都是 SRAM 位）` +
+    `\nvx690t 整片 CRAM 灵敏区合计 ${ (229878496*SIG.CRAM.cm2*1e2).toExponential(2) } mm²，相对 Lee DUT 管芯 ${ (9.87*16.92).toFixed(0) } mm² 仍是一个小斑。`;
+}
+
+function viewUmFromSlider(t) {
+  // t in [0,1], log from 0.04 µm to 20000 µm
+  const lo = Math.log(0.04), hi = Math.log(20000);
+  return Math.exp(lo + t * (hi - lo));
+}
+function fmtLen(um) {
+  if (um < 1) return (um*1000).toFixed(0) + " nm";
+  if (um < 1000) return um.toFixed(um<10?2:1) + " µm";
+  return (um/1000).toFixed(um<10000?2:1) + " mm";
+}
+function drawSizeZoom() {
+  const ns = "http://www.w3.org/2000/svg";
+  const s = $("sizeZoomSvg"); if (!s) return;
+  s.innerHTML = "";
+  const add = (tag, attrs, text) => {
+    const e = document.createElementNS(ns, tag);
+    for (const [k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+    if (text != null) e.textContent = text;
+    s.appendChild(e);
+  };
+  const t = +$("sizeZoom").value / 1000;
+  const view = viewUmFromSlider(t);
+  $("sizeWin").textContent = fmtLen(view);
+  const W = 600, H = 300, ox = 20, oy = 28;
+  add("rect", {x:ox,y:oy,width:W,height:H,fill:"#0b1016",stroke:"#2a3441"});
+  const px = um => um / view * W;
+  const cx = ox + W/2, cy = oy + H/2;
+  // die
+  const dw = px(DIE_W), dh = px(DIE_H);
+  if (dw > 2 && dh > 2) {
+    add("rect", {x:cx-dw/2,y:cy-dh/2,width:dw,height:dh,fill:"#1a2430",stroke:"#ff7b72","stroke-width":1.2});
+    if (dw > 80) add("text", {x:cx,y:cy-dh/2-6,fill:"#ff7b72","font-size":11,"text-anchor":"middle"},
+      "XC7K325T 管芯 9.87 × 16.92 mm（UG475）");
+  }
+  // RPM tile
+  const rpm = px(RPM_UM);
+  if (rpm > 1.5) {
+    add("rect", {x:cx-rpm/2,y:cy-rpm/2,width:rpm,height:rpm,fill:"#2a1a12",stroke:"#ffb454","stroke-width":1});
+    if (rpm > 28) add("text", {x:cx,y:cy-rpm/2-6,fill:"#ffb454","font-size":11,"text-anchor":"middle"},
+      "1 RPM 格（Y 向标定 22.8 µm；X 向 CLB 内 8.6 µm、跨列非均匀）");
+  }
+  // SRAM cell
+  const cell = px(CELL_UM);
+  if (cell > 1.2) {
+    add("rect", {x:cx-cell/2,y:cy-cell/2,width:cell,height:cell,fill:"#152018",stroke:"#8b98a5"});
+    if (cell > 36) add("text", {x:cx,y:cy-cell/2-6,fill:"#8b98a5","font-size":11,"text-anchor":"middle"},
+      "6T 单元 0.36 µm");
+  }
+  // three σsat
+  let xoff = -px(satUm(SIG.FF.cm2)) * 1.6;
+  ["CRAM","BRAM","FF"].forEach(k => {
+    const side = px(satUm(SIG[k].cm2));
+    if (side < 0.7) return;
+    add("rect", {x:cx+xoff,y:cy-side/2,width:Math.max(side,1.2),height:Math.max(side,1.2),
+                 fill:SIG[k].color, opacity:0.95});
+    if (side > 14) add("text", {x:cx+xoff+side/2,y:cy+side/2+12,fill:SIG[k].color,
+      "font-size":10,"text-anchor":"middle"}, k);
+    xoff += side + Math.max(4, side*0.15);
+  });
+  add("text", {x:ox+8,y:oy+H+22,fill:"#8b98a5","font-size":11},
+      "窗口 "+fmtLen(view)+"  ×  同比例。拖到中间：单元清楚、灵敏区变成角上的点；再拖大：连 RPM 格也只是管芯上的一粒。");
+}
+$("sizeZoom").oninput = drawSizeZoom;
+
+drawLut(); renderLut();
+drawFf(); renderFf();
+drawBram(); renderBram();
+drawSizeCell();
+drawSizeZoom();
+</script>
+</body>
+</html>

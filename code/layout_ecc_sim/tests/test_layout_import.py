@@ -41,9 +41,18 @@ class TestP1Import(unittest.TestCase):
         ff_sites = 0
         for t in self.layout["tiles"]:
             self.assertIn("domains", t)
-            self.assertGreater(t["domains"].get("CFG", 0), 0,
-                               msg=t["site"])
-            if t["domains"].get("FF_STATE", 0) > 0:
+            kind = t["res_type"]
+            d = t["domains"]
+            self.assertGreater(sum(d.values()), 0, msg=t["site"])
+            if kind in ("SLICE", "CLB", "OTHER"):
+                self.assertGreater(d.get("CFG", 0), 0, msg=t["site"])
+            elif kind == "BRAM":
+                self.assertEqual(d.get("BRAM_STATE", 0), 36 * 1024, msg=t["site"])
+                self.assertNotIn("CFG", d)
+            elif kind == "DSP":
+                self.assertEqual(d.get("DSP_STATE", 0), 169, msg=t["site"])
+                self.assertNotIn("CFG", d)
+            if d.get("FF_STATE", 0) > 0:
                 ff_sites += 1
         self.assertGreater(ff_sites, 0)
 

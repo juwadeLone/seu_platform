@@ -1,0 +1,72 @@
+{
+  "provenance": "AMD/Xilinx official Device Reliability Report UG116, SEU and Soft Error Rate Measurements. Vendor-published, beam-tested at LANSCE per JESD89A/89-3A. This is a NEUTRON / FIT cross-check anchor, NOT a heavy-ion sigma(LET) Weibull. Use only as a magnitude cross-check against the heavy-ion file weibull_7series_measured.json (handover doc section '源2'); do not mix particle species.",
+  "source": {
+    "title": "Device Reliability Report (UG116) - SEU and Soft Error Rate Measurements",
+    "publisher": "AMD / Xilinx",
+    "document_id": "UG116",
+    "revision": "10.20",
+    "release_date": "2025-07-23",
+    "update_cadence": "updated twice a year",
+    "url": "https://docs.amd.com/r/en-US/ug116/SEU-and-Soft-Error-Rate-Measurements",
+    "tables": "Table 1 (CRAM), Table 2 (BRAM)",
+    "measurement": "LANSCE neutron beam testing per JESD89A/89-3A; real-time FIT per JESD89A/89-1A corrected for New York City",
+    "device_rows_used": "28 nm 'Kintex 7 and Virtex 7' (xc7vx690t belongs to this row)"
+  },
+  "particle": "neutron",
+  "unit_note": "LANSCE Neutron Cross-Section per Bit is in cm^2/bit. FIT = failures per 1e9 device-hours; Mb = 1e6 memory bits. 90% confidence interval. These are single-energy neutron cross-sections and FIT rates; UG116 does NOT publish heavy-ion Weibull shape parameters (Lth/W/s).",
+  "per_domain": {
+    "CRAM": {
+      "lansce_neutron_sigma_cm2_per_bit": 5.69e-15,
+      "lansce_error": "+/-18%",
+      "fit_per_mb_thermal_neutron": 1.1,
+      "fit_per_mb_thermal_neutron_error": "-15% +18%",
+      "fit_per_mb_alpha": 50,
+      "fit_per_mb_alpha_error": "-34% +56%",
+      "fit_per_mb_realtime": 40,
+      "fit_per_mb_realtime_error": "-17% +21%",
+      "source": "UG116 v10.20 Table 1, row '28 nm / Kintex 7 and Virtex 7'",
+      "confidence": "measured"
+    },
+    "BRAM": {
+      "lansce_neutron_sigma_cm2_per_bit": 5.57e-15,
+      "lansce_error": "+/-18%",
+      "fit_per_mb_thermal_neutron": 1.8,
+      "fit_per_mb_thermal_neutron_error": "-15% +18%",
+      "fit_per_mb_alpha": 45,
+      "fit_per_mb_alpha_error": "-34% +56%",
+      "fit_per_mb_realtime": 42,
+      "fit_per_mb_realtime_error": "-23% +31%",
+      "source": "UG116 v10.20 Table 2, row '28 nm / Kintex 7 and Virtex 7'",
+      "confidence": "measured"
+    },
+    "FF": {
+      "lansce_neutron_sigma_cm2_per_bit": null,
+      "source": "UG116 does not publish a user flip-flop (FF) cross-section; it covers CRAM, BRAM, URAM only.",
+      "confidence": "gap",
+      "gap_note": "No official FF value in UG116. Keep the heavy-ion FF value from Lee et al. 2014 (weibull_7series_measured.json) and flag as缺口 per handover."
+    }
+  },
+  "crosscheck_note": "Magnitude cross-check only. The heavy-ion sigma_sat in weibull_7series_measured.json (3.34e-12 .. 1.47e-11 cm^2/bit) is ~3 orders of magnitude above these neutron cross-sections (~5.6e-15 cm^2/bit). That is expected: heavy-ion sigma_sat is the saturated cross-section for high-LET ions, whereas UG116 is a single-energy atmospheric-neutron cross-section. Per handover A4, convert fitted heavy-ion sigma_sat to a neutron-equivalent FIT and compare against UG116; a >10x discrepancy requires written discussion.",
+  "crosscheck_performed_2026_08_22": {
+    "independent_measured_neutron_sigma": {
+      "source": "Wirthlin, Takai, Harding, 2014 JINST 9 C01025, Table 1 (open access), Kintex-7 XC7K325T, LANSCE wide-spectrum neutron",
+      "CRAM_cm2_per_bit": 6.89e-15,
+      "BRAM_cm2_per_bit": 6.15e-15,
+      "vs_ug116_v10_20": "CRAM 6.89e-15 vs 5.69e-15 (+21%), BRAM 6.15e-15 vs 5.57e-15 (+10%). Same order, same beam type, measured ~11 years apart: anchor CONFIRMED, well inside the 10x review threshold."
+    },
+    "order_of_magnitude_fit_check": {
+      "method": "sigma x reference flux: 5.69e-15 cm2/bit x ~14 cm-2 h-1 (JEDEC JESD89A New York City sea-level reference condition, integral flux above ~10 MeV)",
+      "CRAM_estimated": "5.69e-15 * 14 * 1e6 bits/Mb = 7.97e-8 upsets/h/Mb -> ~80 FIT/Mb",
+      "UG116_realtime_CRAM": "40 FIT/Mb",
+      "ratio": "~2x",
+      "verdict": "Same order of magnitude. Expected residual: the LANSCE single-energy sigma is not the full atmospheric spectrum response, and the UG116 real-time FIT is per JESD89A-89-1A with alpha and thermal-neutron contributions measured separately. Order-of-magnitude check PASSED (threshold 10x)."
+    },
+    "ug116_revision_check": "2026-08-22 web check: v10.20 (2025-07-23) still the latest indexed revision on docs.amd.com; UG116 is updated twice a year, re-check before citing in a paper."
+  },
+  "layout_ecc_usage_note": "Validation anchor only. Do NOT feed these neutron numbers into the heavy-ion Weibull kernel. Strike GUI flip_model=weibull uses weibull_7series_measured.json (Lee 2014 HI).",
+  "gaps": {
+    "FF_neutron_cross_section": "not published in UG116; gap",
+    "weibull_shape_parameters": "UG116 gives neutron FIT, not heavy-ion Lth/W/s; shape parameters come from Lee et al. 2014",
+    "DVF_note": "UG116 reports raw memory-cell SEU rates; functional soft error rate is lower by the Device Vulnerability Factor (typical DVF 5%, worst case 10%)"
+  }
+}

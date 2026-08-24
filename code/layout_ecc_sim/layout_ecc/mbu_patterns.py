@@ -21,6 +21,22 @@ P_K_NEUTRON_FPGA_SOURCE = (
     "event is stored as k=2 (lower bound)."
 )
 
+# Independent cross-check (added 2026-08-22): Wirthlin, Takai, Harding,
+# 2014 JINST 9 C01025 (doi 10.1088/1748-0221/9/01/C01025), Table 2
+# 'Percentage of events with N upsets', inter-frame interpretation, Kintex-7
+# XC7K325T CRAM under LANSCE/TSL/H4 neutron and proton beams:
+# N=1: 65.0%, N=2: 26.8%, N=3: 2.9%, N=4: 3.5%, N=5: 0.61%, N>=6: 1.3%.
+# Agreement with the TNS 2021 table above (70/30) within a few percent
+# validates the default P(k) mix with a second independent measurement.
+P_K_WIRTHLIN_JINST2014_INTERFRAME = {
+    1: 0.650, 2: 0.268, 3: 0.029, 4: 0.035, 5: 0.0061, 6: 0.013,
+}
+P_K_WIRTHLIN_SOURCE = (
+    "source: Wirthlin, Takai, Harding, 2014 JINST 9 C01025, Table 2 "
+    "(inter-frame MBU classification, 28 nm Kintex-7 CRAM). Cross-check "
+    "only; default table remains the TNS 2021 neutron mix."
+)
+
 # Mayo et al., IEEE TNS 2025 (doi:10.1109/TNS.2025.3531510), Versal 7 nm
 # CRAM, LET=62.4 MeV·cm²/mg: σ_SBU = 5.73e-11 cm², σ_2bit = 5.97e-11 cm².
 # Max observed multiplicity 4. Default scan uses the 7-series neutron table
@@ -58,6 +74,10 @@ def distribution_table():
         "alternate_versal_1and2": {
             "p_k": {str(k): v for k, v in sorted(P_K_VERSAL_HIGHLET_1AND2.items())},
             "source": P_K_VERSAL_SOURCE,
+        },
+        "crosscheck_wirthlin_jinst2014": {
+            "p_k": {str(k): v for k, v in sorted(P_K_WIRTHLIN_JINST2014_INTERFRAME.items())},
+            "source": P_K_WIRTHLIN_SOURCE,
         },
         "domain_allocation": DOMAIN_ALLOCATION_NOTE,
         "domains": list(ORDER),

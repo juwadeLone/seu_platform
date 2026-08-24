@@ -6,20 +6,35 @@ import from this file; do not copy the numbers elsewhere.
 import math
 
 # ---------------------------------------------------------------------------
-# RPM grid → micrometres
+# RPM grid → micrometres (calibrated 2026-08-22, replaces the 8 µm assumption)
 # ---------------------------------------------------------------------------
-# Xilinx UG474 / DS180 publish 7-series CLB *counts* and the 28 nm process,
-# not the physical pitch of one RPM step. No official µm/RPM figure exists.
-RPM_TO_UM = 8.0
-RPM_TO_UM_RANGE_UM = (4.0, 16.0)
+# Xilinx publishes no µm/RPM figure, but UG475 v1.9 gives official die
+# dimensions per device and the open Project X-Ray database gives the exact
+# tile-array extents. Two devices (XC7K70T 117x209 tiles on a 5.99x9.68 mm
+# die; XC7A200T 265x261 tiles on 11.10x12.05 mm) fix the 7-series lattice:
+# 34.53 µm per tile column, 45.58 µm per tile row (independent check on
+# XC7K325T reproduces its DS160 25,400 CLBs within ~1.5%).
+# On this repo's primitive_map the CSV grid is grid_x = 2*SLICE_X+5 and
+# grid_y = 2*SLICE_Y (verified over all 139,826 placed slice rows), and a
+# Vivado CLB tile column hosts the adjacent slice pair SLICE_X(2k)/(2k+1)
+# while SLICE_Y maps 1:1 to tile rows. Hence one CSV grid unit is half a
+# tile row (22.79 µm) in Y and a quarter CLB column (8.63 µm) in X.
+RPM_TO_UM_Y = 22.79          # µm per CSV grid unit, Y axis (calibrated)
+RPM_TO_UM_X_IN_CLB = 8.63    # µm per CSV grid unit, X axis within one CLB
+RPM_TO_UM_LEGACY = 8.0       # pre-calibration assumption, kept for old scans
+RPM_TO_UM = RPM_TO_UM_Y
+RPM_TO_UM_RANGE_UM = (21.8, 23.8)
 RPM_TO_UM_NOTE = (
-    "assumption: 1 occupancy-grid step = 1 Vivado RPM integer on this "
-    "primitive_map; 7-series slice/CLB-row pitch is unpublished. Interval "
-    "4–16 µm is a 28 nm scaling of 65 nm CLB-scale floorplan estimates "
-    "(roughly 10–30 µm) by 28/65, plus margin for wider DSP/BRAM columns. "
-    "Nominal 8 µm is the interval midpoint. Not a measured xc7vx690t number."
+    "calibrated: UG475 v1.9 official die dimensions (Fig. 4-5/4-7/4-12/4-15) "
+    "x Project X-Ray tilegrid extents -> 34.53 µm/tile column, 45.58 µm/tile "
+    "row; CSV grid unit = half tile row in Y (22.79 µm, used as the default "
+    "scalar) and quarter CLB column in X (8.63 µm within a CLB). X is NOT "
+    "uniform: neighbouring CLB columns are ~3 tile columns apart, so "
+    "cross-column distances are understated ~5x by the uniform lattice. "
+    "Full derivation, SHA-256 and cross-checks: "
+    "data/rpm_grid_calibration.json. Was 8 µm assumption before 2026-08-22."
 )
-RPM_TO_UM_SOURCE = "assumption"
+RPM_TO_UM_SOURCE = "calibrated"
 
 # ---------------------------------------------------------------------------
 # Radaelli 2005 SRAM MBU cluster area vs neutron energy
@@ -157,6 +172,14 @@ def constants_passport():
             "range_um": list(RPM_TO_UM_RANGE_UM),
             "source": RPM_TO_UM_SOURCE,
             "note": RPM_TO_UM_NOTE,
+            "axis_detail": {
+                "y_um_per_grid_unit": RPM_TO_UM_Y,
+                "x_um_per_grid_unit_within_clb": RPM_TO_UM_X_IN_CLB,
+                "legacy_assumption_um": RPM_TO_UM_LEGACY,
+                "tile_column_pitch_um": 34.53,
+                "tile_row_pitch_um": 45.58,
+            },
+            "calibration_file": "data/rpm_grid_calibration.json",
         },
         "radaelli_2005": {
             "points": [dict(p) for p in RADAELLI_2005],
