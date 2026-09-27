@@ -20,7 +20,8 @@ from .kernel import kernel_axes, kernel_axes_from_area
 from .mbu_patterns import sample_k, select_k
 from .units import RPM_TO_UM, area_um2_from_let, radius_um_from_area
 from .weibull import (
-    kernel_area_cm2, mu_upsets, p_at_least_one, poisson, sigma_cm2,
+    ellipse_samples, kernel_area_cm2, mu_upsets, overlap_fraction,
+    p_at_least_one, poisson, sigma_cm2, tile_area_cm2,
 )
 
 
@@ -70,6 +71,8 @@ def _collect_candidates(layout, x0, y0, a, b, phi):
                 "codeword_confidence": t.get("codeword_confidence") or "proxy",
                 "is_shared": bool(t.get("is_shared")),
                 "is_used": t["is_used"],
+                "module": t.get("module"),
+                "rect": [t["x"], t["y"], t["w"], t["h"]],
             })
     return candidates
 
@@ -82,16 +85,23 @@ def _flip_bernoulli(candidates, rng, p_by_domain):
     return flipped
 
 
-def _flip_weibull(candidates, rng, let, area_cm2):
-    """One ion in A: N ~ Poisson(bits · σ(LET) / A); keep N ≥ 1.
+def _flip_weibull(candidates, rng, let, samples, rpm):
+    """One ion: N ~ Poisson(bits · σ(LET) / A_tile · f); keep N ≥ 1.
 
-    DSP has no Lee σ: mu=0, never flipped. n_bits is the Poisson draw,
-    capped at the site occupancy (not the old n_bits=1 placeholder).
+    A_tile is the site cell the bits are spread over, f the share of the
+    kernel on that tile. DSP has no Lee σ: mu=0, never flipped. n_bits is
+    the Poisson draw, capped at the site occupancy.
     """
     flipped = []
+    frac_cache = {}
     for entry in candidates:
         sig = sigma_cm2(entry["domain"], let)
-        mu = mu_upsets(entry["bits"], sig, area_cm2)
+        rect = tuple(entry["rect"])
+        if rect not in frac_cache:
+            frac_cache[rect] = overlap_fraction(samples, *rect)
+        frac = frac_cache[rect]
+        a_tile = tile_area_cm2(rect[2], rect[3], rpm)
+        mu = mu_upsets(entry["bits"], sig, a_tile, overlap=frac)
         n = 0 if sig is None else poisson(rng, mu)
         n = min(int(n), int(entry["bits"]))
         rec = dict(
@@ -100,6 +110,8 @@ def _flip_weibull(candidates, rng, let, area_cm2):
             mu=mu,
             p_at_least_one=p_at_least_one(mu),
             sigma_cm2=sig,
+            tile_area_cm2=a_tile,
+            kernel_overlap=frac,
         )
         if n > 0:
             flipped.append(rec)
@@ -131,7 +143,8 @@ def run_strike(layout, x0, y0, let, theta_deg, phi_deg, a0,
     if flip_model == "bernoulli":
         flipped = _flip_bernoulli(candidates, rng, p_by_domain)
     elif flip_model == "weibull":
-        flipped = _flip_weibull(candidates, rng, let, area_cm2)
+        flipped = _flip_weibull(
+            candidates, rng, let, ellipse_samples(x0, y0, a, b, phi), rpm)
     elif flip_model == "pattern":
         flipped, pattern_k = _flip_pattern(
             candidates, rng, x0, y0, pattern_shape or "cluster")
@@ -163,8 +176,9 @@ def run_strike(layout, x0, y0, let, theta_deg, phi_deg, a0,
         zero_note = ""
     if flip_model == "weibull":
         note = (
-            "flip_model=weibull: N ~ Poisson(bits·σ_Lee(LET)/A_kernel) with "
-            "σ from Lee et al. REDW 2014 (cm²/bit) and A in cm². "
+            "flip_model=weibull: N ~ Poisson(bits·σ_Lee(LET)/A_tile·f) with "
+            "σ from Lee et al. REDW 2014 (cm²/bit, Table 1 A is cm²), A_tile "
+            "the site cell area in cm² and f the kernel share on that tile. "
             "DSP_STATE has no Lee curve (never flipped). "
             "CFG bits are UG470 bitstream/slice share, not essential bits. "
             "RPM→µm uses units.py calibration "

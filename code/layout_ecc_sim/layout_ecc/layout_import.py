@@ -16,6 +16,7 @@ from .stage_tags import (
     stage_hex,
 )
 from .codeword_map import majority_codeword
+from .modules import build_modules, pick_depth
 
 _SITE_KIND = (
     ("SLICE", "SLICE"),
@@ -81,9 +82,14 @@ def load_primitive_map(path, zh=0.12):
     ncols = xmax - xmin + 1
     nrows = ymax - ymin + 1
 
+    depth = pick_depth([h for s in sites.values() for h in s["hier"]])
+    site_mod, modules = build_modules(
+        {k: s["hier"] for k, s in sites.items()}, depth)
+    mod_idx = {m["path"]: m["id"] for m in modules}
+
     tiles = []
     n_shared = 0
-    for i, s in enumerate(sites.values()):
+    for i, (key, s) in enumerate(sites.items()):
         ix = s["gx"] - xmin
         iy = s["gy"] - ymin
         maj = majority_site(s["hier"])
@@ -116,6 +122,8 @@ def load_primitive_map(path, zh=0.12):
             "symbol_id": cw.get("symbol_id"),
             "codeword_confidence": cw.get("confidence"),
             "codeword_scheme": cw.get("scheme"),
+            "module": site_mod[key],
+            "module_idx": mod_idx[site_mod[key]],
         })
 
     used_xy = {(t["grid_x"], t["grid_y"]) for t in tiles}
@@ -141,6 +149,9 @@ def load_primitive_map(path, zh=0.12):
         "stage_colors": STAGE_COLORS,
         "resource_colors": RESOURCE_COLORS,
         "tiles": tiles,
+        "modules": modules,
+        "module_depth": depth,
+        "design": os.path.basename(os.path.dirname(os.path.abspath(path))),
         "used_xy": used_xy,
         "default_x0": cx, "default_y0": cy, "default_a0": 12.0,
         "color_used": COLOR_USED, "color_unused": COLOR_UNUSED,

@@ -94,13 +94,13 @@ def compute_orbit_payload():
     result = run(config)
     result["_config_source"] = os.path.basename(cfg_path)
     result["_frozen_baseline"] = {
-        "note": "out_vx690t_measured/results.json（layout_ecc 仓库现行次数表，2026-08-20 实跑）",
+        "note": "out_vx690t_measured/results.json（layout_ecc 仓库现行次数表，2026-09-26 实跑；σ 单位、LET、屏蔽、角度、离子种类已更正）",
         "per_domain_rates_day_per_bit": {
-            "CRAM": 2.2145206308470516e-10,
-            "BRAM": 9.154913262420707e-10,
-            "FF": 2.371627141428757e-10,
+            "CRAM": 9.037335152498067e-08,
+            "BRAM": 4.6683830045994216e-07,
+            "FF": 1.008992354740081e-07,
         },
-        "device_events_per_day": 0.10072309318190643,
+        "device_events_per_day": 46.160314073644855,
     }
     _ORBIT_PAYLOAD = result
     return result

@@ -46,7 +46,7 @@
       "gap_note": "No official FF value in UG116. Keep the heavy-ion FF value from Lee et al. 2014 (weibull_7series_measured.json) and flag as缺口 per handover."
     }
   },
-  "crosscheck_note": "Magnitude cross-check only. The heavy-ion sigma_sat in weibull_7series_measured.json (3.34e-12 .. 1.47e-11 cm^2/bit) is ~3 orders of magnitude above these neutron cross-sections (~5.6e-15 cm^2/bit). That is expected: heavy-ion sigma_sat is the saturated cross-section for high-LET ions, whereas UG116 is a single-energy atmospheric-neutron cross-section. Per handover A4, convert fitted heavy-ion sigma_sat to a neutron-equivalent FIT and compare against UG116; a >10x discrepancy requires written discussion.",
+  "crosscheck_note": "Magnitude cross-check only. Corrected 2026-09-26: the heavy-ion sigma_sat in weibull_7series_measured.json is 3.34e-8 .. 1.47e-7 cm^2/bit (Lee 2014 Table 1 A is cm^2/bit; the printed um^2 header is a typo, see that file's unit_note), i.e. ~6-7 orders of magnitude above these neutron cross-sections (~5.6e-15 cm^2/bit). That gap is the normal heavy-ion vs nucleon ratio for bulk SRAM: heavy-ion sigma_sat is the direct-ionization saturated cross-section (includes multi-cell upsets), while the neutron/proton value is a nuclear-reaction cross-section. The earlier note (3.34e-12 and \"~3 orders, expected\") rationalized the 1e4 unit error and is withdrawn. Per handover A4, convert fitted heavy-ion sigma_sat to a neutron-equivalent FIT and compare against UG116; a >10x discrepancy requires written discussion.",
   "crosscheck_performed_2026_08_22": {
     "independent_measured_neutron_sigma": {
       "source": "Wirthlin, Takai, Harding, 2014 JINST 9 C01025, Table 1 (open access), Kintex-7 XC7K325T, LANSCE wide-spectrum neutron",

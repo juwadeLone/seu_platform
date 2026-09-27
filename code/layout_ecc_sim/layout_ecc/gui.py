@@ -11,16 +11,20 @@ import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 from .domains import LABEL, ORDER, summarize
+from .effects_coverage import build_effects_payload
 from .geom_metrics import stage_bboxes, stage_points
 from .layout_import import load_primitive_map
 from .layout_synth import bounding_box
 from .strike import g4_presets, run_strike
+from .strike_effects import classify
 
 _WEB = os.path.join(os.path.dirname(__file__), "webapp")
 _MIME = {".html": "text/html; charset=utf-8",
          ".js": "application/javascript; charset=utf-8",
          ".css": "text/css; charset=utf-8",
-         ".json": "application/json"}
+         ".json": "application/json",
+         ".jpg": "image/jpeg",
+         ".png": "image/png"}
 
 _CSV = os.path.normpath(os.path.join(
     os.path.dirname(__file__), "..", "data", "layout", "p1_ooc_win",
@@ -58,7 +62,8 @@ def _layout_payload():
                       summarize(t.get("domains") or {}),
                       int(t.get("stage_id") or -1),
                       t.get("module_role") or "unknown",
-                      1 if t.get("is_shared") else 0])
+                      1 if t.get("is_shared") else 0,
+                      int(t.get("module_idx", -1))])
     ts = _LAYOUT.get("tag_stats") or {}
     return {
         "domains": list(ORDER),
@@ -92,6 +97,9 @@ def _layout_payload():
         "color_used": _LAYOUT["color_used"],
         "color_unused": _LAYOUT["color_unused"],
         "cells": cells,
+        "design": _LAYOUT.get("design"),
+        "modules": _LAYOUT.get("modules") or [],
+        "module_depth": _LAYOUT.get("module_depth"),
     }
 
 
@@ -113,9 +121,22 @@ class _Handler(BaseHTTPRequestHandler):
             with open(os.path.join(_WEB, "index.html"), "rb") as fh:
                 self._send(200, "text/html; charset=utf-8", fh.read())
             return
+        if path in ("/sar", "/sar.html"):
+            with open(os.path.join(_WEB, "sar.html"), "rb") as fh:
+                self._send(200, "text/html; charset=utf-8", fh.read())
+            return
+        if path in ("/effects", "/effects.html"):
+            with open(os.path.join(_WEB, "effects.html"), "rb") as fh:
+                self._send(200, "text/html; charset=utf-8", fh.read())
+            return
         if path in ("/seu", "/seu.html", "/seu_inside.html"):
             with open(os.path.join(_WEB, "seu_inside.html"), "rb") as fh:
                 self._send(200, "text/html; charset=utf-8", fh.read())
+            return
+        if path == "/api/effects":
+            self._send(200, "application/json; charset=utf-8",
+                       json.dumps(_safe(build_effects_payload()),
+                                  ensure_ascii=False))
             return
         if path == "/api/layout":
             self._send(200, "application/json",
@@ -152,6 +173,7 @@ class _Handler(BaseHTTPRequestHandler):
                 flip_model=str(cfg.get("flip_model") or "weibull"),
                 rpm_to_um=float(cfg["rpm_to_um"]) if cfg.get("rpm_to_um") else None,
             )
+            out["effects"] = classify(out, out["let"])
             self._send(200, "application/json", json.dumps(_safe(out)))
         except Exception as exc:
             self._send(400, "application/json",

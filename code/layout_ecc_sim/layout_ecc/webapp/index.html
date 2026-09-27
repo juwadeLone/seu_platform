@@ -2,265 +2,231 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>LayoutECC · 空间辐射打击仿真器 v1.0.1</title>
+<title>LayoutECC · 辐射打击 v1.2.0</title>
 <style>
-  :root { --bg:#04070d; --bg2:#081120; --panel:rgba(13,22,38,.78); --line:#1b3350;
-          --txt:#d9e6f5; --dim:#7f93ab; --acc:#00e5ff; --acc2:#4da3ff; --warn:#ffb454;
-          --ok:#7ee787; --src:#5f7d9c; --glow:0 0 14px rgba(0,229,255,.35); }
+  :root { --bg:#04070d; --panel:rgba(12,21,36,.86); --line:#1b3350; --txt:#d9e6f5; --dim:#7f93ab;
+          --acc:#00e5ff; --warn:#ffb454; --bad:#ff5f56; --ok:#7ee787; }
   * { box-sizing:border-box; margin:0; padding:0; }
-  html, body { height:100%; color:var(--txt);
-               font:14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif; }
-  body { display:flex; flex-direction:column; position:relative;
-         background:
-           radial-gradient(1100px 600px at 78% -10%, rgba(0,90,160,.20), transparent 60%),
-           radial-gradient(900px 500px at -10% 110%, rgba(0,190,255,.10), transparent 55%),
-           linear-gradient(180deg, var(--bg2), var(--bg) 45%);
-         overflow:hidden; }
-  body::before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.55;
-    background:
-      repeating-linear-gradient(0deg, transparent 0 47px, rgba(35,80,130,.10) 47px 48px),
-      repeating-linear-gradient(90deg, transparent 0 47px, rgba(35,80,130,.10) 47px 48px);
-  }
-  header { position:relative; padding:12px 20px 10px; display:flex; align-items:center;
-           gap:14px; flex-wrap:wrap; z-index:3;
-           background:linear-gradient(180deg, rgba(10,20,36,.92), rgba(6,12,22,.55));
-           border-bottom:1px solid var(--line); }
-  header::after { content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
-    background:linear-gradient(90deg, transparent, var(--acc) 30%, var(--acc2) 70%, transparent);
-    animation:scan 6s linear infinite; opacity:.85; }
-  @keyframes scan { 0%{transform:translateX(-30%)} 100%{transform:translateX(30%)} }
-  .logo { width:30px; height:30px; border-radius:8px; flex:none;
-    background:radial-gradient(circle at 34% 30%, #0e2a44, #071526 70%);
-    border:1px solid #17466b; box-shadow:var(--glow); position:relative; }
-  .logo::after { content:""; position:absolute; inset:6px; border-radius:50%;
-    border:2px solid var(--acc); border-right-color:transparent;
-    transform:rotate(35deg); box-shadow:0 0 8px rgba(0,229,255,.5); }
-  header h1 { font-size:17px; font-weight:700; letter-spacing:.12em;
-    background:linear-gradient(90deg,#eaf6ff, #7fd4ff);
-    -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .sub { font-size:11px; color:var(--dim); letter-spacing:.24em; }
-  .chip { font-size:11px; padding:2px 9px; border-radius:999px; color:#9fdcff;
-          border:1px solid #17466b; background:rgba(10,34,58,.6); white-space:nowrap; }
-  .chip.hot { color:var(--warn); border-color:#5d431a; background:rgba(58,43,18,.45); }
-  .led { width:8px; height:8px; border-radius:50%; background:var(--ok);
-         box-shadow:0 0 7px var(--ok); display:inline-block; margin-right:5px;
-         animation:pulse 2.2s ease-in-out infinite; }
-  @keyframes pulse { 50%{opacity:.35} }
-  a.nav { margin-left:auto; color:var(--acc); text-decoration:none; font-size:13px;
-          letter-spacing:.04em; }
-  a.nav:hover { text-shadow:0 0 9px rgba(0,229,255,.8); }
-  main { flex:1; display:flex; min-height:0; z-index:2; }
-  form { width:326px; flex:none; padding:12px 12px 18px; overflow:auto; z-index:2;
-         background:linear-gradient(180deg, rgba(9,17,30,.86), rgba(5,10,18,.9));
-         border-right:1px solid var(--line); backdrop-filter:blur(7px); }
-  form::-webkit-scrollbar { width:8px; } 
-  form::-webkit-scrollbar-thumb { background:#17304d; border-radius:4px; }
-  .card { border:1px solid var(--line); border-radius:12px; padding:11px 12px 12px;
-          margin-bottom:12px; background:var(--panel);
-          box-shadow:0 4px 18px rgba(0,0,0,.35), inset 0 1px 0 rgba(120,190,255,.06); }
-  form h2 { font-size:11.5px; color:var(--acc); margin-bottom:7px; letter-spacing:.18em;
-            text-transform:uppercase; display:flex; align-items:center; gap:8px; }
-  form h2::before { content:""; width:8px; height:8px; flex:none;
-    background:linear-gradient(135deg, var(--acc), var(--acc2));
-    clip-path:polygon(0 0,100% 0,100% 100%); box-shadow:var(--glow); }
-  label { display:flex; justify-content:space-between; align-items:center;
-          margin:5px 0; font-size:13px; color:var(--dim); gap:8px; }
-  label b { color:var(--txt); font-weight:500; }
-  input, select { background:#060d18; color:var(--txt); border:1px solid #1d3a5c;
-                  border-radius:7px; padding:4px 7px; width:122px; font:inherit;
-                  font-variant-numeric:tabular-nums; }
-  input:focus, select:focus { outline:none; border-color:var(--acc);
-                              box-shadow:0 0 8px rgba(0,229,255,.35); }
-  input[type=checkbox] { width:auto; padding:0; margin-right:2px; accent-color:#00b7e0; }
-  #domToggles label { justify-content:flex-start; }
-  button { margin-top:10px; width:100%; padding:9px; border:0; border-radius:9px;
-           cursor:pointer; font-weight:700; letter-spacing:.06em;
-           background:linear-gradient(135deg,#00c3e8,#2f7bff); color:#03101d;
-           box-shadow:0 0 16px rgba(0,180,255,.30); transition:filter .15s; }
-  button:hover { filter:brightness(1.18); }
-  button.sec { background:rgba(18,36,60,.85); color:var(--txt); font-weight:500;
-               border:1px solid #1d3a5c; box-shadow:none; margin-top:6px; }
-  button.sec:hover { border-color:var(--acc); }
-  #stage { flex:1; position:relative; min-width:0; z-index:1; }
-  canvas { position:absolute; inset:0; width:100%; height:100%;
-           touch-action:none; cursor:grab; display:block; }
-  canvas:active { cursor:grabbing; }
-  #read { padding:7px 16px; border-top:1px solid var(--line); z-index:3;
-          background:linear-gradient(180deg, rgba(6,12,22,.9), rgba(4,8,14,.96));
-          font:12.5px/1.5 Consolas, monospace; color:var(--dim); min-height:30px;
-          letter-spacing:.02em; }
-  #read b { color:var(--ok); }
-  .mini { font-size:11.5px; color:var(--dim); margin-top:8px; line-height:1.5; }
-  .src { font-size:10.5px; color:var(--src); margin-top:8px; line-height:1.55;
-         border-top:1px dashed #16304c; padding-top:6px; }
-  .src::before { content:"📎 来源 "; color:#3f6d99; letter-spacing:.06em; }
-  .src code { color:#8fb6dd; }
-  .sw { display:inline-block; width:10px; height:10px; border-radius:2px;
-        margin:0 4px 0 8px; box-shadow:0 0 6px rgba(255,255,255,.12); }
-  #hover { position:absolute; pointer-events:none; z-index:5; display:none;
-           max-width:250px; font-size:12px; color:var(--txt); padding:9px 11px;
-           background:rgba(8,16,30,.92); border:1px solid #21507e; border-radius:10px;
-           box-shadow:0 6px 22px rgba(0,0,0,.5), 0 0 12px rgba(0,140,255,.15);
-           backdrop-filter:blur(6px); }
+  html, body { height:100%; color:var(--txt); font:13px/1.5 "Segoe UI","Microsoft YaHei",sans-serif; }
+  body { display:flex; flex-direction:column; overflow:hidden;
+    background:radial-gradient(1100px 600px at 78% -10%, rgba(0,90,160,.18), transparent 60%), linear-gradient(180deg,#081120,#04070d 45%); }
+  header { display:flex; align-items:center; gap:10px; padding:9px 16px; border-bottom:1px solid var(--line); flex:none; }
+  .logo { width:24px; height:24px; border-radius:7px; border:1px solid #17466b; position:relative;
+    background:radial-gradient(circle at 34% 30%, #0e2a44, #071526 70%); }
+  .logo::after { content:""; position:absolute; inset:5px; border-radius:50%; border:2px solid var(--acc); border-right-color:transparent; transform:rotate(35deg); }
+  header h1 { font-size:16px; letter-spacing:.12em; }
+  .chip { font-size:11px; padding:2px 9px; border-radius:999px; color:#9fdcff; border:1px solid #17466b; background:rgba(10,34,58,.6); }
+  nav { margin-left:auto; display:flex; gap:10px; font-size:13px; }
+  nav a { color:var(--acc); text-decoration:none; }
+  nav a.on { color:#fff; border-bottom:1px solid var(--acc); }
+  .ver { color:#4f6a88; font-size:11px; }
+  main { flex:1; min-height:0; display:grid; grid-template-columns:250px minmax(0,1fr) 300px; }
+  aside { overflow:auto; padding:10px 12px; }
+  aside.left { border-right:1px solid var(--line); }
+  aside.right { border-left:1px solid var(--line); }
+  .card { border:1px solid var(--line); border-radius:11px; padding:10px 11px; margin-bottom:10px; background:var(--panel); }
+  h2 { font-size:11px; letter-spacing:.16em; color:var(--acc); margin:2px 0 8px; }
+  .sl { display:grid; grid-template-columns:52px 1fr 44px; align-items:center; gap:6px; margin:6px 0; color:var(--dim); }
+  .sl b { color:#fff; text-align:right; font-variant-numeric:tabular-nums; }
+  input[type=range] { width:100%; accent-color:#00b7e0; }
+  .ticks { display:flex; justify-content:space-between; color:#4f6a88; font-size:10px; margin:-4px 44px 4px 58px; }
+  button { width:100%; padding:8px; border:0; border-radius:9px; cursor:pointer; font:inherit; color:var(--txt);
+    background:rgba(18,36,60,.85); border:1px solid #1d3a5c; margin-top:6px; }
+  button:hover { border-color:var(--acc); }
+  button.main { background:linear-gradient(135deg,#00c3e8,#2f7bff); color:#03101d; font-weight:700; letter-spacing:.1em; border:0; font-size:14px; }
+  button.on { border-color:var(--acc); color:#fff; box-shadow:0 0 8px rgba(0,229,255,.3); }
+  .row2 { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .seg { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
+  .seg button { margin:0; padding:5px; }
+  .hint { color:#5f7a98; font-size:11px; margin-top:6px; }
+  #legend { display:flex; flex-wrap:wrap; gap:4px 10px; margin:8px 0 2px; font-size:11.5px; color:var(--dim); }
+  #legend i { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:4px; vertical-align:-1px; }
+  .chk { display:flex; align-items:center; gap:6px; color:var(--dim); margin-top:8px; }
+  details.card summary { cursor:pointer; color:var(--acc); font-size:11px; letter-spacing:.16em; }
+  details .f { display:flex; justify-content:space-between; align-items:center; margin:6px 0; color:var(--dim); gap:8px; }
+  details select, details input[type=number] { background:#060d18; color:var(--txt); border:1px solid #1d3a5c; border-radius:6px; padding:3px 6px; width:120px; font:inherit; }
+  details ol { margin:6px 0 0 16px; color:#6f8aa8; font-size:11px; line-height:1.6; }
+  .stage { position:relative; min-width:0; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; touch-action:none; cursor:crosshair; display:block; }
+  .phases { position:absolute; top:10px; left:50%; transform:translateX(-50%); display:flex; gap:4px; }
+  .phases span { cursor:pointer; }
+  .phases span { padding:4px 10px; border-radius:999px; font-size:12px; color:#5f7a98; border:1px solid #16304c; background:rgba(4,8,14,.7); white-space:nowrap; transition:all .25s; }
+  .phases span i { font-style:normal; font-size:10px; margin-left:5px; color:#4a6480; }
+  .phases span.done { color:#9fb3c8; border-color:#1f4260; }
+  .phases span.on { color:#04101c; background:var(--acc); border-color:var(--acc); box-shadow:0 0 12px rgba(0,229,255,.55); }
+  .phases span.on i { color:#0b3a4a; }
+  #hover { position:absolute; pointer-events:none; display:none; font-size:12px; padding:7px 10px; border-radius:9px;
+    background:rgba(8,16,30,.94); border:1px solid #21507e; max-width:240px; }
   #hover b { color:var(--ok); }
-  details.refs { border:1px solid var(--line); border-radius:12px; padding:8px 12px;
-                 background:var(--panel); }
-  details.refs summary { cursor:pointer; color:var(--acc); font-size:11.5px;
-                         letter-spacing:.14em; }
-  details.refs ol { margin:8px 0 2px 18px; font-size:11px; color:var(--src);
-                    line-height:1.7; }
-  details.refs b { color:#9fc6ea; font-weight:500; }
+  .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:6px; }
+  .stats div { border:1px solid var(--line); border-radius:10px; padding:6px 8px; background:var(--panel); text-align:center; }
+  .stats b { display:block; font-size:22px; color:#fff; font-variant-numeric:tabular-nums; }
+  .stats span { color:var(--dim); font-size:11px; }
+  .where { color:var(--dim); font-size:12px; margin-bottom:10px; min-height:18px; }
+  .where b { color:#e6f2ff; font-weight:500; }
+  .eff, .con { border:1px solid var(--line); border-radius:10px; padding:7px 9px; margin-bottom:6px; background:var(--panel);
+    transition:opacity .35s, transform .35s; }
+  .eff.hide, .con.hide, .rec.hide { opacity:0; transform:translateY(4px); }
+  .eff .h { display:flex; align-items:center; gap:7px; }
+  .eff .h b { color:#fff; font-size:13px; }
+  .eff .h .n { color:var(--dim); font-size:12px; }
+  .pill { font-size:11px; padding:0 7px; border-radius:999px; border:1px solid; line-height:18px; }
+  .t { color:#b9c9da; font-size:12px; margin-top:3px; }
+  .r { color:#5f7a98; font-size:11px; margin-top:2px; }
+  .s-occurred .pill { color:#ffd0cc; border-color:var(--bad); background:rgba(255,95,86,.18); }
+  .s-occurred { border-color:#5b2a2a; }
+  .s-risk .pill { color:#ffd9a0; border-color:var(--warn); background:rgba(255,180,84,.16); }
+  .s-possible .pill { color:#fff0b3; border-color:#b89a3a; background:rgba(255,220,100,.1); }
+  .s-none .pill { color:#6f8aa8; border-color:#2b4a6c; }
+  .s-none { opacity:.62; }
+  .s-unmodeled .pill { color:#8ea3b8; border-color:#4a6480; border-style:dashed; }
+  .con b { color:#ffb3ab; }
+  .rec { color:var(--ok); font-size:12px; margin-top:3px; transition:opacity .35s; }
+  .empty { color:#5f7a98; font-size:12px; padding:6px 2px; }
+  @media (max-width: 1100px) {
+    body { overflow:auto; }
+    main { grid-template-columns:210px minmax(0,1fr); grid-template-rows:minmax(460px,72vh) auto; }
+    aside.right { grid-column:1 / -1; border-left:none; border-top:1px solid var(--line);
+      display:grid; grid-template-columns:1fr 1fr; gap:0 14px; }
+    .phases span i { display:none; }
+    .phases span { padding:3px 8px; }
+  }
 </style>
 </head>
 <body>
 <header>
   <div class="logo"></div>
-  <div>
-    <h1>LAYOUT&nbsp;ECC · 空间辐射打击仿真器</h1>
-    <div class="sub">RADIATION&nbsp;STRIKE&nbsp;SIMULATOR&nbsp;·&nbsp;28&nbsp;nm&nbsp;7-SERIES&nbsp;FPGA&nbsp;·&nbsp;v1.0.1</div>
-  </div>
-  <span class="chip" id="appVer">v1.0.1</span>
-  <span class="chip hot">P1 十级 FFT</span>
-  <span class="chip">XC7VX690T · 24,446 Sites</span>
-  <span class="chip"><span class="led"></span>数据全部可溯源</span>
-  <a class="nav" href="/orbit">轨道辐射环境 →</a>
-  <a class="nav" href="/seu" style="margin-left:0">LUT / FF / BRAM 内部怎么翻 →</a>
+  <h1>辐射打击</h1>
+  <span class="chip" id="devChip">XC7VX690T</span>
+  <span class="chip" id="designChip">设计 —</span>
+  <nav>
+    <a href="/" class="on">打击</a><a href="/orbit">轨道</a><a href="/sar">SAR</a><a href="/effects">效应</a><a href="/seu">器件内部</a>
+  </nav>
+  <span class="ver">v1.2.0</span>
 </header>
 <main>
-<form id="cfg">
-  <div class="card">
-  <h2>打击参数</h2>
-  <label><b>中心 x</b><input id="x0" type="number" step="0.1" value="12"></label>
-  <label><b>中心 y</b><input id="y0" type="number" step="0.1" value="20"></label>
-  <label><b>LET</b><input id="let" type="number" step="1" value="15"></label>
-  <label><b>θ °（天顶角）</b><input id="theta" type="number" step="5" value="45"></label>
-  <label><b>φ °（方位角）</b><input id="phi" type="number" step="5" value="30"></label>
-  <label><b>核半径 a0</b><input id="a0" type="number" step="0.5" value="12"></label>
-  <label><b>k_LET</b><input id="klet" type="number" step="0.05" value="0.25"></label>
-  <label><b>随机种子</b><input id="seed" type="number" value="1"></label>
-  <label><b>核模型</b>
-    <select id="kernel" style="width:122px">
-      <option value="anchored" selected>anchored（WP8 µm²）</option>
-      <option value="legacy_linear">legacy a0（几何调试）</option>
-    </select>
-  </label>
-  <label><b>翻转模型</b>
-    <select id="flip" style="width:122px">
-      <option value="weibull" selected>Lee 2014 σ(LET)</option>
-      <option value="bernoulli">旧 P_DEFAULT</option>
-      <option value="pattern">WP9 MBU 图案</option>
-    </select>
-  </label>
-  <p class="mini" style="margin-top:0">
-    Lee σ 配 anchored 核时翻转很少、甚至候选为 0，是物理结果（核半径 &lt; 1 格），不是坏了。a0 / k_LET 只在 legacy 核下生效。
-  </p>
-  <p class="src">
-    布局坐标 = P1 OOC 布局 DCP（Vivado 2018.3，<code>xc7vx690tffg1761-2</code>）导出的 Site 栅格；
-    anchored 核面积 A(LET) = Radaelli 2005 SRAM MBU 面积幂律（Ebrahimi DAC'13 Table 1，α≈0.70，能量→LET 桥为显式假设）；
-    a0 / k_LET 为几何调试参数，无物理出处。
-  </p>
-  <button id="go" type="submit">▶ 构造椭圆并抽样</button>
-  <button class="sec" id="rand" type="button">随机打击中心</button>
-  <button class="sec" id="lock" type="button">俯视锁定：关（拖拽会转相机）</button>
-  <button class="sec" id="reset" type="button">重置视角</button>
-  </div>
-
-  <div class="card">
-  <h2>故障域（指南第 8 节）</h2>
-  <p class="mini" style="margin-top:0">
-    同一 Site 在同一 (x,y) 上叠加多个故障域；同一个椭圆对每个域各求一次交，
-    跨域相关性因此保留。勾选只影响黄/红标记的显示，计算始终覆盖全部域。
-  </p>
-  <div id="domToggles"></div>
-  <p class="src">
-    每域位数：CFG 2122 bits/slice ← UG470 Table 1-1 bitstream 229,878,496 ÷ DS180 slices 108,300（均摊，<b>非</b> essential bits）；
-    BRAM 36,864 ← UG473 RAMB36E1（36 Kb）；FF ← 布局 FD*/LD* 实例（器件总量 866,400 ← UG474/DS180，8 FF/slice）；
-    DSP 169 ← UG479 DSP48E1 数据通路寄存器——无实测 σ（Lee Table 1 无 DSP 行），weibull 模式永不翻转 DSP。
-  </p>
-  </div>
-
-  <div class="card">
-  <h2>着色</h2>
-  <label><b>模式</b>
-    <select id="colorMode" style="width:122px">
-      <option value="stage">按 FFT 级</option>
-      <option value="resource">按资源类型</option>
-    </select>
-  </label>
-  <label><b>级边界</b>
-    <span><input id="showBbox" type="checkbox"> 叠加包围盒</span>
-  </label>
-  <p class="mini" id="stageLegend"></p>
-  <p class="src">级/角色标签 = WP1 层次名解析（unknown role 占 0.02%）；级色为 HSV 色带，仅用于区分。</p>
-  </div>
-
-  <div class="card">
-  <h2>格子含义</h2>
-  <p class="mini">
-    整片是 P1 在 <b>xc7vx690t</b> 上占用包围盒里的 Site 栅格（RPM 坐标）。<br>
-    <span class="sw" style="background:#0b1119;border:1px solid #2c5988"></span>暗格 = 包围盒内空闲<br>
-    <span class="sw" style="background:#ffd23f"></span>黄 = 椭圆候选（域×Site）　
-    <span class="sw" style="background:#ff5f56"></span>红 = 抽样翻转<br>
-    一格是一个 FPGA Site；悬停显示 stage / role / 域位占位。
-  </p>
-  <p class="src">
-    网格→物理尺寸：1 格 = Y 向 22.79 µm / X 向 8.63 µm（CLB 内，跨列非均匀）——2026-08-22 由
-    <b>UG475 v1.9 官方 die 尺寸 × Project X-Ray 栅格数</b>标定（tile 行 45.58 µm、列 34.53 µm），
-    详见 <code>data/rpm_grid_calibration.json</code>（含 UG475 SHA-256 与 K325T 独立验证）。
-  </p>
-  </div>
-
-  <div class="card">
-  <h2>几何用例（指南 9.3）</h2>
-  <select id="preset" style="width:100%;margin-top:4px">
-    <option value="">选择预设…</option>
-  </select>
-  <button class="sec" id="applyP" type="button">应用预设并打击</button>
-  <p class="mini">黄/红钉在 Site 上；拖拽转相机。俯视锁定后左键只平移。</p>
-  </div>
-
-  <details class="refs">
-    <summary>资料来源总表（全部参数出处）</summary>
-    <ol>
-      <li><b>重离子 σ(LET) Weibull（CRAM/BRAM/FF 三域）</b>：Lee, Wirthlin, Swift, Le, 2014 IEEE REDW, DOI 10.1109/REDW.2014.7004595，Table 1（σsat = A µm²/bit × 1e-8；DUT XC7K325T，28 nm 同族借用）。OSTI 全文公开。</li>
-      <li><b>RPM 格 → µm</b>：Xilinx UG475 v1.9《7 Series Packaging and Pinout》Chapter 4 官方 die 尺寸 × Project X-Ray tilegrid（K70T/A200T 双器件拟合，K325T 独立验证）→ data/rpm_grid_calibration.json。</li>
-      <li><b>anchored 核面积 A(E)</b>：Radaelli 2005（经 Ebrahimi DAC 2013 Table 1 转录，22/47/95/144 MeV → 1.178/1.902/2.903/4.613 µm²）；能量→LET 桥为平台显式假设。</li>
-      <li><b>MBU P(k)（pattern 模型）</b>：Pérez-Celis &amp; Wirthlin, IEEE TNS 2021, DOI 10.1109/TNS.2021.3071704（SBU 70% / MCU 30%）；交叉验证：Wirthlin 2014 JINST 9 C01025 Table 2（65.0% / 26.8%）。</li>
-      <li><b>器件资源（slices/DSP/BRAM/FF）</b>：AMD DS180 v2.6.1 Table 1（108,300 slices · 3,600 DSP · 52,920 Kb BRAM · 8 FF/slice）；UG470 Table 1-1（bitstream 229,878,496）；UG473（RAMB36E1）；UG479（DSP48E1）。</li>
-      <li><b>中子锚点（校验用，不进重离子核）</b>：AMD UG116 v10.20（2025-07-23）28 nm 行 CRAM 5.69e-15 / BRAM 5.57e-15 cm²/bit；独立实测 Wirthlin 2014 JINST Table 1（LANSCE 6.89e-15/6.15e-15）差 ≤21%，交叉校验通过（2026-08-22）。</li>
-      <li><b>质子 σ(E)（存表未接线）</b>：Wirthlin, Takai, Harding, 2014 JINST 9 C01025, DOI 10.1088/1748-0221/9/01/C01025，Table 1（TSL 180 MeV 质子 CRAM 8.29e-15 / BRAM 8.19e-15）。</li>
-      <li><b>布局数据</b>：P1 OOC 布线 DCP（Vivado 2018.3）导出 primitive_map.csv，24,446 Site / 140,907 原语；共享 Site 2.5%。</li>
-      <li><b>已知缺口（不编造）</b>：DSP48E1 无公开 σ（Lee 无 / UG116 无 / NEPP 测的是 RTG4）；FF 无厂商中子 σ；essential bits 需 bitstream/SEM。详见 handover/审计_假设值真实化_20260822.md。</li>
-    </ol>
-  </details>
-  <p class="mini" id="disc" style="margin-top:8px"></p>
-</form>
-<div id="stage">
-  <canvas id="cv"></canvas>
-  <div id="hover"></div>
-</div>
+  <aside class="left">
+    <section class="card">
+      <h2>离子</h2>
+      <div class="sl"><span>LET</span><input id="letS" type="range" min="0" max="1000"><b id="letV"></b></div>
+      <div class="sl"><span>入射角</span><input id="thS" type="range" min="0" max="75" step="5" value="40"><b id="thV"></b></div>
+      <div class="sl"><span>方位</span><input id="phS" type="range" min="0" max="355" step="5" value="30"><b id="phV"></b></div>
+      <button id="fire" class="main" type="button">⚡ 发射</button>
+      <div class="row2"><button id="rand" type="button" title="随机选一个已用 Site">随机一击</button><button id="auto" type="button">连续打击</button></div>
+      <p class="hint">也可以直接点芯片上的位置。LET 单位 MeV·cm²/mg。</p>
+    </section>
+    <section class="card">
+      <h2>视图</h2>
+      <div class="seg"><button type="button" data-c="resource" class="on">按资源</button><button type="button" data-c="module">按模块</button></div>
+      <div id="legend"></div>
+      <label class="chk"><input type="checkbox" id="focus" checked> 打击时自动聚焦</label>
+      <div class="row2"><button id="replay" type="button">↻ 重放</button><button id="reset" type="button">⤢ 看全片</button></div>
+    </section>
+    <details class="card">
+      <summary>高级</summary>
+      <div class="f">收集核<select id="kernel"><option value="anchored" selected>实测面积</option><option value="legacy_linear">几何调试</option></select></div>
+      <div class="f">翻转模型<select id="flip"><option value="weibull" selected>Lee 2014 σ</option><option value="pattern">MBU 图案</option><option value="bernoulli">旧占位概率</option></select></div>
+      <div class="f">随机种子<input id="seed" type="number" value="1"></div>
+      <label class="chk"><input type="checkbox" id="reseed" checked> 每次打击换种子</label>
+      <div class="f">a0（几何调试）<input id="a0" type="number" step="0.5" value="12"></div>
+      <div class="f">k_LET（几何调试）<input id="klet" type="number" step="0.05" value="0.25"></div>
+      <div id="domToggles"></div>
+    </details>
+    <details class="card">
+      <summary>出处</summary>
+      <ol>
+        <li>σ(LET)：Lee 等 2014 IEEE REDW 表 1（A 为 cm²/bit）</li>
+        <li>多位比例、SEL 起始 LET 15：同文 表 3 / §IV.C</li>
+        <li>收集核面积：Radaelli 2005（经 Ebrahimi DAC'13）</li>
+        <li>格→µm：UG475 die 尺寸 × Project X-Ray 栅格</li>
+        <li>每域位数：UG470 / DS180 / UG473 / UG474</li>
+        <li>布局：设计的 Vivado 布局导出（primitive_map.csv）；模块按层次名自动划分</li>
+      </ol>
+    </details>
+  </aside>
+  <section class="stage">
+    <canvas id="cv"></canvas>
+    <div class="phases" id="phases">
+      <span>离子入射</span><span>电荷收集<i>ps–ns</i></span><span>位翻转</span><span>后果<i>时钟周期起</i></span><span>恢复<i>ms–s</i></span>
+    </div>
+    <div id="hover"></div>
+  </section>
+  <aside class="right">
+   <div>
+    <h2>本次打击</h2>
+    <div class="stats">
+      <div><b id="kBits">–</b><span>bit 翻转</span></div>
+      <div><b id="kSites">–</b><span>Site</span></div>
+      <div><b id="kMods">–</b><span>模块</span></div>
+    </div>
+    <div class="where" id="whereTxt"></div>
+    <h2>效应</h2>
+    <div id="effs"><div class="empty">点「发射」，或直接点芯片。</div></div>
+   </div>
+   <div>
+    <h2>后果与恢复</h2>
+    <div id="cons"><div class="empty">—</div></div>
+   </div>
+  </aside>
 </main>
-<div id="read">加载布局…</div>
-<div id="verfoot" style="padding:4px 16px 8px;font:11px/1.4 Consolas,monospace;color:#5f7d9c;border-top:1px solid #1b3350">LayoutECC 桌面仿真器 v1.0.1</div>
 <script src="/static/engine.js"></script>
 <script>
+"use strict";
 const $ = id => document.getElementById(id);
+const PHASE_OF = { seu: 2, mcu: 2, set: 3, sefi: 3, sel: 3 };
+const PILL = { occurred: "发生", possible: "可能", risk: "风险", none: "无", unmodeled: "未建模" };
+const REC = { scrub: "恢复：配置刷新扫到该帧时写回", ecc: "恢复：读出时 ECC 纠正（单比特）", overwrite: "恢复：下一次写入覆盖" };
+let layout = null, last = null, pos = null, auto = false, curPh = -1;
+
 const viewer = ChipStrikeViewer($("cv"), {
-  readout: $("read"),
-  onPick: (x, y) => { $("x0").value = x.toFixed(2); $("y0").value = y.toFixed(2); fire(); },
+  onPick: (x, y) => { pos = [x, y]; fire(); },
   onHover: info => {
     const el = $("hover");
     if (!info) { el.style.display = "none"; return; }
     el.style.display = "block";
-    el.innerHTML =
-      `<b>${info.site}</b><br>${info.rtype} · ${info.bels}<br>` +
-      `s${info.stage > 0 ? info.stage : "?"} · ${info.role}` +
-      `${info.shared ? " · <b>shared</b>" : ""}<br>` +
-      `${info.domains ? info.domains + "<br>" : ""}` +
-      `格 (${info.x}, ${info.y})`;
+    el.innerHTML = `<b>${info.site}</b> · ${info.rtype}<br>${info.module ? "模块 " + info.module + "<br>" : ""}${info.domains || ""}`;
+  },
+  onPhase: ph => {
+    curPh = ph;
+    [...$("phases").children].forEach((s, i) => { s.classList.toggle("on", i === ph); s.classList.toggle("done", i < ph); });
+    reveal(ph);
+    if (ph === 5 && auto) setTimeout(() => { if (auto) randomFire(); }, 900);
   }
 });
-let layout = null;
+
+/* LET 滑块：对数刻度 0.5–100 */
+const letOf = v => 0.5 * Math.pow(200, v / 1000);
+const posOf = L => 1000 * Math.log(L / 0.5) / Math.log(200);
+$("letS").value = posOf(30);
+const showSliders = () => {
+  const L = letOf(+$("letS").value);
+  $("letV").textContent = L >= 10 ? L.toFixed(0) : L.toFixed(1);
+  $("thV").textContent = $("thS").value + "°";
+  $("phV").textContent = $("phS").value + "°";
+};
+["letS", "thS", "phS"].forEach(id => $(id).addEventListener("input", showSliders));
+showSliders();
+
+function legend() {
+  const box = $("legend");
+  const mode = document.querySelector(".seg .on").dataset.c;
+  if (!layout) return;
+  if (mode === "module") {
+    box.innerHTML = (layout.modules || []).map(m => `<span><i style="background:${m.color}"></i>${m.name}</span>`).join("");
+  } else {
+    const rc = layout.resource_colors || {};
+    box.innerHTML = [["SLICE", "逻辑 SLICE"], ["BRAM", "BRAM"], ["DSP", "DSP"]]
+      .map(([k, n]) => `<span><i style="background:${rc[k]}"></i>${n}</span>`).join("") + `<span><i style="background:${layout.color_unused}"></i>空闲</span>`;
+  }
+}
+document.querySelectorAll(".seg button").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".seg button").forEach(x => x.classList.toggle("on", x === b));
+  viewer.setColorMode(b.dataset.c); legend();
+});
+$("focus").onchange = e => viewer.setFocus(e.target.checked);
+[...$("phases").children].forEach((el, i) => { el.title = "从这一步开始重放"; el.onclick = () => viewer.seekPhase(i); });
+$("replay").onclick = () => viewer.replay();
+$("reset").onclick = () => viewer.resetView();
 
 function buildDomainToggles(j) {
   const box = $("domToggles");
@@ -271,95 +237,105 @@ function buildDomainToggles(j) {
   };
   for (const d of j.domains || []) {
     const lab = document.createElement("label");
-    lab.innerHTML =
-      `<span><input type="checkbox" value="${d}" checked> ` +
-      `${(j.domain_labels || {})[d] || d} <span style="color:#4a6480">${d}</span></span>`;
+    lab.className = "chk";
+    lab.innerHTML = `<input type="checkbox" value="${d}" checked> 显示 ${(j.domain_labels || {})[d] || d}`;
     lab.querySelector("input").addEventListener("change", apply);
     box.appendChild(lab);
   }
 }
 
-async function loadLayout() {
-  const j = await (await fetch("/api/layout")).json();
-  layout = j;
-  $("disc").textContent = j.disclaimer;
-  viewer.setLayout(j);
-  buildDomainToggles(j);
-  const leg = $("stageLegend");
-  if (leg && j.stage_colors) {
-    leg.innerHTML = j.stage_colors.map((c, i) => {
-      if (!i || !c) return "";
-      return `<span class="sw" style="background:${c}"></span>s${i}`;
-    }).join("");
+function cellNear(x, y) {
+  let best = null, bd = 1e9;
+  for (const c of layout.cells) {
+    const d = (c[0] + 0.5 - x) ** 2 + (c[1] + 0.5 - y) ** 2;
+    if (d < bd) { bd = d; best = c; }
   }
-  $("colorMode") && ($("colorMode").onchange = e => viewer.setColorMode(e.target.value));
-  $("showBbox") && ($("showBbox").onchange = e => viewer.setShowBboxes(e.target.checked));
-  const sel = $("preset");
-  Object.entries(j.presets).forEach(([k, p]) => {
-    const o = document.createElement("option");
-    o.value = k; o.textContent = p.label; sel.appendChild(o);
-  });
-  $("x0").value = (j.default_x0 != null ? j.default_x0 : j.ncols / 2).toFixed(1);
-  $("y0").value = (j.default_y0 != null ? j.default_y0 : j.nrows / 2).toFixed(1);
-  if (j.default_a0) $("a0").value = j.default_a0;
-  fire();
+  return bd <= 1 ? best : null;
 }
 async function fire() {
-  $("go").disabled = true;
+  if (!layout || !pos) return;
+  if ($("reseed").checked) $("seed").value = (Math.random() * 1e6) | 0;
+  const cfg = {
+    x0: pos[0], y0: pos[1], let: +letOf(+$("letS").value).toFixed(2),
+    theta: +$("thS").value, phi: +$("phS").value, a0: +$("a0").value, k_let: +$("klet").value,
+    seed: +$("seed").value, kernel_model: $("kernel").value, flip_model: $("flip").value
+  };
+  $("fire").disabled = true;
   try {
-    const cfg = {
-      x0: +$("x0").value, y0: +$("y0").value,
-      let: +$("let").value, theta: +$("theta").value, phi: +$("phi").value,
-      a0: +$("a0").value, k_let: +$("klet").value, seed: +$("seed").value,
-      kernel_model: $("kernel").value, flip_model: $("flip").value
-    };
-    const j = await (await fetch("/api/strike", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(cfg)
-    })).json();
+    const j = await (await fetch("/api/strike", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cfg) })).json();
     if (j.error) throw new Error(j.error);
+    last = j;
+    render(j);
     viewer.setStrike(j);
   } catch (e) {
-    $("read").textContent = "失败：" + e.message;
-  } finally { $("go").disabled = false; }
+    $("effs").innerHTML = `<div class="empty">失败：${e.message}</div>`;
+  } finally { $("fire").disabled = false; }
 }
-$("cfg").onsubmit = e => { e.preventDefault(); fire(); };
-$("rand").onclick = () => {
+function randomFire() {
   if (!layout) return;
-  $("x0").value = (Math.random() * layout.ncols).toFixed(2);
-  $("y0").value = (Math.random() * layout.nrows).toFixed(2);
-  $("seed").value = (Math.random() * 1e6 | 0);
+  const c = layout.cells[(Math.random() * layout.cells.length) | 0];
+  pos = [c[0] + 0.15 + Math.random() * 0.7, c[1] + 0.15 + Math.random() * 0.7];
+  $("thS").value = 5 * Math.round(Math.random() * 12);
+  $("phS").value = 5 * Math.round(Math.random() * 71);
+  showSliders();
   fire();
-};
-$("reset").onclick = () => viewer.resetView();
-$("lock").onclick = e => {
-  const on = e.target.dataset.on !== "1";
-  e.target.dataset.on = on ? "1" : "0";
-  viewer.setLockChip(on);
-  e.target.textContent = on
-    ? "俯视锁定：开（左键平移，芯片不转）"
-    : "俯视锁定：关（拖拽会转相机）";
-};
-canvasHoverFollow();
-function canvasHoverFollow() {
-  $("cv").addEventListener("mousemove", ev => {
-    const el = $("hover");
-    if (el.style.display === "none") return;
-    const r = $("stage").getBoundingClientRect();
-    el.style.left = (ev.clientX - r.left + 14) + "px";
-    el.style.top = (ev.clientY - r.top + 14) + "px";
-  });
 }
-$("applyP").onclick = () => {
-  const p = layout && layout.presets[$("preset").value];
-  if (!p) return;
-  $("x0").value = p.x0; $("y0").value = p.y0; $("a0").value = p.a0;
-  fire();
+$("fire").onclick = () => fire();
+$("rand").onclick = randomFire;
+$("auto").onclick = () => {
+  auto = !auto; $("auto").classList.toggle("on", auto);
+  $("auto").textContent = auto ? "停止连续" : "连续打击";
+  if (auto && (curPh === 5 || curPh === -1)) randomFire();
 };
-["let","theta","phi","a0","klet","kernel","flip"].forEach(id => {
-  $(id).addEventListener("change", fire);
+
+function render(j) {
+  const e = j.effects || {};
+  const modName = p => { const m = (layout.modules || []).find(x => x.path === p); return m ? m.name : p; };
+  $("kBits").textContent = e.bits ?? 0;
+  $("kSites").textContent = e.sites_flipped ?? 0;
+  $("kMods").textContent = (e.modules_hit || []).length;
+  const c = cellNear(j.x0, j.y0);
+  const mod = c && (layout.modules || [])[c[10]];
+  $("whereTxt").innerHTML = c ? `打在 <b>${c[3]}</b>（${c[2]}${mod ? " · 模块 " + mod.name : ""}）` : "打在空闲区";
+  $("effs").innerHTML = (e.effects || []).map(x =>
+    `<div class="eff s-${x.status} hide" data-ph="${PHASE_OF[x.id] ?? 2}">` +
+    `<div class="h"><span class="pill">${PILL[x.status] || x.status}</span><b>${x.abbr}</b><span class="n">${x.name}</span></div>` +
+    `<div class="t">${x.text}</div>${x.ref && x.status !== "none" ? `<div class="r">${x.ref}</div>` : ""}</div>`).join("");
+  const cons = e.consequences || [];
+  $("cons").innerHTML = cons.length ? cons.map(x =>
+    `<div class="con hide" data-ph="3"><b>${x.title}</b> · ${x.bits} bit` +
+    `${(e.modules_hit || []).length ? ` · 模块 ${(e.modules_hit || []).map(m => modName(m.module)).join("、")}` : ""}` +
+    `<div class="t">${x.text}</div><div class="rec hide" data-ph="4">${REC[x.recovery] || ""}</div></div>`).join("")
+    : `<div class="empty">没有位翻转，无功能后果。</div>`;
+  reveal(-1);
+}
+function reveal(ph) {
+  document.querySelectorAll("[data-ph]").forEach(el => el.classList.toggle("hide", +el.dataset.ph > ph && ph !== 5));
+  if (ph === 5) document.querySelectorAll("[data-ph]").forEach(el => el.classList.remove("hide"));
+}
+
+async function load() {
+  const j = await (await fetch("/api/layout")).json();
+  layout = j;
+  viewer.setLayout(j);
+  $("devChip").textContent = (j.part || "").toUpperCase().replace(/FFG.*$/, "") || "—";
+  $("designChip").textContent = `设计 ${j.design || "—"} · ${(j.modules || []).length} 个模块`;
+  buildDomainToggles(j);
+  legend();
+  // 首次：打在全片中心附近的一个已用 Site
+  let best = j.cells[0], bd = 1e18;
+  for (const c of j.cells) { const d = (c[0] - j.ncols / 2) ** 2 + (c[1] - j.nrows / 2) ** 2; if (d < bd) { bd = d; best = c; } }
+  pos = [best[0] + 0.5, best[1] + 0.5];
+  fire();
+}
+$("cv").addEventListener("mousemove", ev => {
+  const el = $("hover");
+  if (el.style.display === "none") return;
+  const r = $("cv").getBoundingClientRect();
+  el.style.left = (ev.clientX - r.left + 14) + "px";
+  el.style.top = (ev.clientY - r.top + 14) + "px";
 });
-loadLayout();
+load();
 </script>
 </body>
 </html>

@@ -9,12 +9,12 @@
     "device_tested": "XC7K325T-1FBG900C (Kintex-7, 28nm)",
     "borrow_note": "xc7vx690t (Virtex-7) shares identical 28nm 7-series CRAM cells; same-family borrow per handover doc section '源1'."
   },
-  "unit_note": "Paper Table 1 'A' is um^2/bit. orbit_seu/layout_ecc expect cm^2/bit. sigma_sat_cm2_per_bit = sigma_sat_raw_um2_per_bit * 1e-8.",
+  "unit_note": "Corrected 2026-09-26. Paper Table 1 prints 'A (um^2/bit)', but the same paper plots cm^2/bit: Fig. 3 reaches ~1.2e-8 at LET 126 and Fig. 7 is labelled cm^2/bit. A = 3.34e-8 cm^2/bit gives sigma(126.1) = 1.17e-8, matching Fig. 3, so the header is a typo. sigma_sat_cm2_per_bit = paper A as printed (no conversion). The earlier 3.34e-12 was 1e4 too small.",
   "orbit_seu_weibull_formula": "sigma(L) = sigma_sat * (1 - exp(-((L - let_threshold)/width)^shape)), L > let_threshold else 0",
   "per_domain": {
     "CRAM": {
       "let_threshold": 0.4, "width": 338.5, "shape": 0.852,
-      "sigma_sat_cm2_per_bit": 3.34e-12, "sigma_sat_raw_um2_per_bit": 3.34e-08,
+      "sigma_sat_cm2_per_bit": 3.34e-08, "paper_table1_A_as_printed": 3.34e-08,
       "tested_device_bits": 67930000,
       "source": "Lee et al. 2014 Table 1, Config Memory row",
       "confidence": "measured",
@@ -22,7 +22,7 @@
     },
     "BRAM": {
       "let_threshold": 0.1, "width": 87.5, "shape": 0.893,
-      "sigma_sat_cm2_per_bit": 3.82e-12, "sigma_sat_raw_um2_per_bit": 3.82e-08,
+      "sigma_sat_cm2_per_bit": 3.82e-08, "paper_table1_A_as_printed": 3.82e-08,
       "tested_device_bits": 16404480,
       "source": "Lee et al. 2014 Table 1, BRAM row",
       "confidence": "measured",
@@ -30,7 +30,7 @@
     },
     "FF": {
       "let_threshold": 1.1, "width": 271.3, "shape": 1.090,
-      "sigma_sat_cm2_per_bit": 1.47e-11, "sigma_sat_raw_um2_per_bit": 1.47e-07,
+      "sigma_sat_cm2_per_bit": 1.47e-07, "paper_table1_A_as_printed": 1.47e-07,
       "tested_device_bits": 393216,
       "source": "Lee et al. 2014 Table 1, User Flip-flop row",
       "confidence": "measured",
@@ -40,9 +40,9 @@
   "validation_anchor": {
     "paper_table2_solar_min_per_bit_day": {"CRAM": 1.0e-07, "FF": 9.0e-08, "BRAM": 5.2e-07}
   },
-  "layout_ecc_usage_note": "M9 is wired: layout_ecc/weibull.py loads this file; GUI default flip_model=weibull uses σ(LET) in cm²/bit with kernel area in cm². DSP is absent here (gap). Do not mix UG116 neutron numbers into this heavy-ion curve.",
+  "layout_ecc_usage_note": "M9 is wired: layout_ecc/weibull.py loads this file; GUI default flip_model=weibull uses μ = bits·σ(LET)/A_tile·f (σ in cm²/bit, tile area in cm², f = kernel share on the tile; 2026-09-26, was bits·σ/A_kernel). DSP is absent here (gap). Do not mix UG116 neutron numbers into this heavy-ion curve.",
   "gaps": {
-    "UG116_neutron_FIT_crosscheck": "DONE 2026-08-22 (see ug116_7series_neutron_seu.json crosscheck_performed_2026_08_22): independent Wirthlin JINST 2014 LANSCE values within 21%/10% of UG116 v10.20, and sigma x JESD89A NYC flux reproduces the UG116 realtime FIT order of magnitude (~2x). Heavy-ion sigma_sat vs neutron sigma stays a particle-species comparison (3 orders apart, expected).",
+    "UG116_neutron_FIT_crosscheck": "DONE 2026-08-22 (see ug116_7series_neutron_seu.json crosscheck_performed_2026_08_22): independent Wirthlin JINST 2014 LANSCE values within 21%/10% of UG116 v10.20, and sigma x JESD89A NYC flux reproduces the UG116 realtime FIT order of magnitude (~2x). Heavy-ion sigma_sat vs neutron sigma stays a particle-species comparison (~6-7 orders apart after the 2026-09-26 unit correction; the earlier '3 orders, expected' was the 1e4 unit error).",
     "proton_sigma_E_table": "PARTIALLY FILLED 2026-08-22: proton_7series_sigma_E.json now carries measured TSL 180 MeV proton sigma (CRAM 8.29e-15, BRAM 8.19e-15 cm2/bit) from Wirthlin JINST 2014 Table 1; FF/DSP remain gaps and the file is not wired into any rate calculation.",
     "xc7vx690t_per_domain_bits": "use actual device bits in config; not fabricated. Independently re-verified 2026-08-22 against vendor originals: DS180 v2.6.1 (108,300 slices, 3,600 DSP, 52,920 Kb BRAM, 8 FF/slice -> 866,400 FF) and UG470 Table 1-1 (bitstream 229,878,496)."
   }

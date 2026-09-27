@@ -1,8 +1,30 @@
 # LayoutECC 桌面版（辐射打击仿真器 exe）
 
-> 打包日期：2026-08-24（v1.0.1）。单文件 exe ≈ 20.6 MB，
+> 打包日期：2026-08-27（v1.1.0）。单文件 exe ≈ 20.6 MB，
 > 含全部布局数据、物理参数与轨道环境谱文件，双击即用，不再打开浏览器。
 
+
+## 变更记录（v1.2.0，2026-09-26）——重离子次数更正
+
+- **冻结值 0.1007 次/天 → 46.16 次/天（XC7VX690T，MEO 20200 km/55°，GCR 太阳极小，100 mil Al）。** 旧值有五处误差：Lee σ 单位小 10⁴（Table 1 表头 µm² 是笔误，A 实为 cm²/bit）、LET 用 K·Z²/β²（无布拉格峰）、未过屏蔽、角度权重多算 2 倍、只用 7 种离子。更正后每 bit 率是 Lee Table 2（GEO）的 0.90/0.90/1.12 倍。详见 `docs/SEU次数收窄_以orbit_seu为准.md`。
+- `data/weibull_7series_measured.json`、`data/xc7vx690t_measured_meo.json`：σsat 改为 3.34e-8 / 3.82e-8 / 1.47e-7 cm²/bit。
+- 打击页 `flip_model=weibull`：μ 由 `bits·σ/A_kernel` 改为 `bits·σ/A_tile·f`（Site 的 bit 分布在整格上，f 为打击核落在该格的份额）。否则 σ 更正后一颗离子会翻掉整格。
+- `seu_inside.html` 的 σsat 面积页按更正值重写（每 bit σsat ≈ 26 个 6T 单元面积，含多位翻转）。
+- `/orbit`（orbit_seu）：files 模式锁定轨道输入为谱文件轨道，后端对不符轨道直接报错；LET 谱改为 6 个离子组（Z=1–92）。
+- 测试：`test_weibull_flip.py` 增加 Lee Fig.3 回归与 tile 面积 μ；新增 `test_orbit_frozen_consistency.py`（冻结值与实跑一致）。
+- **exe 需要重新打包**（`desktop/build_exe.bat`）才会带上新谱文件与新冻结值。
+
+## 变更记录（v1.1.0，2026-08-27）
+
+- 版本号：`desktop/app.py` 中 `VERSION = "1.1.0"`；窗口标题、打击页、效应总览页均显示 v1.1.0。
+- 新页 `/effects` + `GET /api/effects`：空间辐射主要效应（TID、TNID/DD、SEU 重离子/质子、MBU/MCU、SET、SEFI、SEL、SEB、SEGR）全部出现，状态诚实。不发明 TID/TNID/SEL 数字。
+- 重离子 SEU 快照取自 `orbit_env` 已有冻结（0.100723…/day），**不重跑谱**。Lee Weibull 与 N_SEU 公式未改。
+- 质子：打包 `data/proton_7series_sigma_E.json`，界面展示 180 MeV 锚点，不当率、不混进 0.1007/day。
+- TID 文件槽 `data/tid/`（仅 README）；有 SPENVIS/SHIELDOSE 文件才解析展示。
+- 打包清单同步：`effects.html`、`effects_coverage.json`、`proton_7series_sigma_E.json`、`data/tid/README.md`。
+- 测试：`tests/test_effects_coverage.py`。
+
+未改：MEO 冻结 0.1007/day；Lee Weibull 数字；N_SEU 公式；`layout_ecc/domains.py`；质子/DSP 仍不进 N_SEU。
 
 ## 变更记录（v1.0.1，2026-08-24）
 
@@ -17,14 +39,16 @@
 
 ## 桌面交付物
 
-- `C:\Users\zhuao\Desktop\辐射打击仿真器.exe`（桌面版 v1.0.1）
+- `C:\Users\zhuao\Desktop\辐射打击仿真器.exe`（桌面版 v1.1.0）
 - 仓库构建产物：`code/layout_ecc_sim/dist/LayoutECC_StrikeViewer.exe`
 - 启动日志（排障用）：`%TEMP%\LayoutECC_viewer.log`
 
-## 两个页面
+## 三个页面
+
+导航（打击页顶栏、轨道页注入条、效应总览页）：**打击 | 轨道 | 效应总览**。
 
 1. **打击仿真器**（首页 `/`）：三维 Site 栅格 + 打击核 + 按域翻转抽样。
-2. **轨道辐射环境**（`/orbit`，首页右上入口）：**orbit_seu 原版仪表盘**（2026-08-22 v3 起
+2. **轨道辐射环境**（`/orbit`）：**orbit_seu 原版仪表盘**（2026-08-22 v3 起
    直接打包 tcas 仓库 orbit_seu 的 webapp 只读副本——与单独运行 `python -m orbit_seu.gui`
    完全同效），含：
    - 预设轨道（SSO/ISS/MEO/GEO/自定义）+ 全套轨道根数表单
@@ -34,8 +58,13 @@
    - LET 谱图、截止刚度曲线、多轨道对比、任务统计与哈希溯源面板
    - 独立 3D 大视图（`/orbit3d`）
 
-   页面顶栏注入"← 返回打击仿真器"导航；原版页面的绝对路径（/static/、/api/run）在响应时
+   页面顶栏注入「打击 | 轨道 | 效应总览」导航；原版页面的绝对路径（/static/、/api/run）在响应时
    改写为 /oseu-static/、/oseu/api/run，页面本身零改动。
+
+3. **效应总览**（`/effects`，`GET /api/effects`）：把 TID / TNID / SEE 全家写在一张诚实状态表上
+   （`simulating` / `data_missing` / `out_of_scope`）。重离子 SEU 回放 MEO 冻结 46.16/day（v1.2.0 更正值），
+   不重跑谱；质子展示 Wirthlin 2014 180 MeV 锚点（不是任务率，不并入重离子冻结率）；
+   TID 只读 `data/tid/`，空则为 MISSING。权威表 `data/effects_coverage.json`。
 
 ## 界面里的出处标注（与审计报告一致）
 
@@ -56,8 +85,9 @@ desktop\build_exe.bat
 
 依赖：`pip install pywebview pyinstaller`（本机已装 pywebview 6.2.1 + PyInstaller 6.22.2；
 窗口内核用系统 WebView2，Win11 自带）。构建脚本同步冻结：
-`webapp/`、`primitive_map.csv`、`weibull_7series_measured.json`、`rpm_grid_calibration.json`、
-`data/golden/`、`experiments/fault_injection_1024/common/python` 与 `projects/P1`
+`webapp/`（含 `effects.html`）、`primitive_map.csv`、`weibull_7series_measured.json`、
+`effects_coverage.json`、`proton_7series_sigma_E.json`、`data/tid/README.md`、
+`rpm_grid_calibration.json`、`data/golden/`、`experiments/fault_injection_1024/common/python` 与 `projects/P1`
 （`layout_ecc/__init__` 会在导入期引入冻结注入器，纯标准库，零改动）。
 
 ## 开发/测试模式

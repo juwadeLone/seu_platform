@@ -8,15 +8,18 @@
 数据文件与 webapp 资源由 PyInstaller --add-data 打进 exe：
     data/layout/p1_ooc_win/primitive_map.csv   -> data/layout/p1_ooc_win/
     data/weibull_7series_measured.json         -> data/
+    data/effects_coverage.json                 -> data/
+    data/proton_7series_sigma_E.json           -> data/   （锚点，不是任务率）
+    data/tid/README.md                         -> data/tid/
     data/rpm_grid_calibration.json             -> data/   （仅溯源展示引用）
-    layout_ecc/webapp/*                        -> layout_ecc/webapp/
+    layout_ecc/webapp/*                        -> layout_ecc/webapp/  （含 effects.html）
 """
 import json
 import os
 import sys
 import threading
 
-VERSION = "1.0.1"
+VERSION = "1.2.0"
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _PKG_ROOT = os.path.normpath(os.path.join(_HERE, ".."))
@@ -87,7 +90,11 @@ def _make_handler(gui):
         '<div style="padding:6px 14px;font:12px \'Segoe UI\',\'Microsoft YaHei\';'
         'background:rgba(10,20,36,.92);border-bottom:1px solid #1b3350;'
         'color:#7f93ab">'
-        '<a href="/" style="color:#00e5ff;text-decoration:none">← 返回打击仿真器</a>'
+        '<a href="/" style="color:#00e5ff;text-decoration:none">打击</a>'
+        '&nbsp;|&nbsp;'
+        '<a href="/orbit" style="color:#eaf6ff;text-decoration:none">轨道</a>'
+        '&nbsp;|&nbsp;'
+        '<a href="/effects" style="color:#00e5ff;text-decoration:none">效应总览</a>'
         '&nbsp;&nbsp;·&nbsp;&nbsp;'
         '<a href="/orbit3d" style="color:#00e5ff;text-decoration:none">⛶ 独立 3D 视图</a>'
         '&nbsp;&nbsp;·&nbsp;&nbsp;orbit_seu 原版界面（打包只读副本，与冻结基线同源）'
@@ -107,6 +114,15 @@ def _make_handler(gui):
             if path in ("/", "/index.html"):
                 web = os.path.join(os.path.dirname(gui.__file__), "webapp",
                                    "index.html")
+                with open(web, "r", encoding="utf-8") as fh:
+                    html = fh.read()
+                html = html.replace("__APP_VERSION__", VERSION)
+                self._send(200, "text/html; charset=utf-8",
+                           html.encode("utf-8"))
+                return
+            if path in ("/effects", "/effects.html"):
+                web = os.path.join(os.path.dirname(gui.__file__), "webapp",
+                                   "effects.html")
                 with open(web, "r", encoding="utf-8") as fh:
                     html = fh.read()
                 html = html.replace("__APP_VERSION__", VERSION)
@@ -150,6 +166,8 @@ def _make_handler(gui):
                 config = json.loads(self.rfile.read(n) or b"{}")
                 from orbit_env import _roots
                 _lib, env, _cfg = _roots()
+                if _lib not in sys.path:  # do not rely on the prewarm thread
+                    sys.path.append(_lib)
                 e = config.get("environment") or {}
                 for key in ("let_spectra_files",):
                     for k, rel in list((e.get(key) or {}).items()):

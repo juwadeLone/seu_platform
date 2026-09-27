@@ -1,5 +1,6 @@
 """M9: Lee Weibull σ(LET) drives strike flips; official bit counts."""
 import math
+import random
 import unittest
 
 from layout_ecc.domains import (
@@ -7,8 +8,11 @@ from layout_ecc.domains import (
     DS180_SLICES_VX690T, UG470_BITSTREAM_VX690T, build_domains,
 )
 from layout_ecc.layout_synth import synthesize
-from layout_ecc.strike import run_strike
-from layout_ecc.weibull import mu_upsets, p_at_least_one, sigma_cm2, sigma_cm2_from_params
+from layout_ecc.strike import _flip_weibull, run_strike
+from layout_ecc.weibull import (
+    ellipse_samples, mu_upsets, overlap_fraction, p_at_least_one, sigma_cm2,
+    sigma_cm2_from_params, tile_area_cm2,
+)
 
 
 class TestOfficialBits(unittest.TestCase):
@@ -35,17 +39,47 @@ class TestLeeSigma(unittest.TestCase):
         self.assertGreater(sigma_cm2("CFG", 0.41), 0.0)
 
     def test_approaches_sat(self):
-        sat = 3.34e-12
+        sat = 3.34e-08
         hi = sigma_cm2_from_params(1e6, 0.4, 338.5, 0.852, sat)
         self.assertAlmostEqual(hi / sat, 1.0, places=6)
 
     def test_dsp_is_gap(self):
         self.assertIsNone(sigma_cm2("DSP_STATE", 15))
 
+    def test_sigma_matches_lee_fig3_in_cm2(self):
+        # Lee 2014 Fig. 3 (cm²/bit): config memory ~1.2e-8 at LET 126.
+        # Guards the Table 1 'µm²' header typo (A is cm²/bit).
+        s = sigma_cm2("CFG", 126.1)
+        self.assertGreater(s, 0.8e-8)
+        self.assertLess(s, 1.6e-8)
+
     def test_mu_units_cm2(self):
         mu = mu_upsets(1000, 1e-12, 1e-9)
         self.assertAlmostEqual(mu, 1.0)
+        self.assertAlmostEqual(mu_upsets(1000, 1e-12, 1e-9, overlap=0.25), 0.25)
         self.assertAlmostEqual(p_at_least_one(1.0), 1.0 - math.exp(-1.0))
+
+
+class TestTileDensityMu(unittest.TestCase):
+    def test_overlap_fraction(self):
+        pts = ellipse_samples(0.5, 0.5, 0.1, 0.1, 0.0)
+        self.assertAlmostEqual(overlap_fraction(pts, 0, 0, 1, 1), 1.0)
+        # kernel centred on the tile edge: about half inside
+        pts = ellipse_samples(1.0, 0.5, 0.2, 0.2, 0.0)
+        self.assertAlmostEqual(overlap_fraction(pts, 0, 0, 1, 1), 0.5, delta=0.03)
+
+    def test_mu_uses_tile_area_not_kernel_area(self):
+        rpm = 22.79
+        cand = [{"domain": "CFG", "bits": 2122, "rect": [0.0, 0.0, 1.0, 1.0]}]
+        pts = ellipse_samples(0.5, 0.5, 0.03, 0.03, 0.0)
+        out = _flip_weibull(cand, random.Random(3), 60.0, pts, rpm)
+        rec = out[0] if out else None
+        expect = 2122 * sigma_cm2("CFG", 60.0) / tile_area_cm2(1, 1, rpm)
+        mu = rec["mu"] if rec else mu_upsets(
+            2122, sigma_cm2("CFG", 60.0), tile_area_cm2(1, 1, rpm))
+        self.assertAlmostEqual(mu, expect, delta=expect * 1e-9)
+        # a few upsets per high-LET ion, not hundreds
+        self.assertLess(mu, 10.0)
 
 
 class TestWeibullStrike(unittest.TestCase):
