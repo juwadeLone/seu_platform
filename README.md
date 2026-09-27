@@ -1,9 +1,47 @@
 # seu_platform · FPGA 在轨辐射效应仿真平台
 
-从**轨道辐射环境**算到**芯片单粒子翻转次数**，再看**一颗离子打中之后**芯片里发生了什么。
-环境谱、截面、位数全部来自标准模型或实测数据；没有数据的效应明确标成「缺数据」，不编造数字。
+<p align="center">
+  <img src="docs/media/orbit.webp" width="760" alt="轨道页实跑画面：辐射带、SAA、宇宙线、磁力线，卫星沿 MEO 轨道运行并闪出 SEU">
+</p>
+<p align="center"><sub>平台实跑画面 · MEO 20200 km / 55° · 内带质子、外带电子、SAA、宇宙线、磁力线 · 轨道颜色 = 地磁截止刚度 · 卫星上的闪点按算出的翻转率抽样</sub></p>
 
-当前器件：Xilinx Virtex-7 **XC7VX690T**（28 nm）。示例设计：一个 1024 点流水线 FFT（P1）的 Vivado 布局——平台按层次名自动划分模块，换成别的设计同样适用。
+从**轨道辐射环境**算到**芯片每天翻几位**，再看**一颗离子打中之后**，芯片、模块和 SAR 出图各发生了什么。
+环境谱、截面、位数都来自标准模型或实测数据；没有数据的效应标成「缺数据」，不编数字。
+
+当前器件：Xilinx Virtex-7 **XC7VX690T**（28 nm）。示例设计：一个 1024 点流水线 FFT 的 Vivado 布局。平台按层次名自动划分模块，换成别的设计同样适用。
+
+> **English.** An open simulation platform for space-radiation effects on an SRAM FPGA (Xilinx XC7VX690T). It goes from the orbit radiation environment (SPENVIS/CREME96 spectra, Bethe LET, 100 mil Al shielding) to per-bit upset rates (46.2 upsets/day for the whole chip in MEO; per-bit rates within 10% of the Lee et al. 2014 reference), then to where a single ion lands on a real Vivado layout and what that does to an on-board SAR image. The UI is in Chinese; every screen below is a real platform run.
+
+---
+
+## 一条链，五个画面
+
+| 星载 SAR：从照射到出图 | 一颗离子打在真实布局上 |
+|---|---|
+| <img src="docs/media/sar.gif" width="100%" alt="SAR 页动图"> | <img src="docs/media/strike.gif" width="100%" alt="打击页动图"> |
+| 3D 侧视几何 + 单机时间线（往返 6.3 ms、距离向压缩 262 µs……），逐级显示每台单机的外形 | 入射 → 电荷收集 → 4 位翻转（MCU）→ 后果与 SEL 风险 → 配置刷新恢复；每次打击按 SEU / MCU / SET / SEFI / SEL 分类 |
+
+<p align="center"><img src="docs/media/sar_seu.jpg" width="880" alt="SAR 页：距离向 FFT 翻转前后的出图对比"></p>
+<p align="center"><sub>一次 SEU 打在距离向 FFT（s1–s5）：右上是无故障出图，右下是翻转之后，点目标沿距离向被拉成横条</sub></p>
+
+| 效应总览 | 器件内部 |
+|---|---|
+| <img src="docs/media/effects.png" width="100%" alt="效应总览页"> | <img src="docs/media/device.png" width="100%" alt="器件内部页"> |
+| 整片 46.2 次/天，以及 CRAM / BRAM / FF 分项；每种效应标「在算 / 缺数据 / 范围外」 | 存储单元为什么会翻：收集电荷 1.4 × Qcrit 越过阈值，再生环锁到另一边 |
+
+---
+
+## 对谁有用
+
+| 谁 | 能拿它做什么 |
+|---|---|
+| 做在轨处理载荷的 FPGA 工程师（SAR 成像、在轨 AI、计算星座） | 看自己的设计在这条轨道上每天翻几次、落在哪个模块、对出图有什么影响，据此决定哪一级加 TMR / ECC、刷新多快 |
+| 可靠性与任务建模研究者 | 拿到有物理出处的故障率和后果参数，代替任务模型里常见的示意值 |
+| 方案论证、抗辐射保证阶段的工程师 | 束流试验前先估量级，用画面向评审解释为什么要刷新、要加固 |
+| 教学与科普 | 空间辐射 → 器件 → 电路 → 图像，一条链看完 |
+| 航空、汽车、数据中心的软错误分析 | 「翻转 → 模块 → 功能后果」这一层可以复用，前端换成中子谱即可 |
+
+它**不能替代**束流试验和鉴定。低轨以质子为主的场景和太阳粒子事件目前还缺数据，见下文「还没做的」。
 
 ---
 
@@ -21,18 +59,6 @@ MEO 20200 km / 55°，银河宇宙线（GCR）太阳极小，100 mil Al 屏蔽�
 交叉验证：同一组截面在 Lee 等人用 CREME96 算的 GEO 太阳极小环境下给出 1.0 / 5.2 / 0.9 ×10⁻⁷，本平台的 MEO 结果与之相差 10% 以内（MEO 地磁屏蔽弱，应与 GEO 同量级、略低）。
 
 **不含**：太阳粒子事件、束缚质子、DSP。这些缺数据，不等于零。
-
----
-
-## 五个页面
-
-| 页面 | 内容 |
-|---|---|
-| **打击** `/` | 在真实布局上发射一颗离子：入射 → 电荷收集 → 位翻转 → 后果（模块出错、SET 毛刺、SEL 风险）→ 恢复（配置刷新、ECC、下一拍覆盖）。每次打击按 SEU / MCU / SET / SEFI / SEL 分类。 |
-| **轨道** `/orbit` | 输入轨道算翻转率；3D 地球自转、轨道按地磁截止刚度着色、辐射带粒子弹跳漂移、SAA、宇宙线被磁场挡回、按算出的率抽样 SEU 闪点。 |
-| **SAR** `/sar` | 星载 SAR 从照射到出图：3D 侧视几何、按几何推算的单机时间线（往返 6.3 ms、合成孔径 0.5 s 等）、每个单机的外形图、各级打一次 SEU 的出图变化。 |
-| **效应** `/effects` | 空间辐射主要效应一览，每项标「在算 / 缺数据 / 范围外」，点开看依据。 |
-| **器件内部** `/seu` | LUT、FF、BRAM 里到底翻了什么：可交互的电路示意、翻转阈值动画、截面有多大。 |
 
 ---
 
@@ -70,7 +96,7 @@ python -m unittest discover -s tests
 python desktop/app.py --server-only
 ```
 
-最后一条会打印本地端口，用浏览器打开即可看到全部五个页面；去掉 `--server-only` 则打开原生窗口。
+最后一条会打印本地端口，用浏览器打开即可看到全部五个页面：`/` 打击 · `/orbit` 轨道 · `/sar` SAR · `/effects` 效应 · `/seu` 器件内部。去掉 `--server-only` 则打开原生窗口。
 
 复算整片翻转次数：
 
@@ -93,6 +119,7 @@ code/layout_ecc_sim/
   out_vx690t_measured/ 现行翻转次数报告
   tests/               单元测试
 experiments/fault_injection_1024/   冻结的 FFT 位级故障注入实验包
+docs/media/                         README 里的实跑画面（无头浏览器逐帧截取）
 ```
 
 ## 版本
