@@ -1,0 +1,10 @@
+# Core platform (layout_ecc package + viewer + scripts): Python stdlib only.
+# Optional / development dependencies:
+
+# Desktop viewer (desktop/app.py) — native window wrapper around the local
+# webapp. Only needed for `python desktop/app.py`; `python -m layout_ecc`
+# works without it (opens a browser tab).
+pywebview>=4.4
+
+# Test suite (tests/)
+pytest>=7.0

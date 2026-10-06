@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 
 _DATA = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "data"))
 _TABLE_NAME = "effects_coverage.json"
@@ -86,8 +87,8 @@ def _parse_tid_json(obj):
             for k, v in node.items():
                 key = f"{prefix}.{k}" if prefix else str(k)
                 kl = str(k).lower()
-                if isinstance(v, (int, float)) and any(
-                    tok in kl for tok in ("dose", "krad", "gray", "gy", "rad")
+                if isinstance(v, (int, float)) and re.search(
+                    r"(^|[^a-z])(dose|krad|gray|gy|rad)([^a-z]|$)", kl
                 ):
                     found.append({"key": key, "value": v, "from_file": True})
                 else:

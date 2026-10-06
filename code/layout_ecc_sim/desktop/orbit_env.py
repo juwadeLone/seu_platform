@@ -16,6 +16,10 @@ _ORBIT_PAYLOAD = None
 _TCAS_ORBIT_SEU = r"C:\Users\zhuao\tcas\code\orbit_seu"
 _CFG_REL = os.path.join("examples", "xc7vx690t_measured_meo.json")
 
+# 仓库内置副本：code/orbit_seu（vendored from tcas，2026-10-06）
+_VENDORED_ROOT = os.path.normpath(os.path.join(
+    os.path.dirname(__file__), "..", "..", "orbit_seu"))
+
 
 def _usable(lib, env):
     return (
@@ -33,8 +37,9 @@ def _roots():
     解析顺序（不编造谱文件）：
       (a) 冻结态 _MEIPASS 副本（orbit_seu_lib / orbit_seu_env）若完整
       (b) 环境变量 ORBIT_SEU_ROOT（指向含 orbit_seu 包与 examples/ 的树）
-      (c) C:\\Users\\zhuao\\tcas\\code\\orbit_seu 若该目录存在且完整
-      (d) 清晰报错
+      (c) 仓库内置副本 code/orbit_seu（vendored，随仓库分发）
+      (d) C:\\Users\\zhuao\\tcas\\code\\orbit_seu 若该目录存在且完整
+      (e) 清晰报错
     """
     if getattr(sys, "frozen", False):
         base = sys._MEIPASS
@@ -55,6 +60,13 @@ def _roots():
             if _usable(lib, env):
                 return lib, env, os.path.join(env, _CFG_REL)
 
+    if _usable(_VENDORED_ROOT, _VENDORED_ROOT):
+        return (
+            _VENDORED_ROOT,
+            _VENDORED_ROOT,
+            os.path.join(_VENDORED_ROOT, _CFG_REL),
+        )
+
     if os.path.isdir(_TCAS_ORBIT_SEU) and _usable(_TCAS_ORBIT_SEU, _TCAS_ORBIT_SEU):
         return (
             _TCAS_ORBIT_SEU,
@@ -65,7 +77,8 @@ def _roots():
     raise FileNotFoundError(
         "orbit_seu not found. Tried: (a) frozen _MEIPASS copies "
         "(orbit_seu_lib/orbit_seu_env), (b) ORBIT_SEU_ROOT, "
-        "(c) C:\\Users\\zhuao\\tcas\\code\\orbit_seu. "
+        "(c) vendored code/orbit_seu, "
+        "(d) C:\\Users\\zhuao\\tcas\\code\\orbit_seu. "
         "Set ORBIT_SEU_ROOT to a tree that contains the orbit_seu package "
         "and examples/xc7vx690t_measured_meo.json. Spectra are not invented."
     )

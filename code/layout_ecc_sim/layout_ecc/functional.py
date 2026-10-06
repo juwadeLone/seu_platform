@@ -14,8 +14,10 @@ _HERE = Path(__file__).resolve().parent
 _PKG = _HERE.parent
 _GOLDEN_DIR = _PKG / "data" / "golden"
 _EXP = _PKG.parents[1] / "experiments" / "fault_injection_1024"
+# append（而非 insert(0)）：实验树里的顶层包名（common、projects）较泛化，
+# 追加在 sys.path 末尾既保证能找到，又不会遮蔽环境里可能同名的包。
 if str(_EXP) not in sys.path:
-    sys.path.insert(0, str(_EXP))
+    sys.path.append(str(_EXP))
 
 from common.python.fixed_fft import (  # noqa: E402
     bit_reverse_order,

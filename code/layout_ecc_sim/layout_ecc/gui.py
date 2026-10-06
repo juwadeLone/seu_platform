@@ -172,6 +172,7 @@ class _Handler(BaseHTTPRequestHandler):
                 kernel_model=str(cfg.get("kernel_model") or "anchored"),
                 flip_model=str(cfg.get("flip_model") or "weibull"),
                 rpm_to_um=float(cfg["rpm_to_um"]) if cfg.get("rpm_to_um") else None,
+                pattern_shape=str(cfg.get("pattern_shape") or "cluster"),
             )
             out["effects"] = classify(out, out["let"])
             self._send(200, "application/json", json.dumps(_safe(out)))
