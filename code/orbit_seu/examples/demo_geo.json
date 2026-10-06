@@ -1,0 +1,37 @@
+{
+  "mission": {
+    "duration_years": 3.0,
+    "sampling": {
+      "orbits": 24,
+      "points_per_orbit": 96
+    }
+  },
+  "orbit": {
+    "altitude_km": 35786,
+    "inclination_deg": 0.1,
+    "eccentricity": 0.001,
+    "raan_deg": 0.0,
+    "argp_deg": 0.0,
+    "mean_anomaly0_deg": 0.0
+  },
+  "magnetosphere": {
+    "cutoff_eq_gv": 14.9
+  },
+  "environment": {
+    "type": "demo_gcr",
+    "rigidity_cutoff": {
+      "enabled": true,
+      "kappa": 1.0
+    }
+  },
+  "device": {
+    "name": "SYNTHETIC-DEMO-FPGA",
+    "bits": 55000000,
+    "heavy_ion_weibull": {
+      "let_threshold": 5.0,
+      "width": 20.0,
+      "shape": 1.5,
+      "sigma_sat_cm2_per_bit": 1e-07
+    }
+  }
+}

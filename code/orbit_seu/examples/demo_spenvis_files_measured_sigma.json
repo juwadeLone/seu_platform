@@ -1,0 +1,50 @@
+{
+  "mission": {
+    "duration_years": 1.0,
+    "sampling": { "orbits": 24, "points_per_orbit": 96 }
+  },
+  "orbit": {
+    "altitude_km": 20200,
+    "inclination_deg": 55.0,
+    "eccentricity": 0.001,
+    "raan_deg": 119.92,
+    "argp_deg": 0.0,
+    "mean_anomaly0_deg": 0.0
+  },
+  "magnetosphere": {
+    "cutoff_eq_gv": 14.9
+  },
+  "environment": {
+    "type": "files",
+    "let_spectra_files": {
+      "H": "env_data/spenvis_let/spenvis_H.let.txt",
+      "He": "env_data/spenvis_let/spenvis_He.let.txt",
+      "Z03-10": "env_data/spenvis_let/spenvis_Z03-10.let.txt",
+      "Z11-20": "env_data/spenvis_let/spenvis_Z11-20.let.txt",
+      "Z21-28": "env_data/spenvis_let/spenvis_Z21-28.let.txt",
+      "Z29-92": "env_data/spenvis_let/spenvis_Z29-92.let.txt"
+    },
+    "let_columns": { "let": 0, "diff_flux": 1 }
+  },
+  "device": {
+    "name": "SPENVIS-CREME96-MEASURED-BY-DOMAIN",
+    "bits": 84727696,
+    "heavy_ion_weibull_by_domain": {
+      "CRAM": {
+        "let_threshold": 0.4, "width": 338.5, "shape": 0.852,
+        "sigma_sat_cm2_per_bit": 3.34e-08,
+        "bits": 67930000
+      },
+      "BRAM": {
+        "let_threshold": 0.1, "width": 87.5, "shape": 0.893,
+        "sigma_sat_cm2_per_bit": 3.82e-08,
+        "bits": 16404480
+      },
+      "FF": {
+        "let_threshold": 1.1, "width": 271.3, "shape": 1.090,
+        "sigma_sat_cm2_per_bit": 1.47e-07,
+        "bits": 393216
+      }
+    }
+  }
+}

@@ -87,12 +87,11 @@ MEO 20200 km / 55°，银河宇宙线（GCR）太阳极小，100 mil Al 屏蔽�
 
 ## 运行
 
-需要 Python 3.10+（只用标准库；原生窗口另需 `pywebview`），以及轨道计算包 **orbit_seu**（在 [juwadeLone/tcas](https://github.com/juwadeLone/tcas) 的 `code/orbit_seu`）。
+需要 Python 3.10+（只用标准库；原生窗口另需 `pywebview`）。轨道计算包 **orbit_seu** 已随仓库分发在 `code/orbit_seu/`（vendored 自 [juwadeLone/tcas](https://github.com/juwadeLone/tcas) 同名包，含谱数据与配置），开箱即用；如需指向更新的 tcas 开发树，设 `ORBIT_SEU_ROOT` 覆盖。
 
 ```bash
-set ORBIT_SEU_ROOT=<tcas 仓库>\code\orbit_seu
 cd code/layout_ecc_sim
-python -m unittest discover -s tests
+python -m unittest discover -s tests   # 或 pip install -r requirements.txt 后 pytest tests
 python desktop/app.py --server-only
 ```
 
@@ -101,10 +100,11 @@ python desktop/app.py --server-only
 复算整片翻转次数：
 
 ```bash
-cd <tcas 仓库>/code/orbit_seu
-python scripts/spenvis_to_let.py
+cd code/orbit_seu                     # 或 <tcas 仓库>/code/orbit_seu
 python -m orbit_seu examples/xc7vx690t_measured_meo.json -o out_vx690t_measured/
 ```
+
+（`scripts/spenvis_to_let.py` 用于从 SPENVIS 原始导出重新生成 LET 谱；冻结谱已带 `env_data/spenvis_let/manifest.json` 溯源。）
 
 `dist/` 与 `release/` 里的 exe 是旧版本，不含 v1.2.0 的更正，请从源码运行。
 
@@ -118,6 +118,7 @@ code/layout_ecc_sim/
   data/                布局、截面、位数、效应表等证据文件
   out_vx690t_measured/ 现行翻转次数报告
   tests/               单元测试
+code/orbit_seu/                     轨道环境→翻转率计算包（vendored，含谱数据）
 experiments/fault_injection_1024/   冻结的 FFT 位级故障注入实验包
 docs/media/                         README 里的实跑画面（无头浏览器逐帧截取）
 ```
@@ -126,4 +127,4 @@ docs/media/                         README 里的实跑画面（无头浏览器�
 
 **v1.2.0（2026-09）**：更正整片翻转次数（0.1007 → 46.2 次/天：Lee 2014 表头单位笔误、LET 换算、屏蔽、角度归一化、离子种类五处）；重做五个页面。
 
-地表贴图：NASA Blue Marble（公有领域）。引用的论文与厂商文档不随仓库分发。
+许可证：MIT（见 `LICENSE`）。地表贴图：NASA Blue Marble（公有领域）。引用的论文与厂商文档不随仓库分发。

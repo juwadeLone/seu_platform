@@ -53,10 +53,15 @@ def map_cycle(stage_id, cycle, address=None, lane=0, component="real"):
     # written at cycle_write, read ~depth later
     cycle_write = cyc - addr
     age = addr  # cycles since write at this address head
+    # SDF 延时线约定：地址回绕同一拍里，读出发生在下一次写入之前，
+    # 因此 cycles_until_read <= cycles_until_overwrite 恒成立——
+    # delay 角色在本模型下永远是 OBSERVED。masked_by_lifetime 的 MASKED
+    # 分支只对外部构造的（覆写先于读出的）identity 有意义。
     cycles_until_read = max(depth - addr, 0)
     cycles_until_overwrite = max(depth - addr, 1)
     beat = (cycle_write % BEATS_PER_FRAME + BEATS_PER_FRAME) % BEATS_PER_FRAME
-    frame = cycle_write // BEATS_PER_FRAME if cycle_write >= 0 else -1
+    # Python // 是向下取整：frame*256 + beat == cycle_write 对负数同样成立
+    frame = cycle_write // BEATS_PER_FRAME
     sample = beat * LANES + lane
     return {
         "stage_id": st,
@@ -81,6 +86,9 @@ def masked_by_lifetime(identity, role="delay"):
     Overwritten before the scheduled read → MASKED (never enters the
     observation chain). Otherwise the value is OBSERVED and WP2 decides
     CORRECTED/DUE/SDC/MASKED-by-TMR.
+
+    map_cycle() 产生的 delay 身份恒为 OBSERVED（见其中注释的读写同拍约定）；
+    MASKED 只在外部传入 until_read > until_overwrite 的 identity 时出现。
     """
     until_read = identity.get("cycles_until_read")
     until_over = identity.get("cycles_until_overwrite")
