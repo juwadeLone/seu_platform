@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>LayoutECC · 平台首页</title>
+<style>
+  :root { --panel:rgba(12,21,36,.86); --line:#1b3350; --txt:#d9e6f5; --dim:#7f93ab; --acc:#00e5ff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { min-height:100%; color:var(--txt); font:13px/1.6 "Segoe UI","Microsoft YaHei",sans-serif;
+    background:radial-gradient(1100px 600px at 78% -10%, rgba(0,90,160,.18), transparent 60%), #04070d; }
+  main { max-width:1160px; margin:0 auto; padding:26px 22px 44px; }
+  .hero { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
+  .hero h1 { font-size:22px; letter-spacing:.06em; font-weight:600; }
+  .hero p { color:var(--dim); font-size:12.5px; margin-top:4px; }
+  .stats { display:flex; gap:10px; flex-wrap:wrap; }
+  .stat { border:1px solid var(--line); border-radius:10px; background:var(--panel); padding:8px 14px; min-width:120px; }
+  .stat b { display:block; font-size:16px; font-variant-numeric:tabular-nums; color:#fff; }
+  .stat span { font-size:10.5px; color:var(--dim); letter-spacing:.08em; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; margin-top:18px; }
+  .card { border:1px solid var(--line); border-radius:14px; background:var(--panel); padding:16px 17px;
+    cursor:pointer; transition:border-color .15s, transform .15s; position:relative; }
+  .card:hover { border-color:var(--acc); transform:translateY(-2px); }
+  .card h3 { font-size:14.5px; letter-spacing:.04em; display:flex; align-items:center; gap:8px; }
+  .card h3 svg { width:17px; height:17px; stroke:var(--acc); fill:none; stroke-width:1.6; }
+  .card p { color:var(--dim); font-size:12px; margin-top:7px; min-height:36px; }
+  .card .meta { margin-top:10px; display:flex; gap:6px; flex-wrap:wrap; }
+  .tag { font-size:10px; padding:1px 8px; border-radius:999px; border:1px solid var(--line); color:var(--dim); }
+  .tag.hot { border-color:#2d5a82; color:#9fd8ff; }
+  .foot { margin-top:24px; color:#4f6a88; font-size:11px; line-height:1.7; }
+  .foot b { color:#6f8aa8; }
+</style>
+</head>
+<body>
+<main>
+  <div class="hero">
+    <div>
+      <h1>空间辐射仿真平台</h1>
+      <p>SRAM FPGA 单粒子效应：几何打击 → 轨道环境 → 效应分析 · 全链路可复算、数据有溯源</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="stSites">—</b><span>布点 sites</span></div>
+      <div class="stat"><b>XC7VX690T</b><span>目标器件</span></div>
+      <div class="stat"><b id="stStk">探测中…</b><span>STK Connect</span></div>
+      <div class="stat"><b>v__APP_VERSION__</b><span>版本</span></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card" onclick="go('strike')">
+      <h3><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>辐射打击</h3>
+      <p>几何注入单粒子打击：LET/角度/位置 → 版图位图翻转分布，支持 pattern 形状与核模型参数。</p>
+      <div class="meta"><span class="tag">run_strike</span><span class="tag">Weibull σ(LET)</span></div>
+    </div>
+    <div class="card" onclick="go('sar')">
+      <h3><svg viewBox="0 0 24 24"><path d="M4 18c4-9 8-13 16-14M4 18h16"/></svg>SAR 链路</h3>
+      <p>单机处理链路时间线与三维几何：一条回波经各模块的传播路径与延迟分解。</p>
+      <div class="meta"><span class="tag">时间线</span><span class="tag">三维几何</span></div>
+    </div>
+    <div class="card" onclick="go('orbit')">
+      <h3><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(-25 12 12)"/></svg>轨道环境</h3>
+      <p>orbit_seu 原版仪表盘：SPENVIS CREME96 真实谱任务率，冻结基线 46.160314073644855 /day 同码同源。</p>
+      <div class="meta"><span class="tag hot">冻结基线</span><span class="tag">BO2020+AE8/AP8</span></div>
+    </div>
+    <div class="card" onclick="go('orbit3d')">
+      <h3><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 4.5 6 4.5 9s-1.5 5.8-4.5 9c-3-3.2-4.5-6-4.5-9S9 6.2 12 3z"/></svg>3D 视图</h3>
+      <p>轨道、捕获带、SAA 与宇宙线粒子的交互式三维可视化（2D canvas 软件光栅，无依赖）。</p>
+      <div class="meta"><span class="tag">交互式</span></div>
+    </div>
+    <div class="card" onclick="go('live')">
+      <h3><svg viewBox="0 0 24 24"><path d="M2 12h4l3-8 4 16 3-8h6"/></svg>STK 实时</h3>
+      <p>STK Connect 桥接：逐历元位置 → 截止刚度/McIlwain L/环境判别/GCR-only SEU 率 + 实时 3D 视角。</p>
+      <div class="meta"><span class="tag">Connect :5001</span><span class="tag">模型级估计</span></div>
+    </div>
+    <div class="card" onclick="go('effects')">
+      <h3><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>效应总览</h3>
+      <p>TID / SEE 效应覆盖统计与数据完整度：哪些效应有数据、哪些标缺、来源文件一目了然。</p>
+      <div class="meta"><span class="tag">数据覆盖度</span></div>
+    </div>
+    <div class="card" onclick="go('seu')">
+      <h3><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4"/></svg>器件内部</h3>
+      <p>器件级翻转映射：LUT / FF / BRAM 三域位级分布与敏感区定位。</p>
+      <div class="meta"><span class="tag">位级映射</span></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>数据溯源</b>：IGRF-13(2020) 偶极截止 · BO2020 GCR + O'Neill LIS · Lee 2014 三域 Weibull · SPENVIS CREME96 真实谱 ·
+    非 20200km/55° 轨道的辐射率一律为<b>模型级估计</b>，页面与 API 中均有 provenance 标注。
+  </div>
+</main>
+<script>
+function go(r) { parent.location.hash = "#" + r; }
+fetch("/api/status").then(r => r.json()).then(d => {
+  if (d.sites) document.getElementById("stSites").textContent = Number(d.sites).toLocaleString();
+  document.getElementById("stStk").textContent = d.stk && d.stk.reachable ? "已连接" : "未连接";
+}).catch(() => { document.getElementById("stStk").textContent = "—"; });
+</script>
+</body>
+</html>

@@ -85,7 +85,9 @@
     .right { grid-column:1 / -1; border-left:none; border-top:1px solid var(--line);
       display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px; }
   }
+  html.embed header{display:none!important}
 </style>
+<script>if(window.top!==window.self)document.documentElement.className+=" embed"</script>
 </head>
 <body>
 <header>

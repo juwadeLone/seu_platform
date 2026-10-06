@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LayoutECC · 空间辐射仿真平台</title>
+<style>
+  :root { --panel:rgba(12,21,36,.92); --line:#1b3350; --txt:#d9e6f5; --dim:#7f93ab; --acc:#00e5ff;
+          --side:232px; --top:52px; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { height:100%; }
+  body { color:var(--txt); font:13px/1.5 "Segoe UI","Microsoft YaHei",sans-serif; overflow:hidden;
+    background:linear-gradient(180deg,#081120,#04070d 45%); }
+
+  /* ── 侧边栏 ── */
+  aside { position:fixed; left:0; top:0; bottom:0; width:var(--side); display:flex; flex-direction:column;
+    background:rgba(8,15,27,.96); border-right:1px solid var(--line); z-index:10; }
+  .brand { display:flex; align-items:center; gap:10px; padding:15px 16px 13px; border-bottom:1px solid var(--line); }
+  .brand .logo { width:30px; height:30px; border-radius:8px; border:1px solid #17466b; position:relative; flex:none;
+    background:radial-gradient(circle at 34% 30%, #0e2a44, #071526 70%); }
+  .brand .logo::after { content:""; position:absolute; inset:6px; border-radius:50%;
+    border:2px solid var(--acc); border-right-color:transparent; transform:rotate(35deg); }
+  .brand b { font-size:14px; letter-spacing:.08em; display:block; }
+  .brand span { font-size:10.5px; color:var(--dim); letter-spacing:.05em; }
+  nav { flex:1; overflow-y:auto; padding:10px 8px; }
+  .grp { font-size:10.5px; color:#4f6a88; letter-spacing:.16em; padding:14px 10px 5px; }
+  nav a { display:flex; align-items:center; gap:10px; padding:8px 10px; margin:1px 0; border-radius:8px;
+    color:var(--txt); text-decoration:none; font-size:13px; border:1px solid transparent; }
+  nav a svg { width:16px; height:16px; flex:none; stroke:var(--dim); fill:none; stroke-width:1.6; }
+  nav a:hover { background:rgba(0,229,255,.06); }
+  nav a.on { background:rgba(0,229,255,.10); border-color:#134f6d; color:#fff; }
+  nav a.on svg { stroke:var(--acc); }
+  .side-foot { padding:11px 14px; border-top:1px solid var(--line); font-size:10.5px; color:#4f6a88; line-height:1.6; }
+
+  /* ── 顶栏 ── */
+  header { position:fixed; left:var(--side); right:0; top:0; height:var(--top); display:flex; align-items:center;
+    gap:12px; padding:0 18px; border-bottom:1px solid var(--line); background:rgba(8,15,27,.94); z-index:10; }
+  .crumb { font-size:14px; letter-spacing:.04em; }
+  .crumb small { color:var(--dim); font-size:11.5px; margin-left:8px; }
+  .chips { margin-left:auto; display:flex; gap:8px; align-items:center; }
+  .chip { font-size:11px; padding:2px 10px; border-radius:999px; border:1px solid var(--line); color:var(--dim);
+    display:flex; align-items:center; gap:6px; white-space:nowrap; }
+  .dot { width:7px; height:7px; border-radius:50%; background:#5f7390; }
+  .dot.ok { background:#7ee787; box-shadow:0 0 6px rgba(126,231,135,.7); }
+  .dot.bad { background:#ff7a7a; }
+
+  /* ── 主区 ── */
+  main { position:fixed; left:var(--side); top:var(--top); right:0; bottom:0; }
+  iframe { width:100%; height:100%; border:0; display:block; background:#04070d; }
+
+  @media (max-width:900px) {
+    :root { --side:64px; }
+    .brand b, .brand span, .grp, nav a em, .side-foot { display:none; }
+    nav a { justify-content:center; padding:10px 0; }
+  }
+</style>
+</head>
+<body>
+<aside>
+  <div class="brand">
+    <div class="logo"></div>
+    <div><b>LayoutECC</b><span>空间辐射仿真平台</span></div>
+  </div>
+  <nav id="nav">
+    <div class="grp">总览</div>
+    <a href="#home" data-r="home"><svg viewBox="0 0 24 24"><path d="M3 12l9-8 9 8M5 10v10h14V10"/></svg><em>平台首页</em></a>
+    <div class="grp">打击仿真</div>
+    <a href="#strike" data-r="strike"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="2.5"/></svg><em>辐射打击</em></a>
+    <a href="#sar" data-r="sar"><svg viewBox="0 0 24 24"><path d="M4 18c4-9 8-13 16-14M4 18h16M4 18v-5"/><circle cx="14" cy="8" r="1.6"/></svg><em>SAR 链路</em></a>
+    <div class="grp">轨道环境</div>
+    <a href="#orbit" data-r="orbit"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(-25 12 12)"/></svg><em>轨道环境</em></a>
+    <a href="#orbit3d" data-r="orbit3d"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 4.5 6 4.5 9s-1.5 5.8-4.5 9c-3-3.2-4.5-6-4.5-9S9 6.2 12 3z"/></svg><em>3D 视图</em></a>
+    <a href="#live" data-r="live"><svg viewBox="0 0 24 24"><path d="M2 12h4l3-8 4 16 3-8h6"/></svg><em>STK 实时</em></a>
+    <div class="grp">分析</div>
+    <a href="#effects" data-r="effects"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg><em>效应总览</em></a>
+    <a href="#seu" data-r="seu"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/></svg><em>器件内部</em></a>
+  </nav>
+  <div class="side-foot">v__APP_VERSION__ · 数据均有 source/assumption 标注<br>非冻结轨道一律标"模型级估计"</div>
+</aside>
+
+<header>
+  <div class="crumb"><span id="title">平台首页</span><small id="subtitle"></small></div>
+  <div class="chips">
+    <span class="chip" title="STK Connect TCP 监听可达性"><i class="dot" id="stkDot"></i>STK Connect</span>
+    <span class="chip">XC7VX690T</span>
+    <span class="chip" id="sitesChip">sites —</span>
+  </div>
+</header>
+
+<main><iframe id="view" src="/home" title="LayoutECC"></iframe></main>
+
+<script>
+const $ = id => document.getElementById(id);
+const ROUTES = {
+  home:    { path: "/home",    title: "平台首页", sub: "模块总览与状态" },
+  strike:  { path: "/strike",  title: "辐射打击", sub: "几何注入 · 位图翻转" },
+  sar:     { path: "/sar",     title: "SAR 链路", sub: "单机时间线 · 三维几何" },
+  orbit:   { path: "/orbit",   title: "轨道环境", sub: "orbit_seu 原版仪表盘 · 冻结基线同源" },
+  orbit3d: { path: "/orbit3d", title: "3D 视图",  sub: "轨道/辐射带/宇宙线可视化" },
+  live:    { path: "/live",    title: "STK 实时", sub: "Connect 桥接 · 逐历元辐射参数" },
+  effects: { path: "/effects", title: "效应总览", sub: "TID / SEE 覆盖统计" },
+  seu:     { path: "/seu",     title: "器件内部", sub: "LUT / FF / BRAM 翻转映射" },
+};
+function route() {
+  const h = (location.hash || "#home").slice(1);
+  const r = ROUTES[h] || ROUTES.home;
+  for (const a of document.querySelectorAll("nav a")) a.classList.toggle("on", a.dataset.r === h);
+  $("title").textContent = r.title;
+  $("subtitle").textContent = r.sub || "";
+  const frame = $("view");
+  if (!frame.src.endsWith(r.path)) frame.src = r.path;
+  document.title = "LayoutECC · " + r.title;
+}
+window.addEventListener("hashchange", route);
+route();
+
+/* 顶栏状态 */
+fetch("/api/status").then(r => r.json()).then(d => {
+  if (d.sites) $("sitesChip").textContent = "sites " + d.sites;
+  const ok = d.stk && d.stk.reachable;
+  $("stkDot").className = "dot " + (ok ? "ok" : "bad");
+  $("stkDot").parentElement.title = "STK Connect " + (d.stk ? d.stk.connect_url : "") +
+    (ok ? " 可达" : " 不可达（未开 STK 或未启用 Connect）");
+}).catch(() => { $("stkDot").className = "dot bad"; });
+setInterval(() => fetch("/api/status").then(r => r.json()).then(d => {
+  const ok = d.stk && d.stk.reachable;
+  $("stkDot").className = "dot " + (ok ? "ok" : "bad");
+}).catch(() => {}), 5000);
+</script>
+</body>
+</html>
