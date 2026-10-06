@@ -109,6 +109,8 @@ def _make_handler(gui):
         return html.encode("utf-8")
 
     class _DesktopHandler(gui._Handler):
+        _OSEU_MOUNTED = True  # 本类确实挂载了 /orbit /orbit3d /oseu-* 路由
+
         def do_GET(self):
             path = self.path.split("?", 1)[0]
             if path in ("/", "/app.html"):

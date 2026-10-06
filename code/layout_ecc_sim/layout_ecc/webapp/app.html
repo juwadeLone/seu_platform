@@ -30,6 +30,9 @@
   nav a:hover { background:rgba(0,229,255,.06); }
   nav a.on { background:rgba(0,229,255,.10); border-color:#134f6d; color:#fff; }
   nav a.on svg { stroke:var(--acc); }
+  nav a.off { opacity:.38; }
+  nav a.off:hover { background:none; }
+  nav a.off::after { content:"gui.py 入口未挂载"; font-size:9.5px; color:#5f7390; margin-left:auto; }
   .side-foot { padding:11px 14px; border-top:1px solid var(--line); font-size:10.5px; color:#4f6a88; line-height:1.6; }
 
   /* ── 顶栏 ── */
@@ -117,6 +120,13 @@ route();
 /* 顶栏状态 */
 fetch("/api/status").then(r => r.json()).then(d => {
   if (d.sites) $("sitesChip").textContent = "sites " + d.sites;
+  /* gui.py 独立入口不挂 vendored orbit 页面：置灰而非黑框死路 */
+  if (d.modules && d.modules.orbit === false)
+    for (const r of ["orbit", "orbit3d"])
+      for (const a of document.querySelectorAll(`nav a[data-r="${r}"]`)) {
+        a.classList.add("off");
+        a.title = "此入口（python -m layout_ecc）未挂载 orbit_seu；\n用 desktop/app.py 启动获得完整功能";
+      }
   const ok = d.stk && d.stk.reachable;
   $("stkDot").className = "dot " + (ok ? "ok" : "bad");
   $("stkDot").parentElement.title = "STK Connect " + (d.stk ? d.stk.connect_url : "") +

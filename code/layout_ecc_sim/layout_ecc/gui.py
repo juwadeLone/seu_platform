@@ -115,6 +115,10 @@ def _layout_payload():
 
 
 class _Handler(BaseHTTPRequestHandler):
+    # desktop/app.py 的 _DesktopHandler 会挂载 vendored orbit_seu 页面
+    # （/orbit /orbit3d /oseu-static /oseu/api）；gui.py 独立入口不挂。
+    # /api/status 据此告诉外壳哪些导航项可用。
+    _OSEU_MOUNTED = False
 
     def _send(self, code, ctype, body):
         if isinstance(body, str):
@@ -197,6 +201,7 @@ class _Handler(BaseHTTPRequestHandler):
                            "sites": _LAYOUT.get("n_sites"),
                            "design": _LAYOUT.get("design"),
                            "stk": {"connect_url": "127.0.0.1:5001", "reachable": ok},
+                           "modules": {"orbit": self._OSEU_MOUNTED},
                        }), ensure_ascii=False))
             return
         if path.startswith("/static/"):
