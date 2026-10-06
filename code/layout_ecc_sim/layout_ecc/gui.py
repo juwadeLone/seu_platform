@@ -18,6 +18,17 @@ from .layout_synth import bounding_box
 from .strike import g4_presets, run_strike
 from .strike_effects import classify
 
+_ATTACHER = None
+
+
+def _attacher():
+    """惰性构建 RadiationAttacher（加载 LIS 系数与器件配置需要数十 ms）。"""
+    global _ATTACHER
+    if _ATTACHER is None:
+        from .orbit_attach import RadiationAttacher
+        _ATTACHER = RadiationAttacher()
+    return _ATTACHER
+
 _WEB = os.path.join(os.path.dirname(__file__), "webapp")
 _MIME = {".html": "text/html; charset=utf-8",
          ".js": "application/javascript; charset=utf-8",
@@ -133,9 +144,29 @@ class _Handler(BaseHTTPRequestHandler):
             with open(os.path.join(_WEB, "seu_inside.html"), "rb") as fh:
                 self._send(200, "text/html; charset=utf-8", fh.read())
             return
+        if path in ("/live", "/live.html"):
+            with open(os.path.join(_WEB, "live.html"), "rb") as fh:
+                self._send(200, "text/html; charset=utf-8", fh.read())
+            return
         if path == "/api/effects":
             self._send(200, "application/json; charset=utf-8",
                        json.dumps(_safe(build_effects_payload()),
+                                  ensure_ascii=False))
+            return
+        if path == "/api/stk/status":
+            import socket as _sk
+            host = "127.0.0.1"
+            port = 5001
+            ok = False
+            try:
+                _sk.create_connection((host, port), timeout=1.0).close()
+                ok = True
+            except OSError:
+                pass
+            self._send(200, "application/json; charset=utf-8",
+                       json.dumps({"connect_url": f"{host}:{port}",
+                                   "reachable": ok,
+                                   "note": "STK Connect TCP listener"},
                                   ensure_ascii=False))
             return
         if path == "/api/layout":
@@ -153,6 +184,9 @@ class _Handler(BaseHTTPRequestHandler):
         self._send(404, "text/plain; charset=utf-8", b"not found")
 
     def do_POST(self):
+        if self.path in ("/api/stk/sample", "/api/stk/track"):
+            self._stk_post()
+            return
         if self.path != "/api/strike":
             self._send(404, "text/plain; charset=utf-8", b"not found")
             return
@@ -176,6 +210,50 @@ class _Handler(BaseHTTPRequestHandler):
             )
             out["effects"] = classify(out, out["let"])
             self._send(200, "application/json", json.dumps(_safe(out)))
+        except Exception as exc:
+            self._send(400, "application/json",
+                       json.dumps({"error": f"{type(exc).__name__}: {exc}"}))
+
+    def _stk_post(self):
+        """STK 实时链路：/api/stk/sample（单次轮询）与 /api/stk/track（批量）。"""
+        try:
+            n = int(self.headers.get("Content-Length", 0))
+            cfg = json.loads(self.rfile.read(n) or b"{}")
+            att = _attacher()
+            if self.path == "/api/stk/sample":
+                from .stk_connect import StkConnectClient, poll_position
+                host = str(cfg.get("host") or "127.0.0.1")
+                port = int(cfg.get("port") or 5001)
+                sat = str(cfg.get("sat") or "*/Satellite/Sat1")
+                try:
+                    with StkConnectClient(host=host, port=port,
+                                          timeout=float(cfg.get("timeout", 5))) as cli:
+                        pos = poll_position(cli, sat)
+                except Exception as exc:
+                    self._send(200, "application/json; charset=utf-8",
+                               json.dumps({
+                                   "error": f"STK Connect: {type(exc).__name__}: {exc}",
+                                   "hint": "STK 需开着 scenario 且 Options→Connect 端口监听已启用",
+                               }, ensure_ascii=False))
+                    return
+                rec = att.attach(ecef_km=pos.ecef_km,
+                                 lat_deg=pos.lat_deg, lon_deg=pos.lon_deg,
+                                 alt_km=pos.alt_km, epoch=pos.epoch)
+                rec["stk"] = {"satellite": sat, "host": host, "port": port}
+                self._send(200, "application/json; charset=utf-8",
+                           json.dumps(_safe(rec), ensure_ascii=False))
+                return
+            # /api/stk/track：批量历元挂载（不需要 STK）
+            pts = cfg.get("points") or []
+            results = []
+            for p in pts:
+                results.append(att.attach(
+                    lat_deg=p.get("lat_deg"), lon_deg=p.get("lon_deg"),
+                    alt_km=p.get("alt_km"), ecef_km=p.get("ecef_km"),
+                    epoch=p.get("epoch")))
+            self._send(200, "application/json; charset=utf-8",
+                       json.dumps(_safe({"results": results, "n": len(results)}),
+                                  ensure_ascii=False))
         except Exception as exc:
             self._send(400, "application/json",
                        json.dumps({"error": f"{type(exc).__name__}: {exc}"}))
