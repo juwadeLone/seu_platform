@@ -18,6 +18,17 @@ from .layout_synth import bounding_box
 from .strike import g4_presets, run_strike
 from .strike_effects import classify
 
+_ATTACHER = None
+
+
+def _attacher():
+    """惰性构建 RadiationAttacher（加载 LIS 系数与器件配置需要数十 ms）。"""
+    global _ATTACHER
+    if _ATTACHER is None:
+        from .orbit_attach import RadiationAttacher
+        _ATTACHER = RadiationAttacher()
+    return _ATTACHER
+
 _WEB = os.path.join(os.path.dirname(__file__), "webapp")
 _MIME = {".html": "text/html; charset=utf-8",
          ".js": "application/javascript; charset=utf-8",
@@ -133,9 +144,29 @@ class _Handler(BaseHTTPRequestHandler):
             with open(os.path.join(_WEB, "seu_inside.html"), "rb") as fh:
                 self._send(200, "text/html; charset=utf-8", fh.read())
             return
+        if path in ("/live", "/live.html"):
+            with open(os.path.join(_WEB, "live.html"), "rb") as fh:
+                self._send(200, "text/html; charset=utf-8", fh.read())
+            return
         if path == "/api/effects":
             self._send(200, "application/json; charset=utf-8",
                        json.dumps(_safe(build_effects_payload()),
+                                  ensure_ascii=False))
+            return
+        if path == "/api/stk/status":
+            import socket as _sk
+            host = "127.0.0.1"
+            port = 5001
+            ok = False
+            try:
+                _sk.create_connection((host, port), timeout=1.0).close()
+                ok = True
+            except OSError:
+                pass
+            self._send(200, "application/json; charset=utf-8",
+                       json.dumps({"connect_url": f"{host}:{port}",
+                                   "reachable": ok,
+                                   "note": "STK Connect TCP listener"},
                                   ensure_ascii=False))
             return
         if path == "/api/layout":
@@ -153,6 +184,12 @@ class _Handler(BaseHTTPRequestHandler):
         self._send(404, "text/plain; charset=utf-8", b"not found")
 
     def do_POST(self):
+        if self.path in ("/api/stk/sample", "/api/stk/track"):
+            self._stk_post()
+            return
+        if self.path == "/api/orbit/propagate":
+            self._orbit_post()
+            return
         if self.path != "/api/strike":
             self._send(404, "text/plain; charset=utf-8", b"not found")
             return
@@ -176,6 +213,111 @@ class _Handler(BaseHTTPRequestHandler):
             )
             out["effects"] = classify(out, out["let"])
             self._send(200, "application/json", json.dumps(_safe(out)))
+        except Exception as exc:
+            self._send(400, "application/json",
+                       json.dumps({"error": f"{type(exc).__name__}: {exc}"}))
+
+    def _stk_post(self):
+        """STK 实时链路：/api/stk/sample（单次轮询）与 /api/stk/track（批量）。"""
+        try:
+            n = int(self.headers.get("Content-Length", 0))
+            cfg = json.loads(self.rfile.read(n) or b"{}")
+            att = _attacher()
+            if self.path == "/api/stk/sample":
+                from .stk_connect import StkConnectClient, poll_position
+                host = str(cfg.get("host") or "127.0.0.1")
+                port = int(cfg.get("port") or 5001)
+                sat = str(cfg.get("sat") or "*/Satellite/Sat1")
+                try:
+                    with StkConnectClient(host=host, port=port,
+                                          timeout=float(cfg.get("timeout", 5))) as cli:
+                        pos = poll_position(cli, sat)
+                except Exception as exc:
+                    self._send(200, "application/json; charset=utf-8",
+                               json.dumps({
+                                   "error": f"STK Connect: {type(exc).__name__}: {exc}",
+                                   "hint": "STK 需开着 scenario 且 Options→Connect 端口监听已启用",
+                               }, ensure_ascii=False))
+                    return
+                rec = att.attach(ecef_km=pos.ecef_km,
+                                 lat_deg=pos.lat_deg, lon_deg=pos.lon_deg,
+                                 alt_km=pos.alt_km, epoch=pos.epoch)
+                rec["stk"] = {"satellite": sat, "host": host, "port": port}
+                self._send(200, "application/json; charset=utf-8",
+                           json.dumps(_safe(rec), ensure_ascii=False))
+                return
+            # /api/stk/track：批量历元挂载（不需要 STK）
+            pts = cfg.get("points") or []
+            results = []
+            for p in pts:
+                results.append(att.attach(
+                    lat_deg=p.get("lat_deg"), lon_deg=p.get("lon_deg"),
+                    alt_km=p.get("alt_km"), ecef_km=p.get("ecef_km"),
+                    epoch=p.get("epoch")))
+            self._send(200, "application/json; charset=utf-8",
+                       json.dumps(_safe({"results": results, "n": len(results)}),
+                                  ensure_ascii=False))
+        except Exception as exc:
+            self._send(400, "application/json",
+                       json.dumps({"error": f"{type(exc).__name__}: {exc}"}))
+
+    def _orbit_post(self):
+        """STK 风格轨道定义 → 平台二体传播 → 逐历元辐射参数（不需要 STK）。
+
+        body: {preset|a_km|hp_km+ha_km, e, inc_deg, raan_deg, arg_perigee_deg,
+               true_anomaly_deg, duration_min, step_s, attach}
+        """
+        try:
+            n = int(self.headers.get("Content-Length", 0))
+            cfg = json.loads(self.rfile.read(n) or b"{}")
+            from .orbit_propagate import OrbitElements, PRESETS, propagate
+            preset = cfg.get("preset")
+            kw = {}
+            if preset:
+                if preset not in PRESETS:
+                    raise ValueError(
+                        f"unknown preset {preset!r}; choose from "
+                        + ",".join(sorted(PRESETS)))
+                kw.update(PRESETS[preset])
+            for k_in, k_out in (("hp_km", "hp_km"), ("ha_km", "ha_km"),
+                                ("inc_deg", "inc_deg"),
+                                ("raan_deg", "raan_deg"),
+                                ("arg_perigee_deg", "arg_perigee_deg"),
+                                ("true_anomaly_deg", "true_anomaly_deg")):
+                if cfg.get(k_in) is not None:
+                    kw[k_out] = float(cfg[k_in])
+            if cfg.get("a_km") is not None or cfg.get("e") is not None:
+                # 半长轴模式：a + e 直接给（e 缺省 0）
+                el = OrbitElements(
+                    float(cfg.get("a_km") or (6378.137 + 420.0)),
+                    float(cfg.get("e") or 0.0),
+                    float(kw.get("inc_deg", cfg.get("inc_deg", 51.6))),
+                    float(kw.get("raan_deg", 0.0)),
+                    float(kw.get("arg_perigee_deg", 0.0)),
+                    float(kw.get("true_anomaly_deg", 0.0)))
+            else:
+                el = OrbitElements.from_altitudes(
+                    float(kw.get("hp_km", 420.0)),
+                    float(kw.get("ha_km", kw.get("hp_km", 420.0))),
+                    float(kw.get("inc_deg", 51.6)),
+                    float(kw.get("raan_deg", 0.0)),
+                    float(kw.get("arg_perigee_deg", 0.0)),
+                    float(kw.get("true_anomaly_deg", 0.0)))
+            dur = float(cfg.get("duration_min") or el.period_s / 60.0)
+            step = max(1.0, float(cfg.get("step_s") or 10.0))
+            pts = propagate(el, dur, step)
+            out = {"orbit": el.summary(), "n_epochs": len(pts)}
+            if cfg.get("attach", True):
+                att = _attacher()
+                out["results"] = [
+                    att.attach(lat_deg=p["lat_deg"], lon_deg=p["lon_deg"],
+                               alt_km=p["alt_km"], ecef_km=p["ecef_km"],
+                               epoch=p["epoch"])
+                    for p in pts]
+            else:
+                out["points"] = pts
+            self._send(200, "application/json; charset=utf-8",
+                       json.dumps(_safe(out), ensure_ascii=False))
         except Exception as exc:
             self._send(400, "application/json",
                        json.dumps({"error": f"{type(exc).__name__}: {exc}"}))

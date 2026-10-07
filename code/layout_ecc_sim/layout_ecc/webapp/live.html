@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>LayoutECC · STK 实时 v1.2.0</title>
+<style>
+  :root { --panel:rgba(12,21,36,.86); --line:#1b3350; --txt:#d9e6f5; --dim:#7f93ab; --acc:#00e5ff;
+          --on:#7ee787; --miss:#ffb454; --out:#5f7390; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { min-height:100%; color:var(--txt); font:13px/1.5 "Segoe UI","Microsoft YaHei",sans-serif; }
+  body { background:radial-gradient(1100px 600px at 78% -10%, rgba(0,90,160,.18), transparent 60%), linear-gradient(180deg,#081120,#04070d 45%); }
+  header { display:flex; align-items:center; gap:10px; padding:9px 16px; border-bottom:1px solid var(--line); }
+  .logo { width:24px; height:24px; border-radius:7px; border:1px solid #17466b; position:relative;
+    background:radial-gradient(circle at 34% 30%, #0e2a44, #071526 70%); }
+  .logo::after { content:""; position:absolute; inset:5px; border-radius:50%; border:2px solid var(--acc); border-right-color:transparent; transform:rotate(35deg); }
+  header h1 { font-size:16px; letter-spacing:.12em; }
+  nav { margin-left:auto; display:flex; gap:10px; font-size:13px; }
+  nav a { color:var(--acc); text-decoration:none; }
+  nav a.on { color:#fff; border-bottom:1px solid var(--acc); }
+  .ver { color:#4f6a88; font-size:11px; }
+  main { max-width:1080px; margin:0 auto; padding:18px 18px 40px; }
+  .panel { border:1px solid var(--line); border-radius:14px; padding:14px 16px; background:var(--panel); margin-bottom:14px; }
+  .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  label { color:var(--dim); font-size:12px; }
+  input, textarea, select { background:#0b1624; color:var(--txt); border:1px solid var(--line); border-radius:7px;
+    padding:5px 9px; font:12.5px Consolas,monospace; }
+  input:focus, textarea:focus { outline:none; border-color:var(--acc); }
+  input.sat { width:200px; } input.num { width:80px; } input.host { width:110px; } input.port { width:66px; }
+  button { background:#12395c; color:#dff3ff; border:1px solid #1e5d8a; border-radius:8px;
+    padding:6px 14px; font-size:12.5px; cursor:pointer; }
+  button:hover { border-color:var(--acc); }
+  button.stop { background:#4a2430; border-color:#7a3a48; }
+  h2 { font-size:11px; letter-spacing:.18em; color:var(--acc); margin:4px 2px 10px; }
+  .stat { font-size:12px; color:var(--dim); }
+  .stat b { color:#fff; font-variant-numeric:tabular-nums; }
+  table { width:100%; border-collapse:collapse; font:12px Consolas,monospace; margin-top:8px; }
+  th { text-align:left; color:var(--dim); font-weight:400; letter-spacing:.06em; border-bottom:1px solid var(--line); padding:4px 8px; }
+  td { padding:4px 8px; border-bottom:1px solid #12233a; font-variant-numeric:tabular-nums; }
+  .tag { font-size:10.5px; padding:1px 7px; border-radius:999px; border:1px solid; white-space:nowrap; }
+  .tag.gcr { color:#9fd8ff; border-color:#2d5a82; }
+  .tag.belt { color:#ffd9a0; border-color:#6d521c; }
+  .tag.saa { color:#ff9f9f; border-color:#7a3a3a; }
+  .chip { font-size:11px; padding:1px 8px; border-radius:999px; border:1px solid #5d431a; color:#ffd9a0; background:rgba(58,43,18,.35); }
+  .err { color:#ff9f9f; font:12px Consolas,monospace; white-space:pre-wrap; }
+  textarea { width:100%; height:110px; }
+  details summary { color:var(--dim); cursor:pointer; font-size:12px; }
+  .src { color:#6f8aa8; font-size:11px; margin-top:8px; }
+  .globe-wrap { position:relative; height:430px; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#04070d; }
+  .globe-wrap canvas { position:absolute; inset:0; width:100%; height:100%; cursor:grab; display:block; }
+  .legend { position:absolute; left:10px; bottom:10px; display:flex; gap:12px; font-size:11px; color:var(--dim);
+    background:rgba(6,12,22,.72); border:1px solid var(--line); border-radius:8px; padding:5px 10px; }
+  .legend i { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:4px; }
+  .globe-btns { position:absolute; right:10px; top:10px; display:flex; gap:8px; }
+  .globe-btns button { padding:4px 10px; font-size:11.5px; opacity:.85; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"></div>
+  <h1>STK 实时链路</h1>
+  <nav>
+    <a href="/">打击</a><a href="/orbit">轨道</a><a href="/sar">SAR</a><a href="/effects">效应</a><a href="/seu">器件内部</a><a href="/live" class="on">STK 实时</a>
+  </nav>
+  <span class="ver">v1.2.0</span>
+</header>
+<main>
+  <section class="panel">
+    <h2>连接</h2>
+    <div class="row">
+      <label>STK Connect</label>
+      <input class="host" id="host" value="127.0.0.1"><input class="port" id="port" value="5001">
+      <label>卫星</label><input class="sat" id="sat" value="*/Satellite/Sat1">
+      <label>间隔 s</label><input class="num" id="interval" value="1.0">
+      <button id="go">开始轮询</button>
+      <button id="once">单次采样</button>
+      <span class="stat" id="stat">未连接</span>
+    </div>
+    <div class="src" id="src">来源：IGRF-13 偶极截止 · BO2020 GCR + O'Neill LIS · Lee 2014 三域 Weibull · XC7VX690T</div>
+  </section>
+
+  <section class="panel">
+    <h2>轨道定义 · 平台自传播 <span class="chip">二体开普勒 + 地球自转 · 无需 STK</span></h2>
+    <div class="row">
+      <label>预设</label>
+      <select id="preset">
+        <option value="">自定义</option>
+        <option value="iss">ISS 类 420km / 51.6°</option>
+        <option value="sso_800">SSO 800km / 98.6°</option>
+        <option value="gps_meo">GPS MEO 20200km / 55°</option>
+        <option value="geo">GEO 35786km</option>
+        <option value="molniya">Molniya 600×39700km / 63.4°</option>
+      </select>
+      <label>近点 km</label><input class="num" id="hp" value="420">
+      <label>远点 km</label><input class="num" id="ha" value="420">
+      <label>倾角°</label><input class="num" id="inc" value="51.6">
+    </div>
+    <div class="row" style="margin-top:8px">
+      <label>Ω 升交点°</label><input class="num" id="raan" value="0">
+      <label>ω 近点幅角°</label><input class="num" id="aop" value="0">
+      <label>ν 真近点角°</label><input class="num" id="ta" value="0">
+      <label>时长 min</label><input class="num" id="dur" value="" placeholder="1周期">
+      <label>步长 s</label><input class="num" id="step" value="30">
+      <button id="prop">传播并挂载</button>
+      <span class="stat" id="pstat"></span>
+    </div>
+    <div class="src">与 STK Classical 面板同参：hp/ha 近/远点高度（圆轨填同值）、i 倾角、Ω 升交点赤经、ω 近点幅角、ν 真近点角。二体传播器：无 J2/大气阻力/三体摄动。</div>
+  </section>
+
+  <section class="panel">
+    <h2>STK 视角 · 实时轨道 + 辐射 <span class="chip">ECEF · 拖拽旋转 / 滚轮缩放</span></h2>
+    <div class="globe-wrap">
+      <canvas id="cv"></canvas>
+      <div class="globe-btns">
+        <button id="fly" style="display:none">飞行:开</button>
+        <button id="follow">跟随缩放:开</button>
+        <button id="clear">清除轨迹</button>
+      </div>
+      <div class="legend">
+        <span><i style="background:#45c8ff"></i>GCR 主导</span>
+        <span><i style="background:#ffb454"></i>内带候选</span>
+        <span><i style="background:#ff7a7a"></i>SAA 近似区</span>
+        <span><i style="border:1px dashed #ff7a7a;width:12px;height:8px;border-radius:0"></i>SAA 边界(近似)</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>逐历元辐射参数 <span class="chip">模型级估计 · GCR-only · 非冻结证据</span></h2>
+    <table>
+      <thead><tr><th>历元</th><th>lat°</th><th>lon°</th><th>alt km</th><th>Rc GV</th><th>L</th><th>环境</th><th>SEU /day(GCR)</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="err" id="err"></div>
+  </section>
+
+  <section class="panel">
+    <details><summary>星历批量挂载（无 STK：贴 epoch lat lon alt 行，或 CSV）</summary>
+      <div style="margin:10px 0"><textarea id="eph" placeholder="epoch lat_deg lon_deg alt_km&#10;1 Jan 2025 00:00:00  0.0  45.0  20200&#10;1 Jan 2025 00:10:00  5.2  47.1  20200"></textarea></div>
+      <div class="row"><button id="batch">挂载辐射参数</button><span class="stat" id="bstat"></span></div>
+      <table><thead><tr><th>历元</th><th>lat°</th><th>lon°</th><th>alt km</th><th>Rc GV</th><th>L</th><th>环境</th><th>SEU /day(GCR)</th></tr></thead><tbody id="brows"></tbody></table>
+    </details>
+  </section>
+</main>
+<script src="/static/live3d.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const globe = LiveGlobe($("cv"));
+let follow = true;
+$("follow").onclick = () => { follow = !follow; globe.follow(follow); $("follow").textContent = "跟随缩放:" + (follow ? "开" : "关"); };
+$("clear").onclick = () => { globe.clear(); globe.clearOrbit(); $("fly").style.display = "none"; $("rows").innerHTML = ""; $("brows").innerHTML = ""; };
+let flying = true;
+$("fly").onclick = () => { flying = !flying; globe.fly(flying); $("fly").textContent = "飞行:" + (flying ? "开" : "关"); };
+
+const PRESET = {
+  iss:{hp:415,ha:425,inc:51.64,raan:0,aop:0,ta:0},
+  sso_800:{hp:800,ha:800,inc:98.6,raan:0,aop:0,ta:0},
+  gps_meo:{hp:20180,ha:20220,inc:55,raan:0,aop:0,ta:0},
+  geo:{hp:35786,ha:35786,inc:0.05,raan:0,aop:0,ta:0},
+  molniya:{hp:600,ha:39700,inc:63.4,raan:0,aop:270,ta:0},
+};
+$("preset").onchange = () => {
+  const p = PRESET[$("preset").value]; if (!p) return;
+  $("hp").value = p.hp; $("ha").value = p.ha; $("inc").value = p.inc;
+  $("raan").value = p.raan; $("aop").value = p.aop; $("ta").value = p.ta;
+};
+
+$("prop").onclick = async () => {
+  $("pstat").textContent = "传播中…"; $("err").textContent = "";
+  try {
+    const body = {
+      hp_km: +$("hp").value, ha_km: +$("ha").value, inc_deg: +$("inc").value,
+      raan_deg: +$("raan").value, arg_perigee_deg: +$("aop").value,
+      true_anomaly_deg: +$("ta").value, step_s: Math.max(1, +$("step").value || 30),
+      attach: true,
+    };
+    if (+$("dur").value > 0) body.duration_min = +$("dur").value;
+    const res = await fetch("/api/orbit/propagate", {method:"POST",
+      headers:{"Content-Type":"application/json"}, body: JSON.stringify(body)});
+    const d = await res.json();
+    if (d.error) { $("pstat").textContent = ""; $("err").textContent = d.error; return; }
+    const rs = d.results || [];
+    globe.setOrbit(rs.map(r => ({ecef_km: r.position.ecef_km, env: r.environment_tag,
+      rc: r.geomagnetic.cutoff_gv, epoch: r.epoch})));
+    flying = true; globe.fly(true); globe.speed(60);
+    $("fly").style.display = ""; $("fly").textContent = "飞行:开";
+    $("rows").innerHTML = rs.map(tr).join("");
+    const o = d.orbit || {};
+    $("pstat").innerHTML = `周期 <b>${o.period_min}</b> min · 近点 <b>${o.perigee_alt_km}</b> / 远点 <b>${o.apogee_alt_km}</b> km · 已挂 <b>${rs.length}</b> 历元`;
+  } catch(e) { $("pstat").textContent = ""; $("err").textContent = String(e); }
+};
+let timer = null;
+const TAG = { gcr_dominant:"gcr", inner_belt_candidate:"belt", saa_region_approx:"saa" };
+
+function tr(rec) {
+  const p = rec.position, g = rec.geomagnetic, r = rec.seu_rate_gcr_only;
+  const env = rec.environment_tag, cls = TAG[env] || "gcr";
+  const rate = r ? r.device_total_per_day : null;
+  return `<tr><td>${rec.epoch ?? ""}</td><td>${p.lat_deg.toFixed(2)}</td><td>${p.lon_deg.toFixed(2)}</td>`+
+    `<td>${p.alt_km.toFixed(0)}</td><td>${g.cutoff_gv.toFixed(2)}</td><td>${g.mcilwain_l}</td>`+
+    `<td><span class="tag ${cls}">${env}</span></td>`+
+    `<td>${rate === null ? "—" : rate.toExponential(2)}</td></tr>`;
+}
+
+async function sample() {
+  $("err").textContent = "";
+  try {
+    const res = await fetch("/api/stk/sample", {method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({host:$("host").value, port:+$("port").value, sat:$("sat").value})});
+    const d = await res.json();
+    if (d.error) { $("err").textContent = d.error; $("stat").innerHTML = "<b>STK 连接失败</b>"; stopPoll(); return; }
+    $("rows").insertAdjacentHTML("afterbegin", tr(d));
+    globe.push({lat_deg: d.position.lat_deg, lon_deg: d.position.lon_deg, alt_km: d.position.alt_km,
+                env: d.environment_tag, rc: d.geomagnetic.cutoff_gv, epoch: d.epoch});
+    $("stat").innerHTML = `已采 <b>${$("rows").rows.length}</b> 历元`;
+  } catch(e) { $("err").textContent = String(e); stopPoll(); }
+}
+
+function stopPoll() { if (timer) { clearInterval(timer); timer = null; $("go").textContent = "开始轮询"; } }
+
+$("once").onclick = sample;
+$("go").onclick = () => {
+  if (timer) { stopPoll(); return; }
+  sample();
+  timer = setInterval(sample, Math.max(0.2, +$("interval").value || 1) * 1000);
+  $("go").textContent = "停止";
+};
+
+$("batch").onclick = async () => {
+  const lines = $("eph").value.split("\n").map(s=>s.trim()).filter(s=>s && !s.startsWith("#"));
+  const pts = [];
+  for (const l of lines) {
+    const c = l.includes(",") ? l.split(",").map(s=>s.trim()) : l.split(/\s+/);
+    if (c.length >= 4) pts.push({epoch:c.slice(0,-3).join(" "), lat_deg:+c[c.length-3], lon_deg:+c[c.length-2], alt_km:+c[c.length-1]});
+  }
+  if (!pts.length) { $("bstat").textContent = "没有可解析的历元行"; return; }
+  const res = await fetch("/api/stk/track", {method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({points: pts})});
+  const d = await res.json();
+  $("brows").innerHTML = (d.results||[]).map(tr).join("");
+  for (const r of (d.results || [])) {
+    globe.push({lat_deg: r.position.lat_deg, lon_deg: r.position.lon_deg, alt_km: r.position.alt_km,
+                env: r.environment_tag, rc: r.geomagnetic.cutoff_gv, epoch: r.epoch});
+  }
+  $("bstat").textContent = `已处理 ${pts.length} 历元`;
+};
+</script>
+</body>
+</html>
