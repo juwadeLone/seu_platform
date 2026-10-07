@@ -115,6 +115,10 @@ def _layout_payload():
 
 
 class _Handler(BaseHTTPRequestHandler):
+    # desktop/app.py 的 _DesktopHandler 会挂载 vendored orbit_seu 页面
+    # （/orbit /orbit3d /oseu-static /oseu/api）；gui.py 独立入口不挂。
+    # /api/status 据此告诉外壳哪些导航项可用。
+    _OSEU_MOUNTED = False
 
     def _send(self, code, ctype, body):
         if isinstance(body, str):
@@ -128,7 +132,17 @@ class _Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = self.path.split("?", 1)[0]
-        if path in ("/", "/index.html"):
+        if path in ("/", "/app.html"):
+            with open(os.path.join(_WEB, "app.html"), "r", encoding="utf-8") as fh:
+                html = fh.read().replace("__APP_VERSION__", "1.2.0")
+            self._send(200, "text/html; charset=utf-8", html.encode("utf-8"))
+            return
+        if path in ("/home", "/home.html"):
+            with open(os.path.join(_WEB, "home.html"), "r", encoding="utf-8") as fh:
+                html = fh.read().replace("__APP_VERSION__", "1.2.0")
+            self._send(200, "text/html; charset=utf-8", html.encode("utf-8"))
+            return
+        if path in ("/strike", "/index.html"):
             with open(os.path.join(_WEB, "index.html"), "rb") as fh:
                 self._send(200, "text/html; charset=utf-8", fh.read())
             return
@@ -172,6 +186,23 @@ class _Handler(BaseHTTPRequestHandler):
         if path == "/api/layout":
             self._send(200, "application/json",
                        json.dumps(_safe(_layout_payload())))
+            return
+        if path == "/api/status":
+            import socket as _sk
+            ok = False
+            try:
+                _sk.create_connection(("127.0.0.1", 5001), timeout=1.0).close()
+                ok = True
+            except OSError:
+                pass
+            self._send(200, "application/json; charset=utf-8",
+                       json.dumps(_safe({
+                           "version": "1.2.0",
+                           "sites": _LAYOUT.get("n_sites"),
+                           "design": _LAYOUT.get("design"),
+                           "stk": {"connect_url": "127.0.0.1:5001", "reachable": ok},
+                           "modules": {"orbit": self._OSEU_MOUNTED},
+                       }), ensure_ascii=False))
             return
         if path.startswith("/static/"):
             name = os.path.basename(path)
