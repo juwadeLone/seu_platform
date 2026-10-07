@@ -36,6 +36,8 @@ window.LiveGlobe = function (canvas, opts) {
   const ctx = canvas.getContext("2d");
   const cam = { yaw: -0.6, pitch: 0.35, k: 42 };   /* k: px per RE */
   const track = [];                                 /* {p:[ecef km], env, rc, epoch} */
+  const orbit = [];                                 /* 平台传播的完整轨道 */
+  let orbitCur = 0, orbitFly = false, orbitSpd = 30, lastNow = 0;
   let followOn = true, drag = null, raf = 0;
   let W = 0, H = 0;
 
@@ -66,6 +68,8 @@ window.LiveGlobe = function (canvas, opts) {
   }
 
   function draw(now) {
+    const dt = lastNow ? now - lastNow : 0;
+    lastNow = now;
     const dpr = window.devicePixelRatio || 1;
     const bw = canvas.clientWidth * dpr, bh = canvas.clientHeight * dpr;
     if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
@@ -152,7 +156,40 @@ window.LiveGlobe = function (canvas, opts) {
     }
     ctx.globalAlpha = 1;
 
-    /* 当前位置标记 */
+    /* 平台传播的完整轨道：同一环境着色法，全程常显 */
+    for (let i = 1; i < orbit.length; i++) {
+      const a = proj(orbit[i-1].p), b = proj(orbit[i].p);
+      if (!a.front && !b.front) continue;
+      ctx.strokeStyle = ENV_COLOR[orbit[i].env] || "#45c8ff";
+      ctx.lineWidth = 1.3 * dpr;
+      ctx.globalAlpha = (a.front && b.front) ? 0.55 : 0.15;
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    /* 光标沿轨道飞行 */
+    if (orbit.length) {
+      if (orbitFly) orbitCur = (orbitCur + dt / 1000 * orbitSpd) % orbit.length;
+      const cur = orbit[Math.floor(orbitCur) % orbit.length], q = proj(cur.p);
+      const col = ENV_COLOR[cur.env] || "#45c8ff";
+      ctx.save();
+      ctx.shadowColor = col; ctx.shadowBlur = 12 * dpr;
+      ctx.fillStyle = "#fff";
+      ctx.beginPath(); ctx.arc(q.x, q.y, 3.4*dpr, 0, 7); ctx.fill();
+      ctx.restore();
+      ctx.strokeStyle = col; ctx.lineWidth = 1.2*dpr;
+      const pulse = (now/1000 % 1.6) / 1.6;
+      ctx.globalAlpha = 1 - pulse;
+      ctx.beginPath(); ctx.arc(q.x, q.y, (4 + 12*pulse)*dpr, 0, 7); ctx.stroke();
+      ctx.globalAlpha = 1;
+      const alt = (V.len(cur.p) - RE).toFixed(0);
+      ctx.font = `${11*dpr}px Consolas,monospace`; ctx.fillStyle = "#dff3ff";
+      const lx = q.x + 10*dpr, ly = q.y - 10*dpr;
+      ctx.fillText(`alt ${alt} km  Rc ${cur.rc == null ? "—" : cur.rc.toFixed(2)} GV`, lx, ly);
+      if (cur.epoch) { ctx.fillStyle = "#7f93ab"; ctx.fillText(String(cur.epoch).slice(0, 26), lx, ly + 13*dpr); }
+    }
+
+    /* 当前位置标记（STK 推送的 track 尾点） */
     if (track.length) {
       const cur = track[track.length - 1], q = proj(cur.p);
       const col = ENV_COLOR[cur.env] || "#45c8ff";
@@ -205,6 +242,21 @@ window.LiveGlobe = function (canvas, opts) {
       }
     },
     clear() { track.length = 0; },
+    /* 平台传播的轨道：整条载入 + 光标飞行控制 */
+    setOrbit(pts) {
+      orbit.length = 0; orbitCur = 0;
+      for (const rec of pts) {
+        const p = rec.ecef_km || lla2ecef(rec.lat_deg ?? rec.lat, rec.lon_deg ?? rec.lon, rec.alt_km ?? rec.alt);
+        orbit.push({ p, env: rec.env || rec.environment_tag, rc: rec.rc ?? rec.cutoff_gv, epoch: rec.epoch });
+      }
+      if (followOn && orbit.length) {
+        const r = V.len(orbit.reduce((m, o) => V.len(o.p) > V.len(m.p) ? o : m, orbit[0]).p) / RE;
+        cam.k = Math.min(400, Math.min(canvas.clientWidth, canvas.clientHeight) * 0.42 / r);
+      }
+    },
+    clearOrbit() { orbit.length = 0; orbitFly = false; },
+    fly(v) { orbitFly = !!v; },
+    speed(v) { orbitSpd = Math.max(1, +v || 30); },
     follow(v) { followOn = !!v; },
     saaBox: SAA,
     envColor: ENV_COLOR, envLabel: ENV_LABEL,

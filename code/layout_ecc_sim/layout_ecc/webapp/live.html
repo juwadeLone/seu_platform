@@ -79,10 +79,39 @@
   </section>
 
   <section class="panel">
+    <h2>轨道定义 · 平台自传播 <span class="chip">二体开普勒 + 地球自转 · 无需 STK</span></h2>
+    <div class="row">
+      <label>预设</label>
+      <select id="preset">
+        <option value="">自定义</option>
+        <option value="iss">ISS 类 420km / 51.6°</option>
+        <option value="sso_800">SSO 800km / 98.6°</option>
+        <option value="gps_meo">GPS MEO 20200km / 55°</option>
+        <option value="geo">GEO 35786km</option>
+        <option value="molniya">Molniya 600×39700km / 63.4°</option>
+      </select>
+      <label>近点 km</label><input class="num" id="hp" value="420">
+      <label>远点 km</label><input class="num" id="ha" value="420">
+      <label>倾角°</label><input class="num" id="inc" value="51.6">
+    </div>
+    <div class="row" style="margin-top:8px">
+      <label>Ω 升交点°</label><input class="num" id="raan" value="0">
+      <label>ω 近点幅角°</label><input class="num" id="aop" value="0">
+      <label>ν 真近点角°</label><input class="num" id="ta" value="0">
+      <label>时长 min</label><input class="num" id="dur" value="" placeholder="1周期">
+      <label>步长 s</label><input class="num" id="step" value="30">
+      <button id="prop">传播并挂载</button>
+      <span class="stat" id="pstat"></span>
+    </div>
+    <div class="src">与 STK Classical 面板同参：hp/ha 近/远点高度（圆轨填同值）、i 倾角、Ω 升交点赤经、ω 近点幅角、ν 真近点角。二体传播器：无 J2/大气阻力/三体摄动。</div>
+  </section>
+
+  <section class="panel">
     <h2>STK 视角 · 实时轨道 + 辐射 <span class="chip">ECEF · 拖拽旋转 / 滚轮缩放</span></h2>
     <div class="globe-wrap">
       <canvas id="cv"></canvas>
       <div class="globe-btns">
+        <button id="fly" style="display:none">飞行:开</button>
         <button id="follow">跟随缩放:开</button>
         <button id="clear">清除轨迹</button>
       </div>
@@ -118,7 +147,47 @@ const $ = id => document.getElementById(id);
 const globe = LiveGlobe($("cv"));
 let follow = true;
 $("follow").onclick = () => { follow = !follow; globe.follow(follow); $("follow").textContent = "跟随缩放:" + (follow ? "开" : "关"); };
-$("clear").onclick = () => { globe.clear(); $("rows").innerHTML = ""; $("brows").innerHTML = ""; };
+$("clear").onclick = () => { globe.clear(); globe.clearOrbit(); $("fly").style.display = "none"; $("rows").innerHTML = ""; $("brows").innerHTML = ""; };
+let flying = true;
+$("fly").onclick = () => { flying = !flying; globe.fly(flying); $("fly").textContent = "飞行:" + (flying ? "开" : "关"); };
+
+const PRESET = {
+  iss:{hp:415,ha:425,inc:51.64,raan:0,aop:0,ta:0},
+  sso_800:{hp:800,ha:800,inc:98.6,raan:0,aop:0,ta:0},
+  gps_meo:{hp:20180,ha:20220,inc:55,raan:0,aop:0,ta:0},
+  geo:{hp:35786,ha:35786,inc:0.05,raan:0,aop:0,ta:0},
+  molniya:{hp:600,ha:39700,inc:63.4,raan:0,aop:270,ta:0},
+};
+$("preset").onchange = () => {
+  const p = PRESET[$("preset").value]; if (!p) return;
+  $("hp").value = p.hp; $("ha").value = p.ha; $("inc").value = p.inc;
+  $("raan").value = p.raan; $("aop").value = p.aop; $("ta").value = p.ta;
+};
+
+$("prop").onclick = async () => {
+  $("pstat").textContent = "传播中…"; $("err").textContent = "";
+  try {
+    const body = {
+      hp_km: +$("hp").value, ha_km: +$("ha").value, inc_deg: +$("inc").value,
+      raan_deg: +$("raan").value, arg_perigee_deg: +$("aop").value,
+      true_anomaly_deg: +$("ta").value, step_s: Math.max(1, +$("step").value || 30),
+      attach: true,
+    };
+    if (+$("dur").value > 0) body.duration_min = +$("dur").value;
+    const res = await fetch("/api/orbit/propagate", {method:"POST",
+      headers:{"Content-Type":"application/json"}, body: JSON.stringify(body)});
+    const d = await res.json();
+    if (d.error) { $("pstat").textContent = ""; $("err").textContent = d.error; return; }
+    const rs = d.results || [];
+    globe.setOrbit(rs.map(r => ({ecef_km: r.position.ecef_km, env: r.environment_tag,
+      rc: r.geomagnetic.cutoff_gv, epoch: r.epoch})));
+    flying = true; globe.fly(true); globe.speed(60);
+    $("fly").style.display = ""; $("fly").textContent = "飞行:开";
+    $("rows").innerHTML = rs.map(tr).join("");
+    const o = d.orbit || {};
+    $("pstat").innerHTML = `周期 <b>${o.period_min}</b> min · 近点 <b>${o.perigee_alt_km}</b> / 远点 <b>${o.apogee_alt_km}</b> km · 已挂 <b>${rs.length}</b> 历元`;
+  } catch(e) { $("pstat").textContent = ""; $("err").textContent = String(e); }
+};
 let timer = null;
 const TAG = { gcr_dominant:"gcr", inner_belt_candidate:"belt", saa_region_approx:"saa" };
 
