@@ -49,6 +49,63 @@ class TableSigma:
                 f"x in [{self._tab.xs[0]:g}, {self._tab.xs[-1]:g}]")
 
 
+class AnchorSigma:
+    """Lower-bound proton cross-section from a single measured anchor point.
+
+    sigma(E) = sigma_anchor for E >= anchor, else 0. Integrating the measured
+    cross-section only over flux above the anchor energy gives a defensible
+    UNDERESTIMATE of the true rate (sigma generally keeps rising with E, and
+    the sub-anchor flux contribution is not counted at all). Used only when a
+    domain has exactly one citable measured point — an energy-dependent table
+    replaces it as soon as one exists. Reported as mode='lower_bound'.
+    """
+
+    mode = "lower_bound"
+
+    def __init__(self, anchor_e_mev, sigma):
+        if anchor_e_mev <= 0 or sigma <= 0:
+            raise ValueError("anchor needs positive energy and sigma")
+        self.e0 = float(anchor_e_mev)
+        self.s = float(sigma)
+
+    def sigma(self, e):
+        return self.s if e >= self.e0 else 0.0
+
+    def describe(self):
+        return (f"anchor sigma (lower bound): {self.s:g} cm^2 for "
+                f"E>={self.e0:g} MeV")
+
+
+def build_proton_sigma(spec):
+    """Per-domain proton sigma(E) model. Accepted shapes:
+      {"anchor_E_mev": E, "sigma_cm2_per_bit": s, ...} -> AnchorSigma (bound)
+      {"table": [[E, sigma], ...]}                  -> TableSigma (inline)
+      {"file": path, "columns": {"x": 0, "y": 1}}  -> TableSigma (file)
+    Returns (model, mode, meta) where meta echoes the provenance fields."""
+    if not spec:
+        return None, None, None
+    if "anchor_E_mev" in spec:
+        return (AnchorSigma(spec["anchor_E_mev"],
+                            spec["sigma_cm2_per_bit"]),
+                "lower_bound",
+                {k: spec[k] for k in ("source", "note") if k in spec})
+    if "table" in spec:
+        xs = [float(p[0]) for p in spec["table"]]
+        ys = [float(p[1]) for p in spec["table"]]
+        return (TableSigma(xs, ys), "table",
+                {k: spec[k] for k in ("source", "note") if k in spec})
+    if "file" in spec:
+        from .environment import load_spectrum_file
+        cols = spec.get("columns", {"x": 0, "y": 1})
+        tab = load_spectrum_file(spec["file"],
+                                 x_col=cols.get("x", 0),
+                                 y_col=cols.get("y", 1))
+        return (TableSigma(tab.xs, tab.ys), "table",
+                {"file": spec["file"],
+                 **{k: spec[k] for k in ("source", "note") if k in spec}})
+    raise ValueError("proton_sigma needs anchor_E_mev, table or file")
+
+
 def build_device_sigma(spec):
     """spec: dict with either 'heavy_ion_weibull' or 'sigma_table'
     (path to whitespace column file; configurable x/y columns)."""
@@ -79,7 +136,10 @@ class DomainWeibull:
         for name, v in per_domain.items():
             wb = WeibullLET(v["let_threshold"], v["width"], v["shape"],
                             v["sigma_sat_cm2_per_bit"])
-            self.domains[name] = {"wb": wb, "bits": v.get("bits")}
+            proton, pmode, pmeta = build_proton_sigma(v.get("proton_sigma"))
+            self.domains[name] = {"wb": wb, "bits": v.get("bits"),
+                                  "proton": proton, "proton_mode": pmode,
+                                  "proton_meta": pmeta}
 
     def domain_sigma(self, domain, let):
         return self.domains[domain]["wb"].sigma(let)
@@ -111,6 +171,8 @@ class DomainWeibull:
         parts = []
         for k, d in self.domains.items():
             b = d["bits"]
-            parts.append(f"{k}: {d['wb'].describe()}"
-                         + (f" bits={b}" if b else " bits=n/a"))
+            s = f"{k}: {d['wb'].describe()}" + (f" bits={b}" if b else " bits=n/a")
+            if d.get("proton") is not None:
+                s += f" | proton[{d['proton_mode']}]: {d['proton'].describe()}"
+            parts.append(s)
         return "DomainWeibull [" + " | ".join(parts) + "]"

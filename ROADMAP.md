@@ -11,11 +11,12 @@ Principle that does not change: every number carries provenance; missing data is
 - English-first README (中文 folded), MIT LICENSE, CI (unittest matrix Ubuntu + Windows, Python 3.10–3.13)
 - Static demo on GitHub Pages: precomputed snapshots of all five pages
 
-## Phase 1 — environment coverage
+## Phase 1 — environment coverage ✅ (in progress → mostly done)
 
-- **SPENVIS importer**: upload an orbit's `.let.txt` / proton spectrum exports → mission config → full consequence chain. Overnight, coverage = every orbit SPENVIS covers.
-- **LEO proton chain**: wire the partially-filled `proton_7series_sigma_E.json` (Wirthlin K7 anchors) to AP8/AE9 trapped-proton flux. Biggest physics gap today; LEO/SAA is the most common real orbit.
-- First new orbits: LEO (ISS-class) and GEO, alongside the current MEO.
+- ✅ **SPENVIS importer** (`orbit_seu.spenvis_import` + `POST /oseu/api/import_spenvis` + orbit-page import panel): drop `spenvis_gcf.txt` / per-group `.let.txt` / a proton spectrum → files land under `~/.seu_platform/uploads`, orbit elements lock from the manifest, and the returned environment block splices straight into a mission run. Coverage = every orbit SPENVIS covers.
+- ✅ **LEO proton chain wired**: `DomainWeibull` now takes per-domain `proton_sigma` models — `anchor_E_mev` (measured single-energy point → labelled *lower bound*), `table`, or `file`. CRAM/BRAM carry Wirthlin JINST 2014 180 MeV anchors; FF/DSP stay honest gaps. Per-domain proton rates join the mission totals and the report's new "域级质子贡献" section.
+- ✅ Orbit presets cover SSO / ISS-class LEO / MEO / GEO; `examples/xc7vx690t_leo_iss_proton_template.json` is the fill-in ISS mission.
+- ⚠️ Remaining P1 gap: a *citable* ISS-class trapped-proton spectrum is not bundled (no fabricated data — import your own SPENVIS AP8/TRP export), and energy-resolved proton σ(E) beyond the 180 MeV anchor is still open.
 
 ## Phase 2 — device and design coverage
 

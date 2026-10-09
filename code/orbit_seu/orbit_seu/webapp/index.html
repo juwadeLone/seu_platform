@@ -116,6 +116,7 @@
     <option value="ae9ap9">AE9/AP9 束缚质子（需程序包）</option>
     <option value="combo">组合：真实 GCR + AE9/AP9</option>
     <option value="files">SPENVIS CREME96 真实 GCR 谱（已导入）</option>
+    <option value="imported">导入的 SPENVIS/质子谱（下方面板导入）</option>
   </select></label>
   <label><b>调制势 φ MV</b><input id="phi" type="number" value="600" step="50"></label>
   <label><b>时长 年</b><input id="years" type="number" value="3" step="0.5"></label>
@@ -136,6 +137,22 @@
   <label><b>宽度 W</b><input id="w" type="number" value="20" step="1"></label>
   <label><b>形状 s</b><input id="s" type="number" value="1.5" step="0.1"></label>
   <label><b>σ饱和 cm²/bit</b><input id="ssat" type="number" value="1e-7" step="1e-8"></label>
+
+  <h2>导入 SPENVIS 导出（可选）</h2>
+  <details id="impPanel">
+    <summary style="cursor:pointer;color:#4da3ff">把你的轨道环境文件拖进来 → 一键变任务配置</summary>
+    <div style="padding:8px 0;font-size:12px;color:#7f93ab;line-height:1.6">
+      SPENVIS → GCR particle model → CREME96 下载的 <b>spenvis_gcf.txt</b>（全谱，含你轨道的地磁屏蔽）；
+      或已转换好的按组 <b>.let.txt</b>；或 AP8/TRP <b>质子谱</b>（LEO 用）。导入后轨道根数按文件 manifest 锁定。
+    </div>
+    <label><b>spenvis_gcf.txt（CREME96 全 92 素谱）</b><input id="impGcf" type="file" accept=".txt"></label>
+    <label><b>或按组 LET 谱（可多选）</b><input id="impLet" type="file" accept=".txt" multiple></label>
+    <label><b>质子谱（E_MeV / cm²·s·MeV）</b><input id="impPro" type="file" accept=".txt"></label>
+    <label><b>屏蔽 mil Al</b><input id="impShield" type="number" value="100" step="25"></label>
+    <button id="impBtn" type="button" style="width:100%">⬆ 导入并生成环境</button>
+    <div id="impStatus" style="font-size:12px;color:#7f93ab;margin-top:6px"></div>
+  </details>
+
   <button id="run" type="submit">▶ 计算 SEU 效应</button>
 </form>
 
@@ -243,16 +260,30 @@ const ORBIT_INPUTS = ["preset", "alt", "inc", "ecc", "raan"];
 function applyEnvLock() {
   const locked = $("envsel").value === "files";
   for (const id of ORBIT_INPUTS) if ($(id)) $(id).disabled = locked;
-  if (locked) {
-    $("preset").value = "custom";
-    $("alt").value = SPECTRA_ORBIT.alt; $("inc").value = SPECTRA_ORBIT.inc;
-    $("ecc").value = SPECTRA_ORBIT.ecc; $("raan").value = SPECTRA_ORBIT.raan;
-    $("envBadge").textContent =
-      "环境：SPENVIS CREME96 GCR（轨道锁定 20200 km / 55°，100 mil Al）";
-  } else {
-    $("envBadge").textContent = $("envsel").value === "demo_gcr"
-      ? "环境：合成演示谱（非工程数据）" : "环境：" + $("envsel").selectedOptions[0].text;
+  const imported = $("envsel").value === "imported";
+  if (locked || imported) {
+    for (const id of ORBIT_INPUTS) if ($(id)) $(id).disabled = true;
+    if (locked) {
+      $("preset").value = "custom";
+      $("alt").value = SPECTRA_ORBIT.alt; $("inc").value = SPECTRA_ORBIT.inc;
+      $("ecc").value = SPECTRA_ORBIT.ecc; $("raan").value = SPECTRA_ORBIT.raan;
+      $("envBadge").textContent =
+        "环境：SPENVIS CREME96 GCR（轨道锁定 20200 km / 55°，100 mil Al）";
+    } else if (IMPORTED_ENV && IMPORTED_ENV._orbit) {
+      const o = IMPORTED_ENV._orbit;
+      $("alt").value = o.alt; $("inc").value = o.inc;
+      if (o.raan != null) $("raan").value = o.raan;
+      $("envBadge").textContent =
+        `环境：导入谱（锁定 ${o.alt} km / ${o.inc}°` +
+        (IMPORTED_ENV.proton_file ? "，含质子谱" : "") + "）";
+    } else {
+      $("envBadge").textContent = "环境：导入谱（先在下方导入面板导入文件）";
+    }
+    return;
   }
+  for (const id of ORBIT_INPUTS) if ($(id)) $(id).disabled = false;
+  $("envBadge").textContent = $("envsel").value === "demo_gcr"
+    ? "环境：合成演示谱（非工程数据）" : "环境：" + $("envsel").selectedOptions[0].text;
 }
 $("envsel").onchange = applyEnvLock;
 applyEnvLock();
@@ -271,11 +302,17 @@ const DEVICES = {
     bram:"DS180: 1,470 × 36 Kb = 52,920 Kb = 54,190,080 bits",
     bits: 284934976,
     domains: {
-      CRAM: Object.assign({ bits: 229878496 }, LEE2014.CRAM),
-      BRAM: Object.assign({ bits: 54190080 }, LEE2014.BRAM),
+      CRAM: Object.assign({ bits: 229878496,
+        proton_sigma: { anchor_E_mev: 180.0, sigma_cm2_per_bit: 8.29e-15,
+          source: "Wirthlin JINST 2014 TSL 180MeV, XC7K325T CRAM",
+          note: "单能点锚 → 下界率" } }, LEE2014.CRAM),
+      BRAM: Object.assign({ bits: 54190080,
+        proton_sigma: { anchor_E_mev: 180.0, sigma_cm2_per_bit: 8.19e-15,
+          source: "Wirthlin JINST 2014 TSL 180MeV, XC7K325T BRAM",
+          note: "单能点锚 → 下界率" } }, LEE2014.BRAM),
       FF:   Object.assign({ bits: 866400 }, LEE2014.FF)
     },
-    note:"CRAM 229,878,496 (UG470 Table 1-1 bitstream) + BRAM 54,190,080 (DS180) + FF 866,400 (UG474 Table 3)。DSP 3,600 slices 无 Lee σ，不计入。计算走按域实测 σ，不用下方单组 Weibull 框。" },
+    note:"CRAM 229,878,496 (UG470 Table 1-1 bitstream) + BRAM 54,190,080 (DS180) + FF 866,400 (UG474 Table 3)。DSP 3,600 slices 无 Lee σ，不计入。计算走按域实测 σ，不用下方单组 Weibull 框。质子 σ(E)：CRAM/BRAM 用 Wirthlin 2014 180MeV 单点锚（结果下界），FF/DSP 无实测——缺数据不计入；导入质子谱后按域出率。" },
   xc7k325t: { label:"Xilinx Kintex-7 XC7K325T", proc:"28 nm CMOS",
     logic:"UG474 Table 2: 203,800 LUTs / 407,600 CLB FFs",
     bram:"DS180: Total Block RAM 16,020 Kb = 16,404,480 bits",
@@ -338,8 +375,72 @@ function buildConfig(over) {
     cfg.environment.let_columns = { let: 0, diff_flux: 1 };
     delete cfg.environment.rigidity_cutoff;
   }
+  if (envType === "imported") {
+    if (!IMPORTED_ENV)
+      throw new Error("先在下方导入面板导入 SPENVIS/质子谱文件");
+    cfg.environment = Object.assign({ type: "files" }, IMPORTED_ENV);
+    delete cfg.environment._orbit;
+    delete cfg.environment.rigidity_cutoff;
+    delete cfg.environment.phi_mv;
+    if (IMPORTED_ENV._orbit) {
+      cfg.orbit.altitude_km = IMPORTED_ENV._orbit.alt;
+      cfg.orbit.inclination_deg = IMPORTED_ENV._orbit.inc;
+    }
+  }
   return cfg;
 }
+
+/* ---- SPENVIS 导入面板 ---- */
+let IMPORTED_ENV = null;
+$("impBtn").onclick = async () => {
+  try {
+    const body = { shield_mil: +$("impShield").value || 100 };
+    const gcfF = $("impGcf").files[0], proF = $("impPro").files[0];
+    const letFs = $("impLet").files;
+    if (gcfF) body.gcf_text = await gcfF.text();
+    if (letFs.length) {
+      body.let_files = {};
+      for (const f of letFs) {
+        const g = f.name.replace(/\.let\.txt$/i, "").replace(/\.txt$/i, "");
+        body.let_files[g] = await f.text();
+      }
+      body.orbit = { altitude_km: +$("alt").value,
+                     inclination_deg: +$("inc").value };
+    }
+    if (proF) body.proton_text = await proF.text();
+    if (!gcfF && !letFs.length && !proF) {
+      $("impStatus").textContent = "先选一个文件。";
+      return;
+    }
+    $("impBtn").disabled = true;
+    $("impStatus").textContent = "导入中：转换 + manifest + 谱校验…";
+    const r = await fetch("/api/import_spenvis", { method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body) });
+    const j = await r.json();
+    if (j.error) throw new Error(j.error);
+    IMPORTED_ENV = j.environment;
+    const so = j.source_orbit;
+    if (so && so.apogee_km != null)
+      IMPORTED_ENV._orbit = { alt: so.apogee_km, inc: so.inclination_deg,
+                              raan: so.raan_deg };
+    $("envsel").value = "imported";
+    applyEnvLock();
+    const ng = Object.keys(j.let_spectra_files || {}).length;
+    $("impStatus").innerHTML =
+      `✅ 已导入 ${ng} 组 LET 谱` +
+      (j.proton_file ? " + 质子谱" : "") +
+      (so ? `，轨道 ${so.apogee_km} km / ${so.inclination_deg}°（已锁定）` : "") +
+      `<br>存储于 ${j.upload_dir}`;
+    if (proF && !gcfF && !letFs.length)
+      $("impStatus").innerHTML +=
+        "<br>仅质子谱：LEO 主导项。重离子 GCR 可再传 gcf/let 补充。";
+  } catch (e2) {
+    $("impStatus").textContent = "导入失败：" + e2.message;
+  } finally {
+    $("impBtn").disabled = false;
+  }
+};
 async function callApi(cfg) {
   const r = await fetch("/api/run", { method:"POST",
     headers:{"Content-Type":"application/json"}, body: JSON.stringify(cfg) });

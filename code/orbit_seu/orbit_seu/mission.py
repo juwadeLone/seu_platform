@@ -178,20 +178,28 @@ def run(config):
         # rates_per_s and mission_stats expect /s; convert here.
         # Device count uses domain bits only — never divide by a separate
         # top-level device.bits (that field was a 55 Mbit placeholder).
-        if proton_spectrum is not None:
-            raise ValueError(
-                "proton spectrum given with heavy_ion_weibull_by_domain: "
-                "per-domain proton sigma(E) tables are not wired yet; run "
-                "the proton case separately with a measured sigma_table")
         per_sp_day = dev.species_domain_rates_day(heavy_spectra)
-        per_dom_day, device_total_day = dev.domain_rates_day(heavy_spectra)
+        per_dom_day, heavy_dev_day = dev.domain_rates_day(heavy_spectra)
         domain_bits = sum(int(d["bits"]) for d in dev.domains.values()
                           if d.get("bits"))
+        # Per-domain proton contribution: only domains carrying a
+        # proton_sigma model participate (/s/bit for that domain).
+        proton_per_dom_s = {}
+        if proton_spectrum is not None:
+            for name, d in dev.domains.items():
+                if d.get("proton") is not None:
+                    proton_per_dom_s[name] = proton_rate_per_s(
+                        proton_spectrum, d["proton"])
+        proton_dev_s = sum(proton_per_dom_s[n] *
+                           int(dev.domains[n]["bits"] or 0)
+                           for n in proton_per_dom_s)
+        device_total_day = heavy_dev_day + proton_dev_s * 86400.0
         rate_per_device = device_total_day / 86400.0
-        rate_per_bit = ((rate_per_device / domain_bits) if domain_bits
-                        else sum(per_dom_day.values()) / 86400.0)
-        heavy_total = rate_per_bit
-        proton_total = 0.0
+        heavy_total = ((heavy_dev_day / 86400.0 / domain_bits)
+                       if domain_bits
+                       else sum(per_dom_day.values()) / 86400.0)
+        proton_total = (proton_dev_s / domain_bits) if domain_bits else 0.0
+        rate_per_bit = heavy_total + proton_total
         # per species group, same meaning as the single-group path: events/s
         # per bit (bit-weighted over domains), so x bits = device share
         per_species = {
@@ -201,13 +209,20 @@ def run(config):
         bits = domain_bits if domain_bits else bits
         _per_domain = {}
         for name, r_day in per_dom_day.items():
-            b = int(dev.domains[name]["bits"] or 0)
+            d = dev.domains[name]
+            b = int(d["bits"] or 0)
+            p_s = proton_per_dom_s.get(name, 0.0)
             _per_domain[name] = {
                 "bits": b,
                 "rate_per_day_per_bit": r_day,
                 "rate_per_s_per_bit": r_day / 86400.0,
                 "rate_per_day": r_day * b,
                 "rate_per_s": r_day * b / 86400.0,
+                "proton_rate_per_s_per_bit": p_s,
+                "proton_rate_per_day_per_bit": p_s * 86400.0,
+                "proton_rate_per_day": p_s * 86400.0 * b,
+                "proton_mode": d.get("proton_mode"),
+                "proton_meta": d.get("proton_meta"),
             }
         _per_domain_rates = per_dom_day
     else:
@@ -379,9 +394,10 @@ def _limitations(env_types, manifests=None):
                 f"{sh.get('material')} ({sh.get('transport')}); LET model: "
                 f"{man.get('let_model')}. Status: {man.get('status')}.")
     notes.append("Environment is GCR only (solar minimum): solar particle "
-                 "events (CREME96 worst week/day/5-min) and trapped "
-                 "protons are not included.")
-    notes.append("Proton contribution requires a measured sigma(E) table.")
+                 "events (CREME96 worst week/day/5-min) are not included "
+                 "unless an imported SPE/proton spectrum covers them.")
+    notes.append("Proton contribution requires a measured sigma(E) table or "
+                 "a single-energy anchor (reported as lower-bound).")
     return notes
 
 
@@ -450,6 +466,32 @@ def write_report(results, config, out_dir):
             f"| **合计/器件** | **{tot_bits:,}** | "
             f"**{rpb['total_per_bit']*86400:.3e}** (bit 加权均) | "
             f"**{d*86400:.3e}** | **{d:.3e}** |")
+        if any(r.get("proton_rate_per_s_per_bit")
+               for r in per_domain.values()):
+            lines += [
+                "",
+                "### 4.0a 域级质子贡献（导入谱 × 实测 σ(E)）",
+                "",
+                "| 域 | 质子 events/day/bit | 质子 events/day | σ(E) 模式 |",
+                "|---|---:|---:|---|",
+            ]
+            for name, row in per_domain.items():
+                if not row.get("proton_rate_per_s_per_bit"):
+                    lines.append(
+                        f"| {name} | — | — | 无实测质子 σ(E)，缺数据未计入 |")
+                    continue
+                mode = row.get("proton_mode") or "table"
+                meta = row.get("proton_meta") or {}
+                tag = ("lower-bound 下界" if mode == "lower_bound"
+                       else mode)
+                if meta.get("source"):
+                    tag += f"；{meta['source']}"
+                lines.append(
+                    f"| {name} | {row['proton_rate_per_day_per_bit']:.3e} | "
+                    f"{row['proton_rate_per_day']:.3e} | {tag} |")
+            lines.append(
+                "lower-bound：域仅有单能点实测 σ，只计入锚点能量以上的通量，"
+                "结果为下界（低估）。")
         if rpb.get("per_species"):
             lines += [
                 "",

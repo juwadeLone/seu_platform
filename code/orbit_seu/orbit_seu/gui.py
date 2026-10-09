@@ -64,6 +64,18 @@ class _Handler(BaseHTTPRequestHandler):
         self._send(404, "text/plain; charset=utf-8", b"not found")
 
     def do_POST(self):
+        if self.path == "/api/import_spenvis":
+            try:
+                length = int(self.headers.get("Content-Length", 0))
+                body = json.loads(self.rfile.read(length) or b"{}")
+                from .spenvis_import import handle_import
+                self._send(200, "application/json",
+                           json.dumps(handle_import(body)).encode("utf-8"))
+            except Exception as exc:
+                self._send(400, "application/json",
+                           json.dumps({"error": f"{type(exc).__name__}: {exc}"}
+                                      ).encode("utf-8"))
+            return
         if self.path != "/api/run":
             self._send(404, "text/plain; charset=utf-8", b"not found")
             return

@@ -50,6 +50,16 @@ python -m layout_ecc.serve              # same server as the console script
 
 `desktop/app.py` opens a native window instead when `pywebview` is installed (`pip install .[desktop]`).
 
+## Import your own orbit environment
+
+Any orbit SPENVIS covers becomes a mission here. On the `/orbit` page open the import panel and drop in:
+
+- **`spenvis_gcf.txt`** — the full CREME96 GCR export for your orbit (already geomagnetically shielded by SPENVIS); it is converted to the six-group differential LET spectra automatically
+- **per-group `.let.txt` files** — already-converted LET spectra
+- **a trapped-proton spectrum** — SPENVIS AP8/TRP or your own `E_MeV flux` table; feeds the LEO/SAA proton chain
+
+The import sets the mission's orbit elements from the file's manifest (the platform refuses to apply spectra generated for a different orbit) and returns a ready-to-run environment. Headless equivalent: `POST /oseu/api/import_spenvis` with `{"gcf_text": ..., "proton_text": ..., "shield_mil": 100}`, or the CLI `python code/orbit_seu/scripts/spenvis_to_let.py spenvis_gcf.txt out/ --shield-mil 100`.
+
 ## Current results
 
 MEO 20200 km / 55°, GCR solar minimum, 100 mil Al shielding:
@@ -63,7 +73,7 @@ MEO 20200 km / 55°, GCR solar minimum, 100 mil Al shielding:
 
 Cross-check: the same cross-sections under Lee et al.'s CREME96 GEO solar-minimum environment give 1.0 / 5.2 / 0.9 ×10⁻⁷; this platform's MEO numbers agree within 10% (MEO geomagnetic shielding is weaker — same order, slightly lower).
 
-**Not included:** solar particle events, trapped protons, DSP. Missing data is labelled, not zero.
+**Partially included:** trapped protons — CRAM/BRAM carry measured single-energy σ anchors (Wirthlin et al. JINST 2014, TSL 180 MeV protons), so an imported proton spectrum yields a labelled **lower bound** per domain; FF/DSP proton σ and the energy-resolved σ(E) shape remain open gaps. Still missing: solar particle events, DSP, full σ(E) tables. Missing data is labelled, not zero.
 
 ## Method and provenance
 
@@ -73,6 +83,7 @@ Cross-check: the same cross-sections under Lee et al.'s CREME96 GEO solar-minimu
 | Shielding | 100 mil Al spherical shell, continuous-slowing-down transport | CREME96 / Lee 2014 reference shield |
 | LET | Bethe-Bloch + Barkas effective charge + Sternheimer density correction | 1.3% from NIST PSTAR; Fe peak 29 MeV·cm²/mg |
 | σ(LET) | Weibull for CRAM / BRAM / FF domains | Lee, Wirthlin, Swift, Le, IEEE REDW 2014 Table 1 (A in cm²/bit) |
+| proton σ(E) | single-energy anchor → lower-bound rate | Wirthlin, Takai, Harding, JINST 2014 Table 1 (TSL 180 MeV, XC7K325T) |
 | Bit counts | CRAM 229,878,496 · BRAM 54,190,080 · FF 866,400 | AMD UG470 / DS180 / UG474 |
 | Event rate | effective-LET thin-target R = (φ/2)·⟨σ(L/cosθ)⟩ | CREME86 tradition |
 | Mission stats | Poisson: P(≥1) = 1 − e^(−RT) | |
@@ -87,14 +98,14 @@ Cross-check: the same cross-sections under Lee et al.'s CREME96 GEO solar-minimu
 - **Teaching**: radiation → device → circuit → image, in one chain.
 - **Soft-error analysis for aviation, automotive, datacentre**: the flip → module → functional-consequence layer reuses; swap the front end for a neutron spectrum.
 
-It does **not** replace beam testing or qualification. Proton-dominated LEO and solar particle events are currently gaps — see below.
+It does **not** replace beam testing or qualification. Proton-dominated LEO is reachable through the importer but reports labelled lower bounds until full σ(E) tables land; solar particle events remain a gap — see below.
 
 ## Not done yet
 
 - Solar-particle-event worst cases (CREME96 worst week / day / 5 min)
-- Trapped protons (AP8/AP9) and proton σ(E); DSP, SEFI, SEL cross-sections; total dose (SHIELDOSE)
+- Energy-resolved proton σ(E) for all domains (only CRAM/BRAM single-energy anchors exist today → reported as labelled lower bounds); FF/DSP proton σ, SEFI, SEL cross-sections; total dose (SHIELDOSE)
 - Full IRPP (currently the effective-LET approximation); shielding transport is an interim in-platform implementation — the standard flow is exporting a shielded LET spectrum from SPENVIS
-- The bundled spectrum only covers 20200 km / 55°; other orbits must be re-run in SPENVIS (the platform rejects spectra that don't match the requested orbit)
+- Other orbits are covered through the importer (any SPENVIS orbit → mission); the *bundled* spectrum still only covers 20200 km / 55° and the platform rejects spectra that don't match the requested orbit
 
 See [ROADMAP.md](ROADMAP.md) for where this goes next.
 
