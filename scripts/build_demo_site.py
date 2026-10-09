@@ -30,7 +30,62 @@ BANNER = (
     'replay precomputed responses &middot; full simulator: '
     '<code style="color:#00e5ff">pip install . &amp;&amp; seu-platform</code> '
     'from <a style="color:#00e5ff" href="https://github.com/juwadeLone/'
-    'seu_platform">juwadeLone/seu_platform</a></div>')
+    'seu_platform">juwadeLone/seu_platform</a> &middot; '
+    '<a style="color:#00e5ff" href="docs.html">Docs</a></div>')
+
+DOCS_HTML = """<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>SEU Platform — Docs</title>
+<style>body{font:14px/1.6 'Segoe UI',sans-serif;background:#0c1522;color:#cfe3f4;
+max-width:880px;margin:32px auto;padding:0 20px}h1{color:#00e5ff}
+h2{color:#8fb3d9;border-bottom:1px solid #1b3350;padding-bottom:4px}
+code{background:#132032;padding:1px 5px;border-radius:3px}
+table{border-collapse:collapse}td,th{border:1px solid #1b3350;padding:5px 10px}
+a{color:#00e5ff}</style></head><body>
+<h1>SEU Platform — Usage &amp; Provenance</h1>
+<p>Space-radiation effects on SRAM FPGAs: orbit environment → per-bit upset rates →
+ion strike on a real Vivado layout → mission-level consequences.
+<b>Downstream of SPENVIS:</b> it tells you what radiation is on your orbit;
+this platform tells you what that radiation does to your design.</p>
+
+<h2>Install &amp; run</h2>
+<pre style="background:#132032;padding:10px">pip install git+https://github.com/juwadeLone/seu_platform.git
+seu-platform            # merged server, all pages
+# or per-page:  python -m layout_ecc.gui | python -m orbit_seu.gui</pre>
+<p>Pages: <a href="index.html">Strike</a> · <a href="orbit.html">Orbit</a> ·
+<a href="orbit3d.html">Orbit 3D</a> · <a href="effects.html">Effects</a> ·
+<a href="sar.html">SAR</a> · <a href="seu.html">Inside the device</a>.
+Every page has an EN/中 toggle (bottom-right).</p>
+
+<h2>Bring your own data</h2>
+<ul>
+<li><b>SPENVIS orbit export</b> — Orbit page → "Import SPENVIS exports":
+<code>spenvis_gcf.txt</code>, per-group <code>.let.txt</code>, or a trapped-proton
+spectrum. <code>POST /oseu/api/import_spenvis</code> does the same headless.</li>
+<li><b>Device library</b> — bundled: xc7vx690t (family-borrow anchors),
+xc7k325t (Lee 2014 native DUT), xc7z045 (bits = gap). Upload your own
+σ(LET)/σ(E) JSON from the Orbit page, or drop a file into
+<code>orbit_seu/env_data/devices/</code>.</li>
+<li><b>Your Vivado layout</b> — Strike page → "导入布局": a
+<code>primitive_map.csv</code> (unit_id, hier_cell, ref_name, loc, bel, site,
+tile, grid_x, grid_y) from a placed&amp;routed DCP. Strikes then land on
+<i>your</i> netlist, not the bundled P1 FFT.</li>
+</ul>
+
+<h2>Provenance (every number carries a source)</h2>
+<table>
+<tr><th>Data</th><th>Source</th></tr>
+<tr><td>GCR LET spectra (MEO 20200km/55°)</td><td>SPENVIS CREME96 export, solar min, 100 mil Al</td></tr>
+<tr><td>xc7vx690t σ(LET) Weibull</td><td>Lee et al., IEEE TNS/REDW 2014 (family-borrowed anchors)</td></tr>
+<tr><td>xc7k325t bits + proton anchors</td><td>Lee 2014 DUT itself — native, not borrowed</td></tr>
+<tr><td>Proton σ(E) anchors</td><td>Wirthlin et al., JINST 2014 (180 MeV lower bound)</td></tr>
+<tr><td>P1 FFT layout</td><td>Own Vivado OOC place&amp;route of a 1024-pt FFT</td></tr>
+<tr><td>Cross-check</td><td>Whole-chip 46.2/day vs Lee 2014 — within 10%</td></tr>
+</table>
+<p>Missing data is marked <b>gap</b>, never invented (e.g. xc7z045 bit count,
+FF/DSP proton cross-sections).</p>
+<p><a href="https://github.com/juwadeLone/seu_platform">Source</a> · MIT license.</p>
+</body></html>
+"""
 
 FETCH_SHIM = """
 <script>
@@ -204,6 +259,7 @@ def main():
                                .replace(b"'/static/", b"'oseu-static/")
                 save(f"oseu-static/{fn}", body)
 
+        save("docs.html", DOCS_HTML)
         save("README.txt",
              "Static snapshot of seu_platform for GitHub Pages.\n"
              "Interactive: pip install . && seu-platform\n")

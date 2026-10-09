@@ -15,7 +15,8 @@ from collections import Counter
 from .orbit import OrbitElements, propagate_mission
 from .magnetosphere import DipoleModel
 from .spectra import Spectrum
-from .device import build_device_sigma, WeibullLET, TableSigma
+from .device import (build_device_sigma, resolve_device,
+                     WeibullLET, TableSigma)
 from .rates import heavy_ion_rate_per_s, proton_rate_per_s, mission_stats
 from .environment import (demo_gcr_let_spectra, load_spectrum_file,
                           sha256_of, DEMO_SYNTHETIC)
@@ -62,8 +63,9 @@ def run(config):
         lvals.append(dip.mcilwain_l(x, y, z))
 
     # ---- device -----------------------------------------------------------
-    dev = build_device_sigma(config["device"])
-    bits = _cfg_get(config, "device", "bits", default=None)
+    dev_spec = resolve_device(config["device"])
+    dev = build_device_sigma(dev_spec)
+    bits = dev_spec.get("bits")
 
     # ---- environment ------------------------------------------------------
     env = config["environment"]
@@ -259,7 +261,8 @@ def run(config):
                           "max": max(cutoffs)},
             "mcilwain_l": {"min": min(lvals), "max": max(lvals)},
         },
-        "device": {"description": dev.describe(), "bits": bits},
+        "device": {"description": dev.describe(), "bits": bits,
+                   "library": dev_spec.get("_library")},
         "environment_summary": _environment_summary(heavy_spectra),
         "spectra_manifests": manifests,
         "per_domain_rates_day_per_bit": _per_domain_rates,

@@ -1,0 +1,52 @@
+{
+  "id": "xc7vx690t",
+  "label": "Xilinx Virtex-7 XC7VX690T (FFG1761)",
+  "family": "7-series 28nm",
+  "role": "family_borrow",
+  "provenance": {
+    "weibull": "Lee, Wirthlin, Swift, Le, 2014 IEEE REDW Table 1 — measured on XC7K325T; same 28nm 7-series CRAM/BRAM/FF cell generation, family borrow documented in env_data/weibull_7series_measured.json.",
+    "proton": "Wirthlin, Takai, Harding, JINST 2014 Table 1 (TSL 180 MeV) — measured on XC7K325T; same-cell-family borrow, lower bound.",
+    "bits": "AMD UG470 Table 1-1 (bitstream), DS180 (BRAM), UG474 Table 3 (CLB FFs)"
+  },
+  "info": {
+    "proc": "28 nm CMOS",
+    "logic": "UG474 Table 3: 433,200 LUTs / 866,400 CLB FFs",
+    "bram": "DS180: 1,470 x 36 Kb = 52,920 Kb = 54,190,080 bits",
+    "note": "σ(LET) 借用 XC7K325T 实测（同 28nm 7-series 单元）；质子 σ 同源借用，下界。"
+  },
+  "bits": 284934976,
+  "bits_note": "CRAM 229,878,496 (UG470) + BRAM 54,190,080 (DS180) + FF 866,400 (UG474); DSP 3,600 slices excluded",
+  "heavy_ion_weibull_by_domain": {
+    "CRAM": {
+      "let_threshold": 0.4, "width": 338.5, "shape": 0.852,
+      "sigma_sat_cm2_per_bit": 3.34e-08, "bits": 229878496,
+      "bits_source": "AMD UG470 Table 1-1 bitstream length, XC7VX690T",
+      "proton_sigma": {
+        "anchor_E_mev": 180.0, "sigma_cm2_per_bit": 8.29e-15,
+        "source": "Wirthlin/Takai/Harding JINST 2014 Table 1, TSL 180 MeV, measured XC7K325T — same-family borrow",
+        "note": "single-energy anchor -> lower-bound rate"
+      }
+    },
+    "BRAM": {
+      "let_threshold": 0.1, "width": 87.5, "shape": 0.893,
+      "sigma_sat_cm2_per_bit": 3.82e-08, "bits": 54190080,
+      "bits_source": "AMD DS180, XC7VX690T total BRAM 52,920 Kb x 1024",
+      "proton_sigma": {
+        "anchor_E_mev": 180.0, "sigma_cm2_per_bit": 8.19e-15,
+        "source": "Wirthlin/Takai/Harding JINST 2014 Table 1, TSL 180 MeV, measured XC7K325T — same-family borrow",
+        "note": "single-energy anchor -> lower-bound rate"
+      }
+    },
+    "FF": {
+      "let_threshold": 1.1, "width": 271.3, "shape": 1.09,
+      "sigma_sat_cm2_per_bit": 1.47e-07, "bits": 866400,
+      "bits_source": "AMD UG474 Table 3 / DS180, XC7VX690T CLB FFs"
+    }
+  },
+  "excluded_domains": {
+    "DSP": {
+      "ds180_dsp_slices": 3600,
+      "reason": "Lee 2014 REDW Table 1 has no DSP heavy-ion Weibull; gap."
+    }
+  }
+}

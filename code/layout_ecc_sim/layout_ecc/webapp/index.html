@@ -99,6 +99,8 @@
   <h1>辐射打击</h1>
   <span class="chip" id="devChip">XC7VX690T</span>
   <span class="chip" id="designChip">设计 —</span>
+  <label class="chip" id="upChip" style="cursor:pointer" title="上传自己的 Vivado primitive_map.csv，离子直接打在你的设计上">
+    ⬆ 导入布局<input id="upCsv" type="file" accept=".csv" style="display:none"></label>
   <nav>
     <a href="/" class="on">打击</a><a href="/orbit">轨道</a><a href="/sar">SAR</a><a href="/effects">效应</a><a href="/seu">器件内部</a>
   </nav>
@@ -258,7 +260,8 @@ async function fire() {
   const cfg = {
     x0: pos[0], y0: pos[1], let: +letOf(+$("letS").value).toFixed(2),
     theta: +$("thS").value, phi: +$("phS").value, a0: +$("a0").value, k_let: +$("klet").value,
-    seed: +$("seed").value, kernel_model: $("kernel").value, flip_model: $("flip").value
+    seed: +$("seed").value, kernel_model: $("kernel").value, flip_model: $("flip").value,
+    layout_id: LAYOUT_ID
   };
   $("fire").disabled = true;
   try {
@@ -314,12 +317,37 @@ function reveal(ph) {
   if (ph === 5) document.querySelectorAll("[data-ph]").forEach(el => el.classList.remove("hide"));
 }
 
+/* 自定义布局：上传你的 primitive_map.csv → layout_id 切过去 */
+let LAYOUT_ID = "bundled";
+$("upCsv").onchange = async e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  const chip = $("upChip");
+  chip.firstChild.textContent = "⏳ 导入中 ";
+  try {
+    const r = await fetch("/api/upload_layout", { method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ csv_text: await f.text(), name: f.name }) });
+    const j = await r.json();
+    if (j.error) throw new Error(j.error);
+    LAYOUT_ID = j.layout_id;
+    chip.firstChild.textContent = "✅ 已用自定义布局 ";
+    await load();           // 重载布局并重打一次
+  } catch (e2) {
+    chip.firstChild.textContent = "⬆ 导入布局 ";
+    alert("布局导入失败：" + e2.message);
+  }
+};
+
 async function load() {
-  const j = await (await fetch("/api/layout")).json();
+  const j = await (await fetch("/api/layout?layout_id=" +
+    encodeURIComponent(LAYOUT_ID))).json();
+  if (j.error) throw new Error(j.error);
   layout = j;
   viewer.setLayout(j);
   $("devChip").textContent = (j.part || "").toUpperCase().replace(/FFG.*$/, "") || "—";
-  $("designChip").textContent = `设计 ${j.design || "—"} · ${(j.modules || []).length} 个模块`;
+  $("designChip").textContent = `设计 ${j.design || "—"} · ${(j.modules || []).length} 个模块` +
+    (LAYOUT_ID !== "bundled" ? "（自定义）" : "");
   buildDomainToggles(j);
   legend();
   // 首次：打在全片中心附近的一个已用 Site
@@ -337,5 +365,58 @@ $("cv").addEventListener("mousemove", ev => {
 });
 load();
 </script>
+<script>
+window.__ZH_EN = {
+  "__title__": "Radiation Strike — SEU Platform",
+  "辐射打击": "Radiation Strike", "打击": "Strike", "轨道": "Orbit",
+  "效应": "Effects", "器件内部": "Device Internals", "设计 —": "Design —",
+  "离子": "Ion", "入射角": "Incidence θ", "方位": "Azimuth φ",
+  "⚡ 发射": "⚡ Fire", "随机一击": "Random hit", "连续打击": "Continuous",
+  "也可以直接点芯片上的位置。LET 单位 MeV·cm²/mg。": "You can also click a spot on the die. LET in MeV·cm²/mg.",
+  "视图": "View", "按资源": "By resource", "按模块": "By module",
+  "打击时自动聚焦": "Auto-focus on strike", "↻ 重放": "↻ Replay",
+  "⤢ 看全片": "⤢ Full view", "高级": "Advanced", "收集核": "Charge kernel",
+  "实测面积": "Measured area", "几何调试": "Geometry debug",
+  "翻转模型": "Flip model", "MBU 图案": "MBU pattern",
+  "旧占位概率": "Legacy placeholder", "随机种子": "Random seed",
+  "每次打击换种子": "New seed per strike", "a0（几何调试）": "a0 (geom debug)",
+  "k_LET（几何调试）": "k_LET (geom debug)", "出处": "Provenance",
+  "本次打击": "This strike", "bit 翻转": "bits flipped",
+  "后果与恢复": "Consequences & recovery",
+  "点「发射」，或直接点芯片。": "Click Fire, or click the die.",
+  "离子入射": "Ion strike", "电荷收集": "Charge collection",
+  "位翻转": "Bit flip", "后果": "Consequence", "恢复": "Recovery",
+  "从这一步开始重放": "Replay from this step", "空闲": "empty",
+  "逻辑 SLICE": "Logic SLICE", "显示 ": "Show ",
+  "发生": "occurred", "可能": "possible", "风险": "risk", "无": "none",
+  "未建模": "unmodeled",
+  "恢复：配置刷新扫到该帧时写回": "Recovery: scrubbing rewrites the frame",
+  "恢复：读出时 ECC 纠正（单比特）": "Recovery: ECC corrects on read (1-bit)",
+  "恢复：下一次写入覆盖": "Recovery: next write overwrites",
+  "打在空闲区": "Hit empty area", "打在 ": "Hit ",
+  "没有位翻转，无功能后果。": "No bit flips — no functional consequence.",
+  "失败：": "Failed: ",
+  "⬆ 导入布局": "⬆ Import layout", "⏳ 导入中 ": "⏳ Importing ",
+  "✅ 已用自定义布局 ": "✅ Custom layout ",
+  "布局导入失败：": "Layout import failed: ", "（自定义）": " (custom)",
+  "上传自己的 Vivado primitive_map.csv，离子直接打在你的设计上":
+    "Upload your Vivado primitive_map.csv — the ion lands on your design",
+  "个模块": " modules", "设计 ": "Design ",
+  "σ(LET)：Lee 等 2014 IEEE REDW 表 1（A 为 cm²/bit）":
+    "σ(LET): Lee et al. 2014 IEEE REDW Table 1 (A in cm²/bit)",
+  "多位比例、SEL 起始 LET 15：同文 表 3 / §IV.C":
+    "Multi-bit share, SEL onset LET 15: same paper, Table 3 / §IV.C",
+  "收集核面积：Radaelli 2005（经 Ebrahimi DAC'13）":
+    "Kernel area: Radaelli 2005 (via Ebrahimi DAC'13)",
+  "格→µm：UG475 die 尺寸 × Project X-Ray 栅格":
+    "grid→µm: UG475 die size × Project X-Ray grid",
+  "每域位数：UG470 / DS180 / UG473 / UG474":
+    "Domain bit counts: UG470 / DS180 / UG473 / UG474",
+  "布局：设计的 Vivado 布局导出（primitive_map.csv）；模块按层次名自动划分":
+    "Layout: Vivado primitive_map.csv export; modules auto-split by hierarchy",
+  "模块 ": "Module "
+};
+</script>
+<script src="/static/i18n.js"></script>
 </body>
 </html>

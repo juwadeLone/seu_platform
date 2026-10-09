@@ -53,6 +53,16 @@ class _Handler(BaseHTTPRequestHandler):
             with open(p3, "rb") as fh:
                 self._send(200, "text/html; charset=utf-8", fh.read())
             return
+        if path == "/api/devices":
+            try:
+                from .device import list_devices
+                self._send(200, "application/json",
+                           json.dumps(list_devices(),
+                                      ensure_ascii=False).encode("utf-8"))
+            except Exception as exc:
+                self._send(500, "application/json",
+                           json.dumps({"error": str(exc)}).encode("utf-8"))
+            return
         if path.startswith("/static/"):
             name = os.path.basename(path[len("/static/"):])
             full = os.path.join(_STATIC_DIR, name)

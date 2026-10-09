@@ -60,6 +60,12 @@ Any orbit SPENVIS covers becomes a mission here. On the `/orbit` page open the i
 
 The import sets the mission's orbit elements from the file's manifest (the platform refuses to apply spectra generated for a different orbit) and returns a ready-to-run environment. Headless equivalent: `POST /oseu/api/import_spenvis` with `{"gcf_text": ..., "proton_text": ..., "shield_mil": 100}`, or the CLI `python code/orbit_seu/scripts/spenvis_to_let.py spenvis_gcf.txt out/ --shield-mil 100`.
 
+## Bring your own device and design
+
+- **Device library** — `code/orbit_seu/orbit_seu/env_data/devices/` ships xc7vx690t, xc7k325t (the Lee 2014 DUT, native data) and xc7z045 (bit count is a labelled gap). Pick one on `/orbit`, reference `{"device": {"library": "xc7k325t"}}` headless, or upload your own σ(LET)/σ(E) device JSON from the same page.
+- **Your own layout** — the Strike page's "导入布局" takes a `primitive_map.csv` from any placed&routed Vivado design (columns: unit_id, hier_cell, ref_name, loc, bel, site, tile, grid_x, grid_y). Strikes, domains and consequences then run on your netlist; uploaded layouts carry a "not the bundled design" disclaimer.
+- **English UI** — every page has an EN/中 toggle (bottom right, persisted).
+
 ## Current results
 
 MEO 20200 km / 55°, GCR solar minimum, 100 mil Al shielding:

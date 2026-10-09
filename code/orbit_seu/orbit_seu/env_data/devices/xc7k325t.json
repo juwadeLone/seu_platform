@@ -1,0 +1,51 @@
+{
+  "id": "xc7k325t",
+  "label": "Xilinx Kintex-7 XC7K325T-1FBG900C",
+  "family": "7-series 28nm",
+  "role": "native_dut",
+  "provenance": {
+    "weibull": "Lee, Wirthlin, Swift, Le, 2014 IEEE REDW Table 1 (DOI 10.1109/REDW.2014.7004595; OSTI 1140364) — measured ON THIS DEVICE (XC7K325T-1FBG900C).",
+    "proton": "Wirthlin, Takai, Harding, JINST 2014 Table 1 (TSL 180 MeV proton, XC7K325T) — measured ON THIS DEVICE.",
+    "bits": "Lee 2014 Table 1 tested-device bits (beam-monitored); differs from UG470 bitstream count."
+  },
+  "info": {
+    "proc": "28 nm CMOS",
+    "logic": "UG474 Table 2: 203,800 LUTs / 407,600 CLB FFs",
+    "bram": "DS180: Total Block RAM 16,020 Kb = 16,404,480 bits",
+    "note": "Lee 2014 DUT 本体。CRAM 监测位 67,930,000 ≠ bitstream 91,548,896：用的是 Table 1 tested-device bits。"
+  },
+  "bits": 84727696,
+  "bits_note": "CRAM 67,930,000 + BRAM 16,404,480 + FF 393,216（Lee 2014 Table 1 tested-device bits）",
+  "heavy_ion_weibull_by_domain": {
+    "CRAM": {
+      "let_threshold": 0.4, "width": 338.5, "shape": 0.852,
+      "sigma_sat_cm2_per_bit": 3.34e-08, "bits": 67930000,
+      "bits_source": "Lee 2014 Table 1 tested-device bits",
+      "proton_sigma": {
+        "anchor_E_mev": 180.0, "sigma_cm2_per_bit": 8.29e-15,
+        "source": "Wirthlin/Takai/Harding JINST 2014 Table 1, TSL 180 MeV proton, XC7K325T CRAM",
+        "note": "single-energy anchor -> lower-bound rate"
+      }
+    },
+    "BRAM": {
+      "let_threshold": 0.1, "width": 87.5, "shape": 0.893,
+      "sigma_sat_cm2_per_bit": 3.82e-08, "bits": 16404480,
+      "bits_source": "Lee 2014 Table 1 tested-device bits (DS180 16,020 Kb x 1024)",
+      "proton_sigma": {
+        "anchor_E_mev": 180.0, "sigma_cm2_per_bit": 8.19e-15,
+        "source": "Wirthlin/Takai/Harding JINST 2014 Table 1, TSL 180 MeV proton, XC7K325T BRAM",
+        "note": "single-energy anchor -> lower-bound rate"
+      }
+    },
+    "FF": {
+      "let_threshold": 1.1, "width": 271.3, "shape": 1.09,
+      "sigma_sat_cm2_per_bit": 1.47e-07, "bits": 393216,
+      "bits_source": "Lee 2014 Table 1 tested-device bits"
+    }
+  },
+  "excluded_domains": {
+    "DSP": {
+      "reason": "Lee 2014 REDW Table 1 has no DSP heavy-ion Weibull; gap."
+    }
+  }
+}
