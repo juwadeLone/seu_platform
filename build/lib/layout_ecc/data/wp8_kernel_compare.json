@@ -1,0 +1,178 @@
+{
+  "note": "Uniform occupied centres, not occupancy centroid. Does not overwrite wp3/wp4.",
+  "theta": 45.0,
+  "phi": 30.0,
+  "n_seed": 20,
+  "legacy_a0": 12.0,
+  "passport": {
+    "rpm_to_um": {
+      "value": 8.0,
+      "range_um": [
+        4.0,
+        16.0
+      ],
+      "source": "assumption",
+      "note": "assumption: 1 occupancy-grid step = 1 Vivado RPM integer on this primitive_map; 7-series slice/CLB-row pitch is unpublished. Interval 4\u201316 \u00b5m is a 28 nm scaling of 65 nm CLB-scale floorplan estimates (roughly 10\u201330 \u00b5m) by 28/65, plus margin for wider DSP/BRAM columns. Nominal 8 \u00b5m is the interval midpoint. Not a measured xc7vx690t number."
+    },
+    "radaelli_2005": {
+      "points": [
+        {
+          "energy_mev": 22.0,
+          "area_um2": 1.178
+        },
+        {
+          "energy_mev": 47.0,
+          "area_um2": 1.902
+        },
+        {
+          "energy_mev": 95.0,
+          "area_um2": 2.903
+        },
+        {
+          "energy_mev": 144.0,
+          "area_um2": 4.613
+        }
+      ],
+      "source": "source: Radaelli et al. 2005 SRAM MBU weighted-mean affected area, as tabulated in Ebrahimi et al., DAC 2013 Table 1 (22/47/95/144 MeV \u2192 1.178/1.902/2.903/4.613 \u00b5m\u00b2). These are neutron-energy \u2192 SRAM-cluster-area numbers, not LET.",
+      "fit": {
+        "alpha": 0.7015203540756372,
+        "c": 0.1303834740459938,
+        "rmse_um2": 0.22670140544340384,
+        "residuals_um2": [
+          -0.03785684846399762,
+          0.03992847479469219,
+          0.27852919174786406,
+          -0.35350837923489653
+        ],
+        "energy_ratio": 6.545454545454546,
+        "area_ratio": 3.9159592529711382
+      }
+    },
+    "let_energy_bridge": "assumption: neutron energy E and heavy-ion LET are different physics. A(LET) = A_ref \u00b7 (LET/LET_ref)^\u03b1 with \u03b1 from the Radaelli E-fit, LET_ref=15 (legacy default), A_ref=2.903 \u00b5m\u00b2 (Radaelli 95 MeV). The exponent is transferred; the energy\u2194LET identification is not.",
+    "let_ref": 15.0,
+    "a_ref_um2": 2.903,
+    "martin_ghoniem_1987": {
+      "core_radius_um": [
+        0.3,
+        0.6
+      ],
+      "source": "source: Martin & Ghoniem, IEEE TNS 1987; radial density decays exponentially outside the track core; funneling feeds MBU. The ellipse is a coarse proxy for that tail."
+    },
+    "black_tns_2005": {
+      "source": "source: Black et al., IEEE TNS 2005; minimum design-rule spacing is not enough to stop multi-node charge sharing."
+    }
+  },
+  "radaelli_fit": {
+    "alpha": 0.7015203540756372,
+    "c": 0.1303834740459938,
+    "rmse_um2": 0.22670140544340384,
+    "residuals_um2": [
+      -0.03785684846399762,
+      0.03992847479469219,
+      0.27852919174786406,
+      -0.35350837923489653
+    ]
+  },
+  "cells": [
+    {
+      "let": 5.0,
+      "area_um2_anchored": 1.3431878797203778,
+      "legacy_a0": 12.0,
+      "n": 20,
+      "legacy": {
+        "mean_n_sites": 128.45,
+        "mean_n_flipped": 61.65,
+        "cross_stage_rate": 0.4,
+        "mean_b_grid": 13.0
+      },
+      "anchored": {
+        "mean_n_sites": 1.0,
+        "mean_n_flipped": 0.5,
+        "cross_stage_rate": 0.0,
+        "mean_b_grid": 0.08173413274120474,
+        "a0_eq_grid": 0.08173413274120478
+      },
+      "site_overestimate_ratio": 128.45
+    },
+    {
+      "let": 10.0,
+      "area_um2_anchored": 2.184315831318785,
+      "legacy_a0": 12.0,
+      "n": 20,
+      "legacy": {
+        "mean_n_sites": 150.05,
+        "mean_n_flipped": 71.8,
+        "cross_stage_rate": 0.55,
+        "mean_b_grid": 14.0
+      },
+      "anchored": {
+        "mean_n_sites": 1.0,
+        "mean_n_flipped": 0.5,
+        "cross_stage_rate": 0.0,
+        "mean_b_grid": 0.10423001334612474,
+        "a0_eq_grid": 0.10423001334612479
+      },
+      "site_overestimate_ratio": 150.05
+    },
+    {
+      "let": 15.0,
+      "area_um2_anchored": 2.903,
+      "legacy_a0": 12.0,
+      "n": 20,
+      "legacy": {
+        "mean_n_sites": 172.15,
+        "mean_n_flipped": 82.6,
+        "cross_stage_rate": 0.55,
+        "mean_b_grid": 15.0
+      },
+      "anchored": {
+        "mean_n_sites": 1.0,
+        "mean_n_flipped": 0.5,
+        "cross_stage_rate": 0.0,
+        "mean_b_grid": 0.12015963337834328,
+        "a0_eq_grid": 0.12015963337834333
+      },
+      "site_overestimate_ratio": 172.15
+    },
+    {
+      "let": 20.0,
+      "area_um2_anchored": 3.5521729483913616,
+      "legacy_a0": 12.0,
+      "n": 20,
+      "legacy": {
+        "mean_n_sites": 191.05,
+        "mean_n_flipped": 91.85,
+        "cross_stage_rate": 0.55,
+        "mean_b_grid": 16.0
+      },
+      "anchored": {
+        "mean_n_sites": 1.0,
+        "mean_n_flipped": 0.5,
+        "cross_stage_rate": 0.0,
+        "mean_b_grid": 0.13291748890921445,
+        "a0_eq_grid": 0.1329174889092145
+      },
+      "site_overestimate_ratio": 191.05
+    },
+    {
+      "let": 30.0,
+      "area_um2_anchored": 4.720909825093496,
+      "legacy_a0": 12.0,
+      "n": 20,
+      "legacy": {
+        "mean_n_sites": 237.8,
+        "mean_n_flipped": 112.55,
+        "cross_stage_rate": 0.55,
+        "mean_b_grid": 18.0
+      },
+      "anchored": {
+        "mean_n_sites": 1.0,
+        "mean_n_flipped": 0.5,
+        "cross_stage_rate": 0.0,
+        "mean_b_grid": 0.15323145631636856,
+        "a0_eq_grid": 0.15323145631636853
+      },
+      "site_overestimate_ratio": 237.8
+    }
+  ]
+}

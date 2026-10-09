@@ -1,0 +1,118 @@
+{
+  "x0": 201.5536284054651,
+  "y0": 305.1079113147345,
+  "n_seed": 20,
+  "cells": [
+    {
+      "a0": 4,
+      "theta": 0,
+      "n": 20,
+      "cross_stage_rate": 0.55
+    },
+    {
+      "a0": 4,
+      "theta": 45,
+      "n": 20,
+      "cross_stage_rate": 0.95
+    },
+    {
+      "a0": 4,
+      "theta": 60,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    },
+    {
+      "a0": 8,
+      "theta": 0,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    },
+    {
+      "a0": 8,
+      "theta": 45,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    },
+    {
+      "a0": 8,
+      "theta": 60,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    },
+    {
+      "a0": 12,
+      "theta": 0,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    },
+    {
+      "a0": 12,
+      "theta": 45,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    },
+    {
+      "a0": 12,
+      "theta": 60,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    },
+    {
+      "a0": 16,
+      "theta": 0,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    },
+    {
+      "a0": 16,
+      "theta": 45,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    },
+    {
+      "a0": 16,
+      "theta": 60,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    },
+    {
+      "a0": 20,
+      "theta": 0,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    },
+    {
+      "a0": 20,
+      "theta": 45,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    },
+    {
+      "a0": 20,
+      "theta": 60,
+      "n": 20,
+      "cross_stage_rate": 1.0
+    }
+  ],
+  "demo": {
+    "n_flipped": 118,
+    "stages": [
+      5,
+      6
+    ],
+    "roles": [
+      "butterfly",
+      "delay",
+      "ecc",
+      "twiddle"
+    ],
+    "outcomes": [
+      "CORRECTED",
+      "CORRECTED",
+      "CORRECTED",
+      "CORRECTED"
+    ],
+    "preview_class": "CROSS_STAGE"
+  },
+  "note": "trend scan only; not a fitted sigma or mission rate"
+}

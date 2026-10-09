@@ -1,0 +1,100 @@
+{
+  "provenance": "RPM/CSV occupancy-grid -> micrometre calibration for Xilinx 7-series, replacing the former isotropic 8 um assumption in units.py. Derived 2026-08-22 from Xilinx-official die dimensions (UG475 v1.9 mechanical drawings) cross-fitted with Project X-Ray tilegrid extents, and the empirical CSV grid <-> Vivado SLICE index mapping of this repo's primitive_map.csv.",
+  "sources": {
+    "ug475": {
+      "title": "7 Series FPGAs Packaging and Pinout Product Specification (UG475 v1.9, 2013-02-14)",
+      "publisher": "Xilinx",
+      "mirror_used": "https://192.135.24.37.myip.cloud.infn.it/svn/KM3NeT/CLBv2/branch/PowerUpStartupIssue/hw/CLBv2/Datasheet/FPGA/ug475_7Series_Pkg_Pinout.pdf",
+      "official_page": "https://docs.amd.com/v/u/en-US/ug475_7Series_Pkg_Pinout",
+      "sha256_local_copy": "b379c192ed33c95700cfb50df0a36f1986c565130291d15134fede8ffbd44c36",
+      "note": "Chapter 4 'Die Dimensions with Capacitor Locations' figures. Vendor table lists DEVICE SIZE (F1,G1) and DEVICE KEEPOUT AREA (J1,H1). Keepout-minus-die margins are exactly +6.0 mm (X) and +4.0 mm (Y) on every Kintex-7 figure checked (K325T FBG676/FBG900, K70T FBG484/FBG676); used to resolve die vs keepout pairing on Artix figures."
+    },
+    "prjxray": {
+      "title": "Project X-Ray device databases (f4pga/prjxray-db, branch master)",
+      "urls": [
+        "https://raw.githubusercontent.com/f4pga/prjxray-db/master/kintex7/xc7k70t/tilegrid.json",
+        "https://raw.githubusercontent.com/f4pga/prjxray-db/master/artix7/xc7a200t/tilegrid.json"
+      ],
+      "note": "Community-maintained reverse-engineered tile grid derived from Xilinx Vivado device data; used only for tile-array extents (counts), not for micrometre values.",
+      "xc7k70t_grid": {
+        "ncols": 117,
+        "nrows": 209,
+        "slice_x_max": 61,
+        "slice_y_max": 199
+      },
+      "xc7a200t_grid": {
+        "ncols": 265,
+        "nrows": 261,
+        "slice_x_max": 163,
+        "slice_y_max": 249
+      }
+    },
+    "csv_mapping": {
+      "file": "data/layout/p1_ooc_win/primitive_map.csv (xc7vx690tffg1761-2, P1 OOC DCP export)",
+      "empirical": "grid_x = 2*SLICE_X + 5 ; grid_y = 2*SLICE_Y exactly over 139,826 placed slice rows (0.5 SLICE-index resolution on both axes)",
+      "vivado_structure": "One CLB tile column contains the horizontally adjacent slice pair SLICE_X(2k),SLICE_X(2k+1) at one SLICE_Y (verified in prjxray tilegrid: e.g. tile CLBLL_L_X2Y102 hosts SLICE_X0Y102 and SLICE_X1Y102); SLICE_Y increments one tile row per step."
+    }
+  },
+  "official_die_dimensions_mm": {
+    "XC7K70T": {
+      "die_x_mm": 5.99,
+      "die_y_mm": 9.68,
+      "figs": [
+        "4-12 (FBG484, p.236)",
+        "4-15 (FBG676, p.239)"
+      ]
+    },
+    "XC7A200T": {
+      "die_x_mm": 11.1,
+      "die_y_mm": 12.05,
+      "figs": [
+        "4-5 (FBG484, p.229)",
+        "4-7 (FBG676, p.231)"
+      ]
+    },
+    "XC7K325T": {
+      "die_x_mm": 9.87,
+      "die_y_mm": 16.92,
+      "figs": [
+        "4-17 (FBG676, p.241)",
+        "4-20 (FBG900, p.244; F1=9.89)"
+      ]
+    },
+    "XC7K410T": {
+      "die_x_mm": 12.93,
+      "die_y_mm": 16.92,
+      "figs": [
+        "4-21 (FBG900, p.245)"
+      ]
+    }
+  },
+  "fit": {
+    "model": "die_mm = N_grid * pitch_mm + 2 * margin_mm (uniform tile lattice + constant pad-ring margin per family)",
+    "fitted_devices": [
+      "XC7K70T",
+      "XC7A200T"
+    ],
+    "tile_column_pitch_um": 34.53,
+    "tile_row_pitch_um": 45.58,
+    "margin_x_mm_per_side": 0.975,
+    "margin_y_mm_per_side": 0.077,
+    "csv_grid_unit_y_um": 22.79,
+    "csv_grid_unit_x_within_clb_um": 8.63,
+    "csv_grid_unit_x_cross_column_note": "Adjacent CLB columns are typically 3 tile columns apart in prjxray (CLB-INT-INT-CLB), so cross-column neighbour spacing is ~86 um while the CSV lattice shows 2 units (17.3 um if isotropic) -> cross-column X distances are understated ~5x by the uniform lattice. The single isotropic scale keeps this as a documented approximation.",
+    "independent_check_k325t": {
+      "predicted_tile_cols": 229,
+      "predicted_tile_rows": 368,
+      "note": "K325T was NOT used in the fit. Predicted capacity with ~70 CLB columns of ~229 total matches the DS160-specified 25,400 CLBs within ~1.5%, supporting the calibration."
+    },
+    "uncertainty": "Two-point fit; OCR precision of the vendor drawings is ~0.01-0.04 mm, giving roughly +/-0.3 um (column) and +/-0.8 um (row) on the pitches; adopted band for csv_grid_unit_y_um is (21.8, 23.8)."
+  },
+  "replacement": {
+    "old": {
+      "value_um": 8.0,
+      "status": "assumption (interval 4-16 um, midpoint)"
+    },
+    "new_default_RPM_TO_UM_um": 22.79,
+    "basis": "Y direction: one CSV grid unit = half a tile row = 22.79 um (exact 1:1 SLICE_Y<->tile-row mapping). This is the cleanest physically-anchored scale and is used as the new default scalar.",
+    "legacy_compatibility": "units.py keeps RPM_TO_UM_LEGACY = 8.0 for reproducing pre-calibration scans; all new products must carry this JSON's provenance."
+  }
+}

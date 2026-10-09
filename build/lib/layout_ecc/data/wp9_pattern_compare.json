@@ -1,0 +1,79 @@
+{
+  "note": "Anchored kernel with site-scale area floor; see area_floor_note.",
+  "let": 15.0,
+  "theta": 45.0,
+  "phi": 30.0,
+  "n_seed": 20,
+  "area_um2": 1300.0,
+  "area_floor_note": "assumption for this scan only: Radaelli SRAM-cluster areas are << one FPGA site (WP8: anchored mean coverage = 1 site), so k>1 would only hit multiple domains of the same Site (same symbol_id). Floor A=1300 \u00b5m\u00b2 is ~2.5 RPM-grid radii at RPM_TO_UM=8, enough to reach a neighbour Site so pattern vs bernoulli can differ on same-codeword multi-symbol. Not a literature area.",
+  "distribution": {
+    "p_k": {
+      "1": 0.7,
+      "2": 0.3
+    },
+    "sum": 1.0,
+    "source": "source: P\u00e9rez-Celis & Wirthlin, IEEE TNS 2021, 'Emulating Radiation-Induced Multicell Upset Patterns in SRAM FPGAs With Fault Injection'. Neutron test: MCU = 30% of upset events (hence P(k=1)=0.70). MCU size split is not in that paper; every MCU event is stored as k=2 (lower bound).",
+    "alternate_versal_1and2": {
+      "p_k": {
+        "1": 0.48974358974358984,
+        "2": 0.5102564102564102
+      },
+      "source": "source: Mayo et al., IEEE TNS 2025, Versal 7 nm CRAM heavy ions, \u03c3_SBU=(5.73\u00b10.67)\u00b710\u207b\u00b9\u00b9 cm\u00b2 and \u03c3_2-bit MCU=(5.97\u00b10.70)\u00b710\u207b\u00b9\u00b9 cm\u00b2 at 62.4 MeV\u00b7cm\u00b2/mg; normalised over {1,2} only. Max MCU size 4."
+    },
+    "domain_allocation": "assumption: P(domain | candidate in kernel) \u221d bits on that (site \u00d7 domain) row. Charge sharing is geometric; bit count is a proxy for how much of the site belongs to each domain. Not measured.",
+    "domains": [
+      "CFG",
+      "FF_STATE",
+      "BRAM_STATE",
+      "DSP_STATE"
+    ]
+  },
+  "passport": {
+    "value": 8.0,
+    "range_um": [
+      4.0,
+      16.0
+    ],
+    "source": "assumption",
+    "note": "assumption: 1 occupancy-grid step = 1 Vivado RPM integer on this primitive_map; 7-series slice/CLB-row pitch is unpublished. Interval 4\u201316 \u00b5m is a 28 nm scaling of 65 nm CLB-scale floorplan estimates (roughly 10\u201330 \u00b5m) by 28/65, plus margin for wider DSP/BRAM columns. Nominal 8 \u00b5m is the interval midpoint. Not a measured xc7vx690t number."
+  },
+  "bernoulli": {
+    "name": "bernoulli",
+    "mean_n_flipped": 3.5,
+    "cross_stage_rate": 0.05,
+    "same_codeword_multi_symbol_rate": 0.1,
+    "mean_n_multi_symbol_codewords": 0.1,
+    "k_histogram": {
+      "0": 1,
+      "1": 1,
+      "2": 3,
+      "3": 7,
+      "4": 3,
+      "5": 1,
+      "6": 3,
+      "7": 1
+    }
+  },
+  "pattern_cluster": {
+    "name": "pattern_cluster",
+    "mean_n_flipped": 1.2,
+    "cross_stage_rate": 0.0,
+    "same_codeword_multi_symbol_rate": 0.0,
+    "mean_n_multi_symbol_codewords": 0.0,
+    "k_histogram": {
+      "1": 16,
+      "2": 4
+    }
+  },
+  "pattern_uniform": {
+    "name": "pattern_uniform",
+    "mean_n_flipped": 1.2,
+    "cross_stage_rate": 0.0,
+    "same_codeword_multi_symbol_rate": 0.0,
+    "mean_n_multi_symbol_codewords": 0.0,
+    "k_histogram": {
+      "1": 16,
+      "2": 4
+    }
+  }
+}

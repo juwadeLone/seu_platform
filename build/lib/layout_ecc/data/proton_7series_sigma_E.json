@@ -1,0 +1,49 @@
+{
+  "status": "partial-filled-2026-08-22",
+  "particle": "proton",
+  "purpose": "Proton sigma(E) for 7-series SRAM FPGA. Filled ONLY where a citable measured table exists; other entries stay explicit gaps. Do not feed this file into the heavy-ion Weibull strike path.",
+  "why_needed": "LEO / SAA proton fluence dominates many orbits. The MEO 20200 km GCR heavy-ion N_SEU line can exist without this table. Mixing proton sigma(E) into Lee LET Weibull is a particle-species error.",
+  "filled_from": {
+    "source": "M. J. Wirthlin, H. Takai, A. Harding, 'Soft error rate estimations of the Kintex-7 FPGA within the ATLAS Liquid Argon (LAr) Calorimeter', 2014 JINST 9 C01025 (open access, peer-reviewed). Table 1, row 'TSL (180 MeV Proton)'.",
+    "doi": "10.1088/1748-0221/9/01/C01025",
+    "device_tested": "Xilinx Kintex-7 XC7K325T (28 nm), same DUT family as Lee REDW 2014 heavy-ion Table 1",
+    "tested_bits": {"CRAM": 67930000, "BRAM": 16404480},
+    "same_paper_neutron_anchor": "Table 1 LANSCE (WS neutron) CRAM 6.89e-15 / BRAM 6.15e-15 cm2/bit - independent cross-check of UG116 v10.20 (5.69e-15 / 5.57e-15): same order, within 21%/10%."
+  },
+  "additional_sources_not_extracted": [
+    {
+      "title": "Single Event Upset Characterization of the Kintex-7 Field Programmable Gate Array Using Proton Irradiation",
+      "authors": "Hiemstra, Kirischian, Kellner, von Przewoski, Dittrich",
+      "venue": "2014 IEEE Radiation Effects Data Workshop (REDW)",
+      "doi": "10.1109/REDW.2014.7004593",
+      "what_it_contains": "Proton sigma(E) curve for Kintex-7 CRAM at 80/100/184 MeV (Fig. 2) plus functional blocks.",
+      "why_not_extracted": "IEEE paywalled; no numeric table accessible in this audit (2026-08-22). Figure-only; extracting points requires licensed access or WebPlotDigitizer against the published figure - NOT done here, no values invented."
+    }
+  ],
+  "per_domain": {
+    "CRAM": {
+      "sigma_cm2_per_bit_vs_E": [{"E_mev": 180.0, "sigma_cm2_per_bit": 8.29e-15, "source": "Wirthlin/JINST 2014 Table 1, TSL 180 MeV proton"}],
+      "confidence": "measured (single energy)"
+    },
+    "BRAM": {
+      "sigma_cm2_per_bit_vs_E": [{"E_mev": 180.0, "sigma_cm2_per_bit": 8.19e-15, "source": "Wirthlin/JINST 2014 Table 1, TSL 180 MeV proton"}],
+      "confidence": "measured (single energy)"
+    },
+    "FF": {
+      "sigma_cm2_per_bit_vs_E": null,
+      "confidence": "gap",
+      "gap_note": "No measured FF proton sigma found in accessible literature. Hiemstra REDW 2014 covers functional blocks but is paywalled."
+    },
+    "DSP": {
+      "sigma_cm2_per_bit_vs_E": null,
+      "confidence": "gap",
+      "gap_note": "No DSP48E1 proton sigma in any accessible source (same gap as heavy ion; see dsp_seu_gap.json)."
+    }
+  },
+  "usage_limits": [
+    "Single energy point (180 MeV); an energy-dependent table still needs Hiemstra Fig. 2 extraction or new beam data.",
+    "Cross-section is for the tested device XC7K325T; borrowed to other 28 nm 7-series parts under the same-family rule as the Lee Weibull data.",
+    "Do not mix into the heavy-ion Weibull kernel; separate proton environment spectra integration is required before any orbit rate use."
+  ],
+  "layout_ecc_usage_note": "Strike GUI uses Lee heavy-ion sigma(LET), not this file. This table exists so a future LEO/SAA proton line has a sourced starting point."
+}

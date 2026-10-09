@@ -1,0 +1,173 @@
+{
+  "schema": "layout_ecc.effects_coverage.v1",
+  "version": "1.2.0",
+  "updated": "2026-09-26",
+  "honesty": "data_missing 与 out_of_scope 不得当成零。数字只在有出处时出现。本表不发明 TID/TNID/SEL 率。重离子 N_SEU 于 v1.2.0（2026-09-26）更正：Lee σ 单位、LET 换算、100 mil Al 屏蔽、角度归一化、全 92 种离子。",
+  "status_enum": [
+    "simulating",
+    "data_missing",
+    "out_of_scope"
+  ],
+  "frozen_seu_hi": {
+    "device_events_per_day": 46.160314073644855,
+    "display_device_per_day": 46.16,
+    "per_domain_rates_day_per_bit": {
+      "CRAM": 9.037335152498067e-08,
+      "BRAM": 4.6683830045994216e-07,
+      "FF": 1.008992354740081e-07
+    },
+    "source": "out_vx690t_measured/results.json（2026-09-26 实跑）；desktop/orbit_env.py _frozen_baseline。MEO 20200 km/55° xc7vx690t，SPENVIS CREME96 GCR 太阳极小 → 100 mil Al 屏蔽 → Bethe LET（过渡路径）× Lee 2014 Weibull（σ 单位已更正）。与 Lee Table 2 GEO 每 bit 率之比 CRAM 0.90 / BRAM 0.90 / FF 1.12。",
+    "note": "/api/effects 只回放此冻结快照，不重跑谱积分。质子截面不得并入此数。仅 GCR 太阳极小背景；太阳粒子事件最恶劣情况未计入。旧值 0.1007/day（σ 小 1e4 等）作废。",
+    "bits_by_domain": {
+      "CRAM": 229878496,
+      "BRAM": 54190080,
+      "FF": 866400
+    }
+  },
+  "proton_anchored_facts": {
+    "note": "单能点，不是任务率。不是谱积分。不并入重离子冻结率。FF/DSP 缺口。",
+    "particle": "proton",
+    "file": "data/proton_7series_sigma_E.json",
+    "CRAM": {
+      "E_mev": 180.0,
+      "sigma_cm2_per_bit": 8.29e-15,
+      "source": "M. J. Wirthlin, H. Takai, A. Harding, 2014 JINST 9 C01025, Table 1, TSL 180 MeV proton"
+    },
+    "BRAM": {
+      "E_mev": 180.0,
+      "sigma_cm2_per_bit": 8.19e-15,
+      "source": "M. J. Wirthlin, H. Takai, A. Harding, 2014 JINST 9 C01025, Table 1, TSL 180 MeV proton"
+    },
+    "FF": null,
+    "DSP": null
+  },
+  "effects": [
+    {
+      "id": "tid",
+      "family": "cumulative",
+      "name_zh": "总电离剂量",
+      "acronym": "TID",
+      "status": "data_missing",
+      "physics": "电离剂量在氧化物中积累电荷，使阈值电压漂移、漏电增加；工程量是 krad(Si) 或 Gy(Si)，来自屏蔽后的电子/质子/韧致剂量，不是 LET 谱。",
+      "software_does": "不算剂量。data/tid/ 放入 SHIELDOSE 输出后原样展示；不从 LET 谱推剂量。",
+      "source": null,
+      "brief": "缺剂量文件（SHIELDOSE）"
+    },
+    {
+      "id": "tnid",
+      "family": "cumulative",
+      "name_zh": "非电离剂量 / 位移损伤",
+      "acronym": "TNID/DD",
+      "status": "out_of_scope",
+      "physics": "非电离能损（NIEL）× 注量导致晶格位移，影响少数载流子寿命、暗电流与增益。",
+      "software_does": "无 NIEL 核、无注量积分，不做 TNID。",
+      "source": null,
+      "out_of_scope_reason": "需要 NIEL+fluence，本工具没有位移损伤输运。",
+      "brief": "需要 NIEL 输运，未做"
+    },
+    {
+      "id": "seu_hi",
+      "family": "see",
+      "name_zh": "重离子单粒子翻转（CRAM/BRAM/FF）",
+      "acronym": "SEU",
+      "status": "simulating",
+      "physics": "重离子在灵敏体积沉积电荷，翻转 SRAM 配置位、BRAM 与用户 FF。",
+      "software_does": "SPENVIS CREME96 GCR（太阳极小）→ 100 mil Al → Bethe LET → Lee 2014 Weibull（cm²/bit）→ 按域 bits 求和。",
+      "source": "Lee et al. 2014 IEEE REDW Table 1, DOI 10.1109/REDW.2014.7004595；SPENVIS CREME96 LET；out_vx690t_measured/results.json",
+      "brief": ""
+    },
+    {
+      "id": "seu_dsp",
+      "family": "see",
+      "name_zh": "DSP 单粒子翻转",
+      "acronym": "SEU (DSP)",
+      "status": "data_missing",
+      "physics": "DSP48 数据通路寄存器也可被重离子翻转，截面与 SRAM 不同，不能借用 Lee CRAM 行。",
+      "software_does": "DSP 按 169 bit 占位（UG479），没有截面，打击时从不翻转。",
+      "source": "data/dsp_seu_gap.json；Lee REDW 2014 Table 1 仅 Config Memory / BRAM / User Flip-flop",
+      "brief": "没有实测截面"
+    },
+    {
+      "id": "seu_proton",
+      "family": "see",
+      "name_zh": "质子单粒子翻转",
+      "acronym": "SEU (proton)",
+      "status": "data_missing",
+      "physics": "质子主要通过核反应次级重离子诱发 SEU；任务率需要 σ(E)×轨道能谱积分，单能点不是率。",
+      "software_does": "只展示 180 MeV 实测点（Wirthlin 2014），不当任务率，不并入重离子次数。FF / DSP 没有点。",
+      "source": "data/proton_7series_sigma_E.json；Wirthlin/Takai/Harding 2014 JINST 9 C01025 Table 1 TSL 180 MeV",
+      "brief": "只有 180 MeV 单点"
+    },
+    {
+      "id": "mbu",
+      "family": "see",
+      "name_zh": "多位 / 多单元翻转",
+      "acronym": "MBU/MCU",
+      "status": "simulating",
+      "status_note": "simulating（几何/图案）；不是在轨 MBU 率。anchored 核可能 0 候选。",
+      "physics": "一次径迹可翻转相邻多个单元；聚类与版图几何、LET、入射角有关。",
+      "software_does": "打击页按 Lee σ 模型逐次抽样多位翻转；图案模型用 Pérez-Celis 2021 的 P(k)。不输出在轨 MBU 率。",
+      "source": "layout_ecc/mbu_patterns.py；Pérez-Celis & Wirthlin IEEE TNS 2021 DOI 10.1109/TNS.2021.3071704；Wirthlin JINST 2014 Table 2 交叉校验",
+      "brief": "打击页按 σ 模型逐次抽样"
+    },
+    {
+      "id": "set",
+      "family": "see",
+      "name_zh": "单粒子瞬态",
+      "acronym": "SET",
+      "status": "out_of_scope",
+      "physics": "组合逻辑或互连上的瞬态电压脉冲，可能被时钟采进寄存器成为软错误。",
+      "software_does": "不计量 SET。打击页在打中逻辑 Site 时只定性标「可能」。",
+      "source": null,
+      "out_of_scope_reason": "SET=routing/PIP not in Site ellipse",
+      "brief": "打击页只定性标出，未计量"
+    },
+    {
+      "id": "sefi",
+      "family": "see",
+      "name_zh": "单粒子功能中断",
+      "acronym": "SEFI",
+      "status": "out_of_scope",
+      "physics": "配置接口或内部控制状态机被打到非法状态，表现为功能中断而非单纯 bit flip。",
+      "software_does": "无配置状态机模型，不给出 SEFI 率。",
+      "source": null,
+      "out_of_scope_reason": "SEFI needs config-machine model",
+      "brief": "平台没有配置控制电路的位置"
+    },
+    {
+      "id": "sel",
+      "family": "see",
+      "name_zh": "单粒子闩锁",
+      "acronym": "SEL",
+      "status": "data_missing",
+      "physics": "寄生晶闸管被触发后电源电流陡增，可造成功能中断或永久损伤。",
+      "software_does": "打击页在 LET ≥ 15 时标「风险」（Lee 2014 实测起始 LET）。没有截面，不给在轨率。",
+      "source": "Lee, Wirthlin, Swift, Le 2014 IEEE REDW §IV.C：VCCAUX 在有效 LET 15 起观测到闩锁，电流阶跃约 130 mA",
+      "brief": "LET ≥ 15 有风险，缺截面"
+    },
+    {
+      "id": "seb",
+      "family": "see",
+      "name_zh": "单粒子烧毁",
+      "acronym": "SEB",
+      "status": "out_of_scope",
+      "physics": "功率器件中雪崩与二次击穿导致热失控烧毁；与偏压、负载有关。",
+      "software_does": "7 系列逻辑 FPGA 不是功率 MOSFET 主场景；无电压/电流模型，不给 SEB 率。",
+      "source": null,
+      "out_of_scope_reason": "SEL/SEB/SEGR need current/voltage device models",
+      "brief": "功率器件效应，逻辑 FPGA 不适用"
+    },
+    {
+      "id": "segr",
+      "family": "see",
+      "name_zh": "单粒子栅穿",
+      "acronym": "SEGR",
+      "status": "out_of_scope",
+      "physics": "重离子在栅氧化层中造成击穿，常见于功率 MOS；依赖栅电场与 LET。",
+      "software_does": "无栅电场/氧化层击穿模型，不给 SEGR 率。",
+      "source": null,
+      "out_of_scope_reason": "SEL/SEB/SEGR need current/voltage device models",
+      "brief": "功率器件效应，逻辑 FPGA 不适用"
+    }
+  ]
+}

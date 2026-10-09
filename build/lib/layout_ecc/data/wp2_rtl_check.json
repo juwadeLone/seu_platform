@@ -1,0 +1,17 @@
+{
+  "note": "open-loop (protection=off) LSB-weight bit 20; later stages have fewer remaining >>1 scales, so deviation grows toward the output. This matches the RTL intuition that a last-stage FF flip is more visible.",
+  "bit": 20,
+  "protection": "off",
+  "max_output_deviation_by_stage": {
+    "1": 2048,
+    "2": 4096,
+    "3": 8192,
+    "4": 16384,
+    "5": 32768,
+    "6": 65536,
+    "7": 131072,
+    "8": 262144,
+    "9": 524288,
+    "10": 1048576
+  }
+}

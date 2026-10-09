@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>var __d=document.createElement("div");__d.id="static-demo-base";__d.setAttribute("data-api","api");document.documentElement.appendChild(__d);
+(function(){
+  var real = window.fetch;
+  var base = document.getElementById('static-demo-base').getAttribute('data-api');
+  var strikes = null;
+  var strikeIdx = 0;
+  window.fetch = function(url, opts){
+    var u = (typeof url === 'string') ? url : url.url;
+    var path = u.split('?')[0];
+    var map = {'/api/layout':'layout.json','/api/effects':'effects.json'};
+    if (map[path]) return real(base + '/' + map[path], opts);
+    if (path === '/api/strike' && opts && (opts.method||'GET').toUpperCase()==='POST'){
+      var files = window.__STRIKE_FILES__ || [];
+      if (!files.length) return Promise.reject(new Error('no strikes'));
+      var f = files[strikeIdx++ % files.length];
+      return real(base + '/strikes/' + f, opts);
+    }
+    if (path === '/oseu/api/run') return real(base + '/orbit_run.json', opts);
+    if (path === '/api/run') return real(base + '/orbit_run.json', opts);
+    return real(url, opts);
+  };
+})();
+</script>
+
+<meta charset="utf-8">
+<title>LayoutECC · SAR 单机链路</title>
+<style>
+  :root { --bg:#04070d; --panel:rgba(13,22,38,.86); --line:#1b3350;
+          --txt:#d9e6f5; --dim:#7f93ab; --acc:#00e5ff; --warn:#ffb454; --ok:#7ee787;
+          --tx:#ff9e64; --rx:#5cc8ff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { height:100%; color:var(--txt); font:13px/1.45 "Segoe UI","Microsoft YaHei",sans-serif;
+    background:linear-gradient(180deg,#081120,#04070d); }
+  body { display:flex; flex-direction:column; overflow:hidden; }
+  header { display:flex; align-items:center; gap:12px; padding:9px 16px; border-bottom:1px solid var(--line); flex:none; }
+  header h1 { font-size:16px; letter-spacing:.12em; }
+  header .sub { color:var(--dim); font-size:12px; }
+  nav { margin-left:auto; display:flex; gap:8px; }
+  nav a { color:var(--acc); text-decoration:none; }
+  nav a.on { color:#fff; border-bottom:1px solid var(--acc); }
+  nav .sep { color:#3a5674; }
+  main { flex:1; min-height:0; display:grid; grid-template-columns:326px minmax(0,1fr) 300px; }
+  aside.left { border-right:1px solid var(--line); padding:10px 12px; overflow:auto; }
+  section.mid { display:flex; flex-direction:column; min-width:0; min-height:0; }
+  .view { position:relative; flex:1; min-height:240px; }
+  #sky { position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none; }
+  #sky.drag { cursor:grabbing; }
+  .hud { position:absolute; top:8px; left:8px; right:8px; display:flex; gap:5px; flex-wrap:wrap; }
+  .hud button { width:auto; margin:0; padding:4px 9px; font-size:12px; background:rgba(6,13,24,.82); }
+  .hud button.on { border-color:var(--acc); color:#fff; box-shadow:0 0 6px rgba(0,229,255,.35); }
+  .hint { position:absolute; left:10px; bottom:8px; color:var(--dim); font-size:11px;
+    background:rgba(4,7,13,.66); padding:3px 8px; border-radius:6px; pointer-events:none; }
+  .scale { position:absolute; right:10px; bottom:8px; color:#5f7a98; font-size:11px; pointer-events:none;
+    background:rgba(4,7,13,.55); padding:2px 7px; border-radius:6px; }
+  .cap { padding:6px 12px; color:var(--dim); font-size:12px; border-top:1px solid var(--line); flex:none; }
+  .cap b { color:#e6f2ff; font-weight:600; }
+  .unit { height:262px; flex:none; border-top:1px solid var(--line); display:grid;
+    grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:12px; padding:8px 12px; background:rgba(6,11,20,.92); }
+  .unit svg { width:100%; height:100%; display:block; }
+  .unit .txt { overflow:auto; font-size:12.5px; padding-right:4px; }
+  .unit .txt h3 { font-size:14px; color:#fff; margin-bottom:2px; }
+  .unit .txt .where { color:var(--acc); font-size:12px; margin-bottom:6px; }
+  .unit .txt p { margin:4px 0; }
+  .unit .txt .k { color:var(--warn); }
+  .unit .txt .seu { border-left:2px solid #ff7b72; padding-left:7px; color:#e8c7c4; margin-top:6px; }
+  .unit .txt .pin { float:right; width:auto; margin:0; padding:2px 8px; font-size:11px; }
+  .right { border-left:1px solid var(--line); padding:10px 12px; overflow:auto; }
+  h2 { font-size:11px; letter-spacing:.16em; color:var(--acc); margin:8px 0 6px; }
+  button, select { background:#060d18; color:var(--txt); border:1px solid #1d3a5c;
+    border-radius:7px; padding:6px 8px; font:inherit; width:100%; margin-top:6px; cursor:pointer; }
+  canvas.img { width:100%; height:auto; border:1px solid var(--line); border-radius:8px; background:#000; }
+  .note { color:var(--dim); font-size:11.5px; margin-top:8px; }
+  /* timeline */
+  .axis { display:flex; justify-content:space-between; color:#4f6a88; font:10px Consolas,monospace;
+    margin:0 2px 2px 28px; }
+  .tl { position:relative; }
+  .tl::before { content:""; position:absolute; left:10px; top:10px; bottom:10px; width:2px; background:#1d3a5c; }
+  .row { position:relative; padding:5px 8px 6px 28px; border:1px solid transparent; border-radius:8px;
+    cursor:pointer; margin:1px 0; }
+  .row:hover { background:rgba(255,255,255,.03); }
+  .row .dot { position:absolute; left:5px; top:10px; width:12px; height:12px; border-radius:50%;
+    background:#0b1624; border:2px solid #2b4a6c; }
+  .row.done .dot { border-color:#2f7a60; background:#123a2d; }
+  .row.act { background:rgba(0,229,255,.07); border-color:#1f5b73; }
+  .row.act .dot { border-color:var(--acc); background:var(--acc); box-shadow:0 0 9px var(--acc); }
+  .row.sel { border-color:var(--warn); box-shadow:0 0 8px rgba(255,180,84,.25); }
+  .row .t { color:var(--acc); font:11px Consolas,monospace; }
+  .row .dur { float:right; color:#c9d7e6; font:11px Consolas,monospace; }
+  .row b { font-size:13px; }
+  .row .u { color:var(--dim); font-size:11.5px; }
+  .bar { height:5px; background:#0b1624; border-radius:3px; margin-top:4px; position:relative; overflow:hidden; }
+  .bar i { position:absolute; left:0; top:0; bottom:0; border-radius:3px;
+    background:linear-gradient(90deg,#1b5f7a,#00b8d4); }
+  .bar em { position:absolute; left:0; top:0; bottom:0; background:rgba(255,236,180,.55); width:0; }
+  .slider { display:flex; align-items:center; gap:8px; margin:6px 0; }
+  .slider input { flex:1; }
+  .slider b { color:#fff; min-width:40px; text-align:right; }
+  table.params { width:100%; border-collapse:collapse; font-size:11.5px; }
+  table.params td { padding:2px 3px; border-bottom:1px solid #102338; vertical-align:top; }
+  table.params td:nth-child(2) { color:#fff; white-space:nowrap; text-align:right; }
+  table.params td:nth-child(3) { color:#5f7a98; white-space:nowrap; font-size:10.5px; }
+  table.params td.as { color:var(--warn); }
+  @media (max-width: 1180px) {
+    body { overflow:auto; }
+    main { grid-template-columns:300px minmax(0,1fr); grid-auto-rows:minmax(560px,auto); }
+    .right { grid-column:1 / -1; border-left:none; border-top:1px solid var(--line);
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px; }
+  }
+</style>
+</head>
+<body><div style="padding:8px 16px;font:12px 'Segoe UI',sans-serif;background:#132032;color:#8fb3d9;border-bottom:1px solid #1b3350">Static snapshot of a live run &middot; interactive strike/orbit controls replay precomputed responses &middot; full simulator: <code style="color:#00e5ff">pip install . &amp;&amp; seu-platform</code> from <a style="color:#00e5ff" href="https://github.com/juwadeLone/seu_platform">juwadeLone/seu_platform</a></div>
+<header>
+  <h1>SAR 单机 · 照射到出图</h1>
+  <span class="sub">三维几何 + 单机时间线 + 单机外形</span>
+  <nav>
+    <a href="index.html">打击</a><span class="sep">|</span>
+    <a href="orbit.html">轨道</a><span class="sep">|</span>
+    <a href="effects.html">效应</a><span class="sep">|</span>
+    <a href="sar.html" class="on">SAR</a>
+  </nav>
+</header>
+<main>
+  <aside class="left">
+    <h2>单机链路 · 时间线（一条回波）</h2>
+    <div class="axis"><span>1 ns</span><span>1 µs</span><span>1 ms</span><span>1 s</span></div>
+    <div class="tl" id="tl"></div>
+    <p class="note">t = 该级开始时刻（按一条回波逐级累加，实际各级流水并行）。条长 = 本级耗时，对数刻度 1 ns – 1 s。点一行看该单机；点 3D 里的卫星部件也行。</p>
+    <h2>几何与参数</h2>
+    <div class="slider"><span>视角 θ</span><input id="look" type="range" min="20" max="50" step="1" value="35"><b id="lookV">35°</b></div>
+    <table class="params" id="params"></table>
+    <p class="note">GF-3 公开：轨道高度 755 km、C 波段 5.4 GHz；阵面约 15 m × 1.5 m 为公开报道量级。标「假设」的是典型值。时间由几何与这些参数推算，不是实测。</p>
+  </aside>
+  <section class="mid">
+    <div class="view">
+      <canvas id="sky"></canvas>
+      <div class="hud">
+        <button id="bPlay" type="button">⏸ 暂停</button>
+        <button id="bReset" type="button">↺ 复位视角</button>
+        <button type="button" data-v="sat" class="on">跟随卫星</button>
+        <button type="button" data-v="swath">看测绘带</button>
+        <button type="button" data-v="earth">看地球</button>
+        <button id="bSpin" type="button">自动环绕</button>
+        <button id="bXray" type="button">透视载荷舱</button>
+      </div>
+      <div class="hint">拖拽旋转 · 滚轮缩放 · 双击复位 · 点部件看单机</div>
+      <div class="scale">卫星放大约 1 万倍 · 方位波束 ×8 · 高度 / 斜距 / 视角 / 带宽按比例</div>
+    </div>
+    <div class="cap" id="cap"></div>
+    <div class="unit">
+      <svg id="unitSvg" viewBox="0 0 420 250" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="txt" id="unitTxt"></div>
+    </div>
+  </section>
+  <div class="right">
+    <div>
+      <h2>出图</h2>
+      <canvas class="img" id="clean" width="280" height="220"></canvas>
+    </div>
+    <div>
+      <h2>SEU 之后</h2>
+      <canvas class="img" id="bad" width="280" height="220"></canvas>
+    </div>
+    <div>
+      <label class="note">打击位置</label>
+      <select id="where"></select>
+      <button id="hit" type="button">按该级打一次 SEU</button>
+      <button id="clear" type="button">恢复无故障出图</button>
+      <p class="note" id="sym">无故障。图像是程序生成的点目标条带，不是真实地表，也不是本次注入的像素结果。</p>
+    </div>
+  </div>
+</main>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+
+/* ======================================================================
+   参数与时序模型：GF-3 公开量级 + 标明的假设；时延全部由几何推算
+   ====================================================================== */
+const C_KM = 299792.458;                 // km/s
+const BASE = {
+  Re: 6371.0, mu: 398600.4418,           // km, km^3/s^2
+  h: 755,                                // km   GF-3 公开
+  f0: 5.4e9,                             // Hz   GF-3 公开（C 波段）
+  La: 15, Wa: 1.5,                       // m    公开报道量级
+  tau: 30e-6, prf: 3000,                 // 假设
+  B: 100e6, fs: 120e6,                   // 假设
+  fclk: 250e6, adcLat: 20,               // 假设（FPGA 时钟、ADC 流水延迟拍数）
+  feed: 2e-9, lnaDelay: 1e-9             // 假设
+};
+function derive(lookDeg) {
+  const p = BASE, th = lookDeg * Math.PI / 180;
+  const rs = p.Re + p.h, v = Math.sqrt(p.mu / rs);
+  const R0 = rs * Math.cos(th) - Math.sqrt(p.Re * p.Re - rs * rs * Math.sin(th) ** 2);
+  const eta = Math.asin(rs * Math.sin(th) / p.Re);
+  const beta = eta - th, Gr = p.Re * beta;
+  const vg = v * p.Re / rs;
+  const lam = 299792458 / p.f0;
+  const thEl = lam / p.Wa, thAz = lam / p.La;
+  const dR = R0 * thEl * Math.tan(eta);             // 测绘带斜距跨度 km
+  const Wg = R0 * thEl / Math.cos(eta);              // 测绘带地距宽度 km
+  const Tech = 2 * R0 / C_KM;
+  const pri = 1 / p.prf;
+  const Tw = 2 * dR / C_KM + p.tau;
+  const inFlight = Math.floor(Tech / pri);
+  const Lsa = lam * R0 * 1000 / p.La;                // m
+  const Ta = Lsa / (vg * 1000);
+  const Na = Math.round(Ta * p.prf);
+  const Nr = Math.pow(2, Math.ceil(Math.log2(Tw * p.fs)));
+  const Trc = 2 * Nr / p.fclk;
+  const Tmix = 2 / p.B;
+  const Tadc = Tw + p.adcLat / p.fs;
+  const Timg = Nr / p.fclk;
+  return { look: lookDeg, th, rs, v, R0, eta, beta, Gr, vg, lam, thEl, thAz, dR, Wg,
+           Tech, pri, Tw, inFlight, Lsa, Ta, Na, Nr, Trc, Tmix, Tadc, Timg };
+}
+function fmtT(s) {
+  if (s < 1e-6) { const n = s * 1e9; return (n < 10 ? n.toFixed(1) : n.toFixed(0)) + " ns"; }
+  if (s < 1e-3) { const u = s * 1e6; return (u < 10 ? u.toFixed(1) : u.toFixed(0)) + " µs"; }
+  if (s < 1) { const m = s * 1e3; return (m < 10 ? m.toFixed(2) : m.toFixed(1)) + " ms"; }
+  return s.toFixed(2) + " s";
+}
+const fmtN = n => Math.round(n).toLocaleString("en-US");
+let D = derive(35);
+
+/* 时间线各级：dwell = 动画里停留秒数（教学节拍）；dur = 物理耗时（推算） */
+const STAGES = [
+  { id: "tx", name: "发射脉冲", unit: "tr", seu: "lna", dwell: 1.5, dur: () => BASE.tau,
+    how: d => `脉宽 τ = ${fmtT(BASE.tau)}（假设）；PRF ${BASE.prf} Hz（假设），每 ${fmtT(d.pri)} 发一个` },
+  { id: "prop", name: "往返传播", unit: "geo", seu: null, dwell: 3.4, dur: d => d.Tech,
+    how: d => `2R₀/c = 2 × ${d.R0.toFixed(0)} km ÷ c = ${fmtT(d.Tech)}；空中同时约 ${d.inFlight} 个脉冲` },
+  { id: "ant", name: "阵面接收", unit: "ant", seu: "ant", dwell: 1.1, dur: () => BASE.feed,
+    how: () => `阵面馈电网络 ≈ ${fmtT(BASE.feed)}（假设）` },
+  { id: "lna", name: "限幅 + 低噪放", unit: "tr", seu: "lna", dwell: 1.1, dur: () => BASE.lnaDelay,
+    how: () => `群时延 ≈ ${fmtT(BASE.lnaDelay)}（假设）` },
+  { id: "mix", name: "下变频", unit: "rx", seu: "mix", dwell: 1.1, dur: d => d.Tmix,
+    how: d => `中频滤波群时延 ≈ 2/B = ${fmtT(d.Tmix)}（B = ${BASE.B / 1e6} MHz，假设）` },
+  { id: "adc", name: "采样量化", unit: "adc", seu: "adc", dwell: 1.4, dur: d => d.Tadc,
+    how: d => `采样窗 2ΔR/c + τ = ${fmtT(d.Tw)}；fs = ${BASE.fs / 1e6} MSPS（假设）→ ${fmtN(d.Tw * BASE.fs)} 点` },
+  { id: "rng", name: "距离向压缩", unit: "fpga", seu: "rng", dwell: 1.4, dur: d => d.Trc,
+    how: d => `${fmtN(d.Nr)} 点 FFT × 匹配 × IFFT，${BASE.fclk / 1e6} MHz 流水 ≈ ${fmtT(d.Trc)}（${d.Trc < d.pri ? "<" : ">"} PRI ${fmtT(d.pri)}，${d.Trc < d.pri ? "跟得上" : "需并行"}）` },
+  { id: "az", name: "方位向压缩", unit: "fpga", seu: "az", dwell: 3.0, dur: d => d.Ta,
+    how: d => `先攒满合成孔径 T_a = λR₀/(L_a·v_g) = ${fmtT(d.Ta)}（${fmtN(d.Na)} 个脉冲）` },
+  { id: "img", name: "出图", unit: "ssr", seu: "img", dwell: 1.4, dur: d => d.Timg,
+    how: d => `幅度检测 + 量化，一行 ${fmtN(d.Nr)} 点 ÷ ${BASE.fclk / 1e6} MHz ≈ ${fmtT(d.Timg)}` }
+];
+const UNITS = {
+  tr: { title: "T/R 组件", where: "天线阵面背面，每个子阵后面一个，整阵数百到上千个",
+    does: "发射：驱动放大 + HPA 功放把 5.4 GHz 脉冲放大后经环行器送到辐射单元。接收：回波经环行器进限幅器（挡住泄漏的大信号）和低噪放，再由幅相多功能芯片按波束指向配相、配幅，合路送给接收机。",
+    seu: "幅相芯片的控制寄存器、波控码被翻 → 该通道相位/幅度错，整幅增益下降、副瓣抬高（右侧「天线 / 射频前端」两种症状）。" },
+  ant: { title: "天线阵面（有源相控阵）", where: "卫星侧面，长边沿飞行方向；阵面法线偏离星下点一个视角 θ，侧视照射",
+    does: "上千个辐射单元同时收发；波控单元给每个 T/R 组件下发相位码，电扫俯仰（选测绘带）和方位。回波在阵面同相叠加，形成窄波束。",
+    seu: "波控码翻转 → 波束指向/形状错，整幅变暗并带噪声。" },
+  geo: { title: "往返传播（几何）", where: "卫星 ↔ 测绘带，斜距 R₀",
+    does: "脉冲以光速走到地面再返回。斜距由轨道高度与视角按球面几何算出；PRI 比往返时间短得多，所以空中同时有许多个脉冲在飞，接收机按回波窗逐个取。",
+    seu: "传播段没有电子器件，不受 SEU 影响。" },
+  rx: { title: "SAR 接收机 / 频率源", where: "载荷舱内",
+    does: "5.4 GHz 回波经腔体滤波器预选，与本振混频搬到中频，再放大、滤波。频率源用同一个参考同时产生发射信号、本振和 ADC 采样时钟，保证全链相干。",
+    seu: "本振 / PLL 配置寄存器翻转 → 相位跳变，图像错位并出现重影。" },
+  adc: { title: "数据形成器（ADC）", where: "载荷舱内，紧挨接收机",
+    does: "在回波窗内按 fs 采样、量化（8–12 bit 量级），加帧头与时间码打包成一条距离线，高速串行送成像处理器。",
+    seu: "打包 FPGA 或缓存位翻转 → 采样值错，条带里撒满随机亮点。" },
+  fpga: { title: "成像处理器（FPGA）", where: "载荷舱内",
+    does: "距离向：每条回波做 FFT、乘匹配滤波、IFFT（脉冲压缩），要在一个 PRI 内做完。方位向：距离线先写进 DDR 转置，攒满一个合成孔径后沿方位做 FFT / 匹配滤波。本平台 P1 的 FFT 核与 SEU 注入对应的就是这颗 FPGA（XC7VX690T，s1–s10 为流水级；s1–s5 / s6–s10 是教学对应）。",
+    seu: "CRAM / BRAM / FF 翻转。在轨整片 ≈ 46 次/天（MEO，GCR 太阳极小，见「效应」页）；距离向错拉成横条，方位向错拉成竖条。" },
+  ssr: { title: "图像形成 / 固存", where: "载荷舱内；过境时经数传下行",
+    does: "取幅度 √(I²+Q²)、量化成 8 bit 图像行，写入固存（NAND Flash），过境时经 X 频段数传下行。多数在轨 SAR 下传原始数据、在地面成像；星上实时成像是本平台讨论的场景。",
+    seu: "检测 / 缓存块错位 → 一块区域被搬到旁边。固存本身有 EDAC 纠错。" }
+};
+
+/* ======================================================================
+   左侧：时间线 + 参数表
+   ====================================================================== */
+const tlEl = $("tl");
+function logW(sec) { return Math.max(3, Math.min(100, (Math.log10(sec) + 9) / 9 * 100)); }
+function buildTimeline() {
+  tlEl.innerHTML = "";
+  let t = 0;
+  STAGES.forEach((st, i) => {
+    const dur = st.dur(D);
+    st.t0 = t; t += dur;
+    const r = document.createElement("div");
+    r.className = "row"; r.dataset.i = i;
+    r.innerHTML = `<span class="dot"></span><span class="dur">${fmtT(dur)}</span>` +
+      `<span class="t">t = ${st.t0 === 0 ? "0" : fmtT(st.t0)}</span><br>` +
+      `<b>${st.name}</b> <span class="u">· ${UNITS[st.unit].title}</span>` +
+      `<div class="bar"><i style="width:${logW(dur)}%"></i><em></em></div>`;
+    r.onclick = () => select(i);
+    tlEl.appendChild(r);
+  });
+  STAGES.total = t;
+}
+function buildParams() {
+  const rows = [
+    ["轨道高度 h", `${BASE.h} km`, "GF-3 公开"],
+    ["载频 / 波长", `${(BASE.f0 / 1e9).toFixed(1)} GHz / ${(D.lam * 100).toFixed(2)} cm`, "GF-3 公开"],
+    ["阵面 方位 × 俯仰", `${BASE.La} m × ${BASE.Wa} m`, "公开量级"],
+    ["视角 θ / 入射角 η", `${D.look}° / ${(D.eta * 180 / Math.PI).toFixed(1)}°`, "推算"],
+    ["斜距 R₀", `${D.R0.toFixed(0)} km`, "推算"],
+    ["地距（星下点→带中心）", `${D.Gr.toFixed(0)} km`, "推算"],
+    ["测绘带宽 ≈ R₀·λ/W_a/cosη", `${D.Wg.toFixed(0)} km`, "推算"],
+    ["卫星速度 / 地速", `${D.v.toFixed(2)} / ${D.vg.toFixed(2)} km/s`, "推算"],
+    ["往返时延 2R₀/c", fmtT(D.Tech), "推算"],
+    ["脉宽 τ / PRF", `${fmtT(BASE.tau)} / ${BASE.prf} Hz`, "假设"],
+    ["带宽 B / 采样 fs", `${BASE.B / 1e6} MHz / ${BASE.fs / 1e6} MSPS`, "假设"],
+    ["FPGA 时钟", `${BASE.fclk / 1e6} MHz`, "假设"],
+    ["合成孔径 L_sa / T_a", `${(D.Lsa / 1000).toFixed(2)} km / ${fmtT(D.Ta)}`, "推算"]
+  ];
+  $("params").innerHTML = rows.map(([k, v, s]) =>
+    `<tr><td>${k}</td><td>${v}</td><td class="${s === "假设" ? "as" : ""}">${s}</td></tr>`).join("");
+}
+$("look").oninput = e => {
+  D = derive(+e.target.value);
+  $("lookV").textContent = `${D.look}°`;
+  buildTimeline(); buildParams(); showUnit(true);
+};
+
+/* ======================================================================
+   单机外形（SVG 工程插图）
+   ====================================================================== */
+function defs() {
+  return `<defs>
+  <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6e39a"/><stop offset=".45" stop-color="#d4ae55"/><stop offset="1" stop-color="#8d6b27"/></linearGradient>
+  <linearGradient id="gGoldIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9853a"/><stop offset="1" stop-color="#dcbc68"/></linearGradient>
+  <linearGradient id="gAlu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef1f4"/><stop offset=".55" stop-color="#bcc4cd"/><stop offset="1" stop-color="#8b949e"/></linearGradient>
+  <linearGradient id="gAluTop" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#c3cad2"/><stop offset="1" stop-color="#f3f5f7"/></linearGradient>
+  <linearGradient id="gAluSide" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d96a0"/><stop offset="1" stop-color="#666e77"/></linearGradient>
+  <linearGradient id="gBlk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#454c56"/><stop offset="1" stop-color="#1b1e23"/></linearGradient>
+  <linearGradient id="gBlkSide" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2d3239"/><stop offset="1" stop-color="#15181c"/></linearGradient>
+  <linearGradient id="gPcb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#276a43"/><stop offset="1" stop-color="#143b26"/></linearGradient>
+  <linearGradient id="gCer" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbf8ef"/><stop offset="1" stop-color="#cbc2ab"/></linearGradient>
+  <linearGradient id="gChip" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4c535d"/><stop offset="1" stop-color="#1b1e23"/></linearGradient>
+  <linearGradient id="gCu" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eba97c"/><stop offset="1" stop-color="#9a5731"/></linearGradient>
+  <linearGradient id="gSub" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a3d26"/><stop offset="1" stop-color="#2a2215"/></linearGradient>
+  <linearGradient id="gSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d6fa3"/><stop offset=".08" stop-color="#1b4a74"/><stop offset="1" stop-color="#0b2138"/></linearGradient>
+  <linearGradient id="gPanel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e4dfd2"/><stop offset="1" stop-color="#b9b19d"/></linearGradient>
+  <radialGradient id="gFerr" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#f4f6f8"/><stop offset=".6" stop-color="#b9c0c8"/><stop offset="1" stop-color="#7d858f"/></radialGradient>
+  <filter id="fG" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <marker id="mTx" viewBox="0 0 6 6" refX="4" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#ff9e64"/></marker>
+  <marker id="mRx" viewBox="0 0 6 6" refX="4" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#5cc8ff"/></marker>
+  <marker id="mDim" viewBox="0 0 6 6" refX="4" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#9fb3c8"/></marker>
+</defs>`;
+}
+const tt = (x, y, text, o = {}) =>
+  `<text x="${x}" y="${y}" fill="${o.c || "#c7d5e4"}" font-size="${o.s || 10.5}" text-anchor="${o.a || "start"}"${o.w ? ` font-weight="${o.w}"` : ""}>${text}</text>`;
+function callout(x1, y1, x2, y2, text, anchor = "start", hot = false) {
+  const col = hot ? "#ffd27a" : "#8ea3b8";
+  const dx = anchor === "start" ? 3 : anchor === "end" ? -3 : 0;
+  const dy = y2 < y1 ? -3 : 10;
+  return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width=".7"/>` +
+    `<circle cx="${x1}" cy="${y1}" r="1.7" fill="${col}"/>` +
+    tt(x2 + dx, y2 + dy, text, { a: anchor, c: hot ? "#ffe2a6" : "#c7d5e4" });
+}
+function chip(x, y, w, h, fill = "url(#gChip)") {
+  let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="1" fill="${fill}" stroke="#0d0f12" stroke-width=".6"/>` +
+    `<rect x="${x + 2}" y="${y + 2}" width="${w - 4}" height="${h - 4}" fill="none" stroke="rgba(170,180,195,.35)" stroke-width=".5"/>`;
+  const n = Math.max(2, Math.floor(h / 5));
+  for (let i = 0; i < n; i++) {
+    const py = y + (i + 0.5) * h / n;
+    s += `<rect x="${x + 0.8}" y="${py - 0.8}" width="1.8" height="1.6" fill="#e8c96a"/>` +
+      `<rect x="${x + w - 2.6}" y="${py - 0.8}" width="1.8" height="1.6" fill="#e8c96a"/>` +
+      `<path d="M${x + 1},${py} q-2.5,-2.6 -5,0" fill="none" stroke="#f6e6a8" stroke-width=".5"/>` +
+      `<path d="M${x + w - 1},${py} q2.5,-2.6 5,0" fill="none" stroke="#f6e6a8" stroke-width=".5"/>`;
+  }
+  return s;
+}
+function smaSide(x, y, dir) {                     // 侧视 SMA，从壳体壁 x 伸出
+  const k = dir, xa = x, xb = x + k * 5, xc = x + k * 12, xd = x + k * 24;
+  const r = (a, b, yy, hh, f, extra = "") => `<rect x="${Math.min(a, b)}" y="${yy}" width="${Math.abs(b - a)}" height="${hh}" fill="${f}" stroke="#5e4717" stroke-width=".6" ${extra}/>`;
+  let s = r(xa, xb, y - 9, 18, "url(#gGold)") + r(xb, xc, y - 6.5, 13, "url(#gGold)");
+  s += `<line x1="${(xb + xc) / 2}" y1="${y - 6.5}" x2="${(xb + xc) / 2}" y2="${y + 6.5}" stroke="#8d6b27" stroke-width=".6"/>`;
+  s += r(xc, xd, y - 4.5, 9, "url(#gGold)");
+  for (let i = 1; i < 6; i++) { const xx = xc + (xd - xc) * i / 6; s += `<line x1="${xx}" y1="${y - 4.5}" x2="${xx}" y2="${y + 4.5}" stroke="#9c7a33" stroke-width=".5"/>`; }
+  s += `<line x1="${xd}" y1="${y}" x2="${xd + k * 3}" y2="${y}" stroke="#fff3c4" stroke-width="1.2"/>`;
+  return s;
+}
+function smaFront(x, y, r = 5.5) {               // 面板上的 SMA 正视
+  const hex = [...Array(6)].map((_, i) => { const a = Math.PI / 6 + i * Math.PI / 3; return `${x + r * Math.cos(a)},${y + r * Math.sin(a)}`; }).join(" ");
+  return `<polygon points="${hex}" fill="url(#gGold)" stroke="#5e4717" stroke-width=".6"/>` +
+    `<circle cx="${x}" cy="${y}" r="${r * 0.6}" fill="#f1e2a8" stroke="#8d6b27" stroke-width=".5"/>` +
+    `<circle cx="${x}" cy="${y}" r="${r * 0.28}" fill="#fff" stroke="#8d6b27" stroke-width=".4"/>` +
+    `<circle cx="${x}" cy="${y}" r="${r * 0.08 + 0.5}" fill="#d4ae55"/>`;
+}
+function dsub(x, y, w, h) {                       // D-sub / Micro-D 正视
+  let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2.5" fill="url(#gAlu)" stroke="#555d66" stroke-width=".6"/>`;
+  s += `<path d="M${x + 7},${y + 2.5} L${x + w - 7},${y + 2.5} L${x + w - 9},${y + h - 2.5} L${x + 9},${y + h - 2.5} Z" fill="#23272d" stroke="#0f1114" stroke-width=".5"/>`;
+  const n = Math.max(3, Math.floor((w - 20) / 4));
+  for (let i = 0; i < n; i++) {
+    s += `<circle cx="${x + 11 + i * (w - 22) / (n - 1)}" cy="${y + h * 0.38}" r=".9" fill="#d9c07a"/>`;
+    if (i < n - 1) s += `<circle cx="${x + 13 + i * (w - 26) / Math.max(1, n - 2)}" cy="${y + h * 0.66}" r=".9" fill="#d9c07a"/>`;
+  }
+  s += `<circle cx="${x + 3.5}" cy="${y + h / 2}" r="1.8" fill="#9aa3ad" stroke="#555" stroke-width=".4"/><circle cx="${x + w - 3.5}" cy="${y + h / 2}" r="1.8" fill="#9aa3ad" stroke="#555" stroke-width=".4"/>`;
+  return s;
+}
+/* 斜二测盒子：正面 (x,y,w,h)，进深 d 往右上 */
+const SKX = 0.62, SKY = -0.42;
+function obox(x, y, w, h, d, front, top, side, stroke = "#0b0f14") {
+  const dx = d * SKX, dy = d * SKY;
+  let s = "";
+  if (top) s += `<polygon points="${x},${y} ${x + w},${y} ${x + w + dx},${y + dy} ${x + dx},${y + dy}" fill="${top}" stroke="${stroke}" stroke-width=".6"/>`;
+  s += `<polygon points="${x + w},${y} ${x + w + dx},${y + dy} ${x + w + dx},${y + h + dy} ${x + w},${y + h}" fill="${side}" stroke="${stroke}" stroke-width=".6"/>`;
+  s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${front}" stroke="${stroke}" stroke-width=".6"/>`;
+  return s;
+}
+const skew = (x, y) => `matrix(1,0,${SKX},${SKY},${x},${y})`;
+/* 开盖盒子：内腔（地板下沉 sink px），inner(U,V) 画在地板坐标系 */
+function openBox(x, y, w, h, d, shell, shellSide, floor, inner, sink = 9) {
+  const dx = d * SKX, dy = d * SKY;
+  let s = "";
+  // 背壁内侧、左壁内侧
+  s += `<polygon points="${x + dx},${y + dy} ${x + w + dx},${y + dy} ${x + w + dx},${y + dy + sink} ${x + dx},${y + dy + sink}" fill="#5d656f"/>`;
+  s += `<polygon points="${x},${y} ${x + dx},${y + dy} ${x + dx},${y + dy + sink} ${x},${y + sink}" fill="#737b85"/>`;
+  s += `<g transform="${skew(x, y + sink)}"><rect x="1" y="0" width="${w - 2}" height="${d - 1}" fill="${floor}"/>${inner}</g>`;
+  // 壳体：侧面、正面、上沿
+  s += `<polygon points="${x + w},${y} ${x + w + dx},${y + dy} ${x + w + dx},${y + h + dy} ${x + w},${y + h}" fill="${shellSide}" stroke="#0b0f14" stroke-width=".6"/>`;
+  s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${shell}" stroke="#0b0f14" stroke-width=".6"/>`;
+  s += `<polygon points="${x},${y} ${x + w},${y} ${x + w + dx},${y + dy} ${x + dx},${y + dy}" fill="none" stroke="#dfe4ea" stroke-width="1.6"/>`;
+  return s;
+}
+function feet(x, y, w) {
+  return [x - 10, x + w - 2].map(fx => `<rect x="${fx}" y="${y - 7}" width="12" height="7" fill="url(#gAlu)" stroke="#555d66" stroke-width=".5"/><circle cx="${fx + 6}" cy="${y - 3.5}" r="1.9" fill="#1b1e22"/>`).join("");
+}
+function title(text, sub) {
+  return tt(8, 15, text, { s: 12, w: 600, c: "#eaf4ff" }) + (sub ? tt(8, 28, sub, { s: 9.5, c: "#7f93ab" }) : "");
+}
+
+function drawTR(mode) {
+  const tx = mode === "tx", rx = mode === "rx";
+  let s = title("T/R 组件（开盖）", "金属腔体 · 氧化铝微带 · MMIC 芯片");
+  s += tt(412, 15, "━ 发射", { a: "end", c: "#ff9e64", s: 10 }) + tt(412, 28, "━ 接收", { a: "end", c: "#5cc8ff", s: 10 });
+  for (const [x, y] of [[34, 66], [34, 154], [336, 66], [336, 154]])
+    s += `<rect x="${x}" y="${y}" width="14" height="24" rx="2" fill="url(#gGold)" stroke="#6b5220" stroke-width=".6"/><circle cx="${x + 7}" cy="${y + 12}" r="3.1" fill="#15171a" stroke="#6b5220" stroke-width=".6"/>`;
+  s += `<rect x="46" y="58" width="292" height="128" rx="7" fill="url(#gGold)" stroke="#6b5220"/>`;
+  s += `<rect x="55" y="67" width="274" height="110" rx="3" fill="url(#gGoldIn)" stroke="#8a6a26" stroke-width=".8"/>`;
+  const wall = x => [[67, 84], [96, 127], [141, 177]].map(([a, b]) =>
+    `<rect x="${x}" y="${a}" width="5" height="${b - a}" fill="url(#gGold)" stroke="#8a6a26" stroke-width=".5"/>`).join("");
+  s += wall(124) + wall(236);
+  const sub = d => `<path d="${d}" fill="none" stroke="#f1ecdf" stroke-width="9" stroke-linejoin="round"/>`;
+  const ms = d => `<path d="${d}" fill="none" stroke="#efcf6c" stroke-width="2.2" stroke-linejoin="round"/>`;
+  s += sub("M300,121 L336,121") + sub("M262,112 L246,112 L246,90 L118,90") + sub("M118,134 L255,134");
+  s += ms("M300,121 L338,121") + ms("M262,112 L246,112 L246,90 L118,90 L106,104") + ms("M106,138 L118,134 L255,134 L262,130");
+  s += `<rect x="134" y="75" width="46" height="30" rx="1.5" fill="url(#gCu)" stroke="#6d3c1f" stroke-width=".6"/>`;
+  s += chip(140, 80, 34, 20) + chip(198, 84, 18, 12) + chip(140, 128, 14, 12) + chip(168, 127, 20, 14) + chip(262, 104, 38, 34);
+  s += `<rect x="268" y="110" width="26" height="22" fill="none" stroke="rgba(0,229,255,.25)" stroke-width=".5"/>`;
+  s += `<circle cx="92" cy="121" r="19" fill="url(#gFerr)" stroke="#6f7781"/><circle cx="92" cy="121" r="11" fill="#d9dee4" stroke="#8a939d" stroke-width=".8"/>`;
+  s += ["106,104", "72,121", "106,138"].map(p => `<line x1="92" y1="121" x2="${p.split(",")[0]}" y2="${p.split(",")[1]}" stroke="#e2c060" stroke-width="2"/>`).join("");
+  s += smaSide(46, 121, -1) + smaSide(338, 121, 1) + dsub(250, 45, 56, 13);
+  s += `<path d="M254,58 C252,64 246,66 236,68" fill="none" stroke="#b33" stroke-width="1"/><path d="M262,58 C262,66 272,70 290,70" fill="none" stroke="#222" stroke-width="1"/>`;
+  const TXP = "M360,121 L300,121 L281,121 L262,112 L246,112 L246,90 L118,90 L104,105 L74,121 L18,121";
+  const RXP = "M18,121 L74,121 L104,137 L120,134 L255,134 L262,130 L281,121 L300,121 L360,121";
+  if (tx) s += `<path d="${TXP}" fill="none" stroke="#ff9e64" stroke-width="3" filter="url(#fG)" marker-mid="url(#mTx)" stroke-linejoin="round" opacity=".92"/>`;
+  if (rx) s += `<path d="${RXP}" fill="none" stroke="#5cc8ff" stroke-width="3" filter="url(#fG)" marker-mid="url(#mRx)" stroke-linejoin="round" opacity=".92"/>`;
+  s += callout(157, 76, 150, 42, "HPA 功放", "middle", tx) + callout(207, 84, 212, 42, "驱动放大", "middle", tx);
+  s += callout(290, 45, 330, 42, "电源 / 波控接口", "start");
+  s += callout(84, 139, 70, 214, "环行器（收发共用）", "middle", tx || rx);
+  s += callout(147, 140, 148, 232, "限幅器", "middle", rx) + callout(178, 141, 208, 214, "LNA 低噪放", "middle", rx);
+  s += callout(281, 138, 300, 232, "幅相多功能芯片（移相 / 衰减 / 收发开关）", "middle", tx || rx);
+  s += tt(2, 148, "← 辐射单元", { s: 9, c: "#9fb3c8" }) + tt(342, 106, "公共端 → 馈电", { s: 9.5, c: "#9fb3c8" });
+  return s;
+}
+function drawAnt(mode) {
+  let s = title("天线阵面（一块子板，局部）", "阵面约 15 m × 1.5 m，由数块子板拼成；辐射单元数目示意");
+  const A = [30, 86], B = [250, 52], Dq = [72, 176];
+  const P = (u, v) => [A[0] + u * (B[0] - A[0]) + v * (Dq[0] - A[0]), A[1] + u * (B[1] - A[1]) + v * (Dq[1] - A[1])];
+  const Cq = P(1, 1), pt = p => `${p[0].toFixed(1)},${p[1].toFixed(1)}`;
+  s += `<polygon points="${pt(Dq)} ${pt(Cq)} ${Cq[0]},${Cq[1] + 10} ${Dq[0]},${Dq[1] + 10}" fill="#2c323a" stroke="#111" stroke-width=".5"/>`;
+  s += `<polygon points="${pt(B)} ${pt(Cq)} ${Cq[0]},${Cq[1] + 10} ${B[0]},${B[1] + 10}" fill="#3a414a" stroke="#111" stroke-width=".5"/>`;
+  s += `<polygon points="${pt(A)} ${pt(B)} ${pt(Cq)} ${pt(Dq)}" fill="url(#gPanel)" stroke="#5f5a4f" stroke-width="1"/>`;
+  const cols = 16, rows = 8;
+  for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
+    const u = (i + 0.5) / cols, v = (j + 0.5) / rows, du = 0.26 / cols, dv = 0.3 / rows;
+    s += `<polygon points="${pt(P(u - du, v - dv))} ${pt(P(u + du, v - dv))} ${pt(P(u + du, v + dv))} ${pt(P(u - du, v + dv))}" fill="#c89b3d" stroke="#8a6a27" stroke-width=".4"/>`;
+    s += `<line x1="${P(u - du * 0.6, v)[0]}" y1="${P(u - du * 0.6, v)[1]}" x2="${P(u + du * 0.6, v)[0]}" y2="${P(u + du * 0.6, v)[1]}" stroke="#6d5320" stroke-width=".35"/>`;
+  }
+  for (let k = 1; k < 4; k++) s += `<line x1="${P(k / 4, 0)[0]}" y1="${P(k / 4, 0)[1]}" x2="${P(k / 4, 1)[0]}" y2="${P(k / 4, 1)[1]}" stroke="#6a655a" stroke-width="1.3"/>`;
+  s += `<line x1="${P(0, 0.5)[0]}" y1="${P(0, 0.5)[1]}" x2="${P(1, 0.5)[0]}" y2="${P(1, 0.5)[1]}" stroke="#8a8474" stroke-width=".7" stroke-dasharray="3 2"/>`;
+  s += `<rect x="12" y="${A[1] + 18}" width="20" height="10" fill="url(#gAlu)" stroke="#444" stroke-width=".5"/><rect x="4" y="${A[1] + 20}" width="10" height="6" fill="#6b737c"/>`;
+  if (mode) {
+    const col = mode === "tx" ? "#ff9e64" : "#5cc8ff";
+    const from = mode === "tx" ? "0 0" : "-34 -30", to = mode === "tx" ? "-34 -30" : "0 0";
+    let waves = "";
+    for (let k = 0; k < 4; k++) waves += `<line x1="${120 + k * 26}" y1="${40 - k * 4}" x2="${190 + k * 26}" y2="${108 - k * 4}" stroke="${col}" stroke-width="1.4" opacity="${0.9 - k * 0.18}"/>`;
+    s += `<g filter="url(#fG)">${waves}<animateTransform attributeName="transform" type="translate" from="${from}" to="${to}" dur="1.4s" repeatCount="indefinite"/></g>`;
+  }
+  s += callout(P(0.22, 0.2)[0], P(0.22, 0.2)[1], 62, 50, "辐射单元（双极化贴片）", "middle", mode === "rx");
+  s += callout(P(0.5, 0.95)[0], P(0.5, 0.95)[1], 150, 214, "子阵拼缝：每个子阵由一个 T/R 组件馈电", "middle");
+  s += tt(8, 238, "法线偏星下点 θ 侧视；波控改相位即可电扫波束", { s: 9.5, c: "#9fb3c8" });
+  // 背面小插图
+  const bx = 300, by = 118;
+  s += `<rect x="${bx - 4}" y="${by - 16}" width="122" height="130" rx="6" fill="rgba(4,8,14,.85)" stroke="#1b3350"/>`;
+  s += tt(bx + 2, by - 4, "背面（局部）", { s: 10, c: "#9fd4ff" });
+  s += `<rect x="${bx + 2}" y="${by + 2}" width="110" height="78" fill="#3b4048" stroke="#1d2126"/>`;
+  for (let r = 0; r < 4; r++) {
+    s += `<rect x="${bx + 4}" y="${by + 6 + r * 18}" width="106" height="3" fill="#6b737c"/>`;
+    for (let c = 0; c < 7; c++) s += `<rect x="${bx + 7 + c * 15}" y="${by + 10 + r * 18}" width="11" height="9" rx="1" fill="url(#gGold)" stroke="#6b5220" stroke-width=".4"/>`;
+  }
+  s += `<rect x="${bx + 2}" y="${by + 84}" width="46" height="18" fill="url(#gBlk)" stroke="#000" stroke-width=".5"/>` + tt(bx + 25, by + 96, "波控", { a: "middle", s: 9, c: "#cbd5e0" });
+  s += `<rect x="${bx + 54}" y="${by + 84}" width="58" height="18" fill="url(#gAlu)" stroke="#555" stroke-width=".5"/>` + tt(bx + 83, by + 96, "电源", { a: "middle", s: 9, c: "#223" });
+  s += tt(bx + 57, by + 112, "金色小盒 = T/R 组件", { a: "middle", s: 9.5, c: mode ? "#ffe2a6" : "#c7d5e4" });
+  return s;
+}
+function drawRx() {
+  let s = title("SAR 接收机 / 频率源（开盖）", "铝合金机箱 · 腔体滤波 · 屏蔽腔分隔");
+  const x = 30, y = 112, w = 236, h = 86, d = 104;
+  const inner =
+    `<rect x="10" y="10" width="62" height="84" fill="url(#gAlu)" stroke="#4d555e" stroke-width=".6"/>` +
+    [...Array(8)].map((_, i) => `<ellipse cx="${22 + (i % 4) * 13}" cy="${30 + Math.floor(i / 4) * 42}" rx="4.2" ry="4.2" fill="#d8dde3" stroke="#555" stroke-width=".5"/><line x1="${19 + (i % 4) * 13}" y1="${30 + Math.floor(i / 4) * 42}" x2="${25 + (i % 4) * 13}" y2="${30 + Math.floor(i / 4) * 42}" stroke="#444" stroke-width=".8"/>`).join("") +
+    `<rect x="80" y="4" width="3" height="96" fill="#b8c0c9"/><rect x="150" y="4" width="3" height="96" fill="#b8c0c9"/>` +
+    `<rect x="92" y="36" width="26" height="22" fill="url(#gGold)" stroke="#6b5220" stroke-width=".6"/>` +
+    `<rect x="90" y="66" width="50" height="30" rx="2" fill="#cfd6dd" stroke="#6b737c" stroke-width=".6"/><rect x="95" y="70" width="40" height="22" fill="none" stroke="#8a929b" stroke-width=".4"/>` +
+    `<rect x="160" y="20" width="66" height="34" fill="url(#gPcb)" stroke="#0c2a18" stroke-width=".5"/>` +
+    `<rect x="166" y="28" width="12" height="9" fill="url(#gChip)"/><rect x="184" y="26" width="18" height="12" fill="url(#gAlu)" stroke="#555" stroke-width=".4"/><rect x="208" y="28" width="12" height="9" fill="url(#gChip)"/>` +
+    `<path d="M72,48 C80,48 84,46 92,46" fill="none" stroke="#e0a070" stroke-width="2.2"/><path d="M118,46 C130,46 140,40 160,38" fill="none" stroke="#e0a070" stroke-width="2.2"/><path d="M110,66 C110,62 106,60 104,58" fill="none" stroke="#e0a070" stroke-width="2.2"/>`;
+  s += openBox(x, y, w, h, d, "url(#gAlu)", "url(#gAluSide)", "#9aa3ad", inner) + feet(x, y + h + 7, w);
+  const labels = ["RF 入", "LO 测", "IF-I", "IF-Q", "10 MHz"];
+  labels.forEach((l, i) => { s += smaFront(x + 22 + i * 34, y + 30) + tt(x + 22 + i * 34, y + 46, l, { a: "middle", s: 8.5, c: "#223" }); });
+  s += dsub(x + 176, y + 54, 50, 16) + tt(x + 201, y + 80, "电源/遥测", { a: "middle", s: 8.5, c: "#223" });
+  s += `<rect x="${x + 8}" y="${y + 60}" width="92" height="16" fill="#e9ecef" stroke="#8a929b" stroke-width=".5"/>` + tt(x + 12, y + 71, "SAR-RX-C  S/N 0007", { s: 8, c: "#333" });
+  const ip = (U, V) => [x + U + V * SKX, y + 9 + V * SKY];
+  s += callout(...ip(41, 52), 60, 52, "腔体滤波器（射频预选）", "middle");
+  s += callout(...ip(105, 47), 150, 52, "混频器", "middle", true);
+  s += callout(...ip(115, 81), 238, 40, "本振 PLL / VCO（全机相干）", "middle", true);
+  s += callout(...ip(193, 37), 350, 62, "中频放大 / 滤波", "middle");
+  // 频谱小图
+  const ix = 300, iy = 150;
+  s += `<rect x="${ix}" y="${iy}" width="114" height="92" rx="6" fill="rgba(4,8,14,.85)" stroke="#1b3350"/>`;
+  const wave = (yy, f, col) => { let p = ""; for (let k = 0; k <= 60; k++) { const xx = ix + 8 + k * 1.1; p += `${k ? "L" : "M"}${xx.toFixed(1)},${(yy + 6 * Math.sin(k * f)).toFixed(1)}`; } return `<path d="${p}" fill="none" stroke="${col}" stroke-width="1.1"/>`; };
+  s += wave(iy + 18, 1.3, "#5cc8ff") + tt(ix + 80, iy + 21, "5.4 GHz", { s: 9 }) + tt(ix + 40, iy + 38, "⊗ 本振", { s: 9.5, c: "#ffd27a", a: "middle" });
+  s += wave(iy + 56, 0.32, "#7ee787") + tt(ix + 80, iy + 59, "中频", { s: 9 });
+  s += tt(ix + 57, iy + 84, "射频 × 本振 → 中频", { a: "middle", s: 9.5, c: "#9fb3c8" });
+  return s;
+}
+function drawAdc() {
+  let s = title("数据形成器（ADC，开盖）", "黑色阳极氧化机箱 · 采样 / 量化 / 打包");
+  const x = 26, y = 116, w = 232, h = 80, d = 108;
+  let inner = `<rect x="6" y="6" width="${w - 14}" height="${d - 14}" fill="url(#gPcb)" stroke="#0c2a18" stroke-width=".6"/>`;
+  inner += `<rect x="22" y="22" width="46" height="46" fill="url(#gCer)" stroke="#8d846d" stroke-width=".6"/><rect x="30" y="30" width="30" height="30" fill="url(#gGold)" stroke="#6b5220" stroke-width=".5"/>`;
+  for (let i = 0; i < 12; i++) inner += `<line x1="${24 + i * 3.6}" y1="22" x2="${24 + i * 3.6}" y2="17" stroke="#d7d0bb" stroke-width=".8"/><line x1="${24 + i * 3.6}" y1="68" x2="${24 + i * 3.6}" y2="73" stroke="#d7d0bb" stroke-width=".8"/>`;
+  inner += `<rect x="82" y="34" width="16" height="14" fill="url(#gChip)"/>`;
+  inner += `<rect x="112" y="20" width="44" height="44" fill="url(#gSub)" stroke="#111" stroke-width=".5"/><rect x="119" y="27" width="30" height="30" fill="url(#gAlu)" stroke="#666" stroke-width=".4"/>`;
+  inner += `<rect x="170" y="18" width="24" height="14" fill="url(#gChip)"/><rect x="170" y="44" width="24" height="14" fill="url(#gChip)"/>`;
+  inner += `<rect x="16" y="78" width="40" height="16" fill="url(#gAlu)" stroke="#555" stroke-width=".5"/>`;
+  inner += `<rect x="70" y="${d - 16}" width="140" height="7" fill="#2a2f36"/>` + [...Array(28)].map((_, i) => `<rect x="${72 + i * 5}" y="${d - 15}" width="2" height="5" fill="#d8b85a"/>`).join("");
+  for (let i = 0; i < 8; i++) inner += `<path d="M68,${28 + i * 5} C88,${28 + i * 5} 96,${30 + i * 3} 112,${30 + i * 3}" fill="none" stroke="#c9a54a" stroke-width=".45"/>`;
+  s += openBox(x, y, w, h, d, "url(#gBlk)", "url(#gBlkSide)", "#2c3138", inner) + feet(x, y + h + 7, w);
+  s += smaFront(x + 22, y + 26) + smaFront(x + 50, y + 26) + smaFront(x + 78, y + 26);
+  s += tt(x + 22, y + 42, "IF-I", { a: "middle", s: 8.5, c: "#c7d5e4" }) + tt(x + 50, y + 42, "IF-Q", { a: "middle", s: 8.5, c: "#c7d5e4" }) + tt(x + 78, y + 42, "时钟", { a: "middle", s: 8.5, c: "#c7d5e4" });
+  s += `<rect x="${x + 110}" y="${y + 18}" width="70" height="18" rx="2" fill="#2a2f36" stroke="#8b949e" stroke-width=".6"/>` + [...Array(12)].map((_, i) => `<rect x="${x + 114 + i * 5.3}" y="${y + 24}" width="2.4" height="6" fill="#d8b85a"/>`).join("");
+  s += tt(x + 145, y + 48, "高速串行出", { a: "middle", s: 8.5, c: "#c7d5e4" }) + dsub(x + 184, y + 50, 40, 14);
+  const ip = (U, V) => [x + U + V * SKX, y + 9 + V * SKY];
+  s += callout(...ip(45, 45), 70, 50, "高速 ADC（陶瓷封装）", "middle", true);
+  s += callout(...ip(90, 41), 164, 40, "采样时钟", "middle");
+  s += callout(...ip(134, 42), 232, 62, "打包 FPGA（帧头 / 时间码）", "middle");
+  s += callout(...ip(182, 25), 330, 76, "缓存 SRAM", "middle");
+  const ix = 296, iy = 150;
+  s += `<rect x="${ix}" y="${iy}" width="118" height="92" rx="6" fill="rgba(4,8,14,.85)" stroke="#1b3350"/>`;
+  let p = "", dots = "", stair = "";
+  for (let k = 0; k <= 80; k++) { const xx = ix + 8 + k * 1.28, yy = iy + 40 - 22 * Math.sin(k * 0.13) * Math.exp(-k / 140); p += `${k ? "L" : "M"}${xx.toFixed(1)},${yy.toFixed(1)}`; }
+  for (let k = 0; k <= 80; k += 6) { const xx = ix + 8 + k * 1.28, yy = iy + 40 - 22 * Math.sin(k * 0.13) * Math.exp(-k / 140); const q = iy + 40 - Math.round((iy + 40 - yy) / 5.5) * 5.5; dots += `<circle cx="${xx.toFixed(1)}" cy="${yy.toFixed(1)}" r="1.9" fill="#ffd27a"/>`; stair += `<rect x="${(xx - 3).toFixed(1)}" y="${q.toFixed(1)}" width="7.7" height="1.4" fill="#7ee787"/>`; }
+  s += `<path d="${p}" fill="none" stroke="#5cc8ff" stroke-width="1.1"/>` + stair + dots;
+  s += tt(ix + 59, iy + 76, `fs = ${BASE.fs / 1e6} MSPS（假设）`, { a: "middle", s: 9.5, c: "#9fb3c8" }) + tt(ix + 59, iy + 88, "● 采样点  ▬ 量化值", { a: "middle", s: 9, c: "#9fb3c8" });
+  return s;
+}
+function drawFpga(mode) {
+  let s = title("成像处理器板（FPGA）", "导热板 + 锁紧条 · 大 BGA · DDR3 · 抗辐照刷新控制器");
+  s += `<rect x="14" y="36" width="258" height="192" rx="4" fill="url(#gPcb)" stroke="#0c2416"/>`;
+  s += `<rect x="14" y="36" width="258" height="9" fill="url(#gAlu)" stroke="#555" stroke-width=".5"/><rect x="14" y="219" width="258" height="9" fill="url(#gAlu)" stroke="#555" stroke-width=".5"/>`;
+  s += `<rect x="258" y="58" width="14" height="148" fill="#2a2f36" stroke="#111" stroke-width=".5"/>` + [...Array(28)].map((_, i) => `<rect x="${261 + (i % 2) * 5}" y="${62 + Math.floor(i / 2) * 10}" width="3" height="5" fill="#d8b85a"/>`).join("");
+  for (let i = 0; i < 16; i++) s += `<path d="M96,${96 + i * 3} C80,${96 + i * 3} 74,${70 + i * 1.5} 60,${66 + i * 1.5}" fill="none" stroke="#b8963c" stroke-width=".4"/><path d="M96,${150 + i * 2.6} C80,${150 + i * 2.6} 74,${176 + i * 1.4} 60,${180 + i * 1.4}" fill="none" stroke="#b8963c" stroke-width=".4"/>`;
+  s += `<rect x="96" y="86" width="84" height="84" fill="url(#gSub)" stroke="#0a0a0a" stroke-width=".6"/>`;
+  s += `<rect x="106" y="96" width="64" height="64" rx="2" fill="url(#gAlu)" stroke="#4a4f55" stroke-width=".6"/>`;
+  s += tt(138, 118, "XILINX", { a: "middle", s: 8, c: "#333", w: 700 }) + tt(138, 131, "XC7VX690T", { a: "middle", s: 8.5, c: "#222" }) + tt(138, 142, "FFG1761", { a: "middle", s: 7.5, c: "#444" });
+  [[26, 58], [26, 80], [26, 176], [26, 198]].forEach(([x, y]) => { s += `<rect x="${x}" y="${y}" width="34" height="16" fill="url(#gChip)" stroke="#000" stroke-width=".4"/>`; });
+  s += `<rect x="196" y="60" width="22" height="16" fill="url(#gChip)"/>`;
+  s += `<rect x="194" y="176" width="30" height="30" fill="url(#gCer)" stroke="#8d846d" stroke-width=".5"/><rect x="200" y="182" width="18" height="18" fill="url(#gGold)" stroke="#6b5220" stroke-width=".4"/>`;
+  s += `<rect x="206" y="96" width="40" height="28" rx="1.5" fill="url(#gAlu)" stroke="#555" stroke-width=".5"/><rect x="206" y="130" width="40" height="28" rx="1.5" fill="url(#gAlu)" stroke="#555" stroke-width=".5"/>`;
+  const hot = !!mode;
+  s += callout(138, 96, 138, 62, "XC7VX690T（本平台器件）", "middle", hot);
+  s += tt(24, 124, "DDR3", { s: 10, c: mode === "az" ? "#ffe2a6" : "#c7d5e4", w: 600 }) + tt(24, 137, "转置缓存", { s: 9.5, c: mode === "az" ? "#ffe2a6" : "#c7d5e4" });
+  s += callout(207, 60, 214, 52, "配置 PROM", "start");
+  s += callout(209, 206, 150, 232, "抗辐照刷新控制器（scrub）", "middle");
+  s += tt(226, 90, "DC/DC", { a: "middle", s: 9.5 });
+  // FPGA 内部示意
+  const ix = 290, iy = 40, iw = 122, ih = 136;
+  s += `<rect x="${ix - 4}" y="${iy - 6}" width="${iw + 8}" height="${ih + 72}" rx="6" fill="rgba(4,8,14,.85)" stroke="#1b3350"/>`;
+  s += tt(ix + iw / 2, iy + 8, "FPGA 内部（示意）", { a: "middle", s: 10, c: "#9fd4ff" });
+  s += `<rect x="${ix}" y="${iy + 14}" width="${iw}" height="${ih - 20}" fill="#0b1117" stroke="#35506e"/>`;
+  for (let k = 0; k < 10; k++) {
+    const hue = k * 36, on = (mode === "rng" && k < 5) || (mode === "az" && k >= 5);
+    const lx = ix + 3 + k * (iw - 6) / 10;
+    s += `<rect x="${lx.toFixed(1)}" y="${iy + 18}" width="${((iw - 6) / 10 - 2).toFixed(1)}" height="${ih - 28}" fill="hsl(${hue},70%,${on ? 55 : 24}%)" opacity="${on ? 1 : 0.55}"${on ? ' filter="url(#fG)"' : ""}/>`;
+    s += tt(lx + 5, iy + ih + 4, `s${k + 1}`, { a: "middle", s: 7.5, c: on ? "#fff" : "#6f8aa8" });
+  }
+  s += tt(ix + iw * 0.25, iy + ih + 18, "距离向", { a: "middle", s: 9.5, c: mode === "rng" ? "#ffe2a6" : "#7f93ab" });
+  s += tt(ix + iw * 0.75, iy + ih + 18, "方位向", { a: "middle", s: 9.5, c: mode === "az" ? "#ffe2a6" : "#7f93ab" });
+  s += tt(ix + iw / 2, iy + ih + 34, "CRAM / BRAM / FF 翻转", { a: "middle", s: 9, c: "#e8c7c4" });
+  s += tt(ix + iw / 2, iy + ih + 46, "在轨 ≈ 46 次/天（MEO）", { a: "middle", s: 9, c: "#e8c7c4" });
+  return s;
+}
+function drawSsr() {
+  let s = title("图像形成 / 固存（开盖）", "插板式存储：每块板一排 NAND Flash");
+  const x = 22, y = 126, w = 200, h = 78, d = 112;
+  let inner = "";
+  for (let b = 0; b < 5; b++) {
+    const V = 14 + b * 20;
+    inner += `<rect x="8" y="${V}" width="${w - 16}" height="3.5" fill="#2a2f36"/>`;
+  }
+  s += openBox(x, y, w, h, d, "url(#gAlu)", "url(#gAluSide)", "#6f7780", inner, 8);
+  for (let b = 4; b >= 0; b--) {
+    const V = 14 + b * 20, bx = x + 8 + V * SKX, by = y + 8 + V * SKY;
+    s += `<polygon points="${bx},${by} ${bx + w - 16},${by} ${bx + w - 16},${by - 44} ${bx},${by - 44}" fill="url(#gPcb)" stroke="#0c2416" stroke-width=".6"/>`;
+    for (let c = 0; c < 8; c++) s += `<rect x="${bx + 6 + c * 22}" y="${by - 36}" width="16" height="11" fill="url(#gChip)"/><rect x="${bx + 6 + c * 22}" y="${by - 20}" width="16" height="11" fill="url(#gChip)"/>`;
+    s += `<rect x="${bx}" y="${by - 46}" width="${w - 16}" height="3" fill="url(#gAlu)"/>`;
+  }
+  s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#gAlu)" stroke="#0b0f14" stroke-width=".6"/>` + feet(x, y + h + 7, w);
+  s += dsub(x + 16, y + 20, 56, 16) + dsub(x + 84, y + 20, 56, 16) + smaFront(x + 166, y + 28);
+  s += tt(x + 44, y + 50, "指令/遥测", { a: "middle", s: 8.5, c: "#223" }) + tt(x + 112, y + 50, "高速数据入", { a: "middle", s: 8.5, c: "#223" }) + tt(x + 166, y + 50, "数传出", { a: "middle", s: 8.5, c: "#223" });
+  // 图像行
+  const ix = 262, iy = 44;
+  s += `<rect x="${ix - 4}" y="${iy - 10}" width="156" height="196" rx="6" fill="rgba(4,8,14,.85)" stroke="#1b3350"/>`;
+  s += tt(ix + 74, iy + 2, "√(I²+Q²) → 8 bit 图像行", { a: "middle", s: 9.5, c: "#9fd4ff" });
+  let px = "";
+  for (let r = 0; r < 26; r++) for (let c = 0; c < 36; c++) {
+    const v = 0.25 + 0.5 * Math.abs(Math.sin(r * 0.37 + c * 0.21) * Math.cos(c * 0.13 - r * 0.05)) + ((r * 7 + c * 13) % 11 === 0 ? 0.4 : 0);
+    const g = Math.min(255, Math.round(v * 200));
+    px += `<rect x="${ix + 4 + c * 4}" y="${iy + 12 + r * 4}" width="4" height="4" fill="rgb(${g * 0.6 | 0},${g},${g * 0.5 | 0})"/>`;
+  }
+  s += px + `<rect x="${ix + 4}" y="${iy + 12 + 25 * 4}" width="144" height="4" fill="none" stroke="#ffd27a" stroke-width="1"><animate attributeName="opacity" values="1;.2;1" dur="1s" repeatCount="indefinite"/></rect>`;
+  s += tt(ix + 74, iy + 134, "↑ 最新写入的一行", { a: "middle", s: 9, c: "#ffd27a" });
+  s += `<path d="M${ix + 40},${iy + 160} l12,-8 l12,8 z" fill="none" stroke="#9fb3c8" stroke-width="1"/><line x1="${ix + 52}" y1="${iy + 152}" x2="${ix + 52}" y2="${iy + 172}" stroke="#9fb3c8"/>`;
+  s += tt(ix + 70, iy + 170, "过境 X 频段下行", { s: 9.5, c: "#9fb3c8" });
+  return s;
+}
+function drawGeo(d, mode) {
+  let s = title("往返传播 · 侧视几何（按比例）", `h = ${BASE.h} km · θ = ${d.look}° · R₀ = ${d.R0.toFixed(0)} km`);
+  const k = 0.215, Sx = 60, Sy = 42;
+  const Oy = Sy + d.rs * k, Rp = BASE.Re * k;
+  const Gx = Sx + d.R0 * k * Math.sin(d.th), Gy = Sy + d.R0 * k * Math.cos(d.th);
+  const Ny = Oy - Rp;
+  s += `<circle cx="${Sx}" cy="${Oy}" r="${Rp + 7}" fill="none" stroke="rgba(110,170,255,.18)" stroke-width="12"/>`;
+  s += `<circle cx="${Sx}" cy="${Oy}" r="${Rp}" fill="url(#gSea)" stroke="#6fa8dc" stroke-width="1"/>`;
+  // 测绘带
+  const rx = Gx - Sx, ry = Gy - Oy, rl = Math.hypot(rx, ry), tx = -ry / rl, ty = rx / rl, hw = d.Wg * k / 2;
+  s += `<line x1="${Gx - tx * hw}" y1="${Gy - ty * hw}" x2="${Gx + tx * hw}" y2="${Gy + ty * hw}" stroke="#ffd27a" stroke-width="5" filter="url(#fG)"/>`;
+  s += `<line x1="${Sx}" y1="${Sy}" x2="${Sx}" y2="${Ny}" stroke="#9fb3c8" stroke-dasharray="4 3" stroke-width="1"/>`;
+  s += `<line x1="${Sx}" y1="${Sy}" x2="${Gx}" y2="${Gy}" stroke="#ffb454" stroke-width="1.4"/>`;
+  const vx = (Gx - Sx) / Rp, vy = (Gy - Oy) / Rp;           // 局地天顶方向
+  s += `<line x1="${Gx}" y1="${Gy}" x2="${Gx + vx * 46}" y2="${Gy + vy * 46}" stroke="#7f93ab" stroke-dasharray="3 3" stroke-width=".9"/>`;
+  const arc = (cx, cy, r, a0, a1, col) => `<path d="M${cx + r * Math.cos(a0)},${cy + r * Math.sin(a0)} A${r},${r} 0 0 ${a1 < a0 ? 0 : 1} ${cx + r * Math.cos(a1)},${cy + r * Math.sin(a1)}" fill="none" stroke="${col}" stroke-width="1.2"/>`;
+  const aDown = Math.PI / 2, aSl = Math.atan2(Gy - Sy, Gx - Sx);
+  s += arc(Sx, Sy, 30, aDown, aSl, "#ffd27a") + tt(Sx + 34 * Math.cos((aDown + aSl) / 2) + 2, Sy + 34 * Math.sin((aDown + aSl) / 2) + 4, `θ ${d.look}°`, { s: 10, c: "#ffd27a" });
+  const aZen = Math.atan2(vy, vx), aBack = Math.atan2(Sy - Gy, Sx - Gx);
+  s += arc(Gx, Gy, 26, aBack, aZen, "#7ee787") + tt(Gx + 8, Gy - 30, `η ${(d.eta * 180 / Math.PI).toFixed(1)}°`, { s: 10, c: "#7ee787" });
+  // 卫星
+  s += `<rect x="${Sx - 7}" y="${Sy - 6}" width="14" height="12" fill="url(#gGold)" stroke="#6b5220" stroke-width=".6"/><rect x="${Sx - 30}" y="${Sy - 3}" width="22" height="6" fill="#1d3d78" stroke="#0b1a33" stroke-width=".5"/><rect x="${Sx + 7}" y="${Sy + 2}" width="16" height="3" transform="rotate(${d.look} ${Sx + 7} ${Sy + 3})" fill="#dcd6c6"/>`;
+  // 空中脉冲（SMIL 动画）
+  let pulses = "";
+  const n = 7, dur = 2.4;
+  for (let i = 0; i < n; i++) {
+    pulses += `<circle r="2.6" fill="#ffb454"><animateMotion dur="${dur}s" begin="${(-i * dur / n).toFixed(2)}s" repeatCount="indefinite" path="M${Sx},${Sy} L${Gx},${Gy}"/></circle>`;
+    pulses += `<circle r="2.3" fill="#5cc8ff"><animateMotion dur="${dur}s" begin="${(-(i + 0.5) * dur / n).toFixed(2)}s" repeatCount="indefinite" path="M${Gx},${Gy} L${Sx},${Sy}"/></circle>`;
+  }
+  s += `<g filter="url(#fG)">${pulses}</g>`;
+  const mx = (Sx + Gx) / 2, my = (Sy + Gy) / 2;
+  s += tt(mx + 12, my - 8, `R₀ = ${d.R0.toFixed(0)} km`, { s: 11, c: "#ffd27a", w: 600 });
+  s += tt(Sx + 6, (Sy + Ny) / 2 + 20, `h ${BASE.h} km`, { s: 10, c: "#9fb3c8" });
+  s += tt(Gx - 4, Gy + 20, `测绘带 ≈ ${d.Wg.toFixed(0)} km`, { s: 10, c: "#ffd27a", a: "middle" });
+  s += tt((Sx + Gx) / 2, Ny + 30, `地距 ${d.Gr.toFixed(0)} km`, { s: 10, c: "#9fb3c8", a: "middle" });
+  const bx = 262, by = 52;
+  s += `<rect x="${bx}" y="${by}" width="152" height="84" rx="6" fill="rgba(4,8,14,.85)" stroke="#1b3350"/>`;
+  s += tt(bx + 8, by + 18, `往返 2R₀/c = ${fmtT(d.Tech)}`, { s: 10.5, c: "#fff" });
+  s += tt(bx + 8, by + 36, `PRI = 1/PRF = ${fmtT(d.pri)}`, { s: 10, c: "#c7d5e4" });
+  s += tt(bx + 8, by + 54, `空中同时 ≈ ${d.inFlight} 个脉冲`, { s: 10, c: "#ffd27a" });
+  s += tt(bx + 8, by + 72, "● 去程  ● 回波（示意 7 个）", { s: 9.5, c: "#9fb3c8" });
+  return s;
+}
+const DRAW = {
+  tr: m => drawTR(m === "tx" ? "tx" : m === "lna" ? "rx" : null),
+  ant: m => drawAnt(m === "ant" ? "rx" : m === "tx" ? "tx" : null),
+  geo: () => drawGeo(D),
+  rx: () => drawRx(),
+  adc: () => drawAdc(),
+  fpga: m => drawFpga(m === "az" ? "az" : "rng"),
+  ssr: () => drawSsr()
+};
+
+/* ======================================================================
+   选择 / 联动
+   ====================================================================== */
+let sel = null;            // 固定显示的级（点击时间线或部件）；null = 跟随动画
+let shownKey = "";
+function curStageIndex() { return sel !== null ? sel : anim.i; }
+function select(i) {
+  sel = i;
+  const st = STAGES[i];
+  if (st.seu) $("where").value = st.seu;
+  showUnit(true);
+  refreshRows(true);
+}
+function showUnit(force) {
+  const i = curStageIndex(), st = STAGES[i];
+  const key = `${st.id}|${sel !== null}|${D.look}`;
+  if (!force && key === shownKey) return;
+  shownKey = key;
+  const u = UNITS[st.unit];
+  $("unitSvg").innerHTML = defs() + DRAW[st.unit](st.id);
+  const pin = sel !== null
+    ? `<button class="pin" type="button" id="unpin">跟随动画</button>`
+    : `<button class="pin" type="button" id="pinit">固定此级</button>`;
+  $("unitTxt").innerHTML = `${pin}<h3>${st.name} · ${u.title}</h3><div class="where">📍 ${u.where}</div>` +
+    `<p>${u.does}</p><p><span class="k">本级耗时：</span>${st.how(D)}</p>` +
+    `<p><span class="k">开始时刻：</span>t = ${st.t0 === 0 ? "0" : fmtT(st.t0)}（一条回波累计）</p>` +
+    `<div class="seu">SEU：${u.seu}</div>`;
+  const b1 = $("unpin"), b2 = $("pinit");
+  if (b1) b1.onclick = () => { sel = null; showUnit(true); refreshRows(true); };
+  if (b2) b2.onclick = () => select(anim.i);
+}
+let lastRowState = "";
+function refreshRows(force) {
+  const rows = tlEl.children;
+  const state = `${anim.i}|${sel}`;
+  if (force || state !== lastRowState) {
+    lastRowState = state;
+    for (let k = 0; k < rows.length; k++) {
+      rows[k].classList.toggle("act", k === anim.i);
+      rows[k].classList.toggle("done", k < anim.i);
+      rows[k].classList.toggle("sel", k === sel);
+      const em = rows[k].querySelector("em");
+      if (k !== anim.i) em.style.width = k < anim.i ? "100%" : "0";
+    }
+  }
+  const em = rows[anim.i] && rows[anim.i].querySelector("em");
+  if (em) em.style.width = `${(anim.p * 100).toFixed(1)}%`;
+}
+
+/* ======================================================================
+   出图 / SEU（程序生成条带）
+   ====================================================================== */
+const SEU_OPTS = [["ant", "天线"], ["lna", "射频前端"], ["mix", "混频"], ["adc", "ADC"],
+                  ["rng", "距离向 FFT（s1–s5）"], ["az", "方位向 FFT（s6–s10）"], ["img", "出图"]];
+const SYMPTOM = {
+  ant: "天线位翻转：整幅增益掉下去，条带变暗并带均匀噪声。",
+  lna: "射频前端：饱和样点，亮目标拖出短横刺。",
+  mix: "混频：本振相位跳，图像整体错一位并出现重影。",
+  adc: "ADC：采样位错误，随机亮点撒满条带。",
+  rng: "距离向 FFT（s1–s5）：距离向散开，目标拉成横条。",
+  az: "方位向 FFT（s6–s10）：方位向散开，目标拉成竖条。",
+  img: "出图级：检测块错位，一块区域被搬到旁边。"
+};
+const whereSel = $("where");
+SEU_OPTS.forEach(([id, name]) => { const o = document.createElement("option"); o.value = id; o.textContent = name; whereSel.appendChild(o); });
+const IW = 280, IH = 220;
+const scene = new Float32Array(IW * IH);
+(function buildScene() {
+  for (let y = 0; y < IH; y++) for (let x = 0; x < IW; x++) scene[y * IW + x] = x < 70 + 18 * Math.sin(y / 16) ? 0.05 : 0.12;
+  function blob(cx, cy, rx, ry, amp) {
+    for (let y = Math.max(0, cy - ry); y < Math.min(IH, cy + ry); y++)
+      for (let x = Math.max(0, cx - rx); x < Math.min(IW, cx + rx); x++) {
+        const u = (x - cx) / rx, v = (y - cy) / ry;
+        scene[y * IW + x] += amp * Math.exp(-(u * u + v * v) * 3);
+      }
+  }
+  [[40, 40], [90, 70], [150, 50], [200, 110], [60, 150], [180, 170], [120, 130], [240, 60]].forEach((p, i) => blob(p[0], p[1], 4 + (i % 3), 3, 0.85));
+  for (let k = 0; k < 40; k++) blob(80 + (k * 37) % 180, 20 + (k * 53) % 180, 1, 1, 0.35);
+})();
+function paint(canvas, mode) {
+  const g = canvas.getContext("2d"), img = g.createImageData(IW, IH), Dd = img.data;
+  for (let i = 0; i < IW * IH; i++) {
+    let v = scene[i];
+    const x = i % IW, y = (i / IW) | 0;
+    if (mode === "ant") v = v * 0.35 + Math.random() * 0.08;
+    else if (mode === "lna" && v > 0.4) v = Math.min(1, v + (x % 7 === 0 ? 0.5 : 0));
+    else if (mode === "mix") v = 0.55 * v + 0.45 * scene[y * IW + Math.min(IW - 1, x + 6)];
+    else if (mode === "adc" && Math.random() < 0.01) v = 1;
+    else if (mode === "rng") { let a = 0; for (let k = -8; k <= 8; k++) a += scene[y * IW + Math.max(0, Math.min(IW - 1, x + k))]; v = a / 17; }
+    else if (mode === "az") { let a = 0; for (let k = -8; k <= 8; k++) a += scene[Math.max(0, Math.min(IH - 1, y + k)) * IW + x]; v = a / 17; }
+    else if (mode === "img" && x > 100 && x < 160 && y > 60 && y < 120) v = scene[(y - 40) * IW + (x - 30)] || v;
+    const q = Math.max(0, Math.min(255, v * 255)), o = i * 4;
+    Dd[o] = q * 0.55; Dd[o + 1] = q; Dd[o + 2] = q * 0.45; Dd[o + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+}
+let fault = null;
+paint($("clean"), null); paint($("bad"), null);
+$("hit").onclick = () => {
+  fault = whereSel.value;
+  paint($("bad"), fault);
+  $("sym").textContent = SYMPTOM[fault];
+  const i = STAGES.findIndex(s => s.id === fault);
+  if (i >= 0) select(i);
+};
+$("clear").onclick = () => {
+  fault = null;
+  paint($("bad"), null);
+  $("sym").textContent = "无故障。图像是程序生成的点目标条带，不是真实地表。";
+};
+
+/* ======================================================================
+   三维场景：地球（贴图光线投射）+ 卫星 + 波束 + 测绘带
+   ====================================================================== */
+const V3 = {
+  add: (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]],
+  sub: (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]],
+  mul: (a, k) => [a[0] * k, a[1] * k, a[2] * k],
+  dot: (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2],
+  cross: (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]],
+  len: a => Math.hypot(a[0], a[1], a[2]),
+  norm: a => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; },
+  lerp: (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]
+};
+const sky = $("sky"), ctx = sky.getContext("2d");
+const ec = document.createElement("canvas"), ectx = ec.getContext("2d");
+let tex = null, TW = 0, TH = 0;
+const earthImg = new Image();
+earthImg.onload = () => {
+  const c = document.createElement("canvas");
+  c.width = earthImg.naturalWidth; c.height = earthImg.naturalHeight;
+  const g = c.getContext("2d"); g.drawImage(earthImg, 0, 0);
+  try { tex = g.getImageData(0, 0, c.width, c.height).data; TW = c.width; TH = c.height; } catch (e) { tex = null; }
+};
+earthImg.src = "static/earth.jpg";
+
+/* 世界系：地心、地球半径 = 1；轨道在 x–y 平面，φ 为轨道角；c = +z 为右侧视方向。
+   Q 把世界系转到地固系，使 φ = 0 时星下点落在 (LAT0, LON0)、航向 PSI（升轨太阳同步量级）。 */
+const LAT0 = 31.0 * Math.PI / 180, LON0 = 116.5 * Math.PI / 180, PSI = -10 * Math.PI / 180;
+const Q = (() => {
+  const g = [Math.cos(LAT0) * Math.cos(LON0), Math.cos(LAT0) * Math.sin(LON0), Math.sin(LAT0)];
+  const nn = [-Math.sin(LAT0) * Math.cos(LON0), -Math.sin(LAT0) * Math.sin(LON0), Math.cos(LAT0)];
+  const ee = [-Math.sin(LON0), Math.cos(LON0), 0];
+  const a = V3.add(V3.mul(nn, Math.cos(PSI)), V3.mul(ee, Math.sin(PSI)));
+  const c = V3.cross(a, g);
+  return [a[0], g[0], c[0], a[1], g[1], c[1], a[2], g[2], c[2]];
+})();
+const SV = 0.0011;                        // 卫星模型放大：地球半径 / 米
+const EXAG_AZ = 8;                         // 方位波束放大倍数（示意）
+const OMEGA_VIS = 3;                       // 轨道运动加速倍数
+function frameAt(phi) {
+  const u = [Math.sin(phi), Math.cos(phi), 0], a = [Math.cos(phi), -Math.sin(phi), 0], c = [0, 0, 1];
+  return { u, a, c, S: V3.mul(u, D.rs / BASE.Re) };
+}
+function groundAt(phi, lookRad) {           // 视角 look 的射线落地点（单位球）
+  const rsN = D.rs / BASE.Re;
+  const eta = Math.asin(Math.min(1, rsN * Math.sin(lookRad)));
+  const b = eta - lookRad;
+  const u = [Math.sin(phi), Math.cos(phi), 0];
+  return [u[0] * Math.cos(b), u[1] * Math.cos(b), Math.sin(b)];
+}
+const STARS = (() => { let s = 7; const r = () => (s = (s * 16807) % 2147483647) / 2147483647; const out = [];
+  for (let i = 0; i < 420; i++) { const z = 2 * r() - 1, t = 2 * Math.PI * r(), q = Math.sqrt(1 - z * z); out.push([q * Math.cos(t), q * Math.sin(t), z, 0.3 + 0.7 * r()]); } return out; })();
+
+const DEF = { sat: { yaw: 1.05, pitch: 0.3, dist: 0.036 }, swath: { yaw: -1.25, pitch: 0.42, dist: 0.07 }, earth: { yaw: 0.6, pitch: 0.95, dist: 3.4 } };
+const LIM = { sat: [0.005, 1.2], swath: [0.015, 1.0], earth: [1.35, 8] };
+const cam = { mode: "sat", ...DEF.sat, spin: false, xray: false };
+let drag = null, playing = true, sim = 0, lastT = 0;
+const anim = { i: 0, p: 0 };
+
+function camera(fr, foot) {
+  const T = cam.mode === "sat" ? fr.S : cam.mode === "swath" ? V3.mul(foot, 1.002) : [0, 0, 0];
+  const cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
+  const dir = V3.add(V3.add(V3.mul(fr.a, -cp * Math.cos(cam.yaw)), V3.mul(fr.c, -cp * Math.sin(cam.yaw))), V3.mul(fr.u, sp));
+  const C = V3.add(T, V3.mul(dir, cam.dist));
+  const fwd = V3.norm(V3.sub(T, C));
+  const right = V3.norm(V3.cross(fwd, fr.u));
+  const up = V3.cross(right, fwd);
+  return { C, fwd, right, up };
+}
+let W = 0, H = 0, FOC = 0, CX = 0, CY = 0;
+function proj(cm, p) {
+  const r = V3.sub(p, cm.C), z = V3.dot(r, cm.fwd);
+  if (z < 1e-4) return null;
+  return [CX + FOC * V3.dot(r, cm.right) / z, CY - FOC * V3.dot(r, cm.up) / z, z];
+}
+function occluded(cm, p) {                  // 相机到 p 的线段是否被地球挡住
+  const d = V3.sub(p, cm.C), L = V3.len(d), n = V3.mul(d, 1 / L);
+  const b = V3.dot(cm.C, n), c = V3.dot(cm.C, cm.C) - 1, disc = b * b - c;
+  if (disc <= 0) return false;
+  const t = -b - Math.sqrt(disc);
+  return t > 0 && t < L - 1e-6;
+}
+const surfVisible = (cm, p) => V3.dot(p, V3.sub(cm.C, p)) > 0;
+
+function renderEarth(cm, L) {
+  const res = drag ? 0.36 : 0.5;
+  const w = Math.max(2, Math.floor(W * res)), h = Math.max(2, Math.floor(H * res));
+  if (ec.width !== w || ec.height !== h) { ec.width = w; ec.height = h; }
+  const img = ectx.createImageData(w, h), px = img.data;
+  const fl = FOC * res, cx = CX * res, cy = CY * res;
+  const C = cm.C, F = cm.fwd, R = cm.right, U = cm.up;
+  const CC = C[0] * C[0] + C[1] * C[1] + C[2] * C[2] - 1;
+  const INV_PI = 1 / Math.PI;
+  for (let j = 0; j < h; j++) {
+    const yy = -(j + 0.5 - cy) / fl;
+    const bx = F[0] + yy * U[0], by = F[1] + yy * U[1], bz = F[2] + yy * U[2];
+    for (let i = 0; i < w; i++) {
+      const xx = (i + 0.5 - cx) / fl;
+      let dx = bx + xx * R[0], dy = by + xx * R[1], dz = bz + xx * R[2];
+      const il = 1 / Math.sqrt(dx * dx + dy * dy + dz * dz); dx *= il; dy *= il; dz *= il;
+      const b = C[0] * dx + C[1] * dy + C[2] * dz, disc = b * b - CC, o = (j * w + i) * 4;
+      if (disc > 0 && -b - Math.sqrt(disc) > 0) {
+        const t = -b - Math.sqrt(disc);
+        const x = C[0] + t * dx, y = C[1] + t * dy, z = C[2] + t * dz;
+        const lam = x * L[0] + y * L[1] + z * L[2];
+        const sh = 0.07 + 0.93 * Math.min(1, Math.max(0, (lam + 0.12) / 0.5));
+        const mu = -(dx * x + dy * y + dz * z);
+        const haze = Math.pow(1 - Math.max(0, mu), 4) * 0.7;
+        let r = 20, g = 50, bb = 90;
+        if (tex) {
+          const ex = Q[0] * x + Q[1] * y + Q[2] * z, ey = Q[3] * x + Q[4] * y + Q[5] * z, ez = Q[6] * x + Q[7] * y + Q[8] * z;
+          const lat = Math.asin(ez > 1 ? 1 : ez < -1 ? -1 : ez), lon = Math.atan2(ey, ex);
+          // 双线性取样：近看测绘带时贴图（约 20 km/像素）不出方块
+          const fu = (lon * INV_PI + 1) * 0.5 * TW - 0.5, fv = (0.5 - lat * INV_PI) * TH - 0.5;
+          let x0 = Math.floor(fu), y0 = Math.floor(fv);
+          const ax = fu - x0, ay = fv - y0;
+          if (x0 < 0) x0 += TW; const x1 = x0 + 1 >= TW ? 0 : x0 + 1;
+          if (y0 < 0) y0 = 0; const y1 = y0 + 1 >= TH ? TH - 1 : y0 + 1;
+          const k00 = (y0 * TW + x0) * 4, k10 = (y0 * TW + x1) * 4, k01 = (y1 * TW + x0) * 4, k11 = (y1 * TW + x1) * 4;
+          const w00 = (1 - ax) * (1 - ay), w10 = ax * (1 - ay), w01 = (1 - ax) * ay, w11 = ax * ay;
+          r = tex[k00] * w00 + tex[k10] * w10 + tex[k01] * w01 + tex[k11] * w11;
+          g = tex[k00 + 1] * w00 + tex[k10 + 1] * w10 + tex[k01 + 1] * w01 + tex[k11 + 1] * w11;
+          bb = tex[k00 + 2] * w00 + tex[k10 + 2] * w10 + tex[k01 + 2] * w01 + tex[k11 + 2] * w11;
+        }
+        const hz = haze * Math.max(0.15, sh);
+        px[o] = r * sh * (1 - hz) + 110 * hz;
+        px[o + 1] = g * sh * (1 - hz) + 165 * hz;
+        px[o + 2] = bb * sh * (1 - hz) + 255 * hz + (1 - sh) * 12;
+        px[o + 3] = 255;
+      } else if (b < 0) {
+        const dmin = Math.sqrt(Math.max(0, CC + 1 - b * b));
+        if (dmin < 1.05) {
+          const qx = C[0] - b * dx, qy = C[1] - b * dy, qz = C[2] - b * dz;
+          const lit = Math.max(0.12, Math.min(1, ((qx * L[0] + qy * L[1] + qz * L[2]) / dmin + 0.35)));
+          const a = Math.exp(-(dmin - 1) / 0.011) * lit;
+          px[o] = 120; px[o + 1] = 175; px[o + 2] = 255; px[o + 3] = Math.min(255, a * 210);
+        } else px[o + 3] = 0;
+      } else px[o + 3] = 0;
+    }
+  }
+  ectx.putImageData(img, 0, 0);
+  ctx.imageSmoothingEnabled = true;
+  ctx.drawImage(ec, 0, 0, W, H);
+}
+
+/* ---------- 卫星模型（局部 a / u / c 坐标，单位 m） ---------- */
+function toW(fr, x, y, z) {
+  return [fr.S[0] + SV * (x * fr.a[0] + y * fr.u[0] + z * fr.c[0]),
+          fr.S[1] + SV * (x * fr.a[1] + y * fr.u[1] + z * fr.c[1]),
+          fr.S[2] + SV * (x * fr.a[2] + y * fr.u[2] + z * fr.c[2])];
+}
+const centroid = pts => V3.mul(pts.reduce((s, p) => V3.add(s, p), [0, 0, 0]), 1 / pts.length);
+function mkFace(pts, col, id, ctr, o = {}) {
+  const fc = centroid(pts);
+  let n = V3.norm(V3.cross(V3.sub(pts[1], pts[0]), V3.sub(pts[2], pts[0])));
+  if (ctr && V3.dot(n, V3.sub(fc, ctr)) < 0) n = V3.mul(n, -1);
+  return Object.assign({ pts, col, id, n, fc, closed: !!ctr }, o);
+}
+function oboxW(fr, cen, ax, hs, col, id, o = {}) {      // 任意轴向盒：cen 中心，ax=[e1,e2,e3] 单位向量（局部），hs 半尺寸
+  const corner = (s1, s2, s3) => toW(fr,
+    cen[0] + s1 * hs[0] * ax[0][0] + s2 * hs[1] * ax[1][0] + s3 * hs[2] * ax[2][0],
+    cen[1] + s1 * hs[0] * ax[0][1] + s2 * hs[1] * ax[1][1] + s3 * hs[2] * ax[2][1],
+    cen[2] + s1 * hs[0] * ax[0][2] + s2 * hs[1] * ax[1][2] + s3 * hs[2] * ax[2][2]);
+  const P = [corner(-1, -1, -1), corner(1, -1, -1), corner(1, 1, -1), corner(-1, 1, -1),
+             corner(-1, -1, 1), corner(1, -1, 1), corner(1, 1, 1), corner(-1, 1, 1)];
+  const ctr = toW(fr, ...cen);
+  const F = [[0, 1, 2, 3], [4, 5, 6, 7], [0, 1, 5, 4], [3, 2, 6, 7], [0, 3, 7, 4], [1, 2, 6, 5]];
+  const tags = ["-3", "+3", "-2", "+2", "-1", "+1"];
+  return F.map((ix, k) => mkFace(ix.map(i => P[i]), col, id, ctr, Object.assign({ tag: tags[k] }, o)));
+}
+const AX0 = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+function box(fr, x0, y0, z0, x1, y1, z1, col, id, o) {
+  return oboxW(fr, [(x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2], AX0, [(x1 - x0) / 2, (y1 - y0) / 2, (z1 - z0) / 2], col, id, o);
+}
+function antennaGeom() {
+  const th = D.th;
+  const n = [0, -Math.cos(th), Math.sin(th)], e = [0, Math.sin(th), Math.cos(th)];
+  const cen = [0, -0.3 - 0.95 * Math.cos(th), 1.1 + 0.95 * Math.sin(th)];
+  return { n, e, cen, half: [7.5, 0.75, 0.09] };
+}
+function buildSat(fr, hi) {
+  const faces = [];
+  const xr = cam.xray || ["mix", "adc", "rng", "az", "img"].includes(hi);
+  const busO = xr ? { alpha: 0.26, xray: true } : {};
+  faces.push(...box(fr, -1.2, -1.3, -1.1, 1.2, 1.3, 1.1, [214, 168, 72], "bus", busO));
+  if (xr) {
+    const inner = [["rx", [-0.95, 0.15, -0.8, -0.15, 0.95, 0.3], [200, 206, 214]], ["adc", [0.1, 0.15, -0.8, 0.95, 0.95, 0.3], [60, 66, 76]],
+                   ["fpga", [-0.95, -0.95, -0.8, -0.15, -0.15, 0.3], [40, 110, 70]], ["ssr", [0.1, -0.95, -0.8, 0.95, -0.15, 0.3], [180, 188, 196]]];
+    const act = { mix: "rx", adc: "adc", rng: "fpga", az: "fpga", img: "ssr" }[hi];
+    inner.forEach(([id, b, col]) => faces.push(...box(fr, ...b, col, id, { glow: id === act })));
+  }
+  const g = antennaGeom();
+  faces.push(...oboxW(fr, g.cen, [[1, 0, 0], g.e, g.n], g.half, [70, 76, 86], "ant", { antenna: true }));
+  // 支撑桁架（细杆）
+  for (const x of [-5.2, -1.8, 1.8, 5.2]) {
+    const bp = [x, g.cen[1] - g.n[1] * 0.09, g.cen[2] - g.n[2] * 0.09];
+    const hp = [Math.max(-1.1, Math.min(1.1, x * 0.2)), -0.4, 1.1];
+    faces.push({ line: true, a: toW(fr, ...hp), b: toW(fr, ...bp), col: "rgba(170,178,188,.85)", w: 1.1, fc: toW(fr, (hp[0] + bp[0]) / 2, (hp[1] + bp[1]) / 2, (hp[2] + bp[2]) / 2) });
+  }
+  // 太阳翼：沿 -c 伸出，绕翼轴跟踪太阳
+  const Ll = sunLocal();
+  const al = Math.atan2(Ll[0], Ll[1]);
+  const ns = [Math.sin(al), Math.cos(al), 0], ts = [Math.cos(al), -Math.sin(al), 0];
+  faces.push(...box(fr, -0.06, 0.25, -2.4, 0.06, 0.37, -1.1, [150, 156, 164], "solar"));
+  for (let k = 0; k < 4; k++) {
+    const zc = -2.6 - k * 2.25 - 1.05;
+    faces.push(...oboxW(fr, [0, 0.31, zc], [ts, ns, [0, 0, 1]], [1.0, 0.03, 1.08], [26, 44, 96], "solar", { solar: true, back: [205, 206, 210] }));
+  }
+  // X 频段数传天线（对地面）
+  const dish = [];
+  for (let k = 0; k < 18; k++) { const t = k / 18 * Math.PI * 2; dish.push(toW(fr, 0.55 + 0.42 * Math.cos(t), -1.62, -0.55 + 0.42 * Math.sin(t))); }
+  faces.push(mkFace(dish, [226, 230, 236], "xant", null, { back: [150, 156, 164] }));
+  faces.push({ line: true, a: toW(fr, 0.55, -1.3, -0.55), b: toW(fr, 0.55, -1.6, -0.55), col: "rgba(200,205,212,.9)", w: 1.4, fc: toW(fr, 0.55, -1.45, -0.55) });
+  // 星敏感器、推力器
+  faces.push(...box(fr, -0.95, 1.3, -0.85, -0.6, 1.62, -0.5, [34, 36, 40], "bus"));
+  faces.push(...box(fr, -0.45, 1.3, -0.85, -0.12, 1.58, -0.52, [34, 36, 40], "bus"));
+  faces.push(...box(fr, -1.42, -0.2, -0.2, -1.2, 0.2, 0.2, [60, 60, 64], "bus"));
+  return faces;
+}
+function sunLocal() { return V3.norm([-0.3, 0.84, -0.42]); }
+function sunWorld(fr) { const l = sunLocal(); return V3.norm(V3.add(V3.add(V3.mul(fr.a, l[0]), V3.mul(fr.u, l[1])), V3.mul(fr.c, l[2]))); }
+
+let picks = [];
+function drawSat(cm, fr, faces, hi, L, t) {
+  const vis = [];
+  for (const f of faces) {
+    if (f.line) {
+      const a = proj(cm, f.a), b = proj(cm, f.b);
+      if (a && b) vis.push({ f, a, b, depth: V3.len(V3.sub(cm.C, f.fc)) });
+      continue;
+    }
+    const toCam = V3.sub(cm.C, f.fc);
+    let n = f.n, col = f.col, back = false;
+    const facing = V3.dot(n, toCam) > 0;
+    if (f.closed && !facing && !f.xray) continue;
+    if (!f.closed && !facing) { n = V3.mul(n, -1); col = f.back || f.col; back = true; }
+    const scr = f.pts.map(p => proj(cm, p));
+    if (scr.some(q => !q)) continue;
+    vis.push({ f, scr, n, col, back, facing, depth: V3.len(toCam) });
+  }
+  vis.sort((a, b) => b.depth - a.depth);
+  picks = [];
+  for (const v of vis) {
+    if (v.f.line) {
+      ctx.strokeStyle = v.f.col; ctx.lineWidth = v.f.w;
+      ctx.beginPath(); ctx.moveTo(v.a[0], v.a[1]); ctx.lineTo(v.b[0], v.b[1]); ctx.stroke();
+      continue;
+    }
+    const f = v.f;
+    let col = v.col;
+    if (f.solar) col = f.tag === "+2" ? [26, 44, 96] : f.tag === "-2" ? [205, 206, 210] : [120, 124, 130];
+    if (f.antenna) {
+      if (f.tag === "+3") col = [88, 94, 104];           // 辐射面（对地）
+      else if (f.tag === "-3") col = [150, 156, 164];    // 背面桁架
+    }
+    const k = 0.3 + 0.7 * Math.max(0, V3.dot(v.n, L));
+    ctx.beginPath();
+    v.scr.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]));
+    ctx.closePath();
+    const alpha = f.alpha !== undefined ? f.alpha : 1;
+    ctx.fillStyle = `rgba(${col[0] * k | 0},${col[1] * k | 0},${col[2] * k | 0},${alpha})`;
+    ctx.fill();
+    ctx.strokeStyle = f.xray ? "rgba(255,220,140,.45)" : "rgba(10,14,20,.55)";
+    ctx.lineWidth = 0.7; ctx.stroke();
+    if (f.antenna && f.tag === "+3" && v.facing) antennaFaceDetail(cm, v, hi, t);
+    if (f.antenna && f.tag === "-3" && v.facing) antennaBackDetail(cm, v, hi, t);
+    if (f.solar && f.tag === "+2") solarDetail(v);
+    if (f.glow) {
+      ctx.save(); ctx.globalCompositeOperation = "lighter";
+      ctx.fillStyle = `rgba(255,190,80,${0.28 + 0.18 * Math.sin(t * 6)})`; ctx.fill();
+      ctx.shadowColor = "#ffb454"; ctx.shadowBlur = 12; ctx.strokeStyle = "#ffd27a"; ctx.lineWidth = 1.4; ctx.stroke();
+      ctx.restore();
+    }
+    let pid = f.id;
+    if (f.antenna) pid = f.tag === "-3" ? "tr" : "ant";
+    picks.push({ id: pid, poly: v.scr });
+  }
+}
+function quadLerp(scr, u, v) {                   // 屏幕四边形双线性插值
+  const a = [scr[0][0] + (scr[1][0] - scr[0][0]) * u, scr[0][1] + (scr[1][1] - scr[0][1]) * u];
+  const b = [scr[3][0] + (scr[2][0] - scr[3][0]) * u, scr[3][1] + (scr[2][1] - scr[3][1]) * u];
+  return [a[0] + (b[0] - a[0]) * v, a[1] + (b[1] - a[1]) * v];
+}
+function antennaFaceDetail(cm, v, hi, t) {
+  const s = v.scr;
+  ctx.save();
+  ctx.beginPath(); s.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])); ctx.closePath(); ctx.clip();
+  const on = hi === "ant" || hi === "tx";
+  const cols = 40, rows = 6;
+  for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
+    const u = (i + 0.5) / cols, w = (j + 0.5) / rows;
+    const p = quadLerp(s, u, w);
+    const ph = on ? 0.5 + 0.5 * Math.sin(i * 0.55 - t * 7 * (hi === "tx" ? 1 : -1)) : 0.35;
+    ctx.fillStyle = on ? (hi === "tx" ? `rgba(255,${170 + 60 * ph | 0},110,${0.35 + 0.5 * ph})` : `rgba(120,${210 + 40 * ph | 0},255,${0.35 + 0.5 * ph})`) : "rgba(200,168,90,.55)";
+    const sz = Math.max(1, Math.hypot(s[1][0] - s[0][0], s[1][1] - s[0][1]) / cols * 0.45);
+    ctx.fillRect(p[0] - sz / 2, p[1] - sz / 2, sz, sz);
+  }
+  ctx.strokeStyle = "rgba(20,24,30,.8)"; ctx.lineWidth = 1;
+  for (let k = 1; k < 5; k++) { const a = quadLerp(s, k / 5, 0), b = quadLerp(s, k / 5, 1); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); }
+  ctx.restore();
+}
+function antennaBackDetail(cm, v, hi, t) {
+  const s = v.scr, on = hi === "tx" || hi === "lna";
+  const col = hi === "tx" ? [255, 158, 100] : [92, 200, 255];
+  for (let r = 0; r < 3; r++) for (let i = 0; i < 20; i++) {
+    const p = quadLerp(s, (i + 0.5) / 20, (r + 0.5) / 3);
+    const ph = on ? 0.5 + 0.5 * Math.sin(i * 0.8 + r - t * 6) : 0;
+    const sz = Math.max(1.4, Math.hypot(s[1][0] - s[0][0], s[1][1] - s[0][1]) / 20 * 0.5);
+    ctx.fillStyle = on ? `rgba(${col[0]},${col[1]},${col[2]},${0.5 + 0.5 * ph})` : "rgba(214,176,86,.9)";
+    ctx.fillRect(p[0] - sz / 2, p[1] - sz * 0.35, sz, sz * 0.7);
+  }
+}
+function solarDetail(v) {
+  const s = v.scr;
+  ctx.strokeStyle = "rgba(150,180,230,.35)"; ctx.lineWidth = 0.6;
+  for (let k = 1; k < 6; k++) { const a = quadLerp(s, k / 6, 0), b = quadLerp(s, k / 6, 1); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); }
+  for (let k = 1; k < 4; k++) { const a = quadLerp(s, 0, k / 4), b = quadLerp(s, 1, k / 4); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); }
+}
+
+/* ---------- 地面：星下点轨迹、测绘带、脚印、波束、脉冲 ---------- */
+function polyOnGround(cm, pts, fill, stroke, dash) {
+  const scr = [];
+  for (const p of pts) { if (!surfVisible(cm, p)) return; const q = proj(cm, p); if (!q) return; scr.push(q); }
+  ctx.beginPath(); scr.forEach((q, i) => i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]));
+  if (fill) { ctx.closePath(); ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.setLineDash(dash || []); ctx.strokeStyle = stroke; ctx.lineWidth = 1.2; ctx.stroke(); ctx.setLineDash([]); }
+}
+function lineOnGround(cm, pts, stroke, w, dash) {
+  ctx.setLineDash(dash || []); ctx.strokeStyle = stroke; ctx.lineWidth = w;
+  ctx.beginPath(); let pen = false;
+  for (const p of pts) {
+    const q = surfVisible(cm, p) ? proj(cm, p) : null;
+    if (!q) { pen = false; continue; }
+    if (pen) ctx.lineTo(q[0], q[1]); else { ctx.moveTo(q[0], q[1]); pen = true; }
+  }
+  ctx.stroke(); ctx.setLineDash([]);
+}
+function label(cm, p, text, col, dx = 6, dy = -6, font = "12px") {
+  const q = proj(cm, p); if (!q) return;
+  if (q[0] < -40 || q[0] > W + 40 || q[1] < -20 || q[1] > H + 20) return;
+  ctx.font = `${font} "Microsoft YaHei",sans-serif`;
+  ctx.lineWidth = 3; ctx.strokeStyle = "rgba(4,7,13,.85)"; ctx.strokeText(text, q[0] + dx, q[1] + dy);
+  ctx.fillStyle = col; ctx.fillText(text, q[0] + dx, q[1] + dy);
+}
+
+function render(t) {
+  const rect = sky.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  W = Math.max(2, rect.width); H = Math.max(2, rect.height);
+  const bw = Math.round(W * dpr), bh = Math.round(H * dpr);
+  if (sky.width !== bw || sky.height !== bh) { sky.width = bw; sky.height = bh; }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  FOC = H / (2 * Math.tan(25 * Math.PI / 180)); CX = W / 2; CY = H / 2;
+
+  const phi = -0.02 + sim * OMEGA_VIS * D.v / D.rs;
+  const fr = frameAt(phi);
+  const st = STAGES[anim.i], hi = sel !== null ? STAGES[sel].id : st.id;
+  const th = D.th, eN = th - D.thEl / 2, eF = th + D.thEl / 2;
+  const dPhiFp = (D.thAz * EXAG_AZ * D.R0 / 2) / BASE.Re;
+  const foot = groundAt(phi, th);
+  const cm = camera(fr, foot);
+  const L = sunWorld(fr);
+
+  ctx.fillStyle = "#03050a"; ctx.fillRect(0, 0, W, H);
+  for (const s of STARS) {
+    const z = V3.dot(s, cm.fwd); if (z <= 0) continue;
+    const x = CX + FOC * V3.dot(s, cm.right) / z, y = CY - FOC * V3.dot(s, cm.up) / z;
+    if (x < 0 || x > W || y < 0 || y > H) continue;
+    ctx.fillStyle = `rgba(220,232,255,${s[3] * 0.8})`; ctx.fillRect(x, y, 1.3, 1.3);
+  }
+  renderEarth(cm, L);
+
+  // 测绘带（已成像 / 将要照射）、星下点轨迹
+  const N = 40, back = 0.09, ahead = 0.04;
+  const near = [], far = [], nearA = [], farA = [], nad = [];
+  for (let k = 0; k <= N; k++) {
+    const p1 = phi - back + (back) * k / N;
+    near.push(groundAt(p1, eN)); far.push(groundAt(p1, eF));
+    const p2 = phi + ahead * k / N;
+    nearA.push(groundAt(p2, eN)); farA.push(groundAt(p2, eF));
+  }
+  for (let k = 0; k <= 60; k++) { const p = phi - 0.12 + 0.2 * k / 60; nad.push([Math.sin(p), Math.cos(p), 0]); }
+  lineOnGround(cm, nad, "rgba(214,232,255,.75)", 1.4, [7, 6]);
+  const strip = near.concat(far.slice().reverse());
+  ctx.save(); ctx.globalCompositeOperation = "lighter";
+  polyOnGround(cm, strip, "rgba(255,214,140,.16)", "rgba(255,214,140,.55)");
+  ctx.restore();
+  lineOnGround(cm, nearA, "rgba(255,214,140,.45)", 1, [4, 4]);
+  lineOnGround(cm, farA, "rgba(255,214,140,.45)", 1, [4, 4]);
+
+  // 脚印四角 + 阵面四角 → 波束
+  const fp = [groundAt(phi - dPhiFp, eN), groundAt(phi + dPhiFp, eN), groundAt(phi + dPhiFp, eF), groundAt(phi - dPhiFp, eF)];
+  const g = antennaGeom();
+  const ac = [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([sa, se]) => toW(fr,
+    sa * g.half[0] + g.e[0] * se * g.half[1] + g.n[0] * g.half[2] + g.cen[0],
+    g.e[1] * se * g.half[1] + g.n[1] * g.half[2] + g.cen[1],
+    g.e[2] * se * g.half[1] + g.n[2] * g.half[2] + g.cen[2]));
+  const satHidden = occluded(cm, fr.S);
+  const pulse = 0.65 + 0.35 * Math.sin(t * 7);
+  let flash = 0, trace = null, echo = false;
+  if (st.id === "tx") trace = 0.1 * anim.p;
+  else if (st.id === "prop") {
+    if (anim.p < 0.45) trace = 0.1 + 0.9 * anim.p / 0.45;
+    else if (anim.p < 0.55) { flash = 1 - Math.abs(anim.p - 0.5) / 0.05; trace = 1; echo = true; }
+    else { trace = 1 - (anim.p - 0.55) / 0.45; echo = true; }
+  }
+  const fpVis = fp.every(p => surfVisible(cm, p));
+  if (fpVis) {
+    ctx.save(); ctx.globalCompositeOperation = "lighter";
+    polyOnGround(cm, fp, `rgba(255,220,130,${0.25 + 0.2 * pulse + 0.5 * flash})`, "rgba(255,236,180,.8)");
+    ctx.restore();
+  }
+  // 合成孔径：同一地面目标被一串位置上的卫星连续照到
+  if (hi === "az" && !satHidden) {
+    const tgt = groundAt(phi - dPhiFp * 0.2, th);
+    const span = (D.Lsa * EXAG_AZ / 1000) / BASE.Re * (D.rs / BASE.Re);
+    const prog = sel !== null ? 1 : anim.p;
+    ctx.save(); ctx.globalCompositeOperation = "lighter";
+    for (let k = 0; k <= 10; k++) {
+      const f = k / 10; if (f > prog + 1e-6) break;
+      const sp = V3.mul(frameAt(phi - span + span * f * 1.0).u, D.rs / BASE.Re);
+      const a = proj(cm, sp), b = proj(cm, tgt);
+      if (!a || !b) continue;
+      ctx.strokeStyle = `rgba(126,231,135,${0.25 + 0.5 * (k / 10)})`; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+    }
+    ctx.restore();
+    const arcPts = []; for (let k = 0; k <= 16; k++) arcPts.push(V3.mul(frameAt(phi - span + span * k / 16).u, D.rs / BASE.Re * 1.0008));
+    ctx.strokeStyle = "#7ee787"; ctx.lineWidth = 2.2; ctx.beginPath();
+    arcPts.forEach((p, i) => { const q = proj(cm, p); if (q) i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
+    label(cm, arcPts[8], `合成孔径 L_sa = ${(D.Lsa / 1000).toFixed(1)} km（×${EXAG_AZ}），T_a = ${fmtT(D.Ta)}`, "#7ee787", 8, -10);
+    label(cm, tgt, "地面目标", "#7ee787", 6, 14, "11px");
+  }
+  if (!satHidden) {
+    ctx.save(); ctx.globalCompositeOperation = "lighter";
+    const ca = ac.map(p => proj(cm, p)), cf = fp.map(p => proj(cm, p));
+    if (ca.every(Boolean) && cf.every(Boolean)) {
+      const ac0 = proj(cm, centroid(ac)), fc0 = proj(cm, centroid(fp));
+      const grad = ctx.createLinearGradient(ac0[0], ac0[1], fc0[0], fc0[1]);
+      const beamA = hi === "prop" ? 1.4 : 1;
+      grad.addColorStop(0, `rgba(255,226,160,${0.2 * pulse * beamA})`); grad.addColorStop(1, `rgba(255,170,60,${0.07 * beamA})`);
+      for (let i = 0; i < 4; i++) {
+        const j = (i + 1) % 4;
+        ctx.fillStyle = grad; ctx.beginPath();
+        ctx.moveTo(ca[i][0], ca[i][1]); ctx.lineTo(ca[j][0], ca[j][1]); ctx.lineTo(cf[j][0], cf[j][1]); ctx.lineTo(cf[i][0], cf[i][1]);
+        ctx.closePath(); ctx.fill();
+      }
+      ctx.strokeStyle = "rgba(255,226,160,.35)"; ctx.lineWidth = 0.8;
+      for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.moveTo(ca[i][0], ca[i][1]); ctx.lineTo(cf[i][0], cf[i][1]); ctx.stroke(); }
+      // 空中脉冲：间隔 c·PRI，去程橙、回波青
+      const spacing = C_KM * D.pri / D.R0;
+      const speed = 1 / (0.45 * STAGES[1].dwell);
+      const slab = (f, fill) => {
+        const q = [0, 1, 2, 3].map(i => proj(cm, V3.lerp(ac[i], fp[i], f)));
+        if (q.some(x => !x)) return;
+        ctx.fillStyle = fill; ctx.beginPath(); q.forEach((x, i) => i ? ctx.lineTo(x[0], x[1]) : ctx.moveTo(x[0], x[1])); ctx.closePath(); ctx.fill();
+      };
+      const ph = (sim * speed) % spacing;
+      for (let f = ph; f < 1; f += spacing) slab(f, "rgba(255,170,80,.16)");
+      for (let f = spacing - ph; f < 1; f += spacing) slab(f, "rgba(92,200,255,.13)");
+      if (trace !== null) slab(Math.max(0.005, Math.min(0.995, trace)), echo ? "rgba(92,200,255,.8)" : "rgba(255,190,90,.85)");
+      if (flash > 0) {
+        const c0 = proj(cm, centroid(fp));
+        const rg = ctx.createRadialGradient(c0[0], c0[1], 0, c0[0], c0[1], 40);
+        rg.addColorStop(0, `rgba(255,255,230,${0.9 * flash})`); rg.addColorStop(1, "rgba(255,200,80,0)");
+        ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(c0[0], c0[1], 40, 0, 6.3); ctx.fill();
+      }
+    }
+    ctx.restore();
+    drawSat(cm, fr, buildSat(fr, hi), hi, L, t);
+  } else picks = [];
+
+  // 标注
+  if (cam.mode !== "earth" && !satHidden) {
+    label(cm, toW(fr, 7.6, g.cen[1], g.cen[2] + 0.3), `SAR 阵面 ${BASE.La} m × ${BASE.Wa} m`, "#d5e6f5");
+    label(cm, toW(fr, 0, 0.4, -11.5), "太阳翼（跟踪太阳）", "#9fd4ff");
+    label(cm, V3.lerp(centroid(ac), centroid(fp), 0.55), `R₀ = ${D.R0.toFixed(0)} km`, "#ffd27a", 8, 0);
+    label(cm, nad[48], "星下点轨迹", "#d6e8ff", 6, -6, "11px");
+    label(cm, farA[30], `测绘带 ≈ ${D.Wg.toFixed(0)} km`, "#ffd9a0", 6, 14, "11px");
+    label(cm, V3.lerp(centroid(ac), centroid(fp), 0.1), `视角 θ = ${D.look}°`, "#ffd27a", 10, 4, "11px");
+    if (["mix", "adc", "rng", "az", "img"].includes(hi) || cam.xray) {
+      const names = { rx: ["接收机", [-0.55, 0.55, 0.3]], adc: ["数据形成器", [0.52, 0.55, 0.3]], fpga: ["成像处理器", [-0.55, -0.55, 0.3]], ssr: ["固存", [0.52, -0.55, 0.3]] };
+      const act = { mix: "rx", adc: "adc", rng: "fpga", az: "fpga", img: "ssr" }[hi];
+      for (const [k, [nm, p]] of Object.entries(names)) label(cm, toW(fr, ...p), nm, k === act ? "#ffd27a" : "#c7d5e4", 4, 4, k === act ? "bold 12px" : "11px");
+    }
+  } else if (cam.mode === "earth") {
+    // 整条轨道：被地球挡住的部分不画
+    ctx.strokeStyle = "rgba(255,210,122,.75)"; ctx.lineWidth = 1.4; ctx.beginPath();
+    let pen = false;
+    for (let k = 0; k <= 180; k++) {
+      const p = V3.mul(frameAt(phi + k / 180 * 2 * Math.PI).u, D.rs / BASE.Re);
+      const q = occluded(cm, p) ? null : proj(cm, p);
+      if (!q) { pen = false; continue; }
+      if (pen) ctx.lineTo(q[0], q[1]); else { ctx.moveTo(q[0], q[1]); pen = true; }
+    }
+    ctx.stroke();
+    label(cm, fr.S, "SAR 卫星（755 km 太阳同步轨道示意）", "#ffd27a");
+  }
+  const u = UNITS[STAGES[curStageIndex()].unit];
+  $("cap").innerHTML = `当前：<b>${st.name}</b> · ${UNITS[st.unit].title} · 本级 ${fmtT(st.dur(D))} · 开始于 t = ${st.t0 === 0 ? "0" : fmtT(st.t0)}` +
+    (sel !== null ? ` ｜ 下方固定显示：<b>${STAGES[sel].name}</b>（${u.title}）` : "") +
+    ` ｜ 轨道运动 ×${OMEGA_VIS}`;
+}
+
+/* ---------- 动画主循环 ---------- */
+const CYCLE = () => STAGES.reduce((s, x) => s + x.dwell, 0);
+function advance() {
+  let tc = sim % CYCLE();
+  for (let i = 0; i < STAGES.length; i++) {
+    if (tc < STAGES[i].dwell) { anim.i = i; anim.p = tc / STAGES[i].dwell; return; }
+    tc -= STAGES[i].dwell;
+  }
+  anim.i = STAGES.length - 1; anim.p = 1;
+}
+function frame(ts) {
+  const dt = lastT ? Math.min(0.05, (ts - lastT) / 1000) : 0; lastT = ts;
+  if (playing) sim += dt;
+  if (cam.spin && !drag) cam.yaw += dt * 0.15;
+  advance();
+  try { render(ts / 1000); } catch (e) { console.error(e); }
+  refreshRows(false);
+  if (sel === null) showUnit(false);
+  requestAnimationFrame(frame);
+}
+
+/* ---------- 交互 ---------- */
+function setMode(m) {
+  cam.mode = m; Object.assign(cam, DEF[m]);
+  document.querySelectorAll(".hud [data-v]").forEach(b => b.classList.toggle("on", b.dataset.v === m));
+}
+document.querySelectorAll(".hud [data-v]").forEach(b => b.onclick = () => setMode(b.dataset.v));
+$("bReset").onclick = () => setMode(cam.mode);
+$("bPlay").onclick = () => { playing = !playing; $("bPlay").textContent = playing ? "⏸ 暂停" : "▶ 播放"; };
+$("bSpin").onclick = () => { cam.spin = !cam.spin; $("bSpin").classList.toggle("on", cam.spin); };
+$("bXray").onclick = () => { cam.xray = !cam.xray; $("bXray").classList.toggle("on", cam.xray); };
+sky.addEventListener("pointerdown", e => {
+  drag = { x: e.clientX, y: e.clientY, yaw: cam.yaw, pitch: cam.pitch, moved: false };
+  sky.setPointerCapture(e.pointerId); sky.classList.add("drag");
+});
+sky.addEventListener("pointermove", e => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+  if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true;
+  cam.yaw = drag.yaw + dx * 0.0065;
+  cam.pitch = Math.max(-1.45, Math.min(1.45, drag.pitch + dy * 0.0065));
+});
+sky.addEventListener("pointerup", e => {
+  sky.classList.remove("drag");
+  if (drag && !drag.moved) pick(e);
+  drag = null;
+});
+sky.addEventListener("wheel", e => {
+  e.preventDefault();
+  const [lo, hi] = LIM[cam.mode];
+  cam.dist = Math.max(lo, Math.min(hi, cam.dist * Math.exp(e.deltaY * 0.0011)));
+}, { passive: false });
+sky.addEventListener("dblclick", () => setMode(cam.mode));
+window.addEventListener("keydown", e => { if (e.code === "Space" && e.target === document.body) { e.preventDefault(); $("bPlay").click(); } });
+function inPoly(x, y, poly) {
+  let c = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i], [xj, yj] = poly[j];
+    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c;
+  }
+  return c;
+}
+const PICK_STAGE = { ant: "ant", tr: "lna", rx: "mix", adc: "adc", fpga: "rng", ssr: "img", xant: "img", bus: "mix" };
+function pick(e) {
+  const r = sky.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  for (let k = picks.length - 1; k >= 0; k--) {
+    if (!inPoly(x, y, picks[k].poly)) continue;
+    const id = picks[k].id;
+    if (id === "solar") { $("cap").innerHTML = "太阳翼：供电，不在 SAR 信号链上。"; return; }
+    if (id === "bus" && !cam.xray) { cam.xray = true; $("bXray").classList.add("on"); }
+    const sid = PICK_STAGE[id];
+    if (sid) select(STAGES.findIndex(s => s.id === sid));
+    return;
+  }
+}
+
+buildTimeline(); buildParams(); showUnit(true);
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "layout": "p1_ooc_win (xc7vx690tffg1761-2, Vivado 2018.3 OOC)",
+  "records": [],
+  "summary": {
+    "n_faults": 0,
+    "n_stages": 0,
+    "stages": [],
+    "roles": [],
+    "cross_stage": false,
+    "same_codeword_multi_symbol": [],
+    "n_proxy_confidence": 0,
+    "source_model": "layout_name",
+    "confidence": "mixed",
+    "outcomes": [],
+    "injections": [],
+    "proxy": true,
+    "run_meta": {
+      "x0": 202.0536284054651,
+      "y0": 305.6079113147345,
+      "a0": 10.0,
+      "let": 40.0,
+      "theta_deg": 45.0,
+      "phi_deg": 0.0,
+      "seed": 1,
+      "kernel_model": "anchored",
+      "flip_model": "bernoulli",
+      "area_um2": 5.776606328795079,
+      "radius_um": 1.3560054952128058,
+      "n_candidates": 0,
+      "n_flipped": 0,
+      "preview_class": "NO_EFFECT",
+      "stages_hit": []
+    }
+  }
+}

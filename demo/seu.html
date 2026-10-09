@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>var __d=document.createElement("div");__d.id="static-demo-base";__d.setAttribute("data-api","api");document.documentElement.appendChild(__d);
+(function(){
+  var real = window.fetch;
+  var base = document.getElementById('static-demo-base').getAttribute('data-api');
+  var strikes = null;
+  var strikeIdx = 0;
+  window.fetch = function(url, opts){
+    var u = (typeof url === 'string') ? url : url.url;
+    var path = u.split('?')[0];
+    var map = {'/api/layout':'layout.json','/api/effects':'effects.json'};
+    if (map[path]) return real(base + '/' + map[path], opts);
+    if (path === '/api/strike' && opts && (opts.method||'GET').toUpperCase()==='POST'){
+      var files = window.__STRIKE_FILES__ || [];
+      if (!files.length) return Promise.reject(new Error('no strikes'));
+      var f = files[strikeIdx++ % files.length];
+      return real(base + '/strikes/' + f, opts);
+    }
+    if (path === '/oseu/api/run') return real(base + '/orbit_run.json', opts);
+    if (path === '/api/run') return real(base + '/orbit_run.json', opts);
+    return real(url, opts);
+  };
+})();
+</script>
+
+<meta charset="utf-8">
+<title>LayoutECC · 器件内部 v1.2.0</title>
+<style>
+  :root { --panel:rgba(12,21,36,.86); --line:#1b3350; --txt:#d9e6f5; --dim:#7f93ab; --acc:#00e5ff;
+          --ok:#7ee787; --bad:#ff7b72; --warn:#ffb454; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { min-height:100%; color:var(--txt); font:13px/1.5 "Segoe UI","Microsoft YaHei",sans-serif; }
+  body { background:radial-gradient(1100px 600px at 78% -10%, rgba(0,90,160,.18), transparent 60%), linear-gradient(180deg,#081120,#04070d 45%); }
+  header { display:flex; align-items:center; gap:10px; padding:9px 16px; border-bottom:1px solid var(--line); }
+  .logo { width:24px; height:24px; border-radius:7px; border:1px solid #17466b; position:relative;
+    background:radial-gradient(circle at 34% 30%, #0e2a44, #071526 70%); }
+  .logo::after { content:""; position:absolute; inset:5px; border-radius:50%; border:2px solid var(--acc); border-right-color:transparent; transform:rotate(35deg); }
+  header h1 { font-size:16px; letter-spacing:.12em; }
+  header nav { margin-left:auto; display:flex; gap:10px; font-size:13px; }
+  header nav a { color:var(--acc); text-decoration:none; }
+  header nav a.on { color:#fff; border-bottom:1px solid var(--acc); }
+  .ver { color:#4f6a88; font-size:11px; }
+  main { max-width:1120px; margin:0 auto; padding:14px 18px 40px; }
+  .tabs { display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
+  .tabs button { border:1px solid var(--line); background:var(--panel); color:var(--txt); padding:6px 16px; border-radius:999px; cursor:pointer; font:inherit; }
+  .tabs button.on { background:var(--acc); color:#04101c; border-color:var(--acc); font-weight:700; }
+  .page { display:none; }
+  .page.on { display:block; }
+  .row { display:grid; grid-template-columns:1.2fr 1fr; gap:12px; align-items:start; }
+  @media (max-width:900px) { .row { grid-template-columns:1fr; } }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:12px 14px; }
+  svg { width:100%; height:auto; display:block; background:#070c14; border-radius:9px; }
+  .btns { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+  .btns button { padding:6px 12px; border:1px solid #1d3a5c; border-radius:8px; background:rgba(18,36,60,.85); color:var(--txt); cursor:pointer; font:inherit; }
+  .btns button:hover { border-color:var(--acc); }
+  .btns button.acc { background:linear-gradient(135deg,#00c3e8,#2f7bff); color:#03101d; font-weight:700; border:0; }
+  .res { margin-top:10px; padding:8px 10px; border-radius:9px; background:#070c14; border:1px solid var(--line); min-height:38px; font-size:13px; }
+  .res .ok { color:var(--ok); } .res .bad { color:var(--bad); }
+  .facts { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+  .facts span { font-size:12px; padding:3px 10px; border-radius:999px; border:1px solid #1f4260; color:#b9c9da; background:rgba(10,30,50,.6); }
+  .sl { display:grid; grid-template-columns:64px 1fr 86px; align-items:center; gap:8px; margin-top:10px; color:var(--dim); }
+  .sl b { color:#fff; text-align:right; }
+  input[type=range] { width:100%; accent-color:#00b7e0; }
+  table.tt { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:10px; }
+  table.tt th, table.tt td { border-bottom:1px solid #12263c; padding:4px 6px; text-align:center; }
+  table.tt th { color:var(--dim); font-weight:500; }
+  table.tt tr.hit td { background:rgba(255,123,114,.12); }
+  .src { color:#5f7a98; font-size:11px; margin-top:8px; }
+</style>
+</head>
+<body><div style="padding:8px 16px;font:12px 'Segoe UI',sans-serif;background:#132032;color:#8fb3d9;border-bottom:1px solid #1b3350">Static snapshot of a live run &middot; interactive strike/orbit controls replay precomputed responses &middot; full simulator: <code style="color:#00e5ff">pip install . &amp;&amp; seu-platform</code> from <a style="color:#00e5ff" href="https://github.com/juwadeLone/seu_platform">juwadeLone/seu_platform</a></div>
+<header>
+  <div class="logo"></div>
+  <h1>器件内部</h1>
+  <nav><a href="index.html">打击</a><a href="orbit.html">轨道</a><a href="sar.html">SAR</a><a href="effects.html">效应</a><a href="seu.html" class="on">器件内部</a></nav>
+  <span class="ver">v1.2.0</span>
+</header>
+<main>
+  <div class="tabs">
+    <button class="on" data-p="phys">翻转原理</button>
+    <button data-p="lut">LUT</button>
+    <button data-p="ff">FF</button>
+    <button data-p="bram">BRAM</button>
+    <button data-p="size">截面有多大</button>
+  </div>
+
+  <section id="phys" class="page on">
+    <div class="row">
+      <div class="card"><svg id="cellSvg" viewBox="0 0 480 250"></svg></div>
+      <div class="card">
+        <svg id="waveSvg" viewBox="0 0 480 250"></svg>
+        <div class="sl"><span>收集电荷</span><input id="qS" type="range" min="20" max="200" value="140"><b id="qV"></b></div>
+        <div class="btns"><button class="acc" id="shoot">⚡ 打一下</button><button id="cellReset">复位</button></div>
+        <div class="res" id="physRes">拖动电荷，再点「打一下」。</div>
+      </div>
+    </div>
+    <div class="facts"><span>LUT / FF / BRAM 的每一位都是这对反相器</span><span>收集电荷 &gt; Qcrit 才翻</span><span>28 nm 的 Qcrit 很小，低 LET 也能翻</span></div>
+    <div class="facts"><span>LUT → 打击页 CFG</span><span>FF → FF_STATE</span><span>BRAM → BRAM_STATE</span><span>DSP → 没有实测截面</span></div>
+  </section>
+
+  <section id="lut" class="page">
+    <div class="row">
+      <div class="card">
+        <svg id="lutSvg" viewBox="0 0 560 250"></svg>
+        <div class="btns"><button class="acc" id="lutHit">⚡ 打中选中的格</button><button id="lutReset">恢复配置</button></div>
+      </div>
+      <div class="card">
+        <div class="res" id="lutOut"></div>
+        <table class="tt" id="lutTable"></table>
+      </div>
+    </div>
+    <div class="facts"><span>真值表存在配置 SRAM 里</span><span>翻了一直错，直到刷新或重配</span><span>只在输入选中那一格时出错</span></div>
+  </section>
+
+  <section id="ff" class="page">
+    <div class="row">
+      <div class="card">
+        <svg id="ffSvg" viewBox="0 0 560 210"></svg>
+        <div class="btns">
+          <button class="acc" id="ffHit">⚡ 打中 Q</button>
+          <button id="ffClk">时钟沿</button>
+          <button id="ffCe">CE：开</button>
+          <button id="ffReset">复位</button>
+        </div>
+      </div>
+      <div class="card"><div class="res" id="ffOut"></div></div>
+    </div>
+    <div class="facts"><span>CE = 1：下一拍被 D 覆盖，自愈</span><span>CE = 0：一直错</span><span>SET 毛刺被时钟采到也像翻转</span></div>
+  </section>
+
+  <section id="bram" class="page">
+    <div class="row">
+      <div class="card">
+        <svg id="bramSvg" viewBox="0 0 560 250"></svg>
+        <div class="btns">
+          <button class="acc" id="bramHit">⚡ 打中选中的格</button>
+          <button id="bramRead">读这个字</button>
+          <button id="bramWrite">写回</button>
+          <button id="bramReset">清零</button>
+        </div>
+      </div>
+      <div class="card"><div class="res" id="bramOut"></div></div>
+    </div>
+    <div class="facts"><span>不用正在读也会翻</span><span>读到那个字才看得见</span><span>时钟不会修好；写回或 ECC 纠正</span></div>
+  </section>
+
+  <section id="size" class="page">
+    <div class="row">
+      <div class="card"><svg id="sizeCell" viewBox="0 0 520 290"></svg></div>
+      <div class="card">
+        <div class="res" style="margin-top:0">σ 按每个 bit 计：一颗离子连带翻 k 个 bit 就记 k 次，所以饱和截面比一个存储单元大得多。</div>
+        <div class="src">σsat：Lee 2014 表 1（A 为 cm²/bit）· 6T 单元 0.127 µm²（TSMC 28 nm 高密度 SRAM 公开值，作尺子用）</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <div class="sl" style="margin-top:0"><span>缩放</span><input id="sizeZoom" type="range" min="0" max="1000" value="180"><b id="sizeWin"></b></div>
+      <svg id="sizeZoomSvg" viewBox="0 0 640 330" style="margin-top:8px"></svg>
+    </div>
+  </section>
+</main>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+function svgAdder(s) {
+  s.innerHTML = "";
+  return (tag, attrs, text) => {
+    const e = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+    if (text != null) e.textContent = text;
+    s.appendChild(e); return e;
+  };
+}
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
+  document.querySelectorAll(".page").forEach(p => p.classList.toggle("on", p.id === b.dataset.p));
+});
+
+/* ================= 翻转原理：交叉耦合反相器 + 节点电压波形（示意） ================= */
+const cell = { q: 1, anim: null };
+const T1 = 0.12, T2 = 0.02, T0 = 0.1;          // 收集电流双指数（归一化时间，约 1 ns 量级）
+const PEAK = (() => { let m = 0; for (let t = 0; t < 1; t += 0.001) m = Math.max(m, Math.exp(-t / T1) - Math.exp(-t / T2)); return m; })();
+const qRatio = () => +$("qS").value / 100;
+function waveAt(t, q, flip) {                   // 返回 [被打节点电压, 另一节点电压]
+  const tau = t - T0;
+  const dip = tau > 0 ? 0.5 * q * (Math.exp(-tau / T1) - Math.exp(-tau / T2)) / PEAK : 0;
+  if (!flip) return [1 - dip, 0.25 * dip];
+  // 越过阈值后再生环接管
+  let tc = null;
+  for (let s = T0; s < 1; s += 0.002) {
+    const d = 0.5 * q * (Math.exp(-(s - T0) / T1) - Math.exp(-(s - T0) / T2)) / PEAK;
+    if (1 - d <= 0.5) { tc = s; break; }
+  }
+  if (tc === null || t < tc) return [1 - dip, 0.25 * dip];
+  const k = Math.exp(-(t - tc) / 0.05);
+  return [0.5 * k, 1 - 0.875 * k];
+}
+function drawCell(hitProgress) {
+  const add = svgAdder($("cellSvg"));
+  const hi = cell.q === 1 ? "Q" : "Qb";
+  const nodeCol = v => v ? "#7ee787" : "#4f6a88";
+  const inv = (x, y, dir, lbl) => {
+    const p = dir > 0 ? `${x},${y - 22} ${x},${y + 22} ${x + 44},${y}` : `${x + 44},${y - 22} ${x + 44},${y + 22} ${x},${y}`;
+    add("polygon", { points: p, fill: "#0e1a2a", stroke: "#4da3ff", "stroke-width": 1.6 });
+    add("circle", { cx: dir > 0 ? x + 49 : x - 5, cy: y, r: 5, fill: "#070c14", stroke: "#4da3ff", "stroke-width": 1.6 });
+    add("text", { x: x + 22, y: y + 4, fill: "#9fb3c8", "font-size": 10, "text-anchor": "middle" }, lbl);
+  };
+  inv(200, 80, 1, "INV1"); inv(200, 180, -1, "INV2");
+  const q = cell.q, qb = 1 - q;
+  add("path", { d: "M110,130 V80 H200", fill: "none", stroke: nodeCol(q), "stroke-width": 2.4 });
+  add("path", { d: "M253,80 H370 V130", fill: "none", stroke: nodeCol(qb), "stroke-width": 2.4 });
+  add("path", { d: "M370,130 V180 H244", fill: "none", stroke: nodeCol(qb), "stroke-width": 2.4 });
+  add("path", { d: "M195,180 H110 V130", fill: "none", stroke: nodeCol(q), "stroke-width": 2.4 });
+  for (const [x, v, n] of [[110, q, "Q"], [370, qb, "Qb"]]) {
+    add("circle", { cx: x, cy: 130, r: 20, fill: v ? "rgba(126,231,135,.15)" : "#0b1624", stroke: nodeCol(v), "stroke-width": 2 });
+    add("text", { x, y: 136, fill: v ? "#c9f5cc" : "#8ea3b8", "font-size": 16, "font-weight": 700, "text-anchor": "middle" }, String(v));
+    add("text", { x: x + (x < 200 ? -34 : 34), y: 136, fill: "#9fb3c8", "font-size": 13, "text-anchor": "middle" }, n);
+  }
+  // 离子打在「为 1 的节点」旁的关态漏极上
+  const hx = hi === "Q" ? 110 : 370;
+  add("rect", { x: hx - 14, y: 160, width: 28, height: 14, rx: 3, fill: "#1a2a3c", stroke: "#5f7a98" });
+  add("text", { x: hx, y: 192, fill: "#7f93ab", "font-size": 10, "text-anchor": "middle" }, "关态漏极");
+  if (hitProgress !== null && hitProgress < 1) {
+    const p = Math.min(1, hitProgress * 2.2);
+    add("line", { x1: hx - 70, y1: 0, x2: hx - 70 + 70 * p, y2: 167 * p, stroke: "#ffd27a", "stroke-width": 2.5 });
+    if (hitProgress > 0.45) for (let i = 0; i < 18; i++) {
+      const a = i * 2.39, r = 4 + 16 * Math.min(1, (hitProgress - 0.45) * 3) * ((i * 0.37) % 1 + 0.3);
+      add("circle", { cx: hx + Math.cos(a) * r, cy: 167 + Math.sin(a) * r * 0.6, r: 2, fill: i % 2 ? "#5cc8ff" : "#ff7b72" });
+    }
+  }
+  add("text", { x: 14, y: 236, fill: "#5f7a98", "font-size": 10.5 }, "两个反相器首尾相接，只能稳在 01 或 10");
+}
+function drawWave(prog, q, flip) {
+  const add = svgAdder($("waveSvg"));
+  const X = t => 44 + t * 420, Y = v => 210 - v * 170;
+  add("line", { x1: 44, y1: 210, x2: 464, y2: 210, stroke: "#2b4a6c" });
+  add("line", { x1: 44, y1: 30, x2: 44, y2: 210, stroke: "#2b4a6c" });
+  add("text", { x: 12, y: 44, fill: "#7f93ab", "font-size": 10 }, "V");
+  add("text", { x: 454, y: 228, fill: "#7f93ab", "font-size": 10 }, "t");
+  add("line", { x1: 44, y1: Y(0.5), x2: 464, y2: Y(0.5), stroke: "#ffb454", "stroke-dasharray": "5 4", "stroke-width": 1 });
+  add("text", { x: 50, y: Y(0.5) - 5, fill: "#ffb454", "font-size": 10 }, "翻转阈值");
+  if (prog === null) {
+    add("text", { x: 254, y: 120, fill: "#4f6a88", "font-size": 12, "text-anchor": "middle" }, "被打节点的电压会画在这里");
+    return;
+  }
+  let a = "", b = "";
+  const N = Math.max(2, Math.floor(200 * prog));
+  for (let i = 0; i <= N; i++) {
+    const t = i / 200, [va, vb] = waveAt(t, q, flip);
+    a += `${i ? "L" : "M"}${X(t).toFixed(1)},${Y(va).toFixed(1)}`;
+    b += `${i ? "L" : "M"}${X(t).toFixed(1)},${Y(vb).toFixed(1)}`;
+  }
+  add("path", { d: a, fill: "none", stroke: "#7ee787", "stroke-width": 2.2 });
+  add("path", { d: b, fill: "none", stroke: "#ff9e64", "stroke-width": 2 });
+  add("text", { x: 60, y: 24, fill: "#7ee787", "font-size": 11 }, "━ 被打节点（原为 1）");
+  add("text", { x: 220, y: 24, fill: "#ff9e64", "font-size": 11 }, "━ 另一节点（原为 0）");
+}
+function showQ() { const q = qRatio(); $("qV").textContent = `${q.toFixed(1)} × Qcrit`; }
+$("qS").oninput = showQ; showQ();
+$("shoot").onclick = () => {
+  if (cell.anim) return;
+  const q = qRatio(), flip = q >= 1, t0 = performance.now();
+  const step = () => {
+    const p = Math.min(1, (performance.now() - t0) / 1400);
+    drawCell(p); drawWave(p, q, flip);
+    if (p < 1) { cell.anim = requestAnimationFrame(step); return; }
+    cell.anim = null;
+    if (flip) cell.q ^= 1;
+    drawCell(null);
+    $("physRes").innerHTML = flip
+      ? `<span class="bad">${q.toFixed(1)} × Qcrit：越过阈值，再生环锁到另一边——这一位翻了。</span>`
+      : `<span class="ok">${q.toFixed(1)} × Qcrit：电压被拉低又回来了，没翻。</span>`;
+  };
+  step();
+};
+$("cellReset").onclick = () => { cell.q = 1; drawCell(null); drawWave(null); $("physRes").textContent = "拖动电荷，再点「打一下」。"; };
+
+/* ================= LUT3（真实芯片是 LUT6，64 格） ================= */
+const lutGold = i => (i === 7 ? 1 : 0);     // 设计：O = A·B·C
+let lutBits = Array.from({ length: 8 }, (_, i) => lutGold(i)), lutSel = 5;
+function drawLut() {
+  const add = svgAdder($("lutSvg"));
+  add("text", { x: 16, y: 20, fill: "#7f93ab", "font-size": 11 }, "配置 SRAM（8 格）");
+  for (let i = 0; i < 8; i++) {
+    const x = 16 + (i % 4) * 68, y = 32 + Math.floor(i / 4) * 92, on = lutBits[i] === 1, bad = lutBits[i] !== lutGold(i);
+    const c = add("rect", { x, y, width: 58, height: 80, rx: 8, fill: bad ? "rgba(255,123,114,.18)" : on ? "rgba(126,231,135,.12)" : "#0e1a2a",
+      stroke: i === lutSel ? "#00e5ff" : bad ? "#ff7b72" : "#2b4a6c", "stroke-width": i === lutSel ? 2.4 : 1.2 });
+    c.style.cursor = "pointer"; c.onclick = () => { lutSel = i; drawLut(); renderLut(); };
+    add("text", { x: x + 29, y: y + 24, fill: "#7f93ab", "font-size": 11, "text-anchor": "middle" }, `${(i >> 2) & 1}${(i >> 1) & 1}${i & 1}`);
+    add("text", { x: x + 29, y: y + 56, fill: bad ? "#ff9d94" : on ? "#7ee787" : "#8ea3b8", "font-size": 22, "font-weight": 700, "text-anchor": "middle" }, String(lutBits[i]));
+  }
+  add("path", { d: `M290,${46 + 92 * Math.floor(lutSel / 4) + 30} L360,125`, stroke: "#00e5ff", "stroke-width": 1.4, fill: "none", "stroke-dasharray": "4 3" });
+  add("polygon", { points: "360,60 420,85 420,165 360,190", fill: "#0e1a2a", stroke: "#4da3ff", "stroke-width": 1.6 });
+  add("text", { x: 390, y: 130, fill: "#9fb3c8", "font-size": 12, "text-anchor": "middle" }, "MUX");
+  add("text", { x: 390, y: 215, fill: "#7f93ab", "font-size": 11, "text-anchor": "middle" }, "输入 ABC 选格");
+  add("line", { x1: 420, y1: 125, x2: 470, y2: 125, stroke: "#4da3ff", "stroke-width": 2 });
+  const o = lutBits[lutSel], bad = o !== lutGold(lutSel);
+  add("text", { x: 510, y: 132, fill: bad ? "#ff7b72" : "#00e5ff", "font-size": 22, "font-weight": 700, "text-anchor": "middle" }, `O=${o}`);
+}
+function renderLut() {
+  let html = "<tr><th>ABC</th><th>应为</th><th>现在</th></tr>", nerr = 0;
+  for (let i = 0; i < 8; i++) {
+    const g = lutGold(i), v = lutBits[i]; if (v !== g) nerr++;
+    html += `<tr class="${v !== g ? "hit" : ""}"><td>${(i >> 2) & 1}${(i >> 1) & 1}${i & 1}</td><td>${g}</td><td>${v}</td></tr>`;
+  }
+  $("lutTable").innerHTML = html;
+  const abc = `${(lutSel >> 2) & 1}${(lutSel >> 1) & 1}${lutSel & 1}`;
+  $("lutOut").innerHTML = nerr === 0
+    ? `<span class="ok">真值表完好（设计 O = A·B·C）。选中格 ${abc}，点「打中」。</span>`
+    : `<span class="bad">${nerr} 格被翻：输入落在这些格时输出错，其它输入仍对。</span>`;
+}
+$("lutHit").onclick = () => { lutBits[lutSel] ^= 1; drawLut(); renderLut(); };
+$("lutReset").onclick = () => { lutBits = lutBits.map((_, i) => lutGold(i)); drawLut(); renderLut(); };
+
+/* ================= FF：主从锁存（FDRE） ================= */
+const ff = { q: 0, ce: 1, msg: "" };
+function drawFf() {
+  const add = svgAdder($("ffSvg"));
+  add("rect", { x: 40, y: 50, width: 140, height: 100, rx: 10, fill: "#0e1a2a", stroke: "#2b4a6c" });
+  add("text", { x: 110, y: 80, fill: "#7f93ab", "font-size": 12, "text-anchor": "middle" }, "主锁存");
+  add("text", { x: 110, y: 115, fill: "#d9e6f5", "font-size": 15, "text-anchor": "middle" }, "D = 0");
+  add("line", { x1: 180, y1: 100, x2: 250, y2: 100, stroke: "#4da3ff", "stroke-width": 2 });
+  add("rect", { x: 250, y: 50, width: 160, height: 100, rx: 10, fill: ff.q ? "rgba(255,123,114,.15)" : "rgba(126,231,135,.1)", stroke: ff.q ? "#ff7b72" : "#7ee787", "stroke-width": 2.2 });
+  add("text", { x: 330, y: 80, fill: "#7f93ab", "font-size": 12, "text-anchor": "middle" }, "从锁存");
+  add("text", { x: 330, y: 125, fill: ff.q ? "#ff7b72" : "#7ee787", "font-size": 28, "font-weight": 700, "text-anchor": "middle" }, "Q=" + ff.q);
+  add("text", { x: 440, y: 90, fill: ff.ce ? "#7ee787" : "#ffb454", "font-size": 14 }, "CE = " + ff.ce);
+  add("path", { d: "M440,120 h12 v-12 h12 v12 h12 v-12 h12 v12", fill: "none", stroke: "#9fb3c8", "stroke-width": 1.4 });
+  add("text", { x: 440, y: 150, fill: "#7f93ab", "font-size": 11 }, "CLK");
+}
+function renderFf() {
+  $("ffOut").innerHTML = (ff.msg ? ff.msg + "<br>" : "") + (ff.q === 0
+    ? `<span class="ok">Q 与设计一致。</span>`
+    : ff.ce ? `<span class="bad">Q 错了。</span>下一个时钟沿会把 D 写回来。`
+            : `<span class="bad">Q 错了，CE 关着：时钟沿不采样，会一直错。</span>`);
+}
+$("ffHit").onclick = () => { ff.q ^= 1; ff.msg = "从锁存节点被推过阈值，Q 立刻翻转。"; drawFf(); renderFf(); };
+$("ffClk").onclick = () => { ff.msg = ff.ce ? "时钟沿：重新采样 D。" : "时钟沿：CE = 0，没采样。"; if (ff.ce) ff.q = 0; drawFf(); renderFf(); };
+$("ffCe").onclick = () => { ff.ce ^= 1; $("ffCe").textContent = "CE：" + (ff.ce ? "开" : "关"); ff.msg = ""; drawFf(); renderFf(); };
+$("ffReset").onclick = () => { ff.q = 0; ff.ce = 1; ff.msg = ""; $("ffCe").textContent = "CE：开"; drawFf(); renderFf(); };
+
+/* ================= BRAM：4 字 × 8 bit 示意阵列 ================= */
+const BR = { rows: 4, cols: 8, sel: [1, 3], data: null, shown: null };
+const bramFresh = () => { BR.data = Array.from({ length: BR.rows }, () => Array(BR.cols).fill(0)); BR.shown = null; };
+bramFresh();
+function drawBram() {
+  const add = svgAdder($("bramSvg"));
+  const x0 = 60, y0 = 34, w = 58, h = 46;
+  for (let c = 0; c < BR.cols; c++) add("text", { x: x0 + c * w + 26, y: 24, fill: "#5f7a98", "font-size": 10, "text-anchor": "middle" }, "BL" + c);
+  for (let r = 0; r < BR.rows; r++) {
+    add("text", { x: 14, y: y0 + r * h + 26, fill: r === BR.sel[0] ? "#00e5ff" : "#5f7a98", "font-size": 11 }, "字" + r);
+    for (let c = 0; c < BR.cols; c++) {
+      const on = BR.data[r][c] === 1, sel = BR.sel[0] === r && BR.sel[1] === c;
+      const e = add("rect", { x: x0 + c * w, y: y0 + r * h, width: w - 8, height: h - 8, rx: 6,
+        fill: on ? "rgba(255,123,114,.18)" : "#0e1a2a", stroke: sel ? "#00e5ff" : on ? "#ff7b72" : "#2b4a6c", "stroke-width": sel ? 2.4 : 1.1 });
+      e.style.cursor = "pointer";
+      e.onclick = () => { BR.sel = [r, c]; drawBram(); renderBram(); };
+      add("text", { x: x0 + c * w + (w - 8) / 2, y: y0 + r * h + 25, fill: on ? "#ff9d94" : "#7ee787", "font-size": 15, "font-weight": 700, "text-anchor": "middle" }, String(BR.data[r][c]));
+    }
+  }
+  if (BR.shown !== null) add("text", { x: 60, y: 236, fill: BR.shown.includes("1") ? "#ff7b72" : "#7ee787", "font-size": 13 }, `读出 字${BR.sel[0]} = ${BR.shown}`);
+}
+function renderBram() {
+  const r = BR.sel[0], word = BR.data[r].join(""), bad = BR.data.flat().filter(x => x).length;
+  $("bramOut").innerHTML = bad === 0
+    ? `<span class="ok">阵列全对（设计值全 0）。</span>选中 字${r} 第 ${BR.sel[1]} 位。`
+    : BR.shown === null
+      ? `<span class="bad">阵列里已有 ${bad} 位错。</span>还没读到，外面看不出来。`
+      : word.includes("1") ? `<span class="bad">读出 字${r} = ${word}，拿到了错数据。</span>` : `<span class="ok">读出 字${r} = ${word}，这个字没错（错在别的字）。</span>`;
+}
+$("bramHit").onclick = () => { const [r, c] = BR.sel; BR.data[r][c] ^= 1; BR.shown = null; drawBram(); renderBram(); };
+$("bramRead").onclick = () => { BR.shown = BR.data[BR.sel[0]].join(""); drawBram(); renderBram(); };
+$("bramWrite").onclick = () => { BR.data[BR.sel[0]] = Array(BR.cols).fill(0); BR.shown = null; drawBram(); renderBram(); };
+$("bramReset").onclick = () => { bramFresh(); drawBram(); renderBram(); };
+
+/* ================= 截面有多大 ================= */
+const SIG = { CRAM: { cm2: 3.34e-08, color: "#7ee787" }, BRAM: { cm2: 3.82e-08, color: "#4da3ff" }, FF: { cm2: 1.47e-07, color: "#ffb454" } };
+const CELL_UM2 = 0.127, CELL_UM = Math.sqrt(CELL_UM2);
+const DIE_W = 9870, DIE_H = 16920, RPM_UM = 22.79;
+const satUm2 = cm2 => cm2 * 1e8, satUm = cm2 => Math.sqrt(satUm2(cm2));
+function fmtLen(um) {
+  if (um < 1) return (um * 1000).toFixed(0) + " nm";
+  if (um < 1000) return um.toFixed(um < 10 ? 2 : 1) + " µm";
+  return (um / 1000).toFixed(um < 10000 ? 2 : 1) + " mm";
+}
+function drawSizeCell() {
+  const add = svgAdder($("sizeCell"));
+  const box = 230, x0 = 20, y0 = 26, keys = ["CRAM", "BRAM", "FF"];
+  const maxSide = Math.max(CELL_UM, ...keys.map(k => satUm(SIG[k].cm2))), sc = box / maxSide;
+  add("rect", { x: x0, y: y0, width: box, height: box, fill: "#0b1016", stroke: "#2b4a6c" });
+  ["FF", "BRAM", "CRAM"].forEach(k => {
+    const side = satUm(SIG[k].cm2) * sc;
+    add("rect", { x: x0, y: y0 + box - side, width: side, height: side, fill: SIG[k].color, opacity: 0.85 });
+  });
+  const cs = CELL_UM * sc;
+  add("rect", { x: x0 + 4, y: y0 + box - cs - 4, width: cs, height: cs, fill: "none", stroke: "#fff", "stroke-width": 1.3 });
+  add("text", { x: x0 + box / 2, y: y0 + box + 18, fill: "#7f93ab", "font-size": 11, "text-anchor": "middle" }, `边长 ${fmtLen(maxSide)}，白框 = 一个 6T 单元`);
+  keys.forEach((k, i) => {
+    const y = 60 + i * 60;
+    add("rect", { x: 290, y, width: 16, height: 16, rx: 3, fill: SIG[k].color });
+    add("text", { x: 314, y: y + 13, fill: "#d9e6f5", "font-size": 14, "font-weight": 600 }, k);
+    add("text", { x: 314, y: y + 32, fill: "#9fb3c8", "font-size": 12 }, `${satUm2(SIG[k].cm2).toPrecision(3)} µm² · 单元的 ${(satUm2(SIG[k].cm2) / CELL_UM2).toFixed(0)} 倍`);
+  });
+}
+function drawSizeZoom() {
+  const add = svgAdder($("sizeZoomSvg"));
+  const t = +$("sizeZoom").value / 1000, view = Math.exp(Math.log(0.04) + t * (Math.log(20000) - Math.log(0.04)));
+  $("sizeWin").textContent = fmtLen(view);
+  const W = 600, H = 300, ox = 20, oy = 14, px = um => um / view * W, cx = ox + W / 2, cy = oy + H / 2;
+  add("rect", { x: ox, y: oy, width: W, height: H, fill: "#0b1016", stroke: "#2b4a6c" });
+  const dw = px(DIE_W), dh = px(DIE_H);
+  if (dw > 2) { add("rect", { x: cx - dw / 2, y: cy - dh / 2, width: dw, height: dh, fill: "#1a2430", stroke: "#ff7b72", "stroke-width": 1.2 });
+    if (dw > 80) add("text", { x: cx, y: Math.max(oy + 14, cy - dh / 2 - 6), fill: "#ff7b72", "font-size": 11, "text-anchor": "middle" }, "XC7K325T 管芯"); }
+  const rp = px(RPM_UM);
+  if (rp > 1.5) { add("rect", { x: cx - rp / 2, y: cy - rp / 2, width: rp, height: rp, fill: "#2a1a12", stroke: "#ffb454" });
+    if (rp > 28) add("text", { x: cx, y: cy - rp / 2 - 6, fill: "#ffb454", "font-size": 11, "text-anchor": "middle" }, "打击页的 1 格（22.8 µm）"); }
+  const cl = px(CELL_UM);
+  if (cl > 1.2) { add("rect", { x: cx - cl / 2, y: cy - cl / 2, width: cl, height: cl, fill: "#152018", stroke: "#8b98a5" });
+    if (cl > 36) add("text", { x: cx, y: cy - cl / 2 - 6, fill: "#8b98a5", "font-size": 11, "text-anchor": "middle" }, "6T 单元"); }
+  let xoff = -px(satUm(SIG.FF.cm2)) * 1.6;
+  ["CRAM", "BRAM", "FF"].forEach(k => {
+    const side = px(satUm(SIG[k].cm2)); if (side < 0.7) return;
+    add("rect", { x: cx + xoff, y: cy - side / 2, width: Math.max(side, 1.2), height: Math.max(side, 1.2), fill: SIG[k].color, opacity: 0.95 });
+    if (side > 14) add("text", { x: cx + xoff + side / 2, y: cy + side / 2 + 12, fill: SIG[k].color, "font-size": 10, "text-anchor": "middle" }, k);
+    xoff += side + Math.max(4, side * 0.15);
+  });
+}
+$("sizeZoom").oninput = drawSizeZoom;
+
+drawCell(null); drawWave(null);
+drawLut(); renderLut();
+drawFf(); renderFf();
+drawBram(); renderBram();
+drawSizeCell(); drawSizeZoom();
+</script>
+</body>
+</html>

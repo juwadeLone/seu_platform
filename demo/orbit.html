@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>var __d=document.createElement("div");__d.id="static-demo-base";__d.setAttribute("data-api","api");document.documentElement.appendChild(__d);
+(function(){
+  var real = window.fetch;
+  var base = document.getElementById('static-demo-base').getAttribute('data-api');
+  var strikes = null;
+  var strikeIdx = 0;
+  window.fetch = function(url, opts){
+    var u = (typeof url === 'string') ? url : url.url;
+    var path = u.split('?')[0];
+    var map = {'/api/layout':'layout.json','/api/effects':'effects.json'};
+    if (map[path]) return real(base + '/' + map[path], opts);
+    if (path === '/api/strike' && opts && (opts.method||'GET').toUpperCase()==='POST'){
+      var files = window.__STRIKE_FILES__ || [];
+      if (!files.length) return Promise.reject(new Error('no strikes'));
+      var f = files[strikeIdx++ % files.length];
+      return real(base + '/strikes/' + f, opts);
+    }
+    if (path === '/oseu/api/run') return real(base + '/orbit_run.json', opts);
+    if (path === '/api/run') return real(base + '/orbit_run.json', opts);
+    return real(url, opts);
+  };
+})();
+</script>
+
+<meta charset="utf-8">
+<title>orbit_seu — 芯片在轨 SEU 估算</title>
+<style>
+  :root { --bg:#0f1419; --panel:#1a2129; --line:#2a3441; --txt:#d8e1ea;
+          --dim:#8b98a5; --acc:#4da3ff; --warn:#ffb454; --ok:#7ee787; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--txt);
+         font:14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif; }
+  header { padding:14px 22px; border-bottom:1px solid var(--line);
+           display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+  header h1 { font-size:19px; font-weight:600; }
+  .badge { font-size:12px; padding:2px 8px; border-radius:10px;
+           background:#3a2b12; color:var(--warn); border:1px solid #6b4e17; }
+  main { display:flex; gap:18px; padding:18px 22px; align-items:flex-start; }
+  form { width:330px; flex:none; background:var(--panel); border:1px solid var(--line);
+         border-radius:10px; padding:16px; }
+  form h2 { font-size:13px; color:var(--acc); margin:14px 0 8px;
+            text-transform:uppercase; letter-spacing:.06em; }
+  form h2:first-child { margin-top:0; }
+  label { display:flex; justify-content:space-between; align-items:center;
+          margin:6px 0; font-size:13px; color:var(--dim); }
+  label b { color:var(--txt); font-weight:500; margin-left:8px; }
+  input, select { background:#0d1117; color:var(--txt); border:1px solid var(--line);
+                  border-radius:6px; padding:4px 8px; width:150px; font:inherit; }
+  input[type=range] { width:150px; padding:0; accent-color:var(--acc); }
+  button { margin-top:16px; width:100%; padding:10px; border:0; border-radius:8px;
+           background:var(--acc); color:#08131f; font-weight:700; font-size:15px;
+           cursor:pointer; }
+  button:hover { filter:brightness(1.1); }
+  button:disabled { opacity:.5; cursor:wait; }
+  #right { flex:1; min-width:0; display:flex; flex-direction:column; gap:14px; }
+  #status { color:var(--dim); font-size:13px; min-height:18px; }
+  #status.err { color:#ff7b72; }
+  .cards { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px;
+          padding:12px 14px; }
+  .card .k { font-size:12px; color:var(--dim); }
+  .card .v { font-size:20px; font-weight:700; margin-top:4px; color:var(--ok); }
+  .card .s { font-size:11px; color:var(--dim); margin-top:2px; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px;
+           padding:14px 16px; }
+  .panel h3 { font-size:14px; margin-bottom:10px; color:var(--acc); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th,td { padding:5px 8px; border-bottom:1px solid var(--line); text-align:right; }
+  th:first-child,td:first-child { text-align:left; }
+  th { color:var(--dim); font-weight:500; }
+  tr.total td { color:var(--ok); font-weight:700; }
+  .charts { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  svg.chart { width:100%; height:230px; background:#0d1117; border-radius:8px; }
+  .legend { font-size:12px; margin-top:6px; color:var(--dim); line-height:1.6; }
+  .legend b { color:var(--txt); font-weight:600; }
+  .legend i { display:inline-block; width:18px; height:3px; border-radius:2px;
+              margin:0 4px 0 12px; vertical-align:middle; }
+  #notes { font-size:12.5px; color:var(--dim); }
+  #notes li { margin:3px 0 3px 18px; }
+  #hash { font-size:11px; color:var(--dim); word-break:break-all; }
+  .devinfo { font-size:11.5px; color:var(--dim); margin:2px 0 6px;
+             line-height:1.45; border-left:2px solid var(--line); padding-left:8px; }
+  .v3wrap { position:relative; }
+  #anim3d { width:100%; height:560px; background:#03050a;
+            border-radius:8px; display:block; touch-action:none; cursor:grab; }
+  .rcleg { position:absolute; right:10px; bottom:10px; display:flex; align-items:center; gap:6px;
+           font-size:11px; color:#9fb3c8; background:rgba(4,7,13,.7); padding:3px 8px; border-radius:6px; }
+  .rcleg i { width:110px; height:7px; border-radius:4px;
+             background:linear-gradient(90deg,#ff5f56,#ff9e64,#ffd23f,#7ee787,#5cc8ff,#788cff); }
+  .layers label { display:flex; align-items:center; justify-content:flex-start; gap:4px; margin:0;
+                  color:var(--txt); font-size:12.5px; width:auto; }
+  .layers input { width:auto; margin:0; }
+  details.legend summary { cursor:pointer; color:var(--dim); font-size:12px; margin-top:6px; }
+  details.legend div { font-size:12px; color:var(--dim); margin:3px 0; }
+  #anim3d:active { cursor:grabbing; }
+  .animbar { display:flex; justify-content:space-between; align-items:center;
+             margin-top:8px; gap:10px; flex-wrap:wrap; }
+  .animbar .ctl { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .animbar button { width:auto; margin:0; padding:4px 14px; font-size:13px;
+                    background:#26313d; color:var(--txt); font-weight:500; }
+  #satReadout { font-size:13.5px; margin-top:8px; color:var(--txt); }
+  #satReadout b { color:var(--ok); font-weight:700; }
+  .cmpbox { display:flex; gap:14px; flex-wrap:wrap; font-size:13px; margin-bottom:8px; }
+  .cmpbox label { display:flex; gap:6px; margin:0; color:var(--txt); }
+  .chip { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:6px; }
+  .mini { font-size:11.5px; color:var(--dim); }
+</style>
+</head>
+<body><div style="padding:8px 16px;font:12px 'Segoe UI',sans-serif;background:#132032;color:#8fb3d9;border-bottom:1px solid #1b3350">Static snapshot of a live run &middot; interactive strike/orbit controls replay precomputed responses &middot; full simulator: <code style="color:#00e5ff">pip install . &amp;&amp; seu-platform</code> from <a style="color:#00e5ff" href="https://github.com/juwadeLone/seu_platform">juwadeLone/seu_platform</a></div><div style="padding:6px 14px;font:12px 'Segoe UI','Microsoft YaHei';background:rgba(10,20,36,.92);border-bottom:1px solid #1b3350;color:#7f93ab"><a href="index.html" style="color:#00e5ff;text-decoration:none">打击</a>&nbsp;|&nbsp;<a href="orbit.html" style="color:#eaf6ff;text-decoration:none">轨道</a>&nbsp;|&nbsp;<a href="effects.html" style="color:#00e5ff;text-decoration:none">效应总览</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="orbit3d.html" style="color:#00e5ff;text-decoration:none">⛶ 独立 3D 视图</a></div>
+<header>
+  <h1>orbit_seu — 芯片在轨 SEU 效应估算</h1>
+  <span class="badge" id="envBadge">环境：合成演示谱（非工程数据）</span>
+</header>
+<main>
+<form id="cfg">
+  <h2>预设轨道</h2>
+  <label><b>预设</b><select id="preset">
+    <option value="sso">LEO 太阳同步 550km/97.6°</option>
+    <option value="iss">LEO 国际站 420km/51.6°</option>
+    <option value="meo">MEO 导航 21500km/55°</option>
+    <option value="geo">GEO 35786km/0.1°</option>
+    <option value="custom">自定义</option>
+  </select></label>
+
+  <h2>轨道根数</h2>
+  <label><b>高度 km</b><input id="alt" type="number" value="20200"></label>
+  <label><b>倾角 °</b><input id="inc" type="number" value="55" step="0.1"></label>
+  <label><b>偏心率</b><input id="ecc" type="number" value="0.001" step="0.001"></label>
+  <label><b>RAAN °</b><input id="raan" type="number" value="119.92"></label>
+  <label><b>近地点幅角 °</b><input id="argp" type="number" value="0"></label>
+  <label><b>初始平近点角 °</b><input id="m0" type="number" value="0"></label>
+
+  <h2>任务</h2>
+  <label><b>环境模式</b><select id="envsel">
+    <option value="demo_gcr" selected>合成演示谱（非工程）</option>
+    <option value="bo_gcr">真实 GCR 模型（需系数文件）</option>
+    <option value="ae9ap9">AE9/AP9 束缚质子（需程序包）</option>
+    <option value="combo">组合：真实 GCR + AE9/AP9</option>
+    <option value="files">SPENVIS CREME96 真实 GCR 谱（已导入）</option>
+  </select></label>
+  <label><b>调制势 φ MV</b><input id="phi" type="number" value="600" step="50"></label>
+  <label><b>时长 年</b><input id="years" type="number" value="3" step="0.5"></label>
+  <label><b>采样轨道数</b><input id="norb" type="number" value="24"></label>
+  <label><b>每轨道点数</b><input id="npt" type="number" value="96"></label>
+  <label><b>赤道截止 GV</b><input id="rcut" type="number" value="14.9" step="0.1"></label>
+
+  <h2>器件（FPGA 型号 + Weibull）</h2>
+  <label><b>芯片型号</b><select id="devsel">
+    <option value="custom">自定义</option>
+    <option value="xc7vx690t" selected>Virtex-7 xc7vx690t</option>
+    <option value="xc7k325t">Kintex-7 xc7k325t</option>
+    <option value="xc7z045">Zynq-7045 (PL)</option>
+  </select></label>
+  <div class="devinfo" id="devinfo"></div>
+  <label><b>位数 bits</b><input id="bits" type="number" value="284934976"></label>
+  <label><b>LET 阈值</b><input id="lth" type="number" value="5" step="0.5"></label>
+  <label><b>宽度 W</b><input id="w" type="number" value="20" step="1"></label>
+  <label><b>形状 s</b><input id="s" type="number" value="1.5" step="0.1"></label>
+  <label><b>σ饱和 cm²/bit</b><input id="ssat" type="number" value="1e-7" step="1e-8"></label>
+  <button id="run" type="submit">▶ 计算 SEU 效应</button>
+</form>
+
+<div id="right">
+  <div id="status">填好参数点“计算”。当前内置环境为合成演示谱——量级参考用，禁止任务评估。</div>
+  <div class="cards" id="cards" style="display:none">
+    <div class="card"><div class="k">SEU 率（每 bit / 天）</div><div class="v" id="c1"></div><div class="s" id="c1s"></div></div>
+    <div class="card"><div class="k">SEU 率（每器件 / 天）</div><div class="v" id="c2"></div><div class="s" id="c2s"></div></div>
+    <div class="card"><div class="k">任务期期望事件（器件）</div><div class="v" id="c3"></div><div class="s" id="c3s"></div></div>
+    <div class="card"><div class="k">P(≥1 次 SEU，器件）</div><div class="v" id="c4"></div><div class="s" id="c4s"></div></div>
+  </div>
+  <div class="panel" id="tblPanel" style="display:none">
+    <h3>分来源事件率</h3>
+    <table id="tbl"><thead><tr><th>来源</th><th>events/s/bit</th><th>events/day/bit</th><th>events/day/器件</th></tr></thead><tbody></tbody></table>
+  </div>
+  <div class="charts">
+    <div class="panel"><h3>透射后微分 LET 谱（轨道平均）</h3><svg class="chart" id="chartLet" viewBox="0 0 560 230"></svg><div class="legend" id="legLet"></div></div>
+    <div class="panel">
+      <h3>垂直截止刚度沿轨道</h3>
+      <svg class="chart" id="chartRc" viewBox="0 0 560 230"></svg>
+      <div class="legend" id="legRc">
+        横轴：沿轨道飞行时间 <b>t（分钟）</b>，从本圈采样起点算。<br>
+        纵轴：垂直截止刚度 <b>Rc（GV）</b>——地磁门口的刚性门槛；粒子磁刚度低于 Rc 进不来。<br>
+        计算（倾斜中心偶极 Størmer）：
+        <b>R<sub>c</sub> = R<sub>c,eq</sub> · (R<sub>E</sub>/r)<sup>2</sup> · cos<sup>4</sup>λ<sub>m</sub></b>
+        。R<sub>c,eq</sub> 取左侧表单「赤道截止 GV」（默认 14.9 GV），
+        r 为地心距，λ<sub>m</sub> 为磁纬。Rc 高＝屏蔽强（赤道、低轨）；Rc 低＝弱屏蔽（高纬、高轨道）。
+        偶极近似相对多极截止图约 ±20%。点「计算」后出曲线。
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>轨道对比（多轨道同图 + 指标对照）</h3>
+    <div class="cmpbox">
+      <label><input type="checkbox" class="cmp" value="iss"> ISS 420km</label>
+      <label><input type="checkbox" class="cmp" value="sso" checked> SSO 550km</label>
+      <label><input type="checkbox" class="cmp" value="meo"> MEO</label>
+      <label><input type="checkbox" class="cmp" value="geo"> GEO</label>
+      <label><input type="checkbox" class="cmp" value="form"> + 当前表单轨道</label>
+      <span style="flex:1"></span>
+      <button type="button" id="cmpRun" style="width:auto;margin:0;padding:5px 16px;background:#26313d;color:var(--txt)">⚖ 对比所选轨道</button>
+      <button type="button" id="cmpClr" style="width:auto;margin:0;padding:5px 16px;background:#26313d;color:var(--txt)">清除</button>
+    </div>
+    <div id="cmpTable"></div>
+  </div>
+
+  <div class="panel">
+    <h3>3D 轨道环境</h3>
+    <div class="v3wrap">
+      <canvas id="anim3d"></canvas>
+      <div class="rcleg"><span>截止刚度</span><i></i><span>0.1</span><span>1</span><span>15 GV</span></div>
+    </div>
+    <div class="animbar">
+      <div class="ctl">
+        <button id="animToggle" type="button">⏸ 暂停</button>
+        <span class="mini">速度</span>
+        <input id="speed" type="range" min="0.25" max="4" step="0.25" value="1">
+        <span id="speedV" class="mini">1×</span>
+        <button id="vpAll" type="button">全景</button>
+        <button id="vpFollow" type="button">跟随卫星</button>
+        <button id="rotToggle" type="button">自动旋转：开</button>
+        <button id="popBtn" type="button">⛶ 大窗口</button>
+      </div>
+      <div class="ctl layers">
+        <label><input type="checkbox" data-layer="belts" checked>辐射带</label>
+        <label><input type="checkbox" data-layer="gcr" checked>宇宙线</label>
+        <label><input type="checkbox" data-layer="saa" checked>SAA</label>
+        <label><input type="checkbox" data-layer="field">磁力线</label>
+        <label><input type="checkbox" data-layer="ground" checked>星下点</label>
+      </div>
+    </div>
+    <div id="satReadout">运行计算后显示卫星状态。</div>
+    <details class="legend"><summary>图例与依据</summary>
+      <div>轨道颜色 = 该处地磁截止刚度（中心偶极 Størmer，与计算用的同一公式）：红 = 屏蔽弱，宇宙线容易进来。</div>
+      <div>宇宙线：每个粒子有自己的刚度，低于当地截止刚度就被磁场挡回（示意）。</div>
+      <div>辐射带：粒子沿偏心偶极磁力线弹跳、质子西漂、电子东漂；只表示位置与运动方式，通量需 AP8/AP9、AE8/AE9。</div>
+      <div>SAA：IGRF 前两阶在 500 km 高度 |B| &lt; 23 000 nT 的区域。</div>
+      <div>卫星处红圈 = 按算出的器件平均翻转率抽样到一次 SEU（时间加速）。拖拽旋转、滚轮缩放、单击轨道定位、双击复位。地表：NASA Blue Marble。</div>
+    </details>
+  </div>
+
+  <div class="panel"><h3>方法与局限</h3><ul id="notes"></ul>
+    <div id="hash"></div></div>
+</div>
+</main>
+
+<script src="oseu-static/orbit3d.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const PRESETS = { sso:[550,97.6], iss:[420,51.6], meo:[21500,55], geo:[35786,0.1] };
+const COLORS  = { p:"#8b98a5", H:"#8b98a5", He:"#4da3ff", O:"#7ee787", Si:"#ffb454", Fe:"#ff7b72",
+                  "Z03-10":"#7ee787", "Z11-20":"#ffb454", "Z21-28":"#ff7b72", "Z29-92":"#d2a8ff" };
+const CMP_COLORS = ["#4da3ff","#ffd23f","#ff5fd2","#7ee787","#ffffff","#ff9e64"];
+
+$("preset").onchange = e => {
+  const p = PRESETS[e.target.value];
+  if (p) { $("alt").value = p[0]; $("inc").value = p[1]; }
+};
+
+/* files 模式：导入谱带着生成它的轨道的地磁屏蔽，只对那条轨道有效
+   （env_data/spenvis_let/manifest.json 的 source_orbit；后端 mission.run 也会拒绝不符的轨道）。 */
+const SPECTRA_ORBIT = { alt: 20200, inc: 55, ecc: 0.001, raan: 119.92 };
+const ORBIT_INPUTS = ["preset", "alt", "inc", "ecc", "raan"];
+function applyEnvLock() {
+  const locked = $("envsel").value === "files";
+  for (const id of ORBIT_INPUTS) if ($(id)) $(id).disabled = locked;
+  if (locked) {
+    $("preset").value = "custom";
+    $("alt").value = SPECTRA_ORBIT.alt; $("inc").value = SPECTRA_ORBIT.inc;
+    $("ecc").value = SPECTRA_ORBIT.ecc; $("raan").value = SPECTRA_ORBIT.raan;
+    $("envBadge").textContent =
+      "环境：SPENVIS CREME96 GCR（轨道锁定 20200 km / 55°，100 mil Al）";
+  } else {
+    $("envBadge").textContent = $("envsel").value === "demo_gcr"
+      ? "环境：合成演示谱（非工程数据）" : "环境：" + $("envsel").selectedOptions[0].text;
+  }
+}
+$("envsel").onchange = applyEnvLock;
+applyEnvLock();
+
+/* FPGA 型号库。xc7vx690t bits = UG470 CRAM + DS180 BRAM + UG474 FF。
+   选中 xc7vx690t 时走 Lee 2014 按域实测 σ，不用表单里的单组占位 Weibull。 */
+const LEE2014 = {
+  CRAM: { let_threshold: 0.4, width: 338.5, shape: 0.852, sigma_sat_cm2_per_bit: 3.34e-08 },
+  BRAM: { let_threshold: 0.1, width: 87.5,  shape: 0.893, sigma_sat_cm2_per_bit: 3.82e-08 },
+  FF:   { let_threshold: 1.1, width: 271.3, shape: 1.090, sigma_sat_cm2_per_bit: 1.47e-07 }
+};
+const DEVICES = {
+  custom: null,
+  xc7vx690t: { label:"Xilinx Virtex-7 XC7VX690T", proc:"28 nm CMOS",
+    logic:"UG474 Table 3: 433,200 LUTs / 866,400 CLB FFs",
+    bram:"DS180: 1,470 × 36 Kb = 52,920 Kb = 54,190,080 bits",
+    bits: 284934976,
+    domains: {
+      CRAM: Object.assign({ bits: 229878496 }, LEE2014.CRAM),
+      BRAM: Object.assign({ bits: 54190080 }, LEE2014.BRAM),
+      FF:   Object.assign({ bits: 866400 }, LEE2014.FF)
+    },
+    note:"CRAM 229,878,496 (UG470 Table 1-1 bitstream) + BRAM 54,190,080 (DS180) + FF 866,400 (UG474 Table 3)。DSP 3,600 slices 无 Lee σ，不计入。计算走按域实测 σ，不用下方单组 Weibull 框。" },
+  xc7k325t: { label:"Xilinx Kintex-7 XC7K325T", proc:"28 nm CMOS",
+    logic:"UG474 Table 2: 203,800 LUTs / 407,600 CLB FFs",
+    bram:"DS180: Total Block RAM 16,020 Kb = 16,404,480 bits",
+    bits: 108360976,
+    note:"CRAM 91,548,896 (UG470 Table 1-1) + BRAM 16,404,480 + FF 407,600。Lee 2014 DUT 监测 bits 与 bitstream 不同，对照用 Table 1 tested-device bits。" },
+  xc7z045: { label:"Xilinx Zynq-7045 (PL 侧)", proc:"28 nm CMOS",
+    logic:"Zynq-7045 位数不在本次 DS180/UG470 落盘范围内",
+    bram:"见 DS190；本次未查表，不填占位值",
+    bits: null,
+    note:"本任务目标器件是 XC7VX690T。Zynq-7045 的 CRAM/BRAM/FF 官方 bits 未写入，不要用旧的 19.6 Mbit 占位。" }
+};
+function applyDevice(key) {
+  const d = DEVICES[key];
+  if (!d) { $("devinfo").textContent = "自定义器件：自行填写位数与 Weibull 参数。"; return; }
+  if (d.bits) $("bits").value = d.bits;
+  $("devinfo").innerHTML =
+    `<b>${d.label}</b>｜${d.proc}<br>逻辑 ${d.logic}；BRAM ${d.bram}<br>` +
+    `${d.note}<br>整片次数以 <b>examples/xc7vx690t_measured_meo.json</b> 为准（Lee 2014 按域实测 σ + 官方 bits）。本表单单组 Weibull 框不是该次数的输入。`;
+}$("devsel").onchange = e => applyDevice(e.target.value);
+applyDevice("xc7vx690t");
+
+/* 3D 视图（共享引擎） */
+const viewer = OrbitViewer($("anim3d"), {
+  readout: $("satReadout"),
+  onSelect: () => { $("animToggle").textContent = "▶ 播放"; }
+});
+
+/* 任务计算 */
+function buildConfig(over) {
+  const envSel = $("envsel").value;
+  const envType = envSel === "combo" ? ["bo_gcr", "ae9ap9"] : envSel;
+  const cfg = {
+    mission: { duration_years: +$("years").value,
+               sampling: { orbits: +$("norb").value, points_per_orbit: +$("npt").value } },
+    orbit: { altitude_km: +$("alt").value, inclination_deg: +$("inc").value,
+             eccentricity: +$("ecc").value, raan_deg: +$("raan").value,
+             argp_deg: +$("argp").value, mean_anomaly0_deg: +$("m0").value },
+    magnetosphere: { cutoff_eq_gv: +$("rcut").value },
+    environment: { type: envType, rigidity_cutoff: { kappa: 1.0 },
+                   phi_mv: +$("phi").value },
+    device: { bits: +$("bits").value }
+  };
+  const preset = DEVICES[$("devsel").value];
+  if (preset && preset.domains) {
+    cfg.device.heavy_ion_weibull_by_domain = preset.domains;
+    cfg.device.bits = preset.bits;
+  } else {
+    cfg.device.heavy_ion_weibull = {
+      let_threshold: +$("lth").value, width: +$("w").value,
+      shape: +$("s").value, sigma_sat_cm2_per_bit: +$("ssat").value };
+  }
+  if (over) Object.assign(cfg.orbit, over);
+  if (envType === "files") {
+    // SPENVIS CREME96 solar-min GCR spectra (already geomagnetically
+    // shielded by SPENVIS for its orbit), imported as differential LET.
+    const letFiles = ["H","He","Z03-10","Z11-20","Z21-28","Z29-92"];   // Z=1..92, see env_data/spenvis_let/manifest.json
+    cfg.environment.let_spectra_files = {};
+    for (const sp of letFiles)
+      cfg.environment.let_spectra_files[sp] = `env_data/spenvis_let/spenvis_${sp}.let.txt`;
+    cfg.environment.let_columns = { let: 0, diff_flux: 1 };
+    delete cfg.environment.rigidity_cutoff;
+  }
+  return cfg;
+}
+async function callApi(cfg) {
+  const r = await fetch("/oseu/api/run", { method:"POST",
+    headers:{"Content-Type":"application/json"}, body: JSON.stringify(cfg) });
+  const j = await r.json();
+  if (j.error) throw new Error(j.error);
+  return j;
+}
+document.getElementById("cfg").onsubmit = async e => {
+  e.preventDefault();
+  $("run").disabled = true; $("status").className = "";
+  $("status").textContent = "计算中：轨道传播 → 截止刚度 → 谱透射 → 率积分 …";
+  try {
+    const j = await callApi(buildConfig());
+    viewer.setResult(j);
+    render(j);
+    $("status").textContent = "完成。3D：拖拽旋转，滚轮放大看近地细节，单击轨道点定位卫星。";
+  } catch (err) {
+    $("status").className = "err";
+    $("status").textContent = "失败：" + err.message;
+  } finally { $("run").disabled = false; }
+};
+
+const fmt = x => (x === null || x === undefined) ? "—" : (x === 0 ? "0" : x.toExponential(2));
+
+function render(j) {
+  const rpb = j.rates_per_s, m = j.mission;
+  $("cards").style.display = "grid";
+  $("c1").textContent = fmt(rpb.total_per_bit * 86400);
+  $("c1s").textContent = rpb.proton_total ? "重离子 + 质子合计" : "重离子合计";
+  const dev = rpb.total_per_device;
+  $("c2").textContent = dev !== null ? fmt(dev * 86400) : "未给 bits";
+  if (m.per_device) {
+    $("c3").textContent = fmt(m.per_device.expected_events);
+    $("c4").textContent = (m.per_device.prob_at_least_one * 100).toFixed(3) + " %";
+    const per = 1 / Math.max(m.per_device.rate_per_day, 1e-30);
+    $("c3s").textContent = `任务 ${m.duration_years.toFixed(2)} 年`;
+    $("c4s").textContent = per < 1 ? `平均间隔 ${(per*24).toFixed(1)} 小时`
+                                   : `平均间隔 ${per.toFixed(1)} 天`;
+  }
+  const tb = $("tbl").tBodies[0]; tb.innerHTML = "";
+  Object.entries(rpb.per_species).forEach(([k, v]) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>重离子 ${k}</td><td>${fmt(v)}</td><td>${fmt(v*86400)}</td>
+                    <td>${dev !== null ? fmt(v*86400*j.device.bits) : "—"}</td>`;
+    tb.appendChild(tr);
+  });
+  const tr = document.createElement("tr"); tr.className = "total";
+  tr.innerHTML = `<td>合计</td><td>${fmt(rpb.total_per_bit)}</td>
+    <td>${fmt(rpb.total_per_bit*86400)}</td>
+    <td>${dev !== null ? fmt(dev*86400) : "—"}</td>`;
+  tb.appendChild(tr);
+  $("tblPanel").style.display = "block";
+  $("notes").innerHTML = j.notes.map(n => `<li>${n}</li>`).join("");
+  const c = j.magnetosphere.cutoff_gv;
+  $("hash").textContent = `config SHA-256: ${j.provenance.config_sha256} ｜ ` +
+    `Rc min/mean/max = ${c.min.toFixed(2)}/${c.mean.toFixed(2)}/${c.max.toFixed(2)} GV ｜ ` +
+    j.magnetosphere.pole;
+  drawLog($("chartLet"), Object.entries(j.series.let_spectra || {}).map(
+    ([name, pts]) => ({ name, color: COLORS[name] || "#fff", pts })), true);
+  $("legLet").innerHTML = Object.keys(j.series.let_spectra || {}).map(
+    n => `<i style="background:${COLORS[n]||"#fff"}"></i>${n}`).join("");
+  drawLog($("chartRc"), [{ name:"Rc", color:"#4da3ff",
+    pts: (j.series.cutoff_gv_vs_time_min || []).map(p => [p[0], p[1]]) }], false,
+    { x: "轨道时间 t（分钟）", y: "Rc（GV）" });
+  const rcEq = (j.magnetosphere && j.magnetosphere.cutoff_eq_gv) || +$("rcut").value;
+  $("legRc").innerHTML =
+    `横轴：沿轨道飞行时间 <b>t（分钟）</b>，从本圈采样起点算。` +
+    `纵轴：垂直截止刚度 <b>Rc（GV）</b>——地磁门口的刚性门槛；粒子磁刚度低于 Rc 进不来。<br>` +
+    `计算（倾斜中心偶极 Størmer）：` +
+    `<b>R<sub>c</sub> = R<sub>c,eq</sub> · (R<sub>E</sub>/r)<sup>2</sup> · cos<sup>4</sup>λ<sub>m</sub></b>` +
+    `。本圈 R<sub>c,eq</sub> = <b>${Number(rcEq).toFixed(1)} GV</b>` +
+    `（表单「赤道截止 GV」），r 为地心距，λ<sub>m</sub> 为磁纬。` +
+    `本圈 min/mean/max = <b>${c.min.toFixed(2)} / ${c.mean.toFixed(2)} / ${c.max.toFixed(2)} GV</b>。` +
+    `Rc 高＝屏蔽强（赤道、低轨）；Rc 低＝弱屏蔽（高纬、高轨道）。偶极近似相对多极图约 ±20%。`;
+}
+
+/* SVG 图表。LET 谱走双对数；Rc–时间走线性（时间从 0 起，不能 log）。 */
+function drawLog(svg, series, logY, axis) {
+  const logX = !!logY;
+  axis = axis || {};
+  const W = 560, H = 230, L = 58, R = 12, T = 14, B = 42;
+  const xs = series.flatMap(s => s.pts.map(p => p[0]))
+    .filter(v => Number.isFinite(v) && (!logX || v > 0));
+  const ys = series.flatMap(s => s.pts.map(p => p[1]))
+    .filter(v => Number.isFinite(v) && (!logY || v > 0));
+  if (!xs.length || !ys.length) { svg.innerHTML = ""; return; }
+  let x0 = Math.min(...xs), x1 = Math.max(...xs);
+  let y0 = Math.min(...ys), y1 = Math.max(...ys);
+  if (x1 <= x0) x1 = x0 + 1;
+  if (y1 <= y0) {
+    const pad = Math.max(Math.abs(y0) * 0.1, 0.05);
+    y0 -= pad; y1 += pad;
+  }
+  const lg = v => Math.log10(v);
+  const spanX = (logX ? lg(x1) - lg(x0) : (x1 - x0)) || 1;
+  const spanY = (logY ? lg(y1) - lg(y0) : (y1 - y0)) || 1;
+  const px = x => L + ((logX ? lg(x) - lg(x0) : (x - x0)) / spanX) * (W - L - R);
+  const py = y => H - B - ((logY ? lg(y) - lg(y0) : (y - y0)) / spanY) * (H - T - B);
+  const tickX = k => logX ? x0 * Math.pow(x1 / x0, k / 4) : x0 + (x1 - x0) * k / 4;
+  const tickY = k => logY ? y0 * Math.pow(y1 / y0, k / 4) : y0 + (y1 - y0) * k / 4;
+  const fmtTick = (v, log) => {
+    if (!Number.isFinite(v)) return "";
+    if (log) return v.toPrecision(2);
+    const a = Math.abs(v);
+    if (a >= 100) return v.toFixed(0);
+    if (a >= 10) return v.toFixed(1);
+    return v.toFixed(2);
+  };
+  let g = "";
+  for (let k = 0; k <= 4; k++) {
+    const fx = tickX(k), X = px(fx);
+    g += `<line x1="${X}" y1="${T}" x2="${X}" y2="${H-B}" stroke="#22303e"/>` +
+         `<text x="${X}" y="${H-10}" fill="#8b98a5" font-size="10" text-anchor="middle">${fmtTick(fx, logX)}</text>`;
+    const fy = tickY(k), Y = py(fy);
+    g += `<line x1="${L}" y1="${Y}" x2="${W-R}" y2="${Y}" stroke="#22303e"/>` +
+         `<text x="${L-6}" y="${Y+3}" fill="#8b98a5" font-size="10" text-anchor="end">${fmtTick(fy, logY)}</text>`;
+  }
+  for (const s of series) {
+    const pts = s.pts.filter(p => Number.isFinite(p[0]) && Number.isFinite(p[1])
+      && (!logX || p[0] > 0) && (!logY || p[1] > 0));
+    if (!pts.length) continue;
+    const d = pts.map((p, i) =>
+      `${i ? "L" : "M"}${px(p[0]).toFixed(1)},${py(p[1]).toFixed(1)}`).join(" ");
+    g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="1.8"/>`;
+  }
+  if (axis.x) {
+    g += `<text x="${(L + W - R) / 2}" y="${H - 6}" fill="#c8d6e4" font-size="11" text-anchor="middle">${axis.x}</text>`;
+  }
+  if (axis.y) {
+    const cy = (T + H - B) / 2;
+    g += `<text x="13" y="${cy}" fill="#c8d6e4" font-size="11" text-anchor="middle" transform="rotate(-90 13 ${cy})">${axis.y}</text>`;
+  }
+  svg.innerHTML = g;
+}
+
+/* 轨道对比 */
+let cmpList = [];
+$("cmpRun").onclick = async () => {
+  const chosen = [...document.querySelectorAll(".cmp:checked")].map(c => c.value);
+  if (!chosen.length) { $("status").textContent = "对比：请至少勾选一个轨道。"; return; }
+  $("cmpRun").disabled = true;
+  $("status").textContent = "对比计算中 …";
+  cmpList = [];
+  const items = chosen.map(key => key === "form"
+    ? { label:`表单 ${$("alt").value}km/${$("inc").value}°`, cfg: buildConfig() }
+    : { label:{iss:"ISS 420km", sso:"SSO 550km", meo:"MEO 21500km", geo:"GEO"}[key],
+        cfg: buildConfig({ altitude_km: PRESETS[key][0], inclination_deg: PRESETS[key][1] }) });
+  try {
+    for (const it of items) {
+      const j = await callApi(it.cfg);
+      const trk = j.series.orbit_track_xyz_re || [];
+      const meanRc = trk.reduce((a, p) => a + p[3], 0) / (trk.length || 1);
+      cmpList.push({ label: it.label,
+                     color: CMP_COLORS[cmpList.length % CMP_COLORS.length],
+                     track: trk,
+                     rate: j.rates_per_s.total_per_bit * 86400,
+                     dev: j.rates_per_s.total_per_device !== null
+                          ? j.rates_per_s.total_per_device * 86400 : null,
+                     p: j.mission.per_device ? j.mission.per_device.prob_at_least_one : null,
+                     meanRc });
+    }
+    viewer.setCompare(cmpList);
+    renderCmpTable();
+    $("status").textContent = `对比完成：${cmpList.length} 条轨道已叠加到 3D 视图。`;
+  } catch (err) {
+    $("status").className = "err"; $("status").textContent = "对比失败：" + err.message;
+  } finally { $("cmpRun").disabled = false; }
+};
+$("cmpClr").onclick = () => { cmpList = []; viewer.clearCompare(); renderCmpTable();
+                              $("status").textContent = "已清除对比轨道。"; };
+function renderCmpTable() {
+  if (!cmpList.length) { $("cmpTable").innerHTML =
+    '<div class="mini">尚未加入对比轨道。勾选上方轨道后点“对比所选轨道”。</div>'; return; }
+  let html = '<table><thead><tr><th>轨道</th><th>平均 Rc (GV)</th>' +
+    '<th>SEU/bit/天</th><th>SEU/器件/天</th><th>P(≥1)</th></tr></thead><tbody>';
+  for (const c of cmpList) {
+    html += `<tr><td><span class="chip" style="background:${c.color}"></span>${c.label}</td>` +
+      `<td>${c.meanRc.toFixed(2)}</td><td>${fmt(c.rate)}</td>` +
+      `<td>${c.dev !== null ? fmt(c.dev) : "—"}</td>` +
+      `<td>${c.p !== null ? (c.p*100).toFixed(1)+"%" : "—"}</td></tr>`;
+  }
+  html += "</tbody></table>";
+  $("cmpTable").innerHTML = html;
+}
+renderCmpTable();
+
+/* 3D 面板控制 */
+$("speed").oninput = e => { viewer.setSpeed(+e.target.value);
+                            $("speedV").textContent = e.target.value + "×"; };
+$("animToggle").onclick = e => {
+  viewer.setPlaying(!viewer.state.playing);
+  e.target.textContent = viewer.state.playing ? "⏸ 暂停" : "▶ 播放";
+};
+$("rotToggle").onclick = e => {
+  viewer.setAutoRotate(!viewer.state.view.auto);
+  e.target.textContent = viewer.state.view.auto ? "自动旋转：开" : "自动旋转：关";
+};
+$("vpAll").onclick = () => viewer.resetView();
+$("vpFollow").onclick = () => viewer.follow(true);
+document.querySelectorAll("[data-layer]").forEach(el =>
+  el.onchange = () => viewer.setLayer(el.dataset.layer, el.checked));
+$("popBtn").onclick = () => {
+  const qs = new URLSearchParams({ alt: $("alt").value, inc: $("inc").value,
+    years: $("years").value, bits: $("bits").value });
+  window.open("/3d?" + qs.toString(), "orbit_seu_3d");
+};
+
+window.addEventListener("load", () => {
+  document.getElementById("cfg").requestSubmit();
+});
+</script>
+</body>
+</html>

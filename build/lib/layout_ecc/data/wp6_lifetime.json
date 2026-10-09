@@ -1,0 +1,90 @@
+{
+  "table": {
+    "source": "p1_pfft_ecc_core_v4 #(.DEPTH(..),.STAGE(k)) sK in top_p1_kernel.sv; s8/s9 TMR have no SDF memory (offset=1); s10 pair_phase offset=2",
+    "beats_per_frame": 256,
+    "lanes": 4,
+    "samples_per_frame": 1024,
+    "depth_by_stage": {
+      "1": 128,
+      "2": 64,
+      "3": 32,
+      "4": 16,
+      "5": 8,
+      "6": 4,
+      "7": 2,
+      "8": 1,
+      "9": 1,
+      "10": 2
+    }
+  },
+  "examples": [
+    {
+      "stage_id": 1,
+      "cycle": 0,
+      "address": 0,
+      "lane": 0,
+      "component": "real",
+      "frame": 0,
+      "beat": 0,
+      "sample": 0,
+      "depth": 128,
+      "cycles_since_write": 0,
+      "cycles_until_read": 128,
+      "cycles_until_overwrite": 128,
+      "source": "p1_pfft_ecc_core_v4 #(.DEPTH(..),.STAGE(k)) sK in top_p1_kernel.sv; s8/s9 TMR have no SDF memory (offset=1); s10 pair_phase offset=2",
+      "lifetime_class": "OBSERVED",
+      "reason": "will be read before overwrite"
+    },
+    {
+      "stage_id": 5,
+      "cycle": 40,
+      "address": 3,
+      "lane": 2,
+      "component": "real",
+      "frame": 0,
+      "beat": 37,
+      "sample": 150,
+      "depth": 8,
+      "cycles_since_write": 3,
+      "cycles_until_read": 5,
+      "cycles_until_overwrite": 5,
+      "source": "p1_pfft_ecc_core_v4 #(.DEPTH(..),.STAGE(k)) sK in top_p1_kernel.sv; s8/s9 TMR have no SDF memory (offset=1); s10 pair_phase offset=2",
+      "lifetime_class": "OBSERVED",
+      "reason": "will be read before overwrite"
+    },
+    {
+      "stage_id": 8,
+      "cycle": 9,
+      "address": 0,
+      "lane": 0,
+      "component": "real",
+      "frame": 0,
+      "beat": 9,
+      "sample": 36,
+      "depth": 1,
+      "cycles_since_write": 0,
+      "cycles_until_read": 1,
+      "cycles_until_overwrite": 1,
+      "source": "p1_pfft_ecc_core_v4 #(.DEPTH(..),.STAGE(k)) sK in top_p1_kernel.sv; s8/s9 TMR have no SDF memory (offset=1); s10 pair_phase offset=2",
+      "lifetime_class": "OBSERVED",
+      "reason": "pipeline/TMR/ECC register is read next cycle"
+    },
+    {
+      "stage_id": 10,
+      "cycle": 4,
+      "address": 1,
+      "lane": 3,
+      "component": "real",
+      "frame": 0,
+      "beat": 3,
+      "sample": 15,
+      "depth": 2,
+      "cycles_since_write": 1,
+      "cycles_until_read": 1,
+      "cycles_until_overwrite": 1,
+      "source": "p1_pfft_ecc_core_v4 #(.DEPTH(..),.STAGE(k)) sK in top_p1_kernel.sv; s8/s9 TMR have no SDF memory (offset=1); s10 pair_phase offset=2",
+      "lifetime_class": "OBSERVED",
+      "reason": "will be read before overwrite"
+    }
+  ]
+}

@@ -1,0 +1,702 @@
+{
+  "note": "RPM grid units, not microns. No injection.",
+  "bboxes": {
+    "1": {
+      "n_sites": 1949,
+      "xmin": 150,
+      "xmax": 344,
+      "ymin": 40,
+      "ymax": 134,
+      "width": 195,
+      "height": 95,
+      "thickness": 95,
+      "centroid_x": 247.26629040533606,
+      "centroid_y": 92.75731144176501
+    },
+    "2": {
+      "n_sites": 2207,
+      "xmin": 28,
+      "xmax": 280,
+      "ymin": 0,
+      "ymax": 172,
+      "width": 253,
+      "height": 173,
+      "thickness": 173,
+      "centroid_x": 175.33393747168103,
+      "centroid_y": 78.21748980516539
+    },
+    "3": {
+      "n_sites": 2166,
+      "xmin": 180,
+      "xmax": 412,
+      "ymin": 114,
+      "ymax": 220,
+      "width": 233,
+      "height": 107,
+      "thickness": 107,
+      "centroid_x": 302.33702677747,
+      "centroid_y": 167.99168975069253
+    },
+    "10": {
+      "n_sites": 1631,
+      "xmin": 194,
+      "xmax": 338,
+      "ymin": 482,
+      "ymax": 572,
+      "width": 145,
+      "height": 91,
+      "thickness": 91,
+      "centroid_x": 265.35499693439607,
+      "centroid_y": 526.555487431024
+    },
+    "8": {
+      "n_sites": 3267,
+      "xmin": 0,
+      "xmax": 364,
+      "ymin": 374,
+      "ymax": 512,
+      "width": 365,
+      "height": 139,
+      "thickness": 139,
+      "centroid_x": 184.58585858585857,
+      "centroid_y": 450.46097337006427
+    },
+    "9": {
+      "n_sites": 1549,
+      "xmin": 22,
+      "xmax": 360,
+      "ymin": 458,
+      "ymax": 565,
+      "width": 339,
+      "height": 108,
+      "thickness": 108,
+      "centroid_x": 164.80438992898644,
+      "centroid_y": 510.1265332472563
+    },
+    "4": {
+      "n_sites": 2306,
+      "xmin": 84,
+      "xmax": 368,
+      "ymin": 160,
+      "ymax": 275,
+      "width": 285,
+      "height": 116,
+      "thickness": 116,
+      "centroid_x": 241.65915004336514,
+      "centroid_y": 224.4145706851691
+    },
+    "5": {
+      "n_sites": 2866,
+      "xmin": 8,
+      "xmax": 234,
+      "ymin": 160,
+      "ymax": 318,
+      "width": 227,
+      "height": 159,
+      "thickness": 159,
+      "centroid_x": 109.70481507327285,
+      "centroid_y": 264.6957431960921
+    },
+    "6": {
+      "n_sites": 3179,
+      "xmin": 76,
+      "xmax": 388,
+      "ymin": 262,
+      "ymax": 415,
+      "width": 313,
+      "height": 154,
+      "thickness": 154,
+      "centroid_x": 281.0833595470274,
+      "centroid_y": 338.92356086819757
+    },
+    "7": {
+      "n_sites": 3326,
+      "xmin": 0,
+      "xmax": 248,
+      "ymin": 300,
+      "ymax": 475,
+      "width": 249,
+      "height": 176,
+      "thickness": 176,
+      "centroid_x": 104.35117257967529,
+      "centroid_y": 380.99158147925436
+    }
+  },
+  "adjacency": [],
+  "adjacency_diag": [],
+  "min_distance": {
+    "stages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "matrix": [
+      [
+        0.0,
+        2.0,
+        2.0,
+        41.182520563948,
+        81.60882305241266,
+        130.5526713629407,
+        188.67962264113208,
+        264.37851652507624,
+        325.38592471094995,
+        348.0057470789814
+      ],
+      [
+        2.0,
+        0.0,
+        2.0,
+        2.0,
+        8.94427190999916,
+        107.8702924812944,
+        145.60219778561037,
+        220.33610689126738,
+        288.5619517538652,
+        319.1801998871484
+      ],
+      [
+        2.0,
+        2.0,
+        0.0,
+        2.0,
+        44.598206241955516,
+        45.60701700396552,
+        143.7358688706476,
+        181.3394606807906,
+        240.7072911234722,
+        267.26765610526087
+      ],
+      [
+        41.182520563948,
+        2.0,
+        2.0,
+        0.0,
+        2.0,
+        2.0,
+        77.6659513557904,
+        127.1416532848303,
+        186.90371852908652,
+        212.8497122384712
+      ],
+      [
+        81.60882305241266,
+        8.94427190999916,
+        44.598206241955516,
+        2.0,
+        0.0,
+        2.0,
+        2.0,
+        60.92618484691127,
+        142.01408380861386,
+        172.69626515938322
+      ],
+      [
+        130.5526713629407,
+        107.8702924812944,
+        45.60701700396552,
+        2.0,
+        2.0,
+        0.0,
+        2.0,
+        2.0,
+        44.14748010928823,
+        68.4470598345904
+      ],
+      [
+        188.67962264113208,
+        145.60219778561037,
+        143.7358688706476,
+        77.6659513557904,
+        2.0,
+        2.0,
+        0.0,
+        2.0,
+        10.770329614269007,
+        46.69047011971501
+      ],
+      [
+        264.37851652507624,
+        220.33610689126738,
+        181.3394606807906,
+        127.1416532848303,
+        60.92618484691127,
+        2.0,
+        2.0,
+        0.0,
+        2.0,
+        2.0
+      ],
+      [
+        325.38592471094995,
+        288.5619517538652,
+        240.7072911234722,
+        186.90371852908652,
+        142.01408380861386,
+        44.14748010928823,
+        10.770329614269007,
+        2.0,
+        0.0,
+        2.0
+      ],
+      [
+        348.0057470789814,
+        319.1801998871484,
+        267.26765610526087,
+        212.8497122384712,
+        172.69626515938322,
+        68.4470598345904,
+        46.69047011971501,
+        2.0,
+        2.0,
+        0.0
+      ]
+    ]
+  },
+  "explain_a0_ge_8": {
+    "a0_sat": 8,
+    "min_adjacent_stage_distance": 2.0,
+    "n_4neighbour_shared_edges": 0,
+    "n_8neighbour_shared_edges": 0,
+    "consecutive_distances": [
+      {
+        "a": 1,
+        "b": 2,
+        "min_dist": 2.0,
+        "thickness_a": 95,
+        "thickness_b": 173
+      },
+      {
+        "a": 2,
+        "b": 3,
+        "min_dist": 2.0,
+        "thickness_a": 173,
+        "thickness_b": 107
+      },
+      {
+        "a": 3,
+        "b": 4,
+        "min_dist": 2.0,
+        "thickness_a": 107,
+        "thickness_b": 116
+      },
+      {
+        "a": 4,
+        "b": 5,
+        "min_dist": 2.0,
+        "thickness_a": 116,
+        "thickness_b": 159
+      },
+      {
+        "a": 5,
+        "b": 6,
+        "min_dist": 2.0,
+        "thickness_a": 159,
+        "thickness_b": 154
+      },
+      {
+        "a": 6,
+        "b": 7,
+        "min_dist": 2.0,
+        "thickness_a": 154,
+        "thickness_b": 176
+      },
+      {
+        "a": 7,
+        "b": 8,
+        "min_dist": 2.0,
+        "thickness_a": 176,
+        "thickness_b": 139
+      },
+      {
+        "a": 8,
+        "b": 9,
+        "min_dist": 2.0,
+        "thickness_a": 139,
+        "thickness_b": 108
+      },
+      {
+        "a": 9,
+        "b": 10,
+        "min_dist": 2.0,
+        "thickness_a": 108,
+        "thickness_b": 91
+      }
+    ],
+    "longest_boundary": null,
+    "thinnest_band": {
+      "stage": 10,
+      "n_sites": 1631,
+      "xmin": 194,
+      "xmax": 338,
+      "ymin": 482,
+      "ymax": 572,
+      "width": 145,
+      "height": 91,
+      "thickness": 91,
+      "centroid_x": 265.35499693439607,
+      "centroid_y": 526.555487431024
+    },
+    "reason": "After site-majority tagging, stages have 0 four-neighbour shared sides and 0 diagonal touches; consecutive stages sit 2.0 RPM apart at nearest used sites. Axis-aligned bboxes overlap, so the occupancy centroid already covers two stages at a0=4 (WP3's sampling point). An ellipse with a0>=8 is larger than the 2.0 RPM frontier gap, which is why WP3's centroid strikes saturate at cross-stage=1. Uniform-interior centres stay inside one blob more often."
+  },
+  "geometric_scan": {
+    "x0": 201.5536284054651,
+    "y0": 305.1079113147345,
+    "cells": [
+      {
+        "a0": 4,
+        "theta": 0,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.2125,
+        "uniform_mean_n_stages": 1.225
+      },
+      {
+        "a0": 4,
+        "theta": 45,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.25,
+        "uniform_mean_n_stages": 1.2625
+      },
+      {
+        "a0": 4,
+        "theta": 60,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.275,
+        "uniform_mean_n_stages": 1.2875
+      },
+      {
+        "a0": 8,
+        "theta": 0,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.375,
+        "uniform_mean_n_stages": 1.3875
+      },
+      {
+        "a0": 8,
+        "theta": 45,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.3875,
+        "uniform_mean_n_stages": 1.4375
+      },
+      {
+        "a0": 8,
+        "theta": 60,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.4875,
+        "uniform_mean_n_stages": 1.5625
+      },
+      {
+        "a0": 12,
+        "theta": 0,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.4875,
+        "uniform_mean_n_stages": 1.5625
+      },
+      {
+        "a0": 12,
+        "theta": 45,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.6,
+        "uniform_mean_n_stages": 1.7
+      },
+      {
+        "a0": 12,
+        "theta": 60,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.6375,
+        "uniform_mean_n_stages": 1.825
+      },
+      {
+        "a0": 16,
+        "theta": 0,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.675,
+        "uniform_mean_n_stages": 1.8625
+      },
+      {
+        "a0": 16,
+        "theta": 45,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.7125,
+        "uniform_mean_n_stages": 1.9625
+      },
+      {
+        "a0": 16,
+        "theta": 60,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.7625,
+        "uniform_mean_n_stages": 2.0875
+      },
+      {
+        "a0": 20,
+        "theta": 0,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.725,
+        "uniform_mean_n_stages": 2.025
+      },
+      {
+        "a0": 20,
+        "theta": 45,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.775,
+        "uniform_mean_n_stages": 2.125
+      },
+      {
+        "a0": 20,
+        "theta": 60,
+        "phi": 30.0,
+        "centroid_stages": [
+          5,
+          6
+        ],
+        "centroid_n_stages": 2,
+        "centroid_cross": true,
+        "uniform_n": 80,
+        "uniform_cross_rate": 0.8625,
+        "uniform_mean_n_stages": 2.3125
+      }
+    ]
+  },
+  "vs_wp3": [
+    {
+      "a0": 4,
+      "theta": 0,
+      "wp3_flip_cross_rate": 0.55,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.2125,
+      "geom_uniform_mean_n_stages": 1.225
+    },
+    {
+      "a0": 4,
+      "theta": 45,
+      "wp3_flip_cross_rate": 0.95,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.25,
+      "geom_uniform_mean_n_stages": 1.2625
+    },
+    {
+      "a0": 4,
+      "theta": 60,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.275,
+      "geom_uniform_mean_n_stages": 1.2875
+    },
+    {
+      "a0": 8,
+      "theta": 0,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.375,
+      "geom_uniform_mean_n_stages": 1.3875
+    },
+    {
+      "a0": 8,
+      "theta": 45,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.3875,
+      "geom_uniform_mean_n_stages": 1.4375
+    },
+    {
+      "a0": 8,
+      "theta": 60,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.4875,
+      "geom_uniform_mean_n_stages": 1.5625
+    },
+    {
+      "a0": 12,
+      "theta": 0,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.4875,
+      "geom_uniform_mean_n_stages": 1.5625
+    },
+    {
+      "a0": 12,
+      "theta": 45,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.6,
+      "geom_uniform_mean_n_stages": 1.7
+    },
+    {
+      "a0": 12,
+      "theta": 60,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.6375,
+      "geom_uniform_mean_n_stages": 1.825
+    },
+    {
+      "a0": 16,
+      "theta": 0,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.675,
+      "geom_uniform_mean_n_stages": 1.8625
+    },
+    {
+      "a0": 16,
+      "theta": 45,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.7125,
+      "geom_uniform_mean_n_stages": 1.9625
+    },
+    {
+      "a0": 16,
+      "theta": 60,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.7625,
+      "geom_uniform_mean_n_stages": 2.0875
+    },
+    {
+      "a0": 20,
+      "theta": 0,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.725,
+      "geom_uniform_mean_n_stages": 2.025
+    },
+    {
+      "a0": 20,
+      "theta": 45,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.775,
+      "geom_uniform_mean_n_stages": 2.125
+    },
+    {
+      "a0": 20,
+      "theta": 60,
+      "wp3_flip_cross_rate": 1.0,
+      "geom_centroid_n_stages": 2,
+      "geom_centroid_cross": true,
+      "geom_uniform_cross_rate": 0.8625,
+      "geom_uniform_mean_n_stages": 2.3125
+    }
+  ]
+}

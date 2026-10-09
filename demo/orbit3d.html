@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>var __d=document.createElement("div");__d.id="static-demo-base";__d.setAttribute("data-api","api");document.documentElement.appendChild(__d);
+(function(){
+  var real = window.fetch;
+  var base = document.getElementById('static-demo-base').getAttribute('data-api');
+  var strikes = null;
+  var strikeIdx = 0;
+  window.fetch = function(url, opts){
+    var u = (typeof url === 'string') ? url : url.url;
+    var path = u.split('?')[0];
+    var map = {'/api/layout':'layout.json','/api/effects':'effects.json'};
+    if (map[path]) return real(base + '/' + map[path], opts);
+    if (path === '/api/strike' && opts && (opts.method||'GET').toUpperCase()==='POST'){
+      var files = window.__STRIKE_FILES__ || [];
+      if (!files.length) return Promise.reject(new Error('no strikes'));
+      var f = files[strikeIdx++ % files.length];
+      return real(base + '/strikes/' + f, opts);
+    }
+    if (path === '/oseu/api/run') return real(base + '/orbit_run.json', opts);
+    if (path === '/api/run') return real(base + '/orbit_run.json', opts);
+    return real(url, opts);
+  };
+})();
+</script>
+
+<meta charset="utf-8">
+<title>orbit_seu — 3D 轨道环境</title>
+<style>
+  html, body { margin:0; height:100%; background:#03050a; overflow:hidden;
+               color:#d8e1ea; font:13px/1.5 "Segoe UI","Microsoft YaHei",sans-serif;
+               display:flex; flex-direction:column; }
+  #bar { display:flex; gap:8px; align-items:center; padding:8px 12px;
+         background:#0b1016; border-bottom:1px solid #1b2a3a; flex:none; flex-wrap:wrap; }
+  #bar label { color:#8b98a5; display:flex; align-items:center; gap:5px; }
+  #bar input[type=number], #bar select { background:#060b12; color:#d8e1ea;
+    border:1px solid #243446; border-radius:5px; padding:3px 6px; font:inherit; width:72px; }
+  #bar select { width:170px; }
+  button { padding:4px 12px; border:1px solid #243446; border-radius:6px; background:#121c28;
+           color:#d8e1ea; font:inherit; cursor:pointer; }
+  button.acc { background:#1d8fff; border-color:#1d8fff; color:#04101c; font-weight:700; }
+  .sep { width:1px; height:20px; background:#243446; margin:0 4px; }
+  #status { color:#8b98a5; font-size:12px; margin-left:auto; }
+  #stage { flex:1; position:relative; min-height:0; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; touch-action:none; cursor:grab; display:block; }
+  .rcleg { position:absolute; right:12px; bottom:12px; display:flex; align-items:center; gap:6px;
+           font-size:11px; color:#9fb3c8; background:rgba(4,7,13,.7); padding:3px 8px; border-radius:6px; }
+  .rcleg i { width:120px; height:7px; border-radius:4px;
+             background:linear-gradient(90deg,#ff5f56,#ff9e64,#ffd23f,#7ee787,#5cc8ff,#788cff); }
+  #read { padding:6px 12px; flex:none; background:#0b1016; border-top:1px solid #1b2a3a; min-height:22px; }
+  #read b { color:#7ee787; }
+</style>
+</head>
+<body><div style="padding:8px 16px;font:12px 'Segoe UI',sans-serif;background:#132032;color:#8fb3d9;border-bottom:1px solid #1b3350">Static snapshot of a live run &middot; interactive strike/orbit controls replay precomputed responses &middot; full simulator: <code style="color:#00e5ff">pip install . &amp;&amp; seu-platform</code> from <a style="color:#00e5ff" href="https://github.com/juwadeLone/seu_platform">juwadeLone/seu_platform</a></div><div style="padding:6px 14px;font:12px 'Segoe UI','Microsoft YaHei';background:rgba(10,20,36,.92);border-bottom:1px solid #1b3350;color:#7f93ab"><a href="index.html" style="color:#00e5ff;text-decoration:none">打击</a>&nbsp;|&nbsp;<a href="orbit.html" style="color:#eaf6ff;text-decoration:none">轨道</a>&nbsp;|&nbsp;<a href="effects.html" style="color:#00e5ff;text-decoration:none">效应总览</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="orbit3d.html" style="color:#00e5ff;text-decoration:none">⛶ 独立 3D 视图</a></div>
+<div id="bar">
+  <select id="preset">
+    <option value="spenvis">MEO 20200 km / 55°（SPENVIS 真实谱）</option>
+    <option value="sso">LEO 太阳同步 550 km（演示谱）</option>
+    <option value="iss">LEO 国际站 420 km（演示谱）</option>
+    <option value="geo">GEO 35786 km（演示谱）</option>
+  </select>
+  <label>任务年<input id="years" type="number" value="1" step="0.5"></label>
+  <button id="run" class="acc">▶ 计算</button>
+  <span class="sep"></span>
+  <button id="toggle">⏸ 暂停</button>
+  <label>速度<input id="speed" type="range" min="0.25" max="4" step="0.25" value="1"></label>
+  <button id="vpAll">全景</button>
+  <button id="vpFollow">跟随卫星</button>
+  <span class="sep"></span>
+  <label><input type="checkbox" data-layer="belts" checked>辐射带</label>
+  <label><input type="checkbox" data-layer="gcr" checked>宇宙线</label>
+  <label><input type="checkbox" data-layer="saa" checked>SAA</label>
+  <label><input type="checkbox" data-layer="field">磁力线</label>
+  <label><input type="checkbox" data-layer="ground" checked>星下点</label>
+  <span id="status">就绪</span>
+</div>
+<div id="stage">
+  <canvas id="cv"></canvas>
+  <div class="rcleg"><span>截止刚度</span><i></i><span>0.1</span><span>1</span><span>15 GV</span></div>
+</div>
+<div id="read"></div>
+<script src="oseu-static/orbit3d.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+window.addEventListener("error", e => { $("status").textContent = "JS 错误：" + e.message; });
+// SPENVIS 谱只对生成它的轨道有效（env_data/spenvis_let/manifest.json）；其它轨道只能用演示谱
+const PRESETS = {
+  spenvis: { alt: 20200, inc: 55, raan: 119.92, env: "files" },
+  sso: { alt: 550, inc: 97.6, env: "demo_gcr" },
+  iss: { alt: 420, inc: 51.6, env: "demo_gcr" },
+  geo: { alt: 35786, inc: 0.1, env: "demo_gcr" }
+};
+const LET_FILES = ["H", "He", "Z03-10", "Z11-20", "Z21-28", "Z29-92"];
+const viewer = OrbitViewer($("cv"), {
+  readout: $("read"),
+  onSelect: playing => { $("toggle").textContent = playing ? "⏸ 暂停" : "▶ 播放"; }
+});
+async function runNow() {
+  $("status").textContent = "计算中…";
+  $("run").disabled = true;
+  try {
+    const p = PRESETS[$("preset").value];
+    const cfg = {
+      mission: { duration_years: +$("years").value, sampling: { orbits: 24, points_per_orbit: 96 } },
+      orbit: { altitude_km: p.alt, inclination_deg: p.inc, eccentricity: 0.001, raan_deg: p.raan || 0 },
+      magnetosphere: { cutoff_eq_gv: 14.9 },
+      environment: { type: p.env, rigidity_cutoff: { kappa: 1.0 }, phi_mv: 600 },
+      device: {
+        bits: 284934976,
+        heavy_ion_weibull_by_domain: {
+          CRAM: { let_threshold: 0.4, width: 338.5, shape: 0.852, sigma_sat_cm2_per_bit: 3.34e-08, bits: 229878496 },
+          BRAM: { let_threshold: 0.1, width: 87.5, shape: 0.893, sigma_sat_cm2_per_bit: 3.82e-08, bits: 54190080 },
+          FF:   { let_threshold: 1.1, width: 271.3, shape: 1.090, sigma_sat_cm2_per_bit: 1.47e-07, bits: 866400 }
+        }
+      }
+    };
+    if (p.env === "files") {
+      delete cfg.environment.rigidity_cutoff;
+      cfg.environment.let_spectra_files = {};
+      for (const sp of LET_FILES) cfg.environment.let_spectra_files[sp] = `env_data/spenvis_let/spenvis_${sp}.let.txt`;
+      cfg.environment.let_columns = { let: 0, diff_flux: 1 };
+    }
+    const r = await fetch("/oseu/api/run", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cfg) });
+    const j = await r.json();
+    if (j.error) throw new Error(j.error);
+    viewer.setResult(j);
+    const dev = j.rates_per_s.total_per_device;
+    $("status").innerHTML = `XC7VX690T 整片 <b style="color:#fff">${(dev * 86400).toFixed(dev * 86400 >= 10 ? 1 : 3)}</b> 次/天` +
+      (j.synthetic_environment ? `　<span style="color:#ffb454">演示谱，非工程数据</span>` : "　GCR 太阳极小 · 100 mil Al");
+  } catch (err) {
+    $("status").textContent = "失败：" + err.message;
+  } finally { $("run").disabled = false; }
+}
+$("run").onclick = runNow;
+$("preset").onchange = runNow;
+$("toggle").onclick = e => {
+  viewer.setPlaying(!viewer.state.playing);
+  e.target.textContent = viewer.state.playing ? "⏸ 暂停" : "▶ 播放";
+};
+$("vpAll").onclick = () => viewer.resetView();
+$("vpFollow").onclick = () => viewer.follow(true);
+$("speed").oninput = e => viewer.setSpeed(+e.target.value);
+document.querySelectorAll("[data-layer]").forEach(el => el.onchange = () => viewer.setLayer(el.dataset.layer, el.checked));
+const q = new URLSearchParams(location.search);
+if (q.get("years")) $("years").value = q.get("years");
+if (q.get("alt")) {
+  const alt = +q.get("alt");
+  $("preset").value = alt > 30000 ? "geo" : alt > 5000 ? "spenvis" : alt < 480 ? "iss" : "sso";
+}
+runNow();
+</script>
+</body>
+</html>

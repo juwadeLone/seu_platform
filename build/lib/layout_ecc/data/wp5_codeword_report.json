@@ -1,0 +1,41 @@
+{
+  "n_sites": 24446,
+  "inferred_sites": 22632,
+  "inferred_frac": 0.9257956311871063,
+  "confidence": {
+    "inferred": 22632,
+    "proxy": 1814
+  },
+  "inferred_schemes": {
+    "arithmetic_643": 14742,
+    "memory_secded70": 4225,
+    "tmr3": 3665
+  },
+  "proxy_roles": {
+    "butterfly": 290,
+    "delay": 130,
+    "control": 67,
+    "ecc": 1,
+    "twiddle": 1326
+  },
+  "proxy_reasons": {
+    "CFG": "no essential-bit names in primitive_map.csv; needs bitstream/SEM",
+    "control/twiddle LUT cones": "ii_s/rr_s and control FFs have no symbol index",
+    "unknown/GND": "tie-offs"
+  },
+  "inject_cross_check": {
+    "same_codeword_one_symbol": {
+      "codeword_id": "s1:arith",
+      "symbol_id": 0,
+      "outcome": "CORRECTED"
+    },
+    "same_codeword_two_symbols": {
+      "codeword_id": "s4:arith",
+      "symbol_ids": [
+        0,
+        1
+      ],
+      "outcome": "DUE"
+    }
+  }
+}

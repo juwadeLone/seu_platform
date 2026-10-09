@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>var __d=document.createElement("div");__d.id="static-demo-base";__d.setAttribute("data-api","api");document.documentElement.appendChild(__d);
+(function(){
+  var real = window.fetch;
+  var base = document.getElementById('static-demo-base').getAttribute('data-api');
+  var strikes = null;
+  var strikeIdx = 0;
+  window.fetch = function(url, opts){
+    var u = (typeof url === 'string') ? url : url.url;
+    var path = u.split('?')[0];
+    var map = {'/api/layout':'layout.json','/api/effects':'effects.json'};
+    if (map[path]) return real(base + '/' + map[path], opts);
+    if (path === '/api/strike' && opts && (opts.method||'GET').toUpperCase()==='POST'){
+      var files = window.__STRIKE_FILES__ || [];
+      if (!files.length) return Promise.reject(new Error('no strikes'));
+      var f = files[strikeIdx++ % files.length];
+      return real(base + '/strikes/' + f, opts);
+    }
+    if (path === '/oseu/api/run') return real(base + '/orbit_run.json', opts);
+    if (path === '/api/run') return real(base + '/orbit_run.json', opts);
+    return real(url, opts);
+  };
+})();
+</script>
+
+<meta charset="utf-8">
+<title>LayoutECC · 辐射效应 v1.2.0</title>
+<style>
+  :root { --panel:rgba(12,21,36,.86); --line:#1b3350; --txt:#d9e6f5; --dim:#7f93ab; --acc:#00e5ff;
+          --on:#7ee787; --miss:#ffb454; --out:#5f7390; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { min-height:100%; color:var(--txt); font:13px/1.5 "Segoe UI","Microsoft YaHei",sans-serif; }
+  body { background:radial-gradient(1100px 600px at 78% -10%, rgba(0,90,160,.18), transparent 60%), linear-gradient(180deg,#081120,#04070d 45%); }
+  header { display:flex; align-items:center; gap:10px; padding:9px 16px; border-bottom:1px solid var(--line); }
+  .logo { width:24px; height:24px; border-radius:7px; border:1px solid #17466b; position:relative;
+    background:radial-gradient(circle at 34% 30%, #0e2a44, #071526 70%); }
+  .logo::after { content:""; position:absolute; inset:5px; border-radius:50%; border:2px solid var(--acc); border-right-color:transparent; transform:rotate(35deg); }
+  header h1 { font-size:16px; letter-spacing:.12em; }
+  nav { margin-left:auto; display:flex; gap:10px; font-size:13px; }
+  nav a { color:var(--acc); text-decoration:none; }
+  nav a.on { color:#fff; border-bottom:1px solid var(--acc); }
+  .ver { color:#4f6a88; font-size:11px; }
+  main { max-width:1080px; margin:0 auto; padding:18px 18px 40px; }
+  .hero { display:grid; grid-template-columns:1.1fr 1fr; gap:18px; border:1px solid var(--line); border-radius:14px;
+    padding:16px 18px; background:var(--panel); margin-bottom:18px; }
+  .hero .k { color:var(--dim); font-size:12px; letter-spacing:.14em; }
+  .hero .big { font-size:44px; font-weight:700; color:#fff; line-height:1.1; margin:4px 0; font-variant-numeric:tabular-nums; }
+  .hero .big small { font-size:16px; color:var(--dim); font-weight:400; margin-left:6px; }
+  .hero .ctx { color:var(--dim); font-size:12px; }
+  .chips { margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; }
+  .chip { font-size:11px; padding:1px 8px; border-radius:999px; border:1px solid #5d431a; color:#ffd9a0; background:rgba(58,43,18,.35); }
+  .bars { display:flex; flex-direction:column; justify-content:center; gap:10px; }
+  .bar { display:grid; grid-template-columns:44px 1fr 72px; align-items:center; gap:8px; font-size:12px; }
+  .bar .t { height:10px; background:#0b1624; border-radius:5px; overflow:hidden; }
+  .bar .t i { display:block; height:100%; border-radius:5px; background:linear-gradient(90deg,#1b6f8a,#00e5ff); }
+  .bar b { color:#fff; text-align:right; font-variant-numeric:tabular-nums; font-weight:500; }
+  .legend { display:flex; gap:16px; align-items:center; color:var(--dim); font-size:12px; margin:0 2px 8px; }
+  .legend i { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:5px; vertical-align:0; }
+  h2 { font-size:11px; letter-spacing:.18em; color:var(--acc); margin:16px 2px 8px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(190px, 1fr)); gap:10px; }
+  .eff { border:1px solid var(--line); border-radius:12px; padding:10px 12px; background:var(--panel); cursor:pointer;
+    border-left-width:4px; transition:transform .12s, border-color .12s; }
+  .eff:hover { transform:translateY(-1px); border-color:#2d5a82; }
+  .eff.sel { border-color:var(--acc); box-shadow:0 0 12px rgba(0,229,255,.2); }
+  .eff.simulating { border-left-color:var(--on); }
+  .eff.data_missing { border-left-color:var(--miss); }
+  .eff.out_of_scope { border-left-color:var(--out); opacity:.72; }
+  .eff .a { font-size:17px; font-weight:700; color:#fff; letter-spacing:.04em; }
+  .eff .n { color:var(--dim); font-size:12px; }
+  .eff .b { margin-top:6px; font-size:12.5px; }
+  .eff.simulating .b { color:#c9f5cc; }
+  .eff.data_missing .b { color:#ffe0b0; }
+  .eff.out_of_scope .b { color:#9fb3c8; }
+  .detail { margin-top:14px; border:1px solid var(--line); border-radius:12px; padding:12px 14px; background:var(--panel); display:none; }
+  .detail.show { display:block; }
+  .detail h3 { font-size:15px; color:#fff; margin-bottom:6px; }
+  .detail .row { display:grid; grid-template-columns:72px 1fr; gap:8px; margin:5px 0; font-size:12.5px; }
+  .detail .row span:first-child { color:var(--dim); }
+  .detail .src { color:#6f8aa8; font-size:11.5px; }
+  .detail .num { font:12.5px Consolas,monospace; color:var(--on); }
+  @media (max-width:760px) { .hero { grid-template-columns:1fr; } }
+</style>
+</head>
+<body><div style="padding:8px 16px;font:12px 'Segoe UI',sans-serif;background:#132032;color:#8fb3d9;border-bottom:1px solid #1b3350">Static snapshot of a live run &middot; interactive strike/orbit controls replay precomputed responses &middot; full simulator: <code style="color:#00e5ff">pip install . &amp;&amp; seu-platform</code> from <a style="color:#00e5ff" href="https://github.com/juwadeLone/seu_platform">juwadeLone/seu_platform</a></div>
+<header>
+  <div class="logo"></div>
+  <h1>辐射效应</h1>
+  <nav>
+    <a href="index.html">打击</a><a href="orbit.html">轨道</a><a href="sar.html">SAR</a><a href="effects.html" class="on">效应</a><a href="seu.html">器件内部</a>
+  </nav>
+  <span class="ver">v1.2.0</span>
+</header>
+<main>
+  <section class="hero">
+    <div>
+      <div class="k">重离子 SEU · 整片</div>
+      <div class="big" id="big">—<small>次/天</small></div>
+      <div class="ctx" id="ctx">XC7VX690T · MEO 20200 km / 55° · GCR 太阳极小 · 100 mil Al</div>
+      <div class="chips"><span class="chip">不含太阳粒子事件</span><span class="chip">不含质子</span><span class="chip">不含 DSP</span></div>
+    </div>
+    <div class="bars" id="bars"></div>
+  </section>
+  <div class="legend">
+    <span><i style="background:var(--on)"></i>在算</span>
+    <span><i style="background:var(--miss)"></i>缺数据（不等于零）</span>
+    <span><i style="background:var(--out)"></i>范围外</span>
+    <span style="margin-left:auto">点卡片看依据</span>
+  </div>
+  <h2>单粒子效应</h2>
+  <div class="grid" id="see"></div>
+  <h2>累积效应</h2>
+  <div class="grid" id="cum"></div>
+  <div class="detail" id="detail"></div>
+</main>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const ST = { simulating: "在算", data_missing: "缺数据", out_of_scope: "范围外" };
+const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const sci = x => { const n = Number(x); return Number.isFinite(n) ? n.toExponential(2) : "—"; };
+let data = null, open = null;
+
+function extra(e) {
+  if (e.id === "seu_hi") {
+    const s = data.seu_hi_snapshot || {}, r = s.per_domain_rates_day_per_bit || {};
+    return `<div class="row"><span>每 bit</span><span class="num">CRAM ${sci(r.CRAM)} · BRAM ${sci(r.BRAM)} · FF ${sci(r.FF)} /天</span></div>`;
+  }
+  if (e.id === "seu_proton") {
+    const p = data.proton_anchored_facts || {};
+    const one = d => p[d] ? `${d} ${p[d].E_mev} MeV → <span class="num">${sci(p[d].sigma_cm2_per_bit)}</span> cm²/bit` : `${d} 缺`;
+    return `<div class="row"><span>实测点</span><span>${one("CRAM")}　${one("BRAM")}　FF 缺　DSP 缺</span></div>`;
+  }
+  if (e.id === "tid") {
+    const t = data.tid_slot || {};
+    return `<div class="row"><span>文件槽</span><span>data/tid/ · ${esc(t.status)}${(t.files || []).length ? " · " + t.files.map(esc).join(", ") : ""}</span></div>`;
+  }
+  return "";
+}
+function show(e) {
+  const d = $("detail");
+  if (open === e.id) { open = null; d.classList.remove("show"); mark(); return; }
+  open = e.id;
+  d.innerHTML = `<h3>${esc(e.acronym)} · ${esc(e.name_zh)}　<span style="font-size:12px;color:var(--dim)">${ST[e.status] || e.status}</span></h3>` +
+    `<div class="row"><span>物理</span><span>${esc(e.physics)}</span></div>` +
+    `<div class="row"><span>平台</span><span>${esc(e.software_does)}</span></div>` + extra(e) +
+    (e.source ? `<div class="row"><span>出处</span><span class="src">${esc(e.source)}</span></div>` : "") +
+    (e.out_of_scope_reason ? `<div class="row"><span>原因</span><span class="src">${esc(e.out_of_scope_reason)}</span></div>` : "");
+  d.classList.add("show");
+  mark();
+  d.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+function mark() { document.querySelectorAll(".eff").forEach(el => el.classList.toggle("sel", el.dataset.id === open)); }
+function card(e) {
+  const el = document.createElement("div");
+  el.className = `eff ${e.status}`; el.dataset.id = e.id;
+  let brief = e.brief;
+  if (e.id === "seu_hi") { const v = (data.seu_hi_snapshot || {}).device_events_per_day; brief = v == null ? "—" : `整片 ${Number(v).toFixed(1)} 次/天`; }
+  el.innerHTML = `<div class="a">${esc(e.acronym)}</div><div class="n">${esc(e.name_zh)}</div><div class="b">${esc(brief)}</div>`;
+  el.onclick = () => show(e);
+  return el;
+}
+(async () => {
+  try {
+    data = await (await fetch("/api/effects")).json();
+    const s = data.seu_hi_snapshot || {}, day = s.device_events_per_day;
+    $("big").innerHTML = `${day == null ? "—" : Number(day).toFixed(1)}<small>次/天</small>`;
+    const r = s.per_domain_rates_day_per_bit || {}, b = s.bits_by_domain || {};
+    const rows = ["CRAM", "BRAM", "FF"].map(k => [k, (r[k] || 0) * (b[k] || 0)]);
+    const mx = Math.max(...rows.map(x => x[1]), 1e-9);
+    $("bars").innerHTML = rows.map(([k, v]) =>
+      `<div class="bar"><span>${k}</span><div class="t"><i style="width:${Math.max(1.5, 100 * v / mx)}%"></i></div><b>${v >= 1 ? v.toFixed(1) : v.toFixed(2)} /天</b></div>`).join("");
+    const order = ["seu_hi", "mbu", "seu_proton", "seu_dsp", "sel", "set", "sefi", "seb", "segr"];
+    const effs = (data.effects || []).slice().sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
+    for (const e of effs) (e.family === "cumulative" ? $("cum") : $("see")).appendChild(card(e));
+  } catch (err) {
+    $("big").textContent = "加载失败";
+    $("ctx").textContent = err.message;
+  }
+})();
+</script>
+</body>
+</html>

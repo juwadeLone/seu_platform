@@ -1,0 +1,33 @@
+{
+  "status": "gap",
+  "resource": "DSP48E1",
+  "purpose": "Lee et al. REDW 2014 Table 1 has CRAM, BRAM, user FF only. No DSP row. Do not invent a DSP Weibull.",
+  "lee_2014": {
+    "doi": "10.1109/REDW.2014.7004595",
+    "osti": "https://www.osti.gov/servlets/purl/1140364",
+    "table1_rows": ["Config Memory", "BRAM", "User Flip-flop"],
+    "dsp_row": null
+  },
+  "ug116": {
+    "note": "AMD UG116 SEU tables cover CRAM, BRAM, URAM. No DSP48 cross-section."
+  },
+  "where_to_look": [
+    "IEEE TNS / REDW: Kintex-7 or Virtex-7 DSP48 SEU / SET (often SET-dominated, not SRAM-like Weibull).",
+    "NASA NEPP Xilinx 7-series SEE summaries.",
+    "Xilinx/AMD radiation reports that list DSP48 separately from CRAM."
+  ],
+  "audit_2026_08_22": {
+    "searched": [
+      "NASA NEPP FPGA SEE talks/papers 2014-2017: the NEPP independent program tested Microsemi RTG4 math blocks (Berg et al., NEPP ETW 2017) - NOT Xilinx 7-series DSP48.",
+      "IEEE TNS/NSREC/RADECS via web search: no public DSP48E1 per-bit heavy-ion or proton sigma table found.",
+      "AMD/Xilinx UG116: covers CRAM/BRAM/URAM only (already recorded above)."
+    ],
+    "unverified_lead": "Lee et al. also published an extended IEEE TNS journal version (OSTI PURL 1319638; REDW version DOI 10.1109/REDW.2014.7004595 verified to have NO DSP row in Table 1). The TNS version could not be retrieved this session (OSTI unreachable); whether it adds DSP data remains UNVERIFIED - do not cite either way without reading it.",
+    "conclusion": "DSP48E1 sigma remains a genuine public-data gap. The current handling (geometry occupancy only, never flipped under flip_model=weibull, excluded from N_SEU) is correct and stays."
+  },
+  "occupancy_in_layout_ecc": {
+    "DSP_STATE_bits": 169,
+    "source": "UG479 DSP48E1 data-path register widths A30+B18+C48+D25+P48. Geometry occupancy only.",
+    "flip_model_weibull": "sigma is None; DSP_STATE is never flipped."
+  }
+}

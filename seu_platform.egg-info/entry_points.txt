@@ -1,0 +1,2 @@
+[console_scripts]
+seu-platform = layout_ecc.serve:main
