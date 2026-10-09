@@ -411,5 +411,38 @@ drawFf(); renderFf();
 drawBram(); renderBram();
 drawSizeCell(); drawSizeZoom();
 </script>
+
+<script>
+window.__ZH_EN = {
+  "__title__": "Inside the Device — SEU Platform",
+  "器件内部 v1": "Device Internals v1",
+  "器件内部": "Device Internals", "打击": "Strike", "轨道": "Orbit",
+  "效应": "Effects", "一个 6T 单元": "one 6T cell",
+  "两个反相器首尾相接，只能稳在 01 或 10": "two inverters back-to-back, stable only at 01 or 10",
+  "主从锁存（FDRE）": "master-slave latch (FDRE)",
+  "主锁存": "master latch", "从锁存": "slave latch",
+  "从锁存节点被推过阈值，Q 立刻翻转。": "slave node pushed past threshold — Q flips at once.",
+  "下一个时钟沿会把 D 写回来。": "the next clock edge writes D back.",
+  "下一拍被 D 覆盖，自愈": "D overwrites it next cycle — self-heals",
+  "打一下": "Strike it", "打中": "hit", "复位": "reset",
+  "收集电荷": "Charge collected",
+  "收集电流双指数（归一化时间，约 1 ns 量级）": "double-exponential collection current (~1 ns scale)",
+  "写回": "write back", "写回或 ECC 纠正": "write-back or ECC correction",
+  "恢复配置": "restore config", "拖动电荷，再点": "drag charge, then click",
+  "字 × 8 bit 示意阵列": "word x 8 bit toy array",
+  "打中选中的格": "hit the selected cell",
+  "只在输入选中那一格时出错": "error only while that cell is selected",
+  "不用正在读也会翻": "flips without being read",
+  "打击页 CFG": "strike-page CFG",
+  "截面有多大": "how large is the cross-section",
+  "位错。": "bit error.",
+  "按每个 bit 计：一颗离子连带翻 k 个 bit 就记 k 次，所以饱和截面比一个存储单元大得多。":
+    "counted per bit: one ion flipping k bits counts k times, so saturated σ ≫ one cell's area.",
+  "与设计一致。": "consistent with the design.",
+  "拿到了错数据。": "got wrong data.",
+  "一直错": "stays wrong"
+};
+</script>
+<script src="/static/i18n.js"></script>
 </body>
 </html>

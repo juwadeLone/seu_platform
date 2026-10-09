@@ -106,6 +106,76 @@ def build_proton_sigma(spec):
     raise ValueError("proton_sigma needs anchor_E_mev, table or file")
 
 
+# ---------------------------------------------------------------------------
+# Device library: env_data/devices/<id>.json, each entry a mission 'device'
+# block plus provenance. config['device'] = {"library": "xc7vx690t"} pulls the
+# entry; any explicit key in the config overrides the library value.
+
+import json as _json
+import os as _os
+
+_DEVICES_DIR = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)),
+                             "env_data", "devices")
+
+
+def _devices_dir():
+    return _os.environ.get("ORBIT_SEU_DEVICES_DIR", _DEVICES_DIR)
+
+
+def load_library_entry(device_id):
+    safe = "".join(c for c in str(device_id) if c.isalnum() or c in "._-")
+    path = _os.path.join(_devices_dir(), safe + ".json")
+    with open(path, encoding="utf-8") as fh:
+        return _json.load(fh)
+
+
+def list_devices():
+    """{id: {label, family, role, bits, domains, has_proton}} for the UI."""
+    out = {}
+    if not _os.path.isdir(_devices_dir()):
+        return out
+    for fn in sorted(_os.listdir(_devices_dir())):
+        if not fn.endswith(".json") or fn.startswith("_"):
+            continue
+        try:
+            e = load_library_entry(fn[:-5])
+        except Exception:
+            continue
+        doms = e.get("heavy_ion_weibull_by_domain") or {}
+        out[e.get("id") or fn[:-5]] = {
+            "label": e.get("label"),
+            "family": e.get("family"),
+            "role": e.get("role"),
+            "bits": e.get("bits"),
+            "domains": list(doms),
+            "has_proton": any("proton_sigma" in v for v in doms.values()),
+            "info": e.get("info") or {},
+            "provenance": e.get("provenance") or {},
+        }
+    return out
+
+
+def resolve_device(spec):
+    """Merge a {'library': id, ...overrides} spec with its library entry.
+
+    Config keys win over library keys; 'library'/'device_id' are consumed.
+    The merged dict keeps '_library' = {id, label, provenance} for reports."""
+    spec = dict(spec)
+    lib_id = spec.pop("library", None) or spec.pop("device_id", None)
+    if not lib_id:
+        return spec
+    entry = load_library_entry(lib_id)
+    merged = {k: v for k, v in entry.items()
+              if k not in ("id", "label", "info")}
+    for k, v in spec.items():
+        merged[k] = v
+    merged["_library"] = {"id": entry.get("id") or lib_id,
+                          "label": entry.get("label"),
+                          "role": entry.get("role"),
+                          "provenance": entry.get("provenance")}
+    return merged
+
+
 def build_device_sigma(spec):
     """spec: dict with either 'heavy_ion_weibull' or 'sigma_table'
     (path to whitespace column file; configurable x/y columns)."""

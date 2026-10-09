@@ -1,0 +1,35 @@
+{
+  "id": "xc7z045",
+  "label": "Xilinx Zynq-7045 (PL side)",
+  "family": "7-series 28nm",
+  "role": "family_borrow",
+  "provenance": {
+    "weibull": "Lee, Wirthlin, Swift, Le, 2014 IEEE REDW Table 1 — measured on XC7K325T; same 28nm 7-series cell generation, family borrow.",
+    "bits": "GAP: Zynq-7045 PL CRAM/BRAM/FF bit counts not yet sourced from DS190/UG470 — null, not invented."
+  },
+  "info": {
+    "proc": "28 nm CMOS",
+    "logic": "Zynq-7045 PL logic resources not yet sourced",
+    "bram": "见 DS190；未查表，不填占位值",
+    "note": "σ(LET) 借用 K325T 实测；域级 bits 全缺 → 只给 per-bit 率，器件总数标 gap。"
+  },
+  "bits": null,
+  "bits_note": "GAP — Zynq-7045 PL 域级位数未落盘",
+  "heavy_ion_weibull_by_domain": {
+    "CRAM": {
+      "let_threshold": 0.4, "width": 338.5, "shape": 0.852,
+      "sigma_sat_cm2_per_bit": 3.34e-08, "bits": null,
+      "bits_source": "GAP"
+    },
+    "BRAM": {
+      "let_threshold": 0.1, "width": 87.5, "shape": 0.893,
+      "sigma_sat_cm2_per_bit": 3.82e-08, "bits": null,
+      "bits_source": "GAP"
+    },
+    "FF": {
+      "let_threshold": 1.1, "width": 271.3, "shape": 1.09,
+      "sigma_sat_cm2_per_bit": 1.47e-07, "bits": null,
+      "bits_source": "GAP"
+    }
+  }
+}

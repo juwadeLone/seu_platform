@@ -128,9 +128,11 @@
   <label><b>芯片型号</b><select id="devsel">
     <option value="custom">自定义</option>
     <option value="xc7vx690t" selected>Virtex-7 xc7vx690t</option>
-    <option value="xc7k325t">Kintex-7 xc7k325t</option>
-    <option value="xc7z045">Zynq-7045 (PL)</option>
+    <option value="xc7k325t">Kintex-7 xc7k325t（Lee 2014 DUT 原生）</option>
+    <option value="xc7z045">Zynq-7045 (PL，位数缺)</option>
+    <option value="_upload">上传器件 JSON…</option>
   </select></label>
+  <label id="devUploadRow" style="display:none"><b>器件 JSON（sigma 表/域参数）</b><input id="devFile" type="file" accept=".json"></label>
   <div class="devinfo" id="devinfo"></div>
   <label><b>位数 bits</b><input id="bits" type="number" value="284934976"></label>
   <label><b>LET 阈值</b><input id="lth" type="number" value="5" step="0.5"></label>
@@ -324,14 +326,58 @@ const DEVICES = {
     bits: null,
     note:"本任务目标器件是 XC7VX690T。Zynq-7045 的 CRAM/BRAM/FF 官方 bits 未写入，不要用旧的 19.6 Mbit 占位。" }
 };
+let UPLOADED_DEVICE = null;
+let LIBRARY_DEVICES = {};
+$("devFile").onchange = async e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  try {
+    UPLOADED_DEVICE = JSON.parse(await f.text());
+    const ok = UPLOADED_DEVICE.heavy_ion_weibull_by_domain ||
+               UPLOADED_DEVICE.heavy_ion_weibull || UPLOADED_DEVICE.sigma_table ||
+               UPLOADED_DEVICE.library;
+    if (!ok) throw new Error("JSON 里没有 sigma 定义");
+    $("devinfo").innerHTML = `已加载 <b>${f.name}</b>：按 JSON 内的 σ 参数计算。`;
+  } catch (e2) {
+    UPLOADED_DEVICE = null;
+    $("devinfo").textContent = "器件 JSON 解析失败：" + e2.message;
+  }
+};
 function applyDevice(key) {
+  $("devUploadRow").style.display = key === "_upload" ? "" : "none";
+  if (key === "_upload") {
+    $("devinfo").textContent = UPLOADED_DEVICE ? "已加载器件 JSON。" :
+      "上传器件 JSON：{heavy_ion_weibull_by_domain:{域:{let_threshold,width,shape,sigma_sat_cm2_per_bit,bits,proton_sigma?}}, bits}。";
+    return;
+  }
+  const lib = LIBRARY_DEVICES[key];
   const d = DEVICES[key];
   if (!d) { $("devinfo").textContent = "自定义器件：自行填写位数与 Weibull 参数。"; return; }
   if (d.bits) $("bits").value = d.bits;
+  let extra = "";
+  if (lib) {
+    const pv = lib.provenance || {};
+    extra = `<br>库条目 <code>env_data/devices/${key}.json</code>` +
+      (lib.has_proton ? "（含质子锚）" : "（无质子数据）") +
+      (lib.role === "native_dut" ? " — 原生 DUT" :
+       lib.role === "family_borrow" ? " — 同族借用" : "") +
+      (pv.bits ? `<br><span style="color:#7f93ab">${pv.bits}</span>` : "");
+  }
   $("devinfo").innerHTML =
-    `<b>${d.label}</b>｜${d.proc}<br>逻辑 ${d.logic}；BRAM ${d.bram}<br>` +
-    `${d.note}<br>整片次数以 <b>examples/xc7vx690t_measured_meo.json</b> 为准（Lee 2014 按域实测 σ + 官方 bits）。本表单单组 Weibull 框不是该次数的输入。`;
+    `<b>${(lib && lib.label) || d.label}</b>｜${d.proc}<br>逻辑 ${d.logic}；BRAM ${d.bram}<br>` +
+    `${d.note}` + extra +
+    `<br>整片次数以 <b>examples/xc7vx690t_measured_meo.json</b> 为准（Lee 2014 按域实测 σ + 官方 bits）。本表单单组 Weibull 框不是该次数的输入。`;
 }$("devsel").onchange = e => applyDevice(e.target.value);
+fetch("/api/devices").then(r => r.json()).then(j => {
+  LIBRARY_DEVICES = j || {};
+  // 用库条目替换静态 DEVICES（有库时走 {library:id} 引用，provenance 在服务端）
+  for (const [k, v] of Object.entries(LIBRARY_DEVICES)) {
+    const opt = $("devsel").querySelector(`option[value="${k}"]`);
+    if (opt && v.label) opt.textContent = v.label + (v.has_proton ? "（含质子锚）" : "");
+    if (v.bits && DEVICES[k]) DEVICES[k].bits = v.bits;
+  }
+  applyDevice($("devsel").value);
+}).catch(() => {});
 applyDevice("xc7vx690t");
 
 /* 3D 视图（共享引擎） */
@@ -355,8 +401,16 @@ function buildConfig(over) {
                    phi_mv: +$("phi").value },
     device: { bits: +$("bits").value }
   };
-  const preset = DEVICES[$("devsel").value];
-  if (preset && preset.domains) {
+  const devKey = $("devsel").value;
+  const preset = DEVICES[devKey];
+  if (devKey === "_upload") {
+    if (!UPLOADED_DEVICE) throw new Error("先选一个器件 JSON 文件");
+    cfg.device = UPLOADED_DEVICE;
+  } else if (LIBRARY_DEVICES[devKey]) {
+    // env_data/devices/<id>.json：带 provenance 的器件库条目
+    cfg.device = { library: devKey };
+    if (preset && preset.bits) cfg.device.bits = preset.bits;
+  } else if (preset && preset.domains) {
     cfg.device.heavy_ion_weibull_by_domain = preset.domains;
     cfg.device.bits = preset.bits;
   } else {
@@ -652,5 +706,88 @@ window.addEventListener("load", () => {
   document.getElementById("cfg").requestSubmit();
 });
 </script>
+<script>
+window.__ZH_EN = {
+  "__title__": "orbit_seu — On-orbit SEU Estimator",
+  "orbit_seu — 芯片在轨 SEU 效应估算": "orbit_seu — On-orbit SEU Effects Estimator",
+  "预设轨道": "Orbit presets", "预设": "Preset",
+  "LEO 太阳同步 550km/97.6°": "LEO SSO 550km/97.6°",
+  "LEO 国际站 420km/51.6°": "LEO ISS 420km/51.6°",
+  "MEO 导航 21500km/55°": "MEO nav 21500km/55°",
+  "GEO 35786km/0.1°": "GEO 35786km/0.1°",
+  "自定义": "Custom",
+  "轨道根数": "Orbit elements",
+  "高度 km": "Altitude km", "倾角 °": "Inclination °",
+  "偏心率": "Eccentricity", "RAAN °": "RAAN °",
+  "近地点幅角 °": "Arg. perigee °", "初始平近点角 °": "Mean anomaly °",
+  "任务": "Mission", "环境模式": "Environment",
+  "合成演示谱（非工程）": "Synthetic demo spectra (not engineering)",
+  "真实 GCR 模型（需系数文件）": "Real GCR model (needs coeff file)",
+  "AE9/AP9 束缚质子（需程序包）": "AE9/AP9 trapped protons (needs package)",
+  "组合：真实 GCR + AE9/AP9": "Combo: real GCR + AE9/AP9",
+  "SPENVIS CREME96 真实 GCR 谱（已导入）": "SPENVIS CREME96 real GCR (bundled)",
+  "导入的 SPENVIS/质子谱（下方面板导入）": "Imported SPENVIS/proton spectra (panel below)",
+  "调制势 φ MV": "Modulation φ MV", "时长 年": "Years",
+  "采样轨道数": "Sampled orbits", "每轨道点数": "Points/orbit",
+  "赤道截止 GV": "Equatorial cutoff GV",
+  "器件（FPGA 型号 + Weibull）": "Device (FPGA + Weibull)",
+  "芯片型号": "Chip",
+  "Virtex-7 xc7vx690t": "Virtex-7 xc7vx690t",
+  "Kintex-7 xc7k325t（Lee 2014 DUT 原生）": "Kintex-7 xc7k325t (Lee 2014 native DUT)",
+  "Zynq-7045 (PL，位数缺)": "Zynq-7045 (PL, bits gap)",
+  "上传器件 JSON…": "Upload device JSON…",
+  "器件 JSON（sigma 表/域参数）": "Device JSON (sigma table/domain params)",
+  "位数 bits": "Bits", "LET 阈值": "LET threshold",
+  "宽度 W": "Width W", "形状 s": "Shape s",
+  "σ饱和 cm²/bit": "σ sat cm²/bit",
+  "导入 SPENVIS 导出（可选）": "Import SPENVIS exports (optional)",
+  "把你的轨道环境文件拖进来 → 一键变任务配置": "Drop your orbit environment files → one-click mission config",
+  "spenvis_gcf.txt（CREME96 全 92 素谱）": "spenvis_gcf.txt (CREME96 all-92-element)",
+  "或按组 LET 谱（可多选）": "or per-group LET spectra (multi-select)",
+  "质子谱（E_MeV / cm²·s·MeV）": "Proton spectrum (E_MeV / cm²·s·MeV)",
+  "屏蔽 mil Al": "Shield mil Al",
+  "⬆ 导入并生成环境": "⬆ Import & build environment",
+  "▶ 计算 SEU 效应": "▶ Compute SEU effects",
+  "SEU 率（每 bit / 天）": "SEU rate (per bit / day)",
+  "SEU 率（每器件 / 天）": "SEU rate (per device / day)",
+  "任务期期望事件（器件）": "Mission expected events (device)",
+  "P(≥1 次 SEU，器件）": "P(≥1 SEU, device)",
+  "分来源事件率": "Event rates by source", "来源": "Source",
+  "透射后微分 LET 谱（轨道平均）": "Transmitted differential LET spectra (orbit-avg)",
+  "垂直截止刚度沿轨道": "Vertical cutoff rigidity along orbit",
+  "轨道对比（多轨道同图 + 指标对照）": "Orbit comparison (multi-orbit plot + metrics)",
+  "+ 当前表单轨道": "+ current form orbit",
+  "⚖ 对比所选轨道": "⚖ Compare selected",
+  "清除": "Clear",
+  "3D 轨道环境": "3D orbit environment",
+  "截止刚度": "Cutoff rigidity", "⏸ 暂停": "⏸ Pause",
+  "速度": "Speed", "全景": "Overview", "跟随卫星": "Follow satellite",
+  "自动旋转：开": "Auto-rotate: on", "自动旋转：关": "Auto-rotate: off",
+  "⛶ 大窗口": "⛶ Large view", "辐射带": "Radiation belts",
+  "先选一个文件。": "Pick a file first.",
+  "导入中：转换 + manifest + 谱校验…": "Importing: convert + manifest + validate…",
+  "导入失败：": "Import failed: ",
+  "环境：合成演示谱（非工程数据）": "Env: synthetic demo spectra (not engineering)",
+  "环境：导入谱（先在下方导入面板导入文件）": "Env: imported spectra (use the import panel first)",
+  "环境：SPENVIS CREME96 GCR（轨道锁定 20200 km / 55°，100 mil Al）":
+    "Env: SPENVIS CREME96 GCR (orbit locked 20200 km / 55°, 100 mil Al)",
+  "计算中：轨道传播 → 截止刚度 → 谱透射 → 率积分 …":
+    "Computing: propagate → cutoff → transmit → integrate …",
+  "先在下方导入面板导入 SPENVIS/质子谱文件":
+    "Import SPENVIS/proton files via the panel first",
+  "自定义器件：自行填写位数与 Weibull 参数。":
+    "Custom device: fill in bit count and Weibull params.",
+  "填好参数点“计算”。当前内置环境为合成演示谱——量级参考用，禁止任务评估。":
+    "Set parameters and click Compute. The bundled demo environment is synthetic — order-of-magnitude only, not for mission assessment.",
+  "，含质子谱": ", with proton spectrum",
+  "（含质子锚）": " (proton anchors)", "（无质子数据）": " (no proton data)",
+  " — 原生 DUT": " — native DUT", " — 同族借用": " — family borrow",
+  "已加载器件 JSON。": "Device JSON loaded.",
+  "器件 JSON 解析失败：": "Device JSON parse failed: ",
+  "先选一个器件 JSON 文件": "Pick a device JSON first",
+  "已加载": "Loaded ", "：按 JSON 内的 σ 参数计算。": ": computed from its σ params."
+};
+</script>
+<script src="/static/i18n.js"></script>
 </body>
 </html>

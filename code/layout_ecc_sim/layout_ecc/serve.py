@@ -31,6 +31,7 @@ def _rewrite_oseu_prefixes(text):
     "/api/import_spenvis" -> "/oseu/api/import_spenvis"."""
     pairs = (("/static/", "/oseu-static/"),
              ("/api/run", "/oseu/api/run"),
+             ("/api/devices", "/oseu/api/devices"),
              ("/api/import_spenvis", "/oseu/api/import_spenvis"))
     if isinstance(text, bytes):
         for old, new in pairs:
@@ -134,6 +135,20 @@ def make_handler(gui):
                         with open(full, "rb") as fh:
                             self._send(200, mime, fh.read())
                     return
+            if path == "/oseu/api/devices":
+                try:
+                    from .orbit_env import _roots
+                    lib, _env, _cfg = _roots()
+                    if lib not in sys.path:
+                        sys.path.append(lib)
+                    from orbit_seu.device import list_devices
+                    self._send(200, "application/json",
+                               json.dumps(list_devices(),
+                                          ensure_ascii=False).encode("utf-8"))
+                except FileNotFoundError as exc:
+                    self._send(503, "application/json",
+                               json.dumps({"error": str(exc)}).encode("utf-8"))
+                return
             super().do_GET()
 
         def do_POST(self):
