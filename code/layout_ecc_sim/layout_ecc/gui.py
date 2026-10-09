@@ -44,8 +44,12 @@ def _build_state(path):
             f"hierarchy. Colour-by-stage uses hierarchy-derived modules; "
             f"black = empty in the used bounding box. RPM_X/Y are "
             f"architecture units, not microns.")
-        layout["design"] = os.path.basename(
-            os.path.dirname(os.path.abspath(path)))
+        name_file = os.path.join(os.path.dirname(os.path.abspath(path)),
+                                 "name.txt")
+        layout["design"] = (open(name_file, encoding="utf-8").read().strip()
+                            if os.path.isfile(name_file) else
+                            os.path.basename(os.path.dirname(
+                                os.path.abspath(path))))
     presets = g4_presets(layout)
     box = bounding_box(layout)
     sb = [
@@ -89,6 +93,9 @@ def register_layout(csv_text, name="primitive_map.csv"):
     fp = os.path.join(d, "primitive_map.csv")
     with open(fp, "w", encoding="utf-8", newline="") as fh:
         fh.write(csv_text)
+    disp = os.path.splitext(os.path.basename(name))[0] or lid
+    with open(os.path.join(d, "name.txt"), "w", encoding="utf-8") as fh:
+        fh.write(disp)
     st = _build_state(fp)          # parses or raises
     _LAYOUTS_BY_ID[lid] = fp
     return lid, st
@@ -100,8 +107,32 @@ def layout_for_id(layout_id):
         return layout_state()
     path = _LAYOUTS_BY_ID.get(layout_id)
     if not path:
+        cand = os.path.join(_LAYOUTS_ROOT, layout_id, "primitive_map.csv")
+        ok = layout_id and ".." not in layout_id and \
+            "/" not in layout_id and "\\" not in layout_id
+        if ok and os.path.isfile(cand):
+            path = cand
+            _LAYOUTS_BY_ID[layout_id] = path
+    if not path:
         raise ValueError(f"unknown layout_id {layout_id!r} — upload it first")
     return layout_state(path)
+
+
+def _known_layouts():
+    """Uploaded layouts on disk (survives restarts), merged with
+    anything registered this process."""
+    found = {}
+    if os.path.isdir(_LAYOUTS_ROOT):
+        for lid in os.listdir(_LAYOUTS_ROOT):
+            fp = os.path.join(_LAYOUTS_ROOT, lid, "primitive_map.csv")
+            nf = os.path.join(_LAYOUTS_ROOT, lid, "name.txt")
+            if os.path.isfile(fp):
+                design = (open(nf, encoding="utf-8").read().strip()
+                          if os.path.isfile(nf) else lid)
+                found[lid] = {"layout_id": lid, "design": design}
+    for lid in _LAYOUTS_BY_ID:
+        found.setdefault(lid, {"layout_id": lid, "design": lid})
+    return [found[k] for k in sorted(found)]
 
 
 _LAYOUT = layout_state()["layout"]
@@ -224,7 +255,7 @@ class _Handler(BaseHTTPRequestHandler):
                            "bundled": {"layout_id": "bundled",
                                        "n_sites": _LAYOUT["n_sites"],
                                        "design": _LAYOUT.get("design")},
-                           "uploaded": sorted(_LAYOUTS_BY_ID)})))
+                           "uploaded": _known_layouts()})))
             return
         if path.startswith("/static/"):
             name = os.path.basename(path)
