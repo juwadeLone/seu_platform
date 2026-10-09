@@ -6,9 +6,9 @@ import sys
 import unittest
 
 _ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, os.path.join(_ROOT, "desktop"))
+sys.path.insert(0, _ROOT)
 
-import orbit_env  # noqa: E402
+from layout_ecc import orbit_env  # noqa: E402
 
 try:
     orbit_env._roots()
@@ -31,7 +31,7 @@ class TestFrozenMatchesLiveRun(unittest.TestCase):
                 delta=1e-9)
 
     def test_effects_table_matches_orbit_env(self):
-        with open(os.path.join(_ROOT, "data", "effects_coverage.json"),
+        with open(os.path.join(_ROOT, "layout_ecc", "data", "effects_coverage.json"),
                   encoding="utf-8") as fh:
             table = json.load(fh)
         frozen = orbit_env.compute_orbit_payload()["_frozen_baseline"]

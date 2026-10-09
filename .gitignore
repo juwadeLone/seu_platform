@@ -32,3 +32,10 @@ scratch_audit/
 #   layout_ecc_sim/data/**  (CSV/JSON 证据, 含 P1_routed_ooc.dcp 布局源)
 #   experiments/fault_injection_1024/results/**  (冻结实验产物)
 # 若后续 dcp/json 过大需 Git LFS, 再单独处理
+
+# build outputs
+build/
+dist/
+*.egg-info/
+demo/
+seu_venv_test/

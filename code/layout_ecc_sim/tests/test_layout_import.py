@@ -6,7 +6,7 @@ from layout_ecc.layout_import import load_primitive_map
 from layout_ecc.strike import g4_presets, run_strike
 
 _CSV = os.path.normpath(os.path.join(
-    os.path.dirname(__file__), "..", "data", "layout", "p1_ooc_win",
+    os.path.dirname(__file__), "..", "layout_ecc", "data", "layout", "p1_ooc_win",
     "primitive_map.csv"))
 
 

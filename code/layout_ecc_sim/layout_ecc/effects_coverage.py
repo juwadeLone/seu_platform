@@ -9,7 +9,9 @@ from __future__ import annotations
 import json
 import os
 
-_DATA = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "data"))
+from .paths import data_dir as _data_dir
+
+_DATA = _data_dir()
 _TABLE_NAME = "effects_coverage.json"
 _PROTON_NAME = "proton_7series_sigma_E.json"
 _TID_DIRNAME = "tid"

@@ -12,33 +12,49 @@ from pathlib import Path
 
 _HERE = Path(__file__).resolve().parent
 _PKG = _HERE.parent
-_GOLDEN_DIR = _PKG / "data" / "golden"
+from .paths import data_dir as _data_dir
+
+_GOLDEN_DIR = Path(_data_dir()) / "golden"
 _EXP = _PKG.parents[1] / "experiments" / "fault_injection_1024"
 if str(_EXP) not in sys.path:
     sys.path.insert(0, str(_EXP))
 
-from common.python.fixed_fft import (  # noqa: E402
-    bit_reverse_order,
-    exchange_phi,
-    exchanged_dif_stage,
-    generate_frame,
-    pfft_1024,
-    serialize_words,
-)
-from common.python.protection import (  # noqa: E402
-    arithmetic_643_decode,
-    flip_component_bit,
-    secded_decode,
-    secded_encode_complex,
-    tmr_vote,
-)
-from projects.P1.run_p1 import (  # noqa: E402
-    independent_operator_group,
-    operator_input,
-    pfft_stage_inputs,
-    stage10_operator_groups,
-)
+try:
+    from common.python.fixed_fft import (  # noqa: E402
+        bit_reverse_order,
+        exchange_phi,
+        exchanged_dif_stage,
+        generate_frame,
+        pfft_1024,
+        serialize_words,
+    )
+    from common.python.protection import (  # noqa: E402
+        arithmetic_643_decode,
+        flip_component_bit,
+        secded_decode,
+        secded_encode_complex,
+        tmr_vote,
+    )
+    from projects.P1.run_p1 import (  # noqa: E402
+        independent_operator_group,
+        operator_input,
+        pfft_stage_inputs,
+        stage10_operator_groups,
+    )
+    _HAVE_EXP = True
+except ModuleNotFoundError:
+    # Wheel/pip install without the experiments tree: the functional layer
+    # degrades; geometry/strike/effects keep working.
+    _HAVE_EXP = False
+
 from .lifetime import map_cycle, masked_by_lifetime
+
+
+def _require_exp():
+    if not _HAVE_EXP:
+        raise RuntimeError(
+            "functional layer needs experiments/fault_injection_1024 "
+            "(present in a source checkout, not in the wheel)")
 
 FRAME_SPEC = {
     "id": "random_seeded",
@@ -56,6 +72,7 @@ def _sha256_bytes(raw: bytes) -> str:
 
 def ensure_golden(directory=None):
     """Write (or reuse) the frozen golden frame + FFT output."""
+    _require_exp()
     directory = Path(directory or _GOLDEN_DIR)
     directory.mkdir(parents=True, exist_ok=True)
     frame = generate_frame(FRAME_SPEC)
@@ -134,6 +151,7 @@ def _outcome(detected, corrected, match, uncorrectable=False):
 
 
 def inject_and_classify(fault, golden=None):
+    _require_exp()
     """fault: dict(stage_id, module_role, domain, bit, cycle, ...).
 
     cycle / address / lane map to (frame, sample) via WP6 SDF depths.

@@ -26,9 +26,10 @@ _MIME = {".html": "text/html; charset=utf-8",
          ".jpg": "image/jpeg",
          ".png": "image/png"}
 
-_CSV = os.path.normpath(os.path.join(
-    os.path.dirname(__file__), "..", "data", "layout", "p1_ooc_win",
-    "primitive_map.csv"))
+from .paths import data_dir as _data_dir
+
+_CSV = os.path.join(_data_dir(), "layout", "p1_ooc_win",
+                    "primitive_map.csv")
 _LAYOUT = load_primitive_map(_CSV)
 _PRESETS = g4_presets(_LAYOUT)
 _BOX = bounding_box(_LAYOUT)
