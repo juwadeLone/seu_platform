@@ -268,6 +268,9 @@ class _Handler(BaseHTTPRequestHandler):
         self._send(404, "text/plain; charset=utf-8", b"not found")
 
     def do_POST(self):
+        pth = self.path.split("?")[0]
+        if pth in ("/api/consequence", "/api/mitigate", "/api/report"):
+            return self._p3(pth.rsplit("/", 1)[1])
         if self.path == "/api/upload_layout":
             try:
                 n = int(self.headers.get("Content-Length", 0))
@@ -313,6 +316,57 @@ class _Handler(BaseHTTPRequestHandler):
                 rpm_to_um=float(cfg["rpm_to_um"]) if cfg.get("rpm_to_um") else None,
             )
             out["effects"] = classify(out, out["let"])
+            self._send(200, "application/json", json.dumps(_safe(out)))
+        except Exception as exc:
+            self._send(400, "application/json",
+                       json.dumps({"error": f"{type(exc).__name__}: {exc}"}))
+
+    def _p3(self, kind):
+        """P3 endpoints: consequence / mitigate / report."""
+        try:
+            n = int(self.headers.get("Content-Length", 0))
+            cfg = json.loads(self.rfile.read(n) or b"{}")
+            st = layout_for_id(cfg.get("layout_id"))
+            lay = st["layout"]
+            if kind == "consequence":
+                from .consequence import assess
+                out = assess(
+                    lay, cfg.get("critical_modules"),
+                    cfg.get("domain_rates"),
+                    float(cfg.get("duration_days", 365.0)))
+            elif kind == "mitigate":
+                from .consequence import assess, default_domain_rates
+                from .mitigation import advise
+                dev_rates = cfg.get("domain_device_rates")
+                if not dev_rates:
+                    rates = default_domain_rates()
+                    rates.update(cfg.get("domain_rates") or {})
+                    con = assess(lay, [], {}, 1.0)
+                    bits = {d: sum(m["bits"].get(d, 0)
+                                   for m in con["per_module"])
+                            for d in ("CFG", "FF_STATE", "BRAM_STATE",
+                                      "DSP_STATE")}
+                    dev_rates = {d: (r * bits[d] if r is not None else None)
+                                 for d, r in rates.items()}
+                else:
+                    con = assess(lay, [], {}, 1.0)
+                    bits = {d: sum(m["bits"].get(d, 0)
+                                   for m in con["per_module"])
+                            for d in ("CFG", "FF_STATE", "BRAM_STATE",
+                                      "DSP_STATE")}
+                out = advise(
+                    dev_rates, bits,
+                    float(cfg.get("target_per_day", 0.01)),
+                    float(cfg.get("duration_days", 365.0)))
+            else:  # report
+                from .report import build_report
+                out = build_report(
+                    lay, st,
+                    float(cfg.get("duration_days", 365.0)),
+                    cfg.get("target_per_day"),
+                    cfg.get("critical_modules"),
+                    cfg.get("domain_rates"),
+                    cfg.get("mission_result"))
             self._send(200, "application/json", json.dumps(_safe(out)))
         except Exception as exc:
             self._send(400, "application/json",

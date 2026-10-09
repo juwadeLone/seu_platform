@@ -134,6 +134,15 @@
       <div class="f">k_LET（几何调试）<input id="klet" type="number" step="0.05" value="0.25"></div>
       <div id="domToggles"></div>
     </details>
+    <details class="card" id="p3Panel">
+      <summary>任务后果 & 加固</summary>
+      <div class="hint">勾选关键模块 → 估算任务失败概率（保守上界：关键模块内任一翻转=任务致命）</div>
+      <div id="critMods" style="max-height:140px;overflow:auto"></div>
+      <div class="f">任务时长(天)<input id="durD" type="number" value="365"></div>
+      <div class="row2"><button id="conseq" type="button">评估后果</button><button id="mitig" type="button">加固建议</button></div>
+      <button id="repBtn" type="button" style="width:100%">📄 导出 RHA 报告</button>
+      <div id="p3Out" class="hint" style="white-space:pre-wrap"></div>
+    </details>
     <details class="card">
       <summary>出处</summary>
       <ol>
@@ -351,6 +360,7 @@ async function load() {
     (LAYOUT_ID !== "bundled" ? "（自定义）" : "");
   $("designChip").title = j.disclaimer || "";
   buildDomainToggles(j);
+  buildCrit(j);
   legend();
   // 首次：打在全片中心附近的一个已用 Site
   let best = j.cells[0], bd = 1e18;
@@ -365,11 +375,68 @@ $("cv").addEventListener("mousemove", ev => {
   el.style.left = (ev.clientX - r.left + 14) + "px";
   el.style.top = (ev.clientY - r.top + 14) + "px";
 });
+function buildCrit(j) {
+  const el = $("critMods"); el.innerHTML = "";
+  (j.modules || []).forEach(m => {
+    const lb = document.createElement("label");
+    lb.className = "chk";
+    lb.innerHTML = `<input type="checkbox" class="critMod" value="${m.id}" checked> ${m.name || m.path || m.id}`;
+    el.appendChild(lb);
+  });
+}
+async function postJson(url, body) {
+  const r = await fetch(url, { method: "POST",
+    headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const j = await r.json();
+  if (j.error) throw new Error(j.error);
+  return j;
+}
+function critIds() {
+  return [...document.querySelectorAll(".critMod")].filter(c => c.checked).map(c => +c.value);
+}
+$("conseq").onclick = async () => {
+  const out = $("p3Out"); out.textContent = "评估中…";
+  try {
+    const j = await postJson("/api/consequence", { layout_id: LAYOUT_ID,
+      critical_modules: critIds(), duration_days: +$("durD").value || 365 });
+    out.textContent = `关键率 ${j.critical_rate_per_day.toExponential(3)}/天 · `
+      + `期望 ${j.expected_events.toExponential(2)} 次 · P(失败) ${(100*j.p_fail).toFixed(2)}%`
+      + (j.gaps.length ? `\n缺数据：${j.gaps.join("; ")}` : "")
+      + `\n假设：关键模块内任一翻转 = 任务致命（保守上界）`;
+  } catch (e) { out.textContent = "失败：" + e.message; }
+};
+$("mitig").onclick = async () => {
+  const out = $("p3Out"); out.textContent = "求解中…";
+  try {
+    const j = await postJson("/api/mitigate", { layout_id: LAYOUT_ID,
+      duration_days: +$("durD").value || 365 });
+    out.textContent = `输入 ${j.input_total_per_day.toExponential(3)}/天 → 残余 `
+      + `${j.residual_total_per_day.toExponential(3)}/天 `
+      + (j.meets_target ? "(达目标)" : "(未达目标)") + "\n"
+      + j.recommendations.map(r => `${r.domain}: ${r.label}`).join("\n")
+      + (j.gap_domains.length ? `\n缺数据域：${j.gap_domains.join(",")}` : "");
+  } catch (e) { out.textContent = "失败：" + e.message; }
+};
+$("repBtn").onclick = async () => {
+  const out = $("p3Out"); out.textContent = "生成报告中…";
+  try {
+    const j = await postJson("/api/report", { layout_id: LAYOUT_ID,
+      critical_modules: critIds(), duration_days: +$("durD").value || 365 });
+    const w = window.open("", "_blank");
+    w.document.write(j.html); w.document.close();
+    out.textContent = `报告已生成：${j.path}\nP(失败) ${(100*j.p_fail).toFixed(2)}%`;
+  } catch (e) { out.textContent = "失败：" + e.message; }
+};
 load();
 </script>
 <script>
 window.__ZH_EN = {
   "__title__": "Radiation Strike — SEU Platform",
+  "任务后果 & 加固": "Mission consequence & mitigation",
+  "勾选关键模块 → 估算任务失败概率（保守上界：关键模块内任一翻转=任务致命）": "Check critical modules → estimate mission failure probability (conservative: any upset in a critical module is fatal)",
+  "任务时长(天)": "Duration (days)", "评估后果": "Assess", "加固建议": "Mitigation advice",
+  "📄 导出 RHA 报告": "📄 Export RHA report", "评估中…": "Assessing…", "求解中…": "Solving…",
+  "生成报告中…": "Building report…", "失败：": "Failed: ", "高级": "Advanced", "出处": "Provenance",
   "辐射打击": "Radiation Strike", "打击": "Strike", "轨道": "Orbit",
   "效应": "Effects", "器件内部": "Device Internals", "设计 —": "Design —",
   "离子": "Ion", "入射角": "Incidence θ", "方位": "Azimuth φ",

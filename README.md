@@ -60,6 +60,14 @@ Any orbit SPENVIS covers becomes a mission here. On the `/orbit` page open the i
 
 The import sets the mission's orbit elements from the file's manifest (the platform refuses to apply spectra generated for a different orbit) and returns a ready-to-run environment. Headless equivalent: `POST /oseu/api/import_spenvis` with `{"gcf_text": ..., "proton_text": ..., "shield_mil": 100}`, or the CLI `python code/orbit_seu/scripts/spenvis_to_let.py spenvis_gcf.txt out/ --shield-mil 100`.
 
+## Mission consequences & mitigation (P3)
+
+The layer SPENVIS doesn't have. On the strike page, "任务后果 & 加固":
+
+- **Consequence engine** — mark which modules are mission-critical; the platform measures each module's bit share of every domain (real layout occupancies) × per-bit rates → per-module upset rates → P(mission failure) via Poisson. Conservative bound: any upset in a critical module is fatal; assumption stated in the output.
+- **Mitigation advisor** — `POST /api/mitigate` (or the button): given device rates + a target, recommends SECDED ECC (BRAM), scrubbing (CRAM) or TMR (FF/DSP) per domain with residual rates. Every effect coefficient is labelled evidence vs assumption — nothing invented.
+- **RHA report** — `POST /api/report` renders one self-contained HTML: environment → per-bit rates → module consequence table → mitigation advice → provenance + gaps. Saved under `~/.seu_platform/reports/`.
+
 ## Bring your own device and design
 
 - **Device library** — `code/orbit_seu/orbit_seu/env_data/devices/` ships xc7vx690t, xc7k325t (the Lee 2014 DUT, native data) and xc7z045 (bit count is a labelled gap). Pick one on `/orbit`, reference `{"device": {"library": "xc7k325t"}}` headless, or upload your own σ(LET)/σ(E) device JSON from the same page.
