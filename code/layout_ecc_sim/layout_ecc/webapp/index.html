@@ -139,7 +139,9 @@
       <div class="hint">勾选关键模块 → 估算任务失败概率（保守上界：关键模块内任一翻转=任务致命）</div>
       <div id="critMods" style="max-height:140px;overflow:auto"></div>
       <div class="f">任务时长(天)<input id="durD" type="number" value="365"></div>
+      <div class="f">每码字可纠位数 t<input id="tCorr" type="number" value="1" min="0"></div>
       <div class="row2"><button id="conseq" type="button">评估后果</button><button id="mitig" type="button">加固建议</button></div>
+      <button id="eccBtn" type="button" style="width:100%">验证 ECC 方案</button>
       <button id="repBtn" type="button" style="width:100%">📄 导出 RHA 报告</button>
       <div id="p3Out" class="hint" style="white-space:pre-wrap"></div>
     </details>
@@ -417,6 +419,16 @@ $("mitig").onclick = async () => {
       + (j.gap_domains.length ? `\n缺数据域：${j.gap_domains.join(",")}` : "");
   } catch (e) { out.textContent = "失败：" + e.message; }
 };
+$("eccBtn").onclick = async () => {
+  const out = $("p3Out"); out.textContent = "评估中…";
+  try {
+    const j = await postJson("/api/ecc_eval", { layout_id: LAYOUT_ID,
+      t_correct: +$("tCorr").value || 1 });
+    out.textContent = `码字 ${j.n_codewords} · t=${j.t_correct}：`
+      + `${j.in_rate_per_day.toExponential(3)} → 残余 ${j.residual_per_day.toExponential(3)}/天\n`
+      + Object.entries(j.by_scheme).map(([k,v]) => `${k}: ${v.residual.toExponential(2)}/天`).join("\n");
+  } catch (e) { out.textContent = "失败：" + e.message; }
+};
 $("repBtn").onclick = async () => {
   const out = $("p3Out"); out.textContent = "生成报告中…";
   try {
@@ -436,6 +448,7 @@ window.__ZH_EN = {
   "勾选关键模块 → 估算任务失败概率（保守上界：关键模块内任一翻转=任务致命）": "Check critical modules → estimate mission failure probability (conservative: any upset in a critical module is fatal)",
   "任务时长(天)": "Duration (days)", "评估后果": "Assess", "加固建议": "Mitigation advice",
   "📄 导出 RHA 报告": "📄 Export RHA report", "评估中…": "Assessing…", "求解中…": "Solving…",
+  "每码字可纠位数 t": "Correctable bits/codeword t", "验证 ECC 方案": "Validate ECC scheme",
   "生成报告中…": "Building report…", "失败：": "Failed: ", "高级": "Advanced", "出处": "Provenance",
   "辐射打击": "Radiation Strike", "打击": "Strike", "轨道": "Orbit",
   "效应": "Effects", "器件内部": "Device Internals", "设计 —": "Design —",

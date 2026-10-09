@@ -72,3 +72,28 @@ class TestReport(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestEccEval(unittest.TestCase):
+    def setUp(self):
+        self.layout = gui.layout_state()["layout"]
+
+    def test_codewords(self):
+        from layout_ecc.ecc_eval import codewords
+        cws = codewords(self.layout)
+        self.assertGreater(len(cws), 0)
+        self.assertTrue(any(r["confidence"] for r in cws.values()))
+
+    def test_eval_monotone(self):
+        from layout_ecc.ecc_eval import evaluate
+        e1 = evaluate(self.layout, t_correct=1)
+        e3 = evaluate(self.layout, t_correct=3)
+        self.assertGreater(e1["in_rate_per_day"], 0)
+        self.assertLess(e3["residual_per_day"], e1["residual_per_day"])
+        self.assertTrue(e1["assumptions"])
+
+    def test_t0_residual(self):
+        from layout_ecc.ecc_eval import evaluate
+        e0 = evaluate(self.layout, t_correct=0, mean_k=1.5)
+        # t=0: only guaranteed-single events correctable? P(k>0)=1
+        self.assertAlmostEqual(e0["residual_per_day"], e0["in_rate_per_day"])

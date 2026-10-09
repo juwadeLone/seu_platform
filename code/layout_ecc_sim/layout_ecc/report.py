@@ -66,7 +66,9 @@ def build_report(layout, state, duration_days=365.0,
 padding:0 18px;color:#1c2733}}h1{{color:#0a4f7e}}h2{{color:#0a4f7e;
 border-bottom:1px solid #ccc}}table{{border-collapse:collapse;margin:8px 0}}
 td,th{{border:1px solid #bbb;padding:4px 9px}}.gap{{color:#a33}}
-.small{{font-size:12px;color:#555}}</style></head><body>
+.small{{font-size:12px;color:#555}}
+@media print{{body{{margin:10mm auto}}h2{{page-break-after:avoid}}
+tr{{page-break-inside:avoid}}}}</style></head><body>
 <h1>Radiation Effects Report — {esc(layout.get('design') or 'design')}</h1>
 <p class="small">Generated {datetime.datetime.now(_UTC).isoformat()}Z by
 seu_platform · device {esc(str(layout.get('part')))} ·
@@ -93,6 +95,8 @@ expected events {con['expected_events']:.3g}</p>
 <p class="gap">Gaps (not zero): {esc('; '.join(con['gaps']) or 'none')}
 {'; missing device rates: ' + ', '.join(mit['gap_domains']) if mit['gap_domains'] else ''}</p>
 <p class="small">{esc(layout.get('disclaimer') or '')}</p>
+<p class="small">Print-optimized: Ctrl+P → "Save as PDF" for the RHA
+deliverable.</p>
 </body></html>"""
     os.makedirs(REPORTS_ROOT, exist_ok=True)
     fn = os.path.join(REPORTS_ROOT, datetime.datetime.now(_UTC).strftime(
