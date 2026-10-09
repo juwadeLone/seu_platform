@@ -1,0 +1,66 @@
+{
+  "tool": "orbit_seu",
+  "version": "0.1.0",
+  "synthetic_environment": true,
+  "environment_type": "demo_gcr",
+  "orbit": {
+    "altitude_km": 550,
+    "inclination_deg": 97.6,
+    "eccentricity": 0.001,
+    "period_min": 95.64988025024664,
+    "samples": 2304
+  },
+  "magnetosphere": {
+    "pole": "north dipole pole 80.59 deg, -72.68 deg lon (from g/h inputs)",
+    "cutoff_gv": {
+      "min": 1.547215145263554e-06,
+      "mean": 4.7373620500714155,
+      "max": 12.627138182447933
+    },
+    "mcilwain_l": {
+      "min": 1.0862772087030814,
+      "max": 3103.257261045263
+    }
+  },
+  "device": {
+    "description": "Weibull LET: Lth=5.0 MeV*cm^2/mg, W=20.0, s=1.5, sigma_sat=1e-07 cm^2",
+    "bits": 55000000
+  },
+  "rates_per_s": {
+    "per_species": {
+      "p": 0.0,
+      "He": 0.0,
+      "O": 0.0,
+      "Si": 1.0836156661831967e-12,
+      "Fe": 3.218244029616508e-11
+    },
+    "heavy_ion_total": 3.326605596234828e-11,
+    "proton_total": 0.0,
+    "total_per_bit": 3.326605596234828e-11,
+    "total_per_device": 0.0018296330779291553
+  },
+  "mission": {
+    "duration_years": 3.0,
+    "per_bit": {
+      "expected_events": 0.003149390662912206,
+      "prob_at_least_one": 0.0031444365343318292,
+      "rate_per_day": 2.8741872351468915e-06
+    },
+    "per_device": {
+      "expected_events": 173216.48646017135,
+      "prob_at_least_one": 1.0,
+      "rate_per_day": 158.080297933079
+    }
+  },
+  "provenance": {
+    "config_sha256": "ef05220bd9bd97712b8156f07698fa5ef9a945f511d6240a2abc08477ef77f73",
+    "input_files": {}
+  },
+  "notes": [
+    "Centered-dipole Størmer vertical cutoff (±20% vs multi-pole maps).",
+    "First-order secular J2 propagation; no short-period terms.",
+    "Effective-LET thin-slab rate approximation (CREME86-era); full IRPP, funneling and MBU sharing are not modelled.",
+    "DEMO spectra are SYNTHETIC and must not be used for flight estimates; import SPENVIS/CREME96/AE9AP9 spectra for engineering work.",
+    "Proton contribution requires a measured sigma(E) table."
+  ]
+}

@@ -1,6 +1,6 @@
 """orbit_seu 轨道辐射环境的桌面集成层。
 
-复用 tcas 仓库的 orbit_seu 包（与冻结基线 out_vx690t_measured 同一套代码）：
+复用 orbit_seu 包（仓库内置 code/orbit_seu，与冻结基线同一套代码；也兼容 tcas 树与 pip 安装）（与冻结基线 out_vx690t_measured 同一套代码）：
 开发态直接 import tcas 里的包；exe 冻结态用打包进去的副本
 （--add-data 到 orbit_seu_lib/ 与 orbit_seu_env/）。
 
@@ -54,6 +54,25 @@ def _roots():
         for lib, env in candidates:
             if _usable(lib, env):
                 return lib, env, os.path.join(env, _CFG_REL)
+
+    # (b2) 仓库内置副本：code/orbit_seu（env_data/examples 已收进包内）
+    _here = os.path.dirname(os.path.abspath(__file__))  # code/layout_ecc_sim/layout_ecc
+    _vlib = os.path.normpath(os.path.join(_here, "..", "..", "orbit_seu"))
+    _venv = os.path.join(_vlib, "orbit_seu")
+    if _usable(_vlib, _venv):
+        if _vlib not in sys.path:
+            sys.path.insert(0, _vlib)
+        return _vlib, _venv, os.path.join(_venv, _CFG_REL)
+
+    # (b3) pip 安装的 orbit_seu 包：env_data/examples 随包走
+    try:
+        import orbit_seu as _pkg
+        _pdir = os.path.dirname(os.path.abspath(_pkg.__file__))
+        if _usable(os.path.dirname(_pdir), _pdir):
+            return (os.path.dirname(_pdir), _pdir,
+                    os.path.join(_pdir, _CFG_REL))
+    except ImportError:
+        pass
 
     if os.path.isdir(_TCAS_ORBIT_SEU) and _usable(_TCAS_ORBIT_SEU, _TCAS_ORBIT_SEU):
         return (

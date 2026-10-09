@@ -14,7 +14,7 @@ from layout_ecc.effects_coverage import (
 )
 
 _ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
-_JSON = os.path.join(_ROOT, "data", "effects_coverage.json")
+_JSON = os.path.join(_ROOT, "layout_ecc", "data", "effects_coverage.json")
 
 # Keys that would mean we invented a mission rate / dose for effects we do not have.
 _INVENTED_RATE_KEYS = (
@@ -95,7 +95,7 @@ class TestEffectsCoverageTable(unittest.TestCase):
         self.assertAlmostEqual(facts["BRAM"]["sigma_cm2_per_bit"], 8.19e-15)
         self.assertIsNone(facts["FF"])
         self.assertIsNone(facts["DSP"])
-        proton_path = os.path.join(_ROOT, "data", "proton_7series_sigma_E.json")
+        proton_path = os.path.join(_ROOT, "layout_ecc", "data", "proton_7series_sigma_E.json")
         with open(proton_path, "r", encoding="utf-8") as fh:
             proton = json.load(fh)
         cram = proton["per_domain"]["CRAM"]["sigma_cm2_per_bit_vs_E"][0]

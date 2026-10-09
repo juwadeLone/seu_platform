@@ -1,0 +1,78 @@
+{
+  "source_file": "spenvis_gcf.txt",
+  "source_sha256": "fb70e2bd0ec12d682efaaf8de224b7d1efb78aae030a543424d91ad910afa1d5",
+  "source_model": null,
+  "source_orbit": {
+    "apogee_km": 20200.0,
+    "perigee_km": 20200.0,
+    "inclination_deg": 55.0,
+    "raan_deg": 119.92,
+    "note": "parsed from the SPENVIS header; the spectra carry this orbit's geomagnetic shielding"
+  },
+  "shielding": {
+    "material": "Al",
+    "thickness_mil": 100.0,
+    "areal_density_g_cm2": 0.685546,
+    "geometry": "spherical shell (CREME96 TRANS convention)",
+    "transport": "CSDA, no nuclear fragmentation"
+  },
+  "let_model": "Bethe-Bloch in Si, Barkas effective charge, Sternheimer density effect; no shell/Bloch corrections",
+  "flux_convention": "omnidirectional (4 pi) differential flux per cm2 s",
+  "status": "interim; replace with SPENVIS CREME96 shielded LET spectrum (TRANS+LETSPEC) when exported",
+  "groups": {
+    "H": {
+      "file": "spenvis_H.let.txt",
+      "Z": [
+        1,
+        1
+      ],
+      "integral_flux_cm2_s": 4.18510270119531,
+      "sha256": "95e4f7fa30b90aefea6ace6b08dd6e0a75d8c61152eb2c016dc235fe5b0205e0"
+    },
+    "He": {
+      "file": "spenvis_He.let.txt",
+      "Z": [
+        2,
+        2
+      ],
+      "integral_flux_cm2_s": 0.4031994756826466,
+      "sha256": "98b8888defa2ac5d3facd8d66ac9410c20a69821dd766c62123d44dbc215d2d0"
+    },
+    "Z03-10": {
+      "file": "spenvis_Z03-10.let.txt",
+      "Z": [
+        3,
+        10
+      ],
+      "integral_flux_cm2_s": 0.031130763791545828,
+      "sha256": "f190f844ac32c408b61fdfc009ab39146cb4b5df964335c2158bfe231afe06cd"
+    },
+    "Z11-20": {
+      "file": "spenvis_Z11-20.let.txt",
+      "Z": [
+        11,
+        20
+      ],
+      "integral_flux_cm2_s": 0.005302125381418083,
+      "sha256": "bb0f3a1d3fa722d49157d78f48f1e1ae783752f300ff3fdba60a81d032149325"
+    },
+    "Z21-28": {
+      "file": "spenvis_Z21-28.let.txt",
+      "Z": [
+        21,
+        28
+      ],
+      "integral_flux_cm2_s": 0.0017748241344874402,
+      "sha256": "cf688b76dab6c7a46f63a83b49acd1b748a176b1ac8cb06e5b8601baf02ce1e8"
+    },
+    "Z29-92": {
+      "file": "spenvis_Z29-92.let.txt",
+      "Z": [
+        29,
+        92
+      ],
+      "integral_flux_cm2_s": 7.679184696471305e-07,
+      "sha256": "207efb15478ad70cacd119276b2807fb857f95adf63518c7c77c5c604ed9cf59"
+    }
+  }
+}

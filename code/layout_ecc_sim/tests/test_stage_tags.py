@@ -5,7 +5,7 @@ import unittest
 from layout_ecc.stage_tags import majority_site, report_csv, tag
 
 _CSV = os.path.normpath(os.path.join(
-    os.path.dirname(__file__), "..", "data", "layout", "p1_ooc_win",
+    os.path.dirname(__file__), "..", "layout_ecc", "data", "layout", "p1_ooc_win",
     "primitive_map.csv"))
 
 

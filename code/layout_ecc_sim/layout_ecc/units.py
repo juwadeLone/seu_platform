@@ -179,7 +179,7 @@ def constants_passport():
                 "tile_column_pitch_um": 34.53,
                 "tile_row_pitch_um": 45.58,
             },
-            "calibration_file": "data/rpm_grid_calibration.json",
+            "calibration_file": "layout_ecc/data/rpm_grid_calibration.json",
         },
         "radaelli_2005": {
             "points": [dict(p) for p in RADAELLI_2005],

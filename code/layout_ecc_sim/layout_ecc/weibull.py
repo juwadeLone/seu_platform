@@ -19,8 +19,9 @@ import json
 import math
 import os
 
-_JSON = os.path.normpath(os.path.join(
-    os.path.dirname(__file__), "..", "data", "weibull_7series_measured.json"))
+from .paths import data_dir as _data_dir
+
+_JSON = os.path.join(_data_dir(), "weibull_7series_measured.json")
 
 # layout_ecc domain → Lee Table 1 resource
 DOMAIN_TO_LEE = {

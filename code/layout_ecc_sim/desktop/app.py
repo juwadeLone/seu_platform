@@ -82,7 +82,7 @@ def _make_handler(gui):
     """
 
     def _oseu_dirs():
-        from orbit_env import _roots
+        from layout_ecc.orbit_env import _roots
         lib, env, _cfg = _roots()
         return os.path.join(lib, "orbit_seu", "webapp"), env
 
@@ -164,7 +164,7 @@ def _make_handler(gui):
             try:
                 n = int(self.headers.get("Content-Length", 0))
                 config = json.loads(self.rfile.read(n) or b"{}")
-                from orbit_env import _roots
+                from layout_ecc.orbit_env import _roots
                 _lib, env, _cfg = _roots()
                 if _lib not in sys.path:  # do not rely on the prewarm thread
                     sys.path.append(_lib)
@@ -214,7 +214,7 @@ def main() -> int:
 
     def _prewarm_orbit():
         try:
-            from orbit_env import compute_orbit_payload
+            from layout_ecc.orbit_env import compute_orbit_payload
             payload = compute_orbit_payload()
             _log("orbit env prewarmed: device/day="
                  f"{payload['rates_per_s']['total_per_device'] * 86400:.4f}")
