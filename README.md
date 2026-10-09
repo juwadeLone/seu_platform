@@ -124,6 +124,12 @@ It does **not** replace beam testing or qualification. Proton-dominated LEO is r
 
 See [ROADMAP.md](ROADMAP.md) for where this goes next.
 
+## Release / publish
+
+Wheel builds cleanly (`pip wheel .`); PyPI name `seu-platform` is reserved-free.
+To publish: `python -m pip install build && python -m build && twine upload dist/*`
+(needs your PyPI token — CI does not publish automatically).
+
 ## Layout
 
 ```
