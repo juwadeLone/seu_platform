@@ -38,7 +38,9 @@ Principle that does not change: every number carries provenance; missing data is
 - ✅ **Generic consequence engine v1** (`layout_ecc/consequence.py` + `POST /api/consequence` + strike-page panel): user marks critical modules; module bit shares measured from real layout occupancies × domain rates → P(mission failure). Conservative fatal-if-hit bound; per-net criticality is later work.
 - ✅ **Mitigation advisor** (`layout_ecc/mitigation.py` + `POST /api/mitigate`): SECDED ECC / scrubbing / TMR per domain against a target rate, residual modelled with labelled assumptions (MCU share, persist fraction, TMR coincidence window). fault_injection_1024 validation dataset is external — integration still open.
 - ✅ **RHA report** (`layout_ecc/report.py` + `POST /api/report` + 📄 button): one self-contained HTML — env → rates → module consequence → mitigation → provenance & gaps, persisted under `~/.seu_platform/reports/`.
-- Remaining: fault-injection as a product surface; PDF export; per-net (not per-module) consequence granularity.
+- ✅ **ECC scheme validator** (`layout_ecc/ecc_eval.py` + `POST /api/ecc_eval`): user supplies correctable-bits-per-codeword t → residual rate through the real inferred codeword mapping (44 codewords, 92.6% confidence-labelled). Multiplicity model = labelled assumption.
+- ✅ Print-optimized report (Ctrl+P → Save as PDF).
+- Remaining: fault-injection dataset (inject_and_classify golden) integration; per-net consequence granularity.
 
 ## Phase 4 — visibility
 

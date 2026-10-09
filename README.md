@@ -66,6 +66,7 @@ The layer SPENVIS doesn't have. On the strike page, "任务后果 & 加固":
 
 - **Consequence engine** — mark which modules are mission-critical; the platform measures each module's bit share of every domain (real layout occupancies) × per-bit rates → per-module upset rates → P(mission failure) via Poisson. Conservative bound: any upset in a critical module is fatal; assumption stated in the output.
 - **Mitigation advisor** — `POST /api/mitigate` (or the button): given device rates + a target, recommends SECDED ECC (BRAM), scrubbing (CRAM) or TMR (FF/DSP) per domain with residual rates. Every effect coefficient is labelled evidence vs assumption — nothing invented.
+- **ECC validator** — `POST /api/ecc_eval` (or the button): supply correctable bits/codeword t → residual upset rate through the real inferred codeword mapping (t=1 cuts ~3x, t=3 ~27x on the bundled FFT). Multiplicity shape labelled assumption.
 - **RHA report** — `POST /api/report` renders one self-contained HTML: environment → per-bit rates → module consequence table → mitigation advice → provenance + gaps. Saved under `~/.seu_platform/reports/`.
 
 ## Bring your own device and design

@@ -269,7 +269,8 @@ class _Handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         pth = self.path.split("?")[0]
-        if pth in ("/api/consequence", "/api/mitigate", "/api/report"):
+        if pth in ("/api/consequence", "/api/mitigate", "/api/report",
+                   "/api/ecc_eval"):
             return self._p3(pth.rsplit("/", 1)[1])
         if self.path == "/api/upload_layout":
             try:
@@ -358,6 +359,14 @@ class _Handler(BaseHTTPRequestHandler):
                     dev_rates, bits,
                     float(cfg.get("target_per_day", 0.01)),
                     float(cfg.get("duration_days", 365.0)))
+            elif kind == "ecc_eval":
+                from .ecc_eval import evaluate
+                out = evaluate(
+                    lay, int(cfg.get("t_correct", 1)),
+                    float(cfg.get("mean_k", 1.5)),
+                    str(cfg.get("domain", "FF_STATE")),
+                    cfg.get("domain_rates"),
+                    bool(cfg.get("include_proxy", True)))
             else:  # report
                 from .report import build_report
                 out = build_report(
