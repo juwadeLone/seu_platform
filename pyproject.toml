@@ -34,7 +34,7 @@ packages = ["layout_ecc", "orbit_seu"]
 
 [tool.setuptools.package-data]
 layout_ecc = [
-    "webapp/*.html",
+    "webapp/*",
     "data/*.json",
     "data/**/*.json",
     "data/**/*.csv",

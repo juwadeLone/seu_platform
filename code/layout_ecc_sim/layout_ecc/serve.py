@@ -108,7 +108,7 @@ def make_handler(gui):
                 name = os.path.basename(path[len("/oseu-static/"):])
                 try:
                     from .orbit_env import _roots
-                    lib, _env = _roots()
+                    lib, _env, _cfg = _roots()
                 except FileNotFoundError:
                     self._send(404, "text/plain; charset=utf-8", b"not found")
                     return
