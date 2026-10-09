@@ -9,27 +9,36 @@ The orbit pages mount orbit_seu when it can be resolved (vendored
 code/orbit_seu, ORBIT_SEU_ROOT, or an installed package). Without it the
 other four pages still serve; /orbit returns a clear message.
 """
+import hashlib
 import json
 import os
 import sys
 import threading
+import time
 import webbrowser
 from http.server import ThreadingHTTPServer
 
 VERSION = "1.2.0"
 
+UPLOAD_ROOT = os.path.join(os.path.expanduser("~"),
+                           ".seu_platform", "uploads")
+_MAX_UPLOAD_CHARS = 60_000_000   # ~60 MB of text per request part
+
 
 def _rewrite_oseu_prefixes(text):
     """Rewrite only the path prefixes already used by the bundled orbit_seu
-    pages: "/static/" -> "/oseu-static/", "/api/run" -> "/oseu/api/run"."""
+    pages: "/static/" -> "/oseu-static/", "/api/run" -> "/oseu/api/run",
+    "/api/import_spenvis" -> "/oseu/api/import_spenvis"."""
+    pairs = (("/static/", "/oseu-static/"),
+             ("/api/run", "/oseu/api/run"),
+             ("/api/import_spenvis", "/oseu/api/import_spenvis"))
     if isinstance(text, bytes):
-        for old, new in ((b"/static/", b"/oseu-static/"),
-                         (b"/api/run", b"/oseu/api/run")):
+        for old, new in pairs:
+            ob, nb = old.encode(), new.encode()
             for q in (b'"', b"'"):
-                text = text.replace(q + old, q + new)
+                text = text.replace(q + ob, q + nb)
         return text
-    for old, new in (("/static/", "/oseu-static/"),
-                     ("/api/run", "/oseu/api/run")):
+    for old, new in pairs:
         for q in ('"', "'"):
             text = text.replace(q + old, q + new)
     return text
@@ -128,7 +137,11 @@ def make_handler(gui):
             super().do_GET()
 
         def do_POST(self):
-            if self.path.split("?", 1)[0] != "/oseu/api/run":
+            path = self.path.split("?", 1)[0]
+            if path == "/oseu/api/import_spenvis":
+                self._handle_import_spenvis()
+                return
+            if path != "/oseu/api/run":
                 super().do_POST()
                 return
             try:
@@ -153,6 +166,30 @@ def make_handler(gui):
                 from orbit_seu.mission import run
                 self._send(200, "application/json",
                            json.dumps(_safe(run(config))).encode("utf-8"))
+            except FileNotFoundError as exc:
+                self._send(503, "application/json",
+                           json.dumps({"error": str(exc)}).encode("utf-8"))
+            except Exception as exc:
+                self._send(400, "application/json",
+                           json.dumps({"error": f"{type(exc).__name__}: {exc}"}
+                                      ).encode("utf-8"))
+
+        def _handle_import_spenvis(self):
+            """POST /oseu/api/import_spenvis — drop a SPENVIS export in,
+            get a ready-to-use 'files' environment block out. The logic
+            lives in orbit_seu.spenvis_import.handle_import (shared with
+            the standalone orbit_seu server)."""
+            try:
+                n = int(self.headers.get("Content-Length", 0))
+                body = json.loads(self.rfile.read(n) or b"{}")
+                from .orbit_env import _roots
+                lib, env, _cfg = _roots()
+                if lib not in sys.path:
+                    sys.path.append(lib)
+                from orbit_seu.spenvis_import import handle_import
+                out = handle_import(body)
+                self._send(200, "application/json",
+                           json.dumps(out).encode("utf-8"))
             except FileNotFoundError as exc:
                 self._send(503, "application/json",
                            json.dumps({"error": str(exc)}).encode("utf-8"))

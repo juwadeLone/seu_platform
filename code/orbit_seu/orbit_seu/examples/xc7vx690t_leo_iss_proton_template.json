@@ -1,0 +1,69 @@
+{
+  "_comment": [
+    "LEO ISS proton chain template. Fill environment.proton_file with a real",
+    "orbit-averaged trapped-proton spectrum for 420km/51.6deg — e.g. SPENVIS",
+    "AP8 (TRP) differential flux export, or POST the file text to",
+    "/oseu/api/import_spenvis (proton_text) and use the returned absolute",
+    "path. Columns are energy[MeV] vs omni differential flux",
+    "[protons/cm2/s/MeV] (convert m^-2->cm^-2 by 1e-4 and sr->4pi if needed).",
+    "Per-domain proton sigma: CRAM/BRAM carry Wirthlin/JINST-2014 TSL 180 MeV",
+    "anchors -> rates are LOWER BOUNDS (reported as lower_bound). FF/DSP have",
+    "no measured proton sigma(E) -> excluded, marked gap.",
+    "Heavy-ion GCR at ISS is small vs trapped protons; add let_spectra_files",
+    "from a SPENVIS run for this orbit if you want both sources."
+  ],
+  "mission": {
+    "duration_years": 1.0,
+    "sampling": { "orbits": 24, "points_per_orbit": 96 }
+  },
+  "orbit": {
+    "altitude_km": 420,
+    "inclination_deg": 51.6,
+    "eccentricity": 0.001,
+    "raan_deg": 0.0,
+    "argp_deg": 0.0,
+    "mean_anomaly0_deg": 0.0
+  },
+  "magnetosphere": {
+    "cutoff_eq_gv": 14.9
+  },
+  "environment": {
+    "type": "files",
+    "proton_file": "REPLACE_WITH_YOUR_TRAPPED_PROTON_SPECTRUM.txt",
+    "proton_columns": { "energy": 0, "diff_flux": 1 }
+  },
+  "device": {
+    "name": "XC7VX690T",
+    "part": "XC7VX690T",
+    "bits": 284934976,
+    "heavy_ion_weibull_by_domain": {
+      "CRAM": {
+        "let_threshold": 0.4, "width": 338.5, "shape": 0.852,
+        "sigma_sat_cm2_per_bit": 3.34e-08,
+        "bits": 229878496,
+        "proton_sigma": {
+          "anchor_E_mev": 180.0,
+          "sigma_cm2_per_bit": 8.29e-15,
+          "source": "Wirthlin/Takai/Harding JINST 2014 Table 1, TSL 180 MeV proton, XC7K325T CRAM",
+          "note": "single-energy anchor -> lower-bound rate"
+        }
+      },
+      "BRAM": {
+        "let_threshold": 0.1, "width": 87.5, "shape": 0.893,
+        "sigma_sat_cm2_per_bit": 3.82e-08,
+        "bits": 54190080,
+        "proton_sigma": {
+          "anchor_E_mev": 180.0,
+          "sigma_cm2_per_bit": 8.19e-15,
+          "source": "Wirthlin/Takai/Harding JINST 2014 Table 1, TSL 180 MeV proton, XC7K325T BRAM",
+          "note": "single-energy anchor -> lower-bound rate"
+        }
+      },
+      "FF": {
+        "let_threshold": 1.1, "width": 271.3, "shape": 1.090,
+        "sigma_sat_cm2_per_bit": 1.47e-07,
+        "bits": 866400
+      }
+    }
+  }
+}
