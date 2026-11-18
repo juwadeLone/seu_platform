@@ -1,0 +1,25 @@
+{
+  "schema": "layout_ecc.campaign.v1",
+  "layout_csv": "layout/p1_ooc_win/primitive_map.csv",
+  "golden_vector": "golden/p1_random_seeded.json",
+  "kernel_model": "anchored",
+  "flip_model": "weibull",
+  "cases": [
+    {
+      "id": "clb",
+      "preset": "center_on_clb",
+      "let": 60,
+      "theta_deg": 45,
+      "phi_deg": 30,
+      "seeds": [1, 2]
+    },
+    {
+      "id": "miss",
+      "preset": "multi_tile",
+      "let": 60,
+      "theta_deg": 45,
+      "phi_deg": 30,
+      "seeds": [1]
+    }
+  ]
+}

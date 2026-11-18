@@ -101,12 +101,13 @@ python desktop/app.py --server-only
 复算整片翻转次数：
 
 ```bash
-cd <tcas 仓库>/code/orbit_seu
-python scripts/spenvis_to_let.py
-python -m orbit_seu examples/xc7vx690t_measured_meo.json -o out_vx690t_measured/
+cd "<tcas 仓库>/code/orbit_seu"
+python -m orbit_seu examples/xc7vx690t_measured_meo.json -o /path/to/new-orbit-output
 ```
 
 `dist/` 与 `release/` 里的 exe 是旧版本，不含 v1.2.0 的更正，请从源码运行。
+
+**无界面批跑**：在 `code/layout_ecc_sim` 中执行 `python -m layout_ecc.campaign --out campaign-p1`，输出固定种子的打击清单和可追溯的运行记录。默认用冻结的 MEO 快照，无需 `tcas`；实算模式见[批跑与 CI 说明](docs/campaign.md)。
 
 ## 目录
 
