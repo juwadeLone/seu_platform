@@ -7,7 +7,7 @@ cd code/layout_ecc_sim
 python -m layout_ecc.campaign --out campaign-p1
 ```
 
-默认读 [P1 样例场景](../code/layout_ecc_sim/data/campaign_p1_smoke.json)，并报告仓库里已有的 MEO 基线（约 46.16 翻转位/天，**不是重算**）。示例按输入顺序运行三次指定打击，包含多位翻转和空命中；这些打击**不是**从该轨道谱抽样的，不能据此计算在轨功能错误率。批跑目前只产出翻转记录，不做保护开关对比或功能回放。
+默认读 [P1 样例场景](../code/layout_ecc_sim/data/campaign_p1_smoke.json)，并报告仓库里已有的 MEO 基线（约 46.16 翻转位/天，**不是重算**）。示例按输入顺序运行三次指定打击，包含多位翻转和空命中；这些打击**不是**从该轨道谱抽样的，不能据此计算在轨功能错误率。批跑本身只产出翻转记录；保护开关对比见下文。
 
 ## 配置与输出
 
@@ -38,3 +38,12 @@ python -m layout_ecc.campaign --live-orbit --out campaign-p1-live
 Windows PowerShell 用 `$env:ORBIT_SEU_ROOT = 'C:\path\to\tcas\code\orbit_seu'`。实算路径要求 Git、固定提交与干净的 orbit_seu 子树，不合条件或结果偏离冻结基线就失败，不回退到快照。实算清单额外记录配置、LET 谱及谱 manifest 的哈希。
 
 合并后若需要在 GitHub 手动实算，在 [仓库 Environments 设置](https://github.com/juwadeLone/seu_platform/settings/environments) 中建 `orbit-seu-integration`，部署分支只允许 `master`，并设环境 secret `ORBIT_SEU_READ_TOKEN`（仅限 `tcas` 的 Contents 读取权限）。然后在 [Headless campaign Actions](https://github.com/juwadeLone/seu_platform/actions) 从 `master` 手动运行。此凭据不用于 PR 作业；实算作业不上传私有依赖或产物。
+
+## 无保护 / 有保护对比
+
+```sh
+python -m layout_ecc.campaign --scenario data/campaign_p1_ff.json --out campaign-p1-ff
+python -m layout_ecc.compare --events campaign-p1-ff/events.jsonl
+```
+
+[FF 场景](../code/layout_ecc_sim/data/campaign_p1_ff.json)：30 个已映射码字的 FF Site（算术 [6,4,3]、存储 SECDED、TMR 各 10 个）为打击中心，LET 60、Weibull、每点 64 个 seed，共 1920 次打击（约 3 分钟）。P1 布局没有 BRAM_STATE Site，故只覆盖 FF。`compare` 用同一份故障清单分别关闭/打开保护回放（`layout_ecc.joint_replay`），写出 `comparison.json`：`outcomes` 按整次事件分类（含 CFG 或未映射位即 UNMAPPED，绝不算 CORRECTED）；`mapped_outcomes` 只看同一事件中已映射的 FF 位。字内比特位按 seed 抽样，未建模寿命屏蔽；结果是受控仿真，不是在轨错误率。

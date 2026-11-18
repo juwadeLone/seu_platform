@@ -361,14 +361,18 @@ def replay_event(source, event_id=None, seed=0, protection="on", golden=None):
 def summarize(results):
     """Campaign counts; UNMAPPED is its own class, never CORRECTED."""
     counts = {k: 0 for k in OUTCOME_ORDER}
+    mapped_counts = {k: 0 for k in OUTCOME_ORDER if k != "UNMAPPED"}
     n_bits = n_mapped = 0
     for r in results:
         counts[r["outcome"]] = counts.get(r["outcome"], 0) + 1
+        mapped_counts[r["mapped_outcome"]] += 1
         n_bits += r["n_bits"]
         n_mapped += r["n_mapped"]
     return {
         "n_events": len(results),
         "outcomes": counts,
+        # same events, classified on their mapped bits only
+        "mapped_outcomes": mapped_counts,
         "n_bits": n_bits,
         "n_bits_mapped": n_mapped,
         "n_bits_unmapped": n_bits - n_mapped,
