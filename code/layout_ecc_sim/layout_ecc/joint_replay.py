@@ -122,12 +122,15 @@ def build_event(flipped, event_id, seed=0, meta=None):
             "codeword_id": cw,
             "symbol_id": sym,
         }
+        def unmapped(why):
+            bits.append(dict(base, bit_id=f"{event_id}/b{len(bits)}",
+                             mapped=False, unmapped_reason=why,
+                             scheme=None, instance=None, bit=None,
+                             bit_source=None))
+
         if reason:
             for k in range(n):
-                bits.append(dict(base, bit_id=f"{event_id}/b{len(bits)}",
-                                 mapped=False, unmapped_reason=reason,
-                                 scheme=None, instance=None, bit=None,
-                                 bit_source=None))
+                unmapped(reason)
             continue
         if cw not in instances:
             instances[cw] = _instance(
@@ -138,14 +141,15 @@ def build_event(flipped, event_id, seed=0, meta=None):
         rng = word_rng.setdefault(
             key, random.Random(f"{seed}|{event_id}|{key[0]}|{key[1]}"))
         for k in range(n):
-            if len(taken) >= width:
-                break  # every bit of this word already flipped
             if k < len(explicit):
                 pos, src = int(explicit[k]) % width, "explicit"
-            else:
+            elif len(taken) < width:
                 pos, src = rng.choice(
                     [p for p in range(width) if p not in taken]), "sampled"
-            if pos in taken:
+            else:
+                pos = None
+            if pos is None or pos in taken:
+                unmapped("exceeds_word_bits")
                 continue
             taken.add(pos)
             bits.append(dict(base, bit_id=f"{event_id}/b{len(bits)}",

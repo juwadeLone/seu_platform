@@ -100,6 +100,13 @@ class TestJointReplay(unittest.TestCase):
         self.assertEqual(summary["outcomes"]["NO_FAULT"], 1)
         self.assertAlmostEqual(summary["mapping_rate"], 1 / 4)
 
+    def test_bits_beyond_word_width_stay_counted(self):
+        ev = build_event([row("s3:secded:mem1", n=80)], "sat")
+        self.assertEqual(ev["n_bits"], 80)
+        self.assertEqual(ev["n_mapped"], 78)
+        self.assertEqual({b["unmapped_reason"] for b in ev["bits"]
+                          if not b["mapped"]}, {"exceeds_word_bits"})
+
     def test_zero_multiplicity_row_has_no_bits(self):
         r = self.replay([row("s3:secded:mem1", n=0)])
         self.assertEqual(r["n_bits"], 0)
