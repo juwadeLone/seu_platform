@@ -105,7 +105,8 @@ def build_event(flipped, event_id, seed=0, meta=None):
     used = {}
     instances = {}
     for row_i, row in enumerate(flipped or []):
-        n = max(int(row.get("n_bits") or 1), 0)
+        n_raw = row.get("n_bits")
+        n = max(int(1 if n_raw is None else n_raw), 0)
         reason = _unmapped_reason(row)
         cw = row.get("codeword_id")
         scheme = None if reason else _scheme(cw)

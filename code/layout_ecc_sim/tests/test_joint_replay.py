@@ -100,6 +100,11 @@ class TestJointReplay(unittest.TestCase):
         self.assertEqual(summary["outcomes"]["NO_FAULT"], 1)
         self.assertAlmostEqual(summary["mapping_rate"], 1 / 4)
 
+    def test_zero_multiplicity_row_has_no_bits(self):
+        r = self.replay([row("s3:secded:mem1", n=0)])
+        self.assertEqual(r["n_bits"], 0)
+        self.assertEqual(r["outcome"], "NO_FAULT")
+
     def test_fault_list_replays_identically(self):
         lines = [{"event_id": f"k/{s}", "seed": s,
                   "flipped": [row("s3:secded:mem1", n=2),
