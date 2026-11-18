@@ -100,6 +100,13 @@ class TestJointReplay(unittest.TestCase):
         self.assertEqual(summary["outcomes"]["NO_FAULT"], 1)
         self.assertAlmostEqual(summary["mapping_rate"], 1 / 4)
 
+    def test_tmr_two_replicas_same_bit_is_detected(self):
+        flipped = [row("s8:tmr", sym=0, bit_positions=[5]),
+                   row("s8:tmr", sym=1, bit_positions=[5])]
+        self.assertEqual(self.replay(flipped)["outcome"], "DUE")
+        flipped[1]["bit_positions"] = [6]
+        self.assertEqual(self.replay(flipped)["outcome"], "MASKED")
+
     def test_bits_beyond_word_width_stay_counted(self):
         ev = build_event([row("s3:secded:mem1", n=80)], "sat")
         self.assertEqual(ev["n_bits"], 80)

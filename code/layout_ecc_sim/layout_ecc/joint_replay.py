@@ -254,7 +254,9 @@ def _apply_tmr(state_out, cw_bits, protection):
         copies[rep] = _flip_word(copies[rep], positions)
     voted, disagree = tmr_vote(copies)
     state_out[pos] = voted
-    return {"detected": disagree, "corrected": False, "uncorrectable": False,
+    # voter saw a mismatch but the majority itself was wrong
+    failed = disagree and voted != good
+    return {"detected": disagree, "corrected": False, "uncorrectable": failed,
             "decoder": "vote", "symbols": sorted(by_rep)}
 
 
